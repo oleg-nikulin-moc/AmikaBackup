@@ -1,0 +1,49 @@
+{% for child_link in linklists[parent_handle].links %}
+  <li class="Vertical" >
+    {% assign child_handle = child_link.title | handleize %}
+    {% if linklists[child_handle].links != blank %}
+  
+    {% comment %}
+    Following 3 lines is for if the link == '#' we made <a> to <span>
+    {% endcomment %}
+    {% if child_link.url == '#' %}<span class="Vertical" >{% else %}<a class="Vertical" href="{{ child_link.url }}">{% endif %}
+    {{ child_link.title | escape | remove: "[no-drop]" }}
+    {% if child_link.url == '#' %}</span>{% else %}</a>{% endif %}
+  
+    {% comment %}
+    =============================================
+    CHANGE UI IF MENU CONTAINS SHOP BY COLLECTION
+    =============================================
+    {% endcomment %}
+      <ul class="recursion_class">
+        {% if child_link.title contains 'shop by collection' %}
+          <div class="coll__title">Our Collection</div>
+          {% for child_link in linklists.our-collections.links %}
+          <li class="recursion_child">
+      
+            {% if linklists[child_handle].links != blank %}
+            {% assign collImage = child_link.title | handle | append: ".jpg" %}
+            
+            <a href="{{ child_link.url }}">
+              <img src="{{ collImage | asset_url }}" />
+            </a>
+            
+            {% if child_link.url == '#' %}<span>{% else %}<a href="{{ child_link.url }}">{% endif %}
+            {{ child_link.title | escape | remove: "[no-drop]" }}
+            {% if child_link.url == '#' %}</span>{% else %}</a>{% endif %}
+            {% endif %}
+          </li>
+  
+          {% endfor %}
+        {% else %}
+          {% include 'menu_mobile_level', parent_handle: child_handle %}
+        {% endif %}
+  
+      </ul>
+    {% else %}
+      <a href="{{ child_link.url }}">{{ child_link.title | escape | remove: "[no-drop]" }}</a>
+    {% endif %}
+    </li>
+  
+    {% endfor %}
+  

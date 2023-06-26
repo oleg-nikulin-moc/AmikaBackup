@@ -1,0 +1,750 @@
+<style>
+  .main-menu .has-dropdown.active:after {display: none;}
+  .main-menu .has-dropdown.active {background: initial;}
+/*   .template-cart .bottom-btns #preview_container {display: none !important;}   */
+
+/*   @media(min-width: 1024px){
+    .template-cart .bottom-btns #preview_container {display: block !important;}
+  } */
+</style>
+
+<script data-cfasync="false" type="text/javascript">if (typeof Shopify === "undefined") var Shopify = {}; Shopify.cart = {{ cart | json }};</script>
+
+<!-- Begin Rocket Fuel Conversion Action Tracking Code Version 9 -->
+<script type='text/javascript'>
+  (function() {
+    var w = window, d = document;
+    var s = d.createElement('script');
+    s.setAttribute('async', 'true');
+    s.setAttribute('type', 'text/javascript');
+    s.setAttribute('src', '//c1.rfihub.net/js/tc.min.js');
+    var f = d.getElementsByTagName('script')[0];
+    f.parentNode.insertBefore(s, f);
+    if (typeof w['_rfi'] !== 'function') {
+      w['_rfi']=function() {
+        w['_rfi'].commands = w['_rfi'].commands || [];
+        w['_rfi'].commands.push(arguments);
+      };
+    }
+    _rfi('setArgs', 'ver', '9');
+    _rfi('setArgs', 'rb', '1463');
+    _rfi('setArgs', 'ca', '20820460');
+    _rfi('setArgs', '_o', '1463');
+    _rfi('setArgs', '_t', '20820460');
+    {% for item in cart.items %}
+    _rfi('setArgs', 'pid', '{{ item.id }}');
+    _rfi('setArgs', 'pname', '{{ item.title }}');
+    _rfi('setArgs', 'revenue', '{{ item.price | money_without_currency }}');
+    {% endfor %}
+    _rfi('track');
+  })();
+</script>
+
+<noscript>
+  <iframe src='//20820460p.rfihub.com/ca.html?rb=1463&ca=20820460&_o=1463&_t=20820460&ra=YOUR_CUSTOM_CACHE_BUSTER&pid=INSERT_PRODUCT_ID_VALUE_HERE&pname=INSERT_PRODUCT_NAME_VALUE_HERE&revenue=INSERT_REVENUE_VALUE_HERE' style='display:none;padding:0;margin:0' width='0' height='0'>
+  </iframe>
+</noscript>
+<!-- End Rocket Fuel Conversion Action Tracking Code Version 9 -->
+
+
+<div id="sca-fg-owl-carousel">
+  <div id="freegift_cart_container" name="sca.fg.cart" class="sca-fg-cart-container" style="display: none;">
+    <div id="freegift_message" class="owl-carousel"></div>
+  </div>
+  <div id="sca-fg-slider-cart" style="display: none;">
+    <div class="sca-fg-cart-title">
+      <strong>Select your free gift (s)</strong>
+    </div>
+    <div id="sca_freegift_list" class="owl-carousel"></div>
+  </div>
+</div>
+<div id="sca_fg_cart">
+  <div id="cart-wrap" class="container">
+    <h1>your shopping bag</h1>
+
+    {% assign cart_total_price_minus_gift_cards = 0 %}
+    {% for item in cart.items %}
+    {% if item.product.type != 'Gift Card' %}
+    {% assign item_price = item.price | times: item.quantity %}
+    {% assign cart_total_price_minus_gift_cards = cart_total_price_minus_gift_cards | plus: item_price %}
+    {% endif %}
+    {% endfor %}
+
+    {% comment %}
+    {% unless  customer.tags contains 'HMS' %}
+    {% assign gift_offer_threshold = settings.gift_offer_threshold | times: 100 %}
+    {% if settings.hide__gift_selector == false and gift_offer_threshold >  cart_total_price_minus_gift_cards %}
+        <p class="custom__offer_message" style="text-align: center;font-size: 12px;">
+          {{settings.free_gift_offer_text}}
+        </p>
+    {% endif %}
+
+    {% assign sample_offer_threshold = settings.sample_offer_threshold | times: 100 %}
+    {% if settings.hide__sample_selector == false and sample_offer_threshold >  cart.total_price %}
+        <p class="custom__offer_message" style="text-align: center;font-size: 12px;">
+          {{settings.free_sample_offer_text}}
+        </p>
+    {% endif %}
+    {% endunless %}
+    {% endcomment %}
+    
+ {% comment %}
+    <div class="flash-text">
+      <p></p>
+<p style="color:#FF486B">due to COVID-19, we are experiencing processing delays—please allow up to 5 business days before your order will ship</p>
+</div>
+   {% endcomment %}
+    {% if cart.items == empty %}
+    <div class="empty"><i class="fa fa-shopping-cart"></i><br />- Your shopping cart is empty. Check out our <a href="/collections/all">shop</a> to see what's available -</div>
+    {% else %}
+    <div class="grid grid-full cart__template--section">
+
+      <div class="grid__item two-thirds cart__left medium--one-whole small--one-whole custom__grid_block">
+        {% assign salonExists = false %}
+
+        {% for item in cart.items %}
+          {% if item.product.tags contains 'salon-merch' %}
+            {% assign salonExists = true %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+
+        {% if salonExists == false %}
+          {% if customer.tags contains 'HMS' or customer.tags contains 'Pro' or customer.tags contains 'BrandAmbassadorUS' %}
+          {% else %}
+            <div class="free__shipping--bar small--show hide">
+                <div class="free-shipping">
+                  {% assign excludePrice = 0 %}
+                  {% for item in cart.items %}
+                  {% if item.product.tags contains 'excludeHMS' or item.product.tags contains 'salon-merch' %}
+                  {% assign item_price = item.price | times: item.quantity %}
+                  {% assign excludePrice = excludePrice | plus: item_price %}
+                  {% endif %}
+                  {% endfor %}
+
+                  {% assign freeShip = settings.Min-free-shipping-value %}
+                  {% assign total_price = cart.total_price | money_without_currency %}
+                  {% if excludePrice > 0 %}
+                  {% assign excludePrice = excludePrice | money_without_currency %}
+                  {% assign total_price = total_price | minus: excludePrice %}
+                  {% endif %}
+                  {% assign percentageFreeShip = total_price | times: 100  | divided_by: freeShip %}
+                  {% assign freeshipaway = freeShip | minus: total_price %}
+                  {% if percentageFreeShip < 100 %}
+                  <span>You're {{ freeshipaway | times: 100 | money }} away from qualifying for free shipping</span>
+                  {% else %}
+                  <span class="free-text">You've earned Free Shipping.</span>
+                  {% endif %}
+                  <div class="free-shipping-bar"></div>
+                </div>
+              </div>
+          {% endif %}
+        {% else %}
+          <div class="free__shipping--bar small--show hide">
+            <div class="free-shipping">
+              Salon merch items do not qualify for free shipping
+            </div>
+          </div>
+        {% endif %}
+
+        {% if settings.hide__sample_selector == false and sample_offer_threshold <=  cart.total_price and salonExists == false %}
+          {% unless customer.tags contains 'HMS' or customer.tags contains 'Pro' or customer.tags contains 'BrandAmbassadorUS' %}
+          {% assign count_sample = 0 %}
+          {% capture sampleIncart %}
+          {%- for item in cart.items -%}
+          {%- for product in collections[settings.collection_sample].products -%}
+            {%- if item.id == product.first_available_variant.id -%}
+            {%- unless item.properties == empty -%}
+              {%- for property in item.properties -%}
+                {%- if property.first == 'offer_type' and property.last == 'sample'-%}
+                  {{- product.id -}},
+                  {%- assign count_sample = count_sample | plus: 1 -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endunless -%}
+          {% endif %}
+          {%- endfor -%}
+          {%- endfor -%}
+          {% endcapture %}
+
+          <div class="sample__top--section sample__section">
+            <div class="heading__section">
+              <p class="heading">{{settings.free_sample_text}}| {{count_sample}} of {{settings.sample_offer_items_threshold}} Selected </p>
+              <span class="toggle__icon">
+              <div class="horizontal"></div>
+              <div class="vertical"></div>
+              </span>
+            </div>
+            <p class="sample__maxError">You can add only {{settings.sample_offer_items_threshold}} Sample</p>
+            <div class="sample__data--section">
+              <div class="sample__slider">
+                {% for product in collections[settings.collection_sample].products %}
+                {% assign selected = false %}
+                {% assign line__num = 0 %}
+                {% for item in cart.items %}
+                {% if item.id == product.first_available_variant.id %}
+                  {% unless item.properties == empty %}
+                    {% for property in item.properties %}
+                      {% if property.first == 'offer_type' and property.last == 'sample'%}
+                        {% assign selected = true %}
+                        {% assign line__num =  item.key %}
+                        {% endif %}
+                    {% endfor %}
+                  {% endunless %}
+                {% endif %}
+                {% endfor %}
+                {% if product.first_available_variant %}
+                <div class="cart__page--free-sample single__sample--section">
+                  <img src="{{ product.featured_image | img_url: '138x128' }}" class="sample__img" />
+                  <p class="sample__copy">{{ product.title }}</p>
+                  <a href="javascript:void(0);" data-id="{{product.first_available_variant.id}}" class=" button--secondary {% if selected %} selected{% endif %}" {% if selected %}data-key="{{line__num}}" {% endif %}>{% if selected %}REMOVE{% else %}SELECT{% endif %}</a>
+                </div>
+                {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <br/><p style="font-size:15px;font-family:Founders Grotesk Mono,helvetica,sans-serif">PLEASE NOTE: IF NO SAMPLES ARE SELECTED, THEY WILL NOT BE INCLUDED IN YOUR ORDER.</p><br/>
+          {% endunless %}
+        {% endif %}
+
+        {% if settings.hide__gift_selector == false and gift_offer_threshold <=  cart_total_price_minus_gift_cards%}
+        {% unless customer.tags contains 'HMS' or customer.tags contains 'Pro' or customer.tags contains 'BrandAmbassadorUS' %}
+        {% assign count_gift = 0 %}
+        {% capture giftIncart %}
+          {%- for item in cart.items -%}
+          {%- for product in collections[settings.collection_gift].products -%}
+            {%- if item.id == product.first_available_variant.id -%}
+            {%- unless item.properties == empty -%}
+              {%- for property in item.properties -%}
+                {%- if property.first == 'offer_type' and property.last == 'gift'-%}
+                  {{- product.id -}},
+                  {%- assign count_gift = count_gift | plus: 1 -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endunless -%}
+          {% endif %}
+          {%- endfor -%}
+          {%- endfor -%}
+        {% endcapture %}
+
+          <div class="sample__top--section gift__section">
+            <div class="heading__section">
+              <p class="heading">{{settings.free_gift_text}} | {{count_gift}} of {{settings.gift_offer_items_threshold}}  Selected </p>
+              <span class="toggle__icon">
+              <div class="horizontal"></div>
+              <div class="vertical"></div>
+              </span>
+            </div>
+            <p class="gift__maxError">You can add only {{settings.gift_offer_items_threshold}} gift</p>
+            <div class="sample__data--section">
+              <div class="sample__slider">
+                {% for product in collections[settings.collection_gift].products %}
+
+                {% assign selected = false %}
+                {% assign line__num = 0 %}
+                  {% for item in cart.items %}
+                  {% if item.id == product.first_available_variant.id %}
+                    {% unless item.properties == empty %}
+                      {% for property in item.properties %}
+                        {% if property.first == 'offer_type' and property.last == 'gift'%}
+                          {% assign selected = true %}
+                          {% assign line__num =  item.key %}
+                          {% endif %}
+                      {% endfor %}
+                    {% endunless %}
+                  {% endif %}
+                  {% endfor %}
+
+                {% if product.first_available_variant %}
+                <div class="cart__page--free-gift single__sample--section">
+                  <div class="image__wrapper">
+                    <img src="{{ product.featured_image | img_url: '138x128' }}" class="sample__img" />
+                    <span>gift</span>
+                  </div>
+                  <p class="sample__copy">{{ product.title }}</p>
+                  <a href="javascript:void(0);" data-id="{{product.first_available_variant.id}}" class=" button--secondary{% if selected %} selected{% endif %}" {% if selected %}data-key="{{line__num}}" {% endif %}  >{% if selected %}REMOVE{% else %}SELECT{% endif %}</a>
+                </div>
+                {% endif %}
+
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+         
+          <br/><p style="font-size:15px;font-family:Founders Grotesk Mono,helvetica,sans-serif">PLEASE NOTE: IF NO FREE GIFT IS SELECTED, IT WILL NOT BE INCLUDED IN YOUR ORDER.</p><br/>
+        
+          {% endunless %}
+        {% endif %}
+
+        <form action="/cart" method="post" id="cartform" class="clearfix">
+          <table>
+            <thead class="thead__section small--hide">
+            <tr class="top-labels">
+              <th></th>
+              <th>
+                <table>
+                  <tr class="item-line item-first-line">
+                    <td class="title animation two-twelfths small--hide medium--hide">
+                      <span class="line-header">Description</span>
+                    </td>
+                    <td class="unit-price small--hide two-twelfths small--hide medium--hide">
+                      <span class="line-header">Price</span>
+                    </td>
+                    <td class="qtty two-twelfths small--hide medium--hide">
+                      <span class="line-header">Quantity</span>
+                    </td>
+                    <td class="total-price two-twelfths small--hide medium--hide">
+                      <span class="line-header">Total</span>
+                    </td>
+                    <td class="remove one-twelfth small--hide medium--hide">
+                    </td>
+                  </tr>
+                </table>
+              </th>
+            </tr>
+            </thead>
+
+            <tbody>
+              {% for item in cart.items %}
+              {% include '_cart-item' %}
+              {% endfor %}
+            </tbody>
+          </table>
+
+
+
+
+
+          {% if settings.allow_note %}
+          <div id="checkout-addnote">
+            <div>
+              <input type="checkbox" id="chk-is-instructions" class="checkbox-custom" {% if cart.note != nil and cart.note != "" %} checked="checked" {% endif %} />
+              <label for="chk-is-instructions" class="checkbox-custom-label animation">Add special instructions to your order</label>
+            </div>
+            <div id="instructions-note">
+              <textarea id="note" name="note" maxlength="100">{{ cart.note }}</textarea>
+            </div>
+          </div>
+          {% endif %}
+          <div style="clear: both"></div>
+          
+
+          {% if settings.cart_return_policy != "" %}
+          <div class="hide"><div id="return-policy"><div class="title">Return Policy</div>{{ settings.cart_return_policy }}</div></div>
+          <div class="return-policy-button"><a href="#" onclick="openModal($('#return-policy')); return false;">RETURN POLICY</a></div>
+          {% endif%}
+
+
+          <input class="js-form-discount" type="hidden" name="discount" value="NEWFRIEND" >
+          {% comment %}
+          {% include 'hear-about-us' %}
+          {% endcomment %}
+        </form>
+      </div>
+
+      <div class="grid__item one-third cart__right medium--one-whole small--one-whole custom__grid_block">
+        <div class="cart__right--outer">
+          {% assign excludePrice = 0 %}
+          {% for item in cart.items %}
+          {% if item.product.tags contains 'excludeHMS' or item.product.tags contains 'salon-merch' %}
+          {% assign item_price = item.price | times: item.quantity %}
+          {% assign excludePrice = excludePrice | plus: item_price %}
+          {% endif %}
+          {% endfor %}
+          
+          {% if salonExists == false %}
+            {% if customer.tags contains 'HMS' or customer.tags contains 'Pro' or customer.tags contains 'BrandAmbassadorUS' %}
+            {% else %}
+            <div class="free__shipping--bar small--hide">
+              <div class="free-shipping">
+                {% assign freeShip = settings.Min-free-shipping-value %}
+                {% assign total_price = cart.total_price | money_without_currency %}
+                {% if excludePrice > 0 %}
+                {% assign excludePrice = excludePrice | money_without_currency %}
+                {% assign total_price = total_price | minus: excludePrice %}
+                {% endif %}
+                {% assign percentageFreeShip = total_price | times: 100  | divided_by: freeShip %}
+                {% assign freeshipaway = freeShip | minus: total_price %}
+                {% if percentageFreeShip < 100 %}
+                <span>You're {{ freeshipaway | times: 100 | money }} away from qualifying for free shipping</span>
+                {% else %}
+                <span class="free-text">You've earned Free Shipping.</span>
+                {% endif %}
+                <div class="free-shipping-bar"></div>
+              </div>
+            </div>
+            {% endif %}
+          {% else %}
+            <div class="free__shipping--bar small--hide">
+              <div class="free-shipping">
+                Salon merch items do not qualify for free shipping
+              </div>
+            </div>
+          {% endif %}
+
+          <div class="subtotal__section">
+            <form action="/cart" method="post" id="cartformCheckout" class="clearfix">
+            {% if cart.item_count > 0 and cart.total_price != 0 %}
+            <div class="subtotal">
+              <div class="subtotal__data--section">
+                <div class="label">Subtotal</div>
+                <div class="number__data">
+                  <span class="saso-cart-original-total">{{ cart.total_price | money | remove: '.00' }}</span>
+                  <span class="saso-cart-total"></span>
+                </div>
+              </div>
+              <div class="number"></div>
+
+              <div class="checkout-button"><input type="submit" id="update-cart" class="animation button--primary button--rounded button--fullWidth" name="checkout" value="checkout" /></div>
+
+              <!-- Removal of checkout options on cart page -->
+              {% if additional_checkout_buttons %}
+              <div id="additional-checkout-buttons">
+                {{ content_for_additional_checkout_buttons }}
+              </div>
+              {% endif %}
+              <!-- End Removal of checkout options on cart page -->
+
+
+            </div>
+            {% endif %}
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    {% include 'hear-about-us' %}
+    {% include 'shipping-calculator' %}
+
+    {% endif %}
+
+  <style>
+    {% comment %}
+    Calculate the percentage of the Shipping bar
+    {% endcomment %}
+    .free-shipping-bar {
+      position: relative;
+      height: 12px;
+      background: #E5E8EB;
+      margin-top: 8px;
+    }
+    {% assign total_price = total_price | times: 100 %}
+    {% assign shippingProgress = total_price | divided_by: settings.Min-free-shipping-value | at_most: 100 %}
+    .free-shipping-bar:after {
+      width: {{ shippingProgress | round }}%;
+      content: '';
+      position: absolute;
+      background-color: #000000;
+      top: 0;
+      bottom: 0;
+      left: 0;
+    }
+    .loader__wrapper {padding: 20px 0;}
+    .donateLoader {
+      border: .2em solid currentcolor;
+      border-bottom-color: transparent;
+      border-radius: 50%;
+      animation: 1s loaderDonate linear infinite;
+      position: relative;
+      margin: 0 auto !important;
+      width: 2em;
+      height: 2em;
+      color: inherit;
+      vertical-align: middle;
+      pointer-events: none;
+    }
+
+    @keyframes loaderDonate {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    #donate-popup .popup .donate-close {
+        top: 2px;
+        right: 8px;
+    }
+  </style>
+
+  <script>
+    $(function() {
+      $('#cart-wrap input[type=number]').change(function(){
+        $(this).closest('form').submit();
+      });
+      setTimeout(function(){
+        $('.price-form').parent().addClass('price-form-container');
+      }, 3000);
+      setTimeout(function(){
+        $('.price-form').parent().addClass('price-form-container');
+      }, 6000);
+    });
+  </script>
+
+
+{% comment %}
+REMOVE FREE GIFT IF HMS
+{% endcomment %}
+
+{% if customer.tags contains 'HMS' or customer.tags contains 'Pro' or customer.tags contains 'BrandAmbassadorUS' %}
+<script>
+$(document).ready(function(){
+    $.ajax({
+      type: 'GET',
+      url: '/cart.json',
+      error: function(){console.log('fail');},
+      success: function( cart_data ){
+
+          // get cart data to remove Sample/Gift Items
+          let update__sampleItem = {};
+          $.each( cart_data.items , function(key, value) {
+
+            //To remove only Sample Line Items
+            if( !$.isEmptyObject(value.properties) && value.properties.hasOwnProperty('offer_type') && (value.properties.offer_type == 'sample' || value.properties.offer_type == 'gift')) {
+                  update__sampleItem[value.key] = 0;
+            }
+          })
+
+          if( !$.isEmptyObject(update__sampleItem) ) {
+            $.ajax({
+              type: 'POST',
+              url: '/cart/update.js',
+              data: {updates:update__sampleItem},
+              dataType: 'json',
+              error: function(){console.log('fail');},
+              success: function(){
+
+                //Update Cart
+                location.reload();
+              },
+              cache: false
+            });
+          }
+      },
+      cache: false
+    });
+});
+</script>
+{% endif %}
+
+
+  {% comment %}
+  REMOVE DONATION IF CART HAS SAMPLES AND DONATION ONLY
+  {% endcomment %}
+
+  <script>
+    window.sampleProductArray = [];
+    {%- for product in collections[settings.collection_sample].products -%}
+    sampleProductArray.push({{ product.first_available_variant.id }});
+    {%- endfor -%}
+  </script>
+
+{%- comment -%}
+Logic to remove Sample Product on Only Non-Applicable product in cart
+Find If a normal Product exist other than Sample/Gift Card(Product Id 50396397586)/Donation product (Always have title Amika X HairToStay)
+{%- endcomment -%}
+
+{%- assign removeSample = true -%}
+{%- for item in cart.items -%}
+  {%- if item.title contains 'Amika X HairToStay' or item.product.id == 50396397586 -%} 
+  {%- elsif item.price > 0 -%}
+    {%- assign removeSample = false -%}
+  {%- endif -%}
+{%- endfor -%}
+
+ {% if removeSample == true %}
+ <style>
+  .sample__section {
+    display: none!important;
+  }
+ </style>
+  <script>
+    $(document).ready(function(){
+      if(sampleProductArray.length > 0 ){
+
+        $.ajax({
+          type: 'GET',
+          url: '/cart.json',
+          error: function(){console.log('fail');},
+          success: function( cart_data ){
+
+              // get cart data to remove Sample Items
+              let update__sampleItem = {};
+              $.each( cart_data.items , function(key, value) {
+
+                //To remove only Sample Line Items
+                if( !$.isEmptyObject(value.properties) && value.properties.hasOwnProperty('offer_type') && value.properties.offer_type == 'sample' ) {
+                      update__sampleItem[value.key] = 0;
+                }
+              })
+
+              if( !$.isEmptyObject(update__sampleItem) ) {
+                $.ajax({
+                  type: 'POST',
+                  url: '/cart/update.js',
+                  data: {updates:update__sampleItem},
+                  dataType: 'json',
+                  error: function(){console.log('fail');},
+                  success: function(){
+
+                    //Update Ajax Cart
+                    location.reload();
+                  },
+                  cache: false
+                });
+              }
+          },
+          cache: false
+        });
+
+      }
+    });
+  </script>
+  {% endif %}
+
+  {% comment %}
+  Remove Sample option if price is less
+  {% endcomment %}
+
+  {% if cart.item_count > 0 and cart.total_price < sample_offer_threshold and settings.hide__sample_selector == false %}
+  <script>
+    $(document).ready(function(){
+
+      // Remove Section Sample
+      $('.sample__top--section.sample__section').hide().remove();
+
+      if(sampleProductArray.length > 0 ){
+
+        $.ajax({
+          type: 'GET',
+          url: '/cart.json',
+          error: function(){console.log('fail');},
+          success: function( cart_data ){
+
+              // get cart data to remove Sample Items
+              let update__sampleItem = {};
+              $.each( cart_data.items , function(key, value) {
+
+                //To remove only Sample Line Items
+                if( !$.isEmptyObject(value.properties) && value.properties.hasOwnProperty('offer_type') && value.properties.offer_type == 'sample' ) {
+                      update__sampleItem[value.key] = 0;
+                }
+              })
+
+              if( !$.isEmptyObject(update__sampleItem) ) {
+                $.ajax({
+                  type: 'POST',
+                  url: '/cart/update.js',
+                  data: {updates:update__sampleItem},
+                  dataType: 'json',
+                  error: function(){console.log('fail');},
+                  success: function(){
+
+                    //Reload Page
+                    location.reload();
+                  },
+                  cache: false
+                });
+              }
+          },
+          cache: false
+        });
+
+      }
+    });
+  </script>
+  {% endif %}
+
+
+  {% comment %}
+    Checking if we have product available to show.
+  {% endcomment %}
+
+  <script>
+    window.giftProductArray = [];
+    {%- for product in collections[settings.collection_gift].products -%}
+      giftProductArray.push({{ product.first_available_variant.id }});
+    {%- endfor -%}
+  </script>
+
+  {% comment %}
+  Remove Gift option if price is less
+  {% endcomment %}
+
+  {% if cart.item_count > 0 and cart_total_price_minus_gift_cards < gift_offer_threshold and settings.hide__gift_selector == false  %}
+  <script>
+    $(document).ready(function(){
+
+      // Remove Section gift
+      $('.sample__top--section.gift__section').hide().remove();
+
+      //Remove gift items from cart
+      if(giftProductArray.length > 0 ){
+
+        $.ajax({
+          type: 'GET',
+          url: '/cart.json',
+          error: function(){console.log('fail');},
+          success: function( cart_data ){
+
+              // get cart data to remove Gift Items
+              let update__giftItem = {};
+
+              $.each( cart_data.items , function(key, value) {
+                //To remove only Gift Line Items
+                if( !$.isEmptyObject(value.properties) && value.properties.hasOwnProperty('offer_type') && value.properties.offer_type == 'gift' ) {
+                  update__giftItem[value.key] = 0;
+                }
+              })
+
+              if( !$.isEmptyObject(update__giftItem) ) {
+                $.ajax({
+                  type: 'POST',
+                  url: '/cart/update.js',
+                  data: {updates:update__giftItem},
+                  dataType: 'json',
+                  error: function(){console.log('fail');},
+                  success: function(){
+
+                    //Reload Page
+                    location.reload();
+                  },
+                  cache: false
+                });
+              }
+          },
+          cache: false
+        });
+
+      }
+    });
+  </script>
+  {% endif %}
+
+
+  {% comment %}
+  CLEAR CART IF CART HAS SAMPLES AND DONATION
+  {% endcomment %}
+
+  {% if cart.item_count > 0 and cart.total_price == 0 %}
+  <script>
+    $(document).ready(function(){
+      $.ajax({
+        type: 'POST',
+        url: '/cart/clear.js',
+        dataType: 'json',
+        error: function(){console.log('fail');},
+        success: function(){location.reload();},
+        cache: false
+      });
+    });
+
+    // Prevent click through on donation product
+//     $('td > a[href*="donation"]').on('click', function(e){ e.preventDefault()});
+  </script>
+  {% endif %}
+
+</div>

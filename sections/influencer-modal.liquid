@@ -1,0 +1,324 @@
+{% assign show_influencer_model = false %}
+
+{% if section.settings.enable_influencer_popup 
+    or section.settings.enable_influencer_home and template == 'index' 
+    or section.settings.enable_influencer_pdp and template.name == 'product'
+    or section.settings.enable_influencer_plp and template.name == 'collection'
+    or section.settings.enable_influencer_page and template.name == 'page' 
+%}
+
+    {% assign show_influencer_model = true %}
+{% endif %}
+
+{% if show_influencer_model %}
+    <!-- Promotion Popup -->
+    <div class="hide">
+        <div id="influencer__popup">
+        <div id="promotion-pop-up-wrapper">
+            <div class="wrap">
+            <p>{{ section.settings.modal_message }}</p>
+            <p class="p-bigger" style="font-size: 19px;">{{ section.settings.coupon_code_title }}</p>
+            {% if section.settings.coupon_code_subtitle %}
+                <p class="p-smaller" >{{ section.settings.coupon_code_subtitle }}</p>
+            {% endif %}
+
+            {% if section.settings.klaviyo_code %}
+            <form id="klavemailpopup" class="klaviyo_gdpr_embed_LIST_ID" 
+            action="//manage.kmail-lists.com/subscriptions/subscribe" 
+            data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe"
+            method="GET" 
+            target="_blank" 
+            novalidate="novalidate">
+                
+                <input type="hidden" name="g" value="{{section.settings.klaviyo_code}}">
+                <input type="hidden" name="$fields" value="$consent">
+
+                <div class="grid">
+                <div class="grid__item one-whole">
+                    <input type="email"
+                        pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                        name="email"
+                        class="required email email-input"
+                        id="ContactFormEmail"
+                        placeholder="enter your email"
+                        value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                        spellcheck="false"
+                        autocomplete="off"
+                        autocapitalize="off"
+                        required>
+                </div>
+                </div>
+                
+                <button type="submit" class="btn animation prefix" value="{{ section.settings.btn_text }}" name="subscribe" id="email-submit">{{ section.settings.btn_text }}</button>
+            </form>
+            {% endif %}
+            {% unless section.settings.klaviyo_code %}
+                <a href="#" onclick="tingleRemove();" class="btn animation" style="padding: 5px 29px 8px 29px;">{{ section.settings.btn_text }}</a>
+            {% endunless %}
+            </div>
+        </div>
+        </div>
+    </div>
+    
+<!-- Promotion Popup SUCCESS -->
+<div class="hide">
+  <div id="promotion-pop-up-success" class="influencer__popup_success">
+    <div id="promotion-pop-up-success-wrapper">
+      <div class="wrap">
+        <h1>Thank You For signing up</h1>
+        <p>check your email inbox<br> for your unique promo code!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <script type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>		
+    <script type="text/javascript">
+    let klaviyo__form = document.querySelector('#influencer__popup #klavemailpopup')
+    let klaviyo__form_email_input = document.querySelector('#influencer__popup #klavemailpopup [name="email"]')
+    document.querySelector('#influencer__popup #klavemailpopup #email-submit').disabled = true
+    klaviyo__form_email_input.addEventListener("keyup", function(){
+        document.querySelector('#influencer__popup #klavemailpopup #email-submit').disabled = !klaviyo__form.checkValidity()
+    });
+
+    KlaviyoSubscribe.attachToForms('#influencer__popup #klavemailpopup', {	
+        success: function ($form) {
+            console.log("Successfully added!!");
+            modal = new tingle.modal({
+                closeMethods: ['overlay', 'button', 'escape'],
+                closeLabel: "",
+                cssClass: ['promotion-popup']
+            });
+            modal.setContent($('#promotion-pop-up-success'));
+            modal.open();
+        },
+        error: function ($form) {
+            console.log("Error occoured!!");
+        },
+        extra_properties: {		
+            $source: '$embed',		
+            $method_type: "Klaviyo Form",		
+            $method_id: 'embed',		
+            $consent_version: 'Embed default text',
+        }		
+    });		
+    </script>
+
+    <script>
+        function tingleRemove(){
+        $('.tingle-modal.promotion-popup.tingle-modal--visible, .tingle-modal.quick-view.tingle-modal--visible, .tingle-modal.free-gift-popup.tingle-modal--visible').remove()
+        document.documentElement.classList.remove("tingle-enabled")
+        };
+        
+        $(document).ready(function(){
+        setTimeout(function(){
+            $('.tingle-modal__close').remove();
+            $('.tingle-modal-box').prepend('<button class="tingle-modal__close" onclick="tingleRemove();"><span class="tingle-modal__closeIcon">×</span><span class="tingle-modal__closeLabel"> </span></button>')
+        }, 2050);
+        });
+        
+        $(function(){
+        let url_string = window.location.href;
+        url_string = new URL(url_string);
+        let influencer_param = url_string.searchParams.get("{{ section.settings.query_param }}");
+            if(influencer_param == '{{ section.settings.query_value }}' ){
+                modal = new tingle.modal({
+                    closeMethods: ['overlay', 'button', 'escape'],
+                    closeLabel: "",
+                    cssClass: ['promotion-popup'],
+                    onClose: function() {
+                        document.documentElement.classList.remove("tingle-enabled")
+                        //is running before the modal opens on Safari Mobile. hashtagunsmileyface
+                    }
+                });
+                modal.setContent($('#influencer__popup'));
+                modal.open();
+
+                $('.template-index .tingle-modal-box').css({'max-width':'100%'});
+
+                var css = '#attentive_overlay { display: none; }',
+                head = document.head || document.getElementsByTagName('head')[0],
+                style = document.createElement('style');
+
+                head.appendChild(style);
+
+                style.type = 'text/css';
+                if (style.styleSheet){
+                    style.styleSheet.cssText = css;
+                } else {
+                    style.appendChild(document.createTextNode(css));
+                }
+            }
+        });
+    </script>
+
+    <style>
+        #influencer__popup p.p-bigger {
+            border: unset;
+            margin-bottom: 1em;
+        }
+
+        #influencer__popup #promotion-pop-up-wrapper p {
+            margin-bottom: 1em;
+        }
+
+        #influencer__popup #promotion-pop-up-wrapper {
+            display: flex;
+            align-items: center;
+            min-height: 500px;
+            background-image: url(https://cdn.shopify.com/s/files/1/2117/1151/files/Asset_1_4x.png?v=1610738654);
+        }
+
+        #influencer__popup form#klavemailpopup {
+            margin-top: 1em;
+        }
+
+        #influencer__popup .p-smaller {
+            font-family: "Founders Grotesk Mono",helvetica,sans-serif;
+            font-size: 12px;
+            line-height: 1.2;
+            text-transform: uppercase;
+            margin-bottom: 1em;
+        }
+
+        .isNotMobile #promotion-pop-up-wrapper .btn:hover {
+            opacity: 1;
+        }
+
+        #promotion-pop-up-success.influencer__popup_success h1 {
+            font-size: 20px;
+            text-transform: lowercase;
+            font-weight: 500;
+        }
+
+        #promotion-pop-up-success.influencer__popup_success p {
+            font-size: 20px;
+        }
+
+        @media (min-width: 750px) {
+            #promotion-pop-up-success.influencer__popup_success #promotion-pop-up-success-wrapper {
+                background-image: url(https://cdn.shopify.com/s/files/1/2117/1151/files/Asset_1_4x.png?v=1610738654);
+            }
+        }
+
+        @media (max-width: 749px) {
+            #influencer__popup #promotion-pop-up-wrapper {
+                padding: 20px 86px;
+                max-width: 100%;
+                background: unset;
+                background-image: url(https://cdn.shopify.com/s/files/1/2117/1151/files/Asset_1_4x.png?v=1610738654);
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: contain;
+                background-color: #fefbf0;
+            }
+
+            #influencer__popup #promotion-pop-up-wrapper p {
+                margin-bottom: 0.2em;
+            }
+
+             #promotion-pop-up-success.influencer__popup_success #promotion-pop-up-success-wrapper {
+                background-image: url(https://cdn.shopify.com/s/files/1/2117/1151/files/Asset_1_4x.png?v=1610738654);
+                background-color: transparent;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: contain;
+                padding: 140px 50px;
+                max-width: 100%;
+            }
+
+            .template-index .tingle-modal.promotion-popup .tingle-modal-box {
+                max-width: 96%;
+            }
+        }
+    </style>
+  {% endif %}
+
+  {% schema %}
+    {
+      "name": "Influencer Modal",
+      "settings": [
+        {
+            "type": "checkbox",
+            "id": "enable_influencer_popup",
+            "label": "Enable Influencer Pop Up Everywhere?",
+            "info": "Disable If required to be enabled on single page"
+        },
+        {
+            "type": "checkbox",
+            "id": "enable_influencer_home",
+            "label": "Enable Influencer Pop Up Only on Homepage?"
+        },
+        {
+            "type": "checkbox",
+            "id": "enable_influencer_pdp",
+            "label": "Enable Influencer Pop Up Only on PDP?"
+        },
+        {
+            "type": "checkbox",
+            "id": "enable_influencer_plp",
+            "label": "Enable Influencer Pop Up Only on PLP?"
+        },
+        {
+            "type": "checkbox",
+            "id": "enable_influencer_page",
+            "label": "Enable Influencer Pop Up Only on Pages?"
+        },
+        {
+           "type": "text",
+           "id": "klaviyo_code",
+           "default": "SnDm85",
+           "label": "Klaviyo Newsletter List ID"
+        },
+        {
+          "type": "textarea",
+          "id": "modal_message",
+          "default": "try our reset exfoliating jelly shampoo to deep clean, purify, rebalance + soothe your scalp",
+          "label": "Modal First Sub-Heading"
+        },
+        {
+           "type": "text",
+           "id": "coupon_code_title",
+           "default": "use code RESET for a free mini",
+           "label": "Modal Second Use Code Title"
+        },
+        {
+           "type": "text",
+           "id": "coupon_code_subtitle",
+           "default": "subtitle",
+           "label": "Modal Second Use Code Subtitle"
+        },
+        {
+           "type": "text",
+           "id": "btn_text",
+           "default": "shop now",
+           "label": "Button Text"
+        },
+        {
+           "type": "paragraph",
+           "content": "Show popup to the user with Custom URL, Refer below example"
+        },
+        {
+           "type": "paragraph",
+           "content": "www.abc.com?Query Parameter=Query Parameter Value"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_url",
+          "label": "Show Influencer Modal With Custom URL"
+        },
+        {
+           "type": "text",
+           "id": "query_param",
+           "default": "utm_campaign",
+           "label": "Query Parameter(Example - utm_campaign)"
+        },
+        {
+           "type": "text",
+           "id": "query_value",
+           "default": "RESET",
+           "label": "Query Parameter Value(Example - RESET)"
+        }
+      ]
+    }
+  {% endschema %}

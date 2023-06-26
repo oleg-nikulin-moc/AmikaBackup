@@ -1,0 +1,51 @@
+<div id="blog" class="template-grid container clearfix">
+  <h1 class="page-title text-center">word on the street</h1>
+  {% paginate blog.articles by 12 %}
+  
+  <div class="grid-uniform">
+  	
+    {% for article in blog.articles %}
+      <div class="article grid__item one-quarter medium--one-quarter small--one-whole">
+        <a href="{{ article.url }}">
+          <div class="pic-wrapper">
+            <div class="image" style="background-image: url({{ article.image.src | img_url: 'master' }})"></div>
+            <div class="layer animation">
+              <div class="title animation">
+                <h3>Continue reading</h3>
+              </div>
+            </div>
+          </div>
+          <div class="text-wrapper">
+            <a href="{{ article.metafields.c_f.article_link }}" target="_blank"><h3>{{ article.metafields.c_f.article_name }}</h3></a>
+            <div class="borderline"></div>
+            <a href="{{ article.url }}"><h2 class="animation">{{ article.title }}</h2></a>
+            {% if article.metafields.c_f.article_product %}
+            <a href="{{ article.metafields.c_f.article_product }}">
+              <div class="link_to_prod animation">
+                <h3>Go To Product</h3>
+              </div>
+            </a>
+            {% endif %}
+
+              <div class="content hide">
+                {% if article.excerpt.size > 0 %}
+                <p>{{ article.excerpt | strip_html | truncatewords: 18 }}</p>
+                {% else %}
+                <p>{{ article.content | strip_html | truncatewords: 18 }}</p>
+                {% endif %}
+              </div>
+
+            <p class="continue">Continue Reading <span class="fa fa-mail-forward"></span></p>
+
+          </div>
+		</a>
+      </div>
+    
+    {% endfor %}
+
+  </div>
+  
+  {% include 'pagination' %}
+  {% endpaginate %}  
+  
+</div> <!-- /#col-main -->

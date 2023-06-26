@@ -1,0 +1,77 @@
+{% comment %}
+//Build JSON from the metafield
+//Get data from JSON and display
+//Handle for Mobile devices
+{% endcomment %}
+{% if product.metafields.badges.details %}
+  <div class="badges__wrapper f12-12 small--f12-12">
+    <div class="badges__icons"></div>
+  </div>
+
+  <script>
+    let badge_data = {{product.metafields.badges.details | json }};
+
+    function initSlider() {
+      $('.badges__icons').slick({
+        infinite: false,
+        autoplay: false,
+        speed: 1000,
+        dots: false,
+        slidesToShow: 3.5,
+        slidesToScroll: 1,
+        arrows: false, 
+        adaptiveHeight: true,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 2.5
+            }
+          }
+        ]
+      });
+    }
+    function calculateMargin() {
+      var screenWidth = screen.width;
+      var sectionWidth = $('#section-product').width();    
+      var marginRight = (screenWidth - sectionWidth) + 20; //20px to compensate padding
+
+      $('.badges__wrapper').css({
+        'margin-right': '-' + marginRight + 'px'
+      })
+    }
+    
+    $(document).ready(function() {
+      let badge_html = "";
+      badge_data.forEach(function (element){
+        if (element.url) {
+          badge_html += 
+            `<a href="${element.url}" target="_blank" class="badge_icon">
+              <div class="image_wrap">
+            	<img src="${element.img}">
+              </div>
+              <span class="badge_title">${element.title}</span>
+              <span class="badge_year">${element.year}</span>
+            </a>`
+        } else {
+          badge_html += 
+            `<div class="badge_icon">
+              <div class="image_wrap">
+                <img src="${element.img}">
+              </div>
+              <span class="badge_title">${element.title}</span>
+              <span class="badge_year">${element.year}</span>
+    		</div>`
+        }
+      });
+
+      $('.badges__icons').html(badge_html);
+      initSlider();
+      calculateMargin();
+    });
+    
+    $(window).on('resize', function() {
+      calculateMargin();
+    });
+  </script>
+{% endif %}

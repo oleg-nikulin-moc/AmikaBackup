@@ -1,0 +1,77 @@
+{% unless settings.shipping_calculator == 'Disabled' %}
+
+<div id="shipping-calculator">
+
+  <h2>{{ settings.shipping_calculator_heading }}</h2>
+
+  <div class="grid">
+    <div class="grid__item three-quarters medium--one-half small--one-whole">
+      <div class="form-wrap">
+        <div class="grid">
+          <div class="field grid__item one-quarter medium-down--one-whole">
+            <label for="address_country">Country</label>
+            <select class="medium-down--one-whole" id="address_country" name="address[country]" data-default="{% if shop.customer_accounts_enabled and customer %}{{ customer.default_address.country }}{% elsif settings.shipping_calculator_default_country != '' %}{{ settings.shipping_calculator_default_country }}{% endif %}">{{ country_option_tags }}</select>
+          </div>
+          <div class="field grid__item one-quarter medium-down--one-whole" id="address_province_container" style="display:none;">
+            <label for="address_province" id="address_province_label">Province</label>
+            <select class="medium-down--one-whole" id="address_province" name="address[province]" data-default="{% if shop.customer_accounts_enabled and customer and customer.default_address.province != '' %}{{ customer.default_address.province }}{% endif %}"></select>
+          </div>  
+          <div class="field grid__item one-quarter medium-down--one-whole">
+            <label for="address_zip">Zip/Postal Code</label>
+            <input type="text" id="address_zip" name="address[zip]"{% if shop.customer_accounts_enabled and customer %} value="{{ customer.default_address.zip }}"{% endif %} />
+          </div>
+          <div class=" grid__item one-quarter medium-down--one-whole">
+            <input type="button" class="get-rates btn" value="{{ settings.shipping_calculator_submit_button_label | default: 'Calculate shipping rates' }}" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid__item one-quarter medium--one-half small--one-whole">
+      <div class="response" id="wrapper-response">
+        <p class="default">Complete the form to see results.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script id="shipping-calculator-response-template" type="text/template">
+  <div id="shipping-rates-feedback" <% if (success) { %> class="success" <% } else { %> class="error" <% } %>>
+  <% if (success) { %>
+    <% if (rates.length <= 0) { %> 
+    <p><i class="fa fa-close"></i> We do not ship to this destination.</p>
+    <% } %>
+  <% } else { %>
+    <p>
+      <i class="fa fa-close"></i> <%= errorFeedback %>
+    </p>
+  <% } %>
+  </div>
+  <div id="shipping-rates">
+    <% for (var i=0; i<rates.length; i++) { %>
+    <p><i class="fa fa-check"></i> <%= rates[i].name %>: <%= rates[i].price %></p>
+    <% } %>
+  </div> 
+</script>
+
+<!--[if lte IE 8]> 
+<style> #shipping-calculator { display: none; } </style> 
+<![endif]--> 
+
+{{ '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js' | script_tag }}
+{{ '/services/javascripts/countries.js' | script_tag }}
+{{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+{{ 'jquery.cart.min.js' | asset_url | script_tag }}
+
+<script>
+
+  Shopify.Cart.ShippingCalculator.show( {
+    submitButton: {{ settings.shipping_calculator_submit_button_label | default: 'Calculate shipping' | json }}, 
+    submitButtonDisabled: {{ settings.shipping_calculator_submit_button_label_disabled | default: 'Calculating...' | json }}{% if customer %},
+    customerIsLoggedIn: true{% endif %},
+    moneyFormat: {{ shop.money_with_currency_format | json }}
+  } );
+
+</script>
+
+{% endunless %}

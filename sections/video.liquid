@@ -1,0 +1,116 @@
+{% schema %}
+
+{
+  "name": "Video",
+  "settings": [
+    {
+      "label": "Video Embed Code",
+      "type": "textarea",
+      "id": "video",
+      "info": "Automatically disables when blank."
+    },
+    {
+      "label": "Poster Image",
+      "type": "image_picker",
+      "id": "poster"
+    }
+  ]
+}
+
+{% endschema %}
+
+{% if section.settings.video != blank %} 
+<div class="container video">
+
+  <div class='embed-container'>
+    {{ section.settings.video }}
+  </div>
+  
+    {% comment %}  
+    <div class="video-wrapper">
+      <div class="overlay" align="center">
+        <iframe id="video" width="100%" height="100%" {{ section.settings.video }}
+        <div class="table">
+          <div class="table-cell">
+			<div class="button"></div>
+          </div>
+        </div>
+      </div>
+      <video poster="{% if section.settings.poster != blank %}{{ section.settings.poster | img_url: '1400x'}}" {% endif %}></video>   
+    </div>
+    {% endcomment %} 
+  </div>
+{% endif %}
+
+<script>
+
+//    $(function(){
+//     $('#home .video .overlay').click(function(){
+//       if($(this).find('.button').is(':visible')) {
+//       	$('#home video').get(0).play();
+//         $(this).find('.button').hide();
+//       } else {
+//       	$('#home video').get(0).pause();
+//         $(this).find('.button').show();
+//       }
+//     });
+//      $('.video .overlay').click(function(){
+//         $(this).find('.button').hide();
+//      	$('.iframe').show();
+//      });
+//    });
+  
+$(document).ready(function() {
+  $('.video').on('click', function(ev) {
+    $("#video").addClass("vidFade");
+    $("#video")[0].src += "&autoplay=1";
+    ev.preventDefault();
+    $('.table').addClass("tableFade");
+  });
+});  
+  
+  
+</script>
+
+<style>
+/*   .container.video {
+    max-width: initial;
+    padding: 0;
+  } */
+  .container.video {
+    max-width: 1400px;
+    margin: 0 auto 4rem;
+    padding: 0 30px;
+  }  
+  #video {
+    opacity:0;
+    position: absolute;
+    left: 0;    
+  }
+  #video.vidFade {opacity:1;}
+  .table.tableFade {
+    opacity:0;
+    -webkit-transition: .5s;
+    -moz-transition: .5s;
+    transition: .5s;  
+  }
+  .video .video-wrapper {
+    padding-bottom: 56.25%;
+    padding-bottom: 32.25%;    
+    padding-bottom: 54.25%;    
+    padding-top: 25px;
+    height: 0;
+    margin-bottom: 5rem;
+  }
+  .video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%;
+  }
+  
+  .embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+</style>

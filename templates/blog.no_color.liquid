@@ -1,0 +1,176 @@
+{{ 'blog__page.scss.css' | asset_url | stylesheet_tag }}
+{{ 'sticky-sidebar.js' | asset_url | script_tag }}
+{% comment %}
+  Blog Image with text
+    -- Has to use metafield for the blog image
+    -- Has to use metafield for blog heading and subtitle
+    -- Has to have mobile image if require
+{% endcomment %}
+<div  class="blog__hero_wrapper" style="background-image: url({{blog.metafields.blg.img}});">
+  <div class="container">
+    <div class="blog__hero_text">
+      <p class="hero__text" >
+        {{blog.metafields.blg.first_text}}
+      </p>
+      <p class="hero__text" >
+        {{blog.metafields.blg.second_text}}
+      </p>
+    </div>
+  </div>
+</div>
+<div class="container blog__tag">
+  <a href="{{blog.url}}" class="blog__tag_link{% unless current_tags %} blg__active{% endunless %}" >all</a>
+
+  {% for tag in blog.all_tags %}
+    {% if tag contains 'tag_' %}
+      {% if  current_tags contains tag %}
+  		<a href="{{blog.url}}" class="blog__tag_link blg__active">{{ tag | split: '_' | last }}</a>
+  	  {% else %}
+  		<a href="{{blog.url}}/tagged/{{ tag | replace: ' ', '-'  }}" class="blog__tag_link" >{{ tag | split: '_'  | last }}</a>
+  	  {% endif %}
+    {% endif %}
+  {% endfor %}
+
+</div>
+
+<div class="container blog__content_wrapper">
+  <div class="grid__item three-quarters small--one-whole medium--one-whole">
+    {% paginate blog.articles by 12 %}
+    	{% for article in blog.articles %}
+    	{% assign blog__color = "" %}
+    	{% for tag in article.tags %}
+    		{% if tag contains 'color_' %}
+    			{% assign blog__color = tag | split: '_' | last %}
+    		{% endif %}
+    	{% endfor %}
+
+        <div class="blog__content" style="background-color: unset;">
+          <div class="blog__content_image" >
+            <img src="{{ article.image.src | img_url: 'master' }}" {% unless article.image %} class="no__image" {% endunless %}/>
+          </div>
+          <div class="blog__content_text" >
+            <div class="content__text_wrapper">
+
+          {% for tag in blog.all_tags %}
+            {% if tag contains 'tag_' %}
+              <p class="super__title">{{ tag | split: '_' | last | upcase }}</p>
+              {% break %}
+            {% endif %}
+          {% endfor %}
+
+              <h2 class="heading__title">{{ article.title }}</h2>
+              <p class="article__content">{{ article.excerpt_or_content | strip_html | truncatewords: 25, "" }}...<a href="{{article.url}}" class="article__read_more">read more</a></p>
+            </div>
+          </div>
+        </div>
+    	{% endfor %}
+
+  	{% endpaginate %}
+  </div>
+  <div class="grid__item one-quarter small--hide medium--hide" id="RS_sidebar">
+    <div class="featured__content">
+      {% if articles[settings.custom_featured_post] %}
+        <img class="sidebar__featured_img" src="{{articles[settings.custom_featured_post].image.src | img_url: '500x' }}">
+        <div class="featured__text" style="background-color: unset;">
+          <h2>{{articles[settings.custom_featured_post].title}}</h2>
+          <p>{{ articles[settings.custom_featured_post].excerpt_or_content | strip_html | truncatewords: 5, "..." }}<a href="{{articles[settings.custom_featured_post].url}}" class="feature__read_more">find out</a></p>
+        </div>
+      {% endif %}
+      <div class="pop__article">
+        <p class="pop__article_title">most popular article</p>
+        {% if articles[settings.popular_article_1] %}
+        	<a href="{{articles[settings.popular_article_1].url}}">
+        	<div class="pop__art">
+              <img src="{{ articles[settings.popular_article_1].image.src | img_url: '200x' }}">
+              <div class="pop__art_text">
+                {% for tag in articles[settings.popular_article_1].tags  %}
+                  {% if tag contains 'tag_' %}
+                  	<p class="super__text">{{ tag | split: '_' | last | upcase }}</p>
+                	{% break %}
+                  {% endif %}
+                {% endfor %}
+                <p class="art__title">{{articles[settings.popular_article_1].title}}</p>
+              </div>
+        	</div>
+        	</a>
+        {% endif %}
+        {% if articles[settings.popular_article_2] %}
+        	<a href="{{articles[settings.popular_article_2].url}}">
+        	<div class="pop__art">
+              <img src="{{ articles[settings.popular_article_2].image.src | img_url: '200x' }}">
+              <div class="pop__art_text">
+                {% for tag in articles[settings.popular_article_2].tags  %}
+                  {% if tag contains 'tag_' %}
+                  	<p class="super__text">{{ tag | split: '_' | last | upcase }}</p>
+                	{% break %}
+                  {% endif %}
+                {% endfor %}
+                <p class="art__title">{{articles[settings.popular_article_2].title}}</p>
+              </div>
+        	</div>
+        	</a>
+        {% endif %}
+        {% if articles[settings.popular_article_3] %}
+            <a href="{{articles[settings.popular_article_3].url}}">
+        	<div class="pop__art">
+              <img src="{{ articles[settings.popular_article_3].image.src | img_url: '200x' }}">
+              <div class="pop__art_text">
+                {% for tag in articles[settings.popular_article_3].tags  %}
+                  {% if tag contains 'tag_' %}
+                  	<p class="super__text">{{ tag | split: '_' | last | upcase }}</p>
+                	{% break %}
+                  {% endif %}
+                {% endfor %}
+                <p class="art__title">{{articles[settings.popular_article_3].title}}</p>
+              </div>
+        	</div>
+            </a>
+        {% endif %}
+        {% if articles[settings.popular_article_4] %}
+            <a href="{{articles[settings.popular_article_4].url}}">
+        	<div class="pop__art">
+              <img src="{{ articles[settings.popular_article_4].image.src | img_url: '200x' }}">
+              <div class="pop__art_text">
+                {% for tag in articles[settings.popular_article_4].tags  %}
+                  {% if tag contains 'tag_' %}
+                  	<p class="super__text">{{ tag | split: '_' | last | upcase }}</p>
+                	{% break %}
+                  {% endif %}
+                {% endfor %}
+                <p class="art__title">{{articles[settings.popular_article_4].title}}</p>
+              </div>
+        	</div>
+            </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="insta-title" style="margin-top: 40px;">
+	<a href="http://www.instagram.com/amika/" target="_blank">@amika</a>
+</div>
+<div class="container yotpo-gallery-home">
+  <div class="yotpo yotpo-pictures-widget"
+      data-album-id="5b805e594dafbd51dc188793"
+      data-layout="num_of_rows"
+      data-layout-rows="1"
+      data-spacing="1"
+      data-title="0"
+      data-hover-color="#ffffff"
+      data-hover-opacity="0.8"
+      data-hover-icon="true"
+      data-cta-text="Shop Now"
+      data-cta-color="#2f84ed"
+      data-upload-button="0">
+  </div>
+</div>
+
+{%if blog.articles_count >= 3%}
+<script>
+  $( document ).ready( function() {
+    new StickySidebar('#RS_sidebar', { topSpacing: $('#header').height() });
+  });
+</script>
+{% endif %}

@@ -1,0 +1,833 @@
+<main class="page carry_block">
+
+  <section class="img_section">
+    <article class="carry-img-left">
+      <div class="carry-mid">
+        <div class="carry-mid-one">
+          <img src="{{ section.settings.img | img_url:'master' }}">
+        </div>
+        <div class="carry-mid-two">
+          <p class="mobile-only">{{ section.settings.text }}</p>
+          <p class="desktop-only">{{ section.settings.text1 }}</p>          
+        </div>
+      </div>
+    </article>
+
+    <article class="carry-img-right">
+      <div class="carry-mid">
+        <div class="carry-mid-one">
+          <img src="{{ section.settings.img1 | img_url:'master' }}">
+        </div>
+        <div class="carry-mid-two">
+          <p class="mobile-only">{{ section.settings.text1 }}</p>
+          <p class="desktop-only">{{ section.settings.text }}</p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="slideshow_section">
+
+<!--     <div class="carry-us-carousel {% unless section.settings.full_width %}container{% endunless %}">
+      {% for block in section.blocks %}
+      <div class="item" id="{{ block.id }}">
+        {% if block.settings.image != blank %}
+        {% assign img_url = block.settings.image | img_url: 'master' %}
+        {% else %}
+        {% assign img_url = "placeholder-image.jpg" | asset_url %}
+        {% endif %}
+
+        {% if block.settings.image_mobile != blank %}
+        {% assign img_url_mobile = block.settings.image_mobile | img_url: 'master' %}
+        {% else %}
+        {% assign img_url_mobile = img_url %}
+        {% endif %}
+
+        {% if block.settings.link %}<a href="{{ block.settings.link }}">{%endif%}
+        <div class="item_img desktop-image normal" ><img src="{{ img_url }}"></div>        
+        {% if block.settings.link %}</a>{%endif%}        
+
+        <div class="overlay overlay-{{forloop.index}}">
+          {% if section.settings.show_captions %}
+          <div class="captions {{ block.settings.text_position }} text-{{block.settings.text_align}}" style="{% if block.settings.text_align == "left" %}margin-right:auto;{% elsif block.settings.text_align == "right" %}margin-left:auto;{% else %}margin-left: auto; margin-right: auto;{% endif %}">
+            <div class="table">
+              <div class="table-cell text-vertical-{{block.settings.text_vertical_align}}">
+                {% if block.settings.prod_caption != "" %}
+                <div class="text">{{ block.settings.prod_caption }}</div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>      
+ -->
+    
+    <div class="carry-img-block"><img src="https://cdn.shopify.com/s/files/1/2117/1151/files/amica-img.png"></div>
+    
+    <div class="text_section">
+      <p class="title">{{ section.settings.slide-text }}</p>
+      <p class="caption">{{ section.settings.slide-caption }}</p>      
+    </div>
+
+  </section>
+
+
+
+  <section class="friend-section">
+    <div>
+      <img class="friend-bg-img" src="https://cdn.shopify.com/s/files/1/2117/1151/files/Page_1.png">
+      <img class="friend-img" src="//cdn.shopify.com/s/files/1/2117/1151/files/frnd2_90d112ac-31a0-4477-bf47-4a38a2262d29.png?4174276074453541644">
+<!--       <img class="friend-img" src="https://cdn.shopify.com/s/files/1/2117/1151/files/img1.png"> -->
+    </div>
+    <div class="friend-text-block">
+      <div>
+        <h1> {{ section.settings.friend-text }} </h1>
+        <p> {{ section.settings.friend-text1 }} </p>
+      </div>
+    </div>
+  </section>
+
+
+
+  <section class="dress-block">
+    <div class="dress-container">
+      <article class="dress-left-block">
+        <img src="//cdn.shopify.com/s/files/1/2117/1151/files/logo_5701098b-8ee3-4f1f-ab3f-8f7031cb8166.png?9972385673022620904">      
+        <img src="//cdn.shopify.com/s/files/1/2117/1151/files/hair2_340x_d1c1ad80-4c95-4b07-9ff5-b0f3c748ff16.png">
+      </article>
+
+      <article class="dress-right-block">
+        <div>
+          <h1> {{ section.settings.dress-text }}</h1>
+          <p> {{ section.settings.dress-text1 }} </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  
+    
+    <div class="text_section" style="background-color:#ff7276; padding:50px;">
+      <p class="title">salon affiliates</p>
+      <p class="caption" style="text-align:center;">for a limited time, you can earn 40% commission on online sales<br/>learn more about our affiliate program with salons and independent stylits <a href="https://loveamika.com/salonaffiliates" target="_blank">here</a></p>      
+    </div>
+
+
+
+  <section class="carry-form-block">
+    <h1 class="title"> {{ section.settings.form-title }} </h1>
+
+    <div class="carryform">
+
+
+
+      <div id="wufoo-khbnm071q35bae">
+        Fill out my <a href="https://loveamika.wufoo.com/forms/khbnm071q35bae">online form</a>.
+      </div>
+      <script type="text/javascript">var khbnm071q35bae;(function(d, t) {
+  var s = d.createElement(t), options = {
+    'userName':'loveamika',
+    'formHash':'khbnm071q35bae',
+    'autoResize':true,
+    'height':'602',
+    'async':true,
+    'host':'wufoo.com',
+    'header':'show',
+    'ssl':true};
+  s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'www.wufoo.com/scripts/embed/form.js';
+  s.onload = s.onreadystatechange = function() {
+    var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+    try { khbnm071q35bae = new WufooForm();khbnm071q35bae.initialize(options);khbnm071q35bae.display(); } catch (e) {}};
+  var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+})(document, 'script');</script>
+
+
+
+    </div>
+  </section>
+</main>
+
+
+<style>
+  .carry-mid-two p{
+    color:{{ section.settings.text-color }};
+    font-size: calc( {{ section.settings.text-size-min}}px + ({{section.settings.text-size-max}} - {{section.settings.text-size-min}}) * ((100vw - 375px) / (1400 - 375))) !important;                                            
+  }
+  .slideshow_section p.title {
+    color:{{ section.settings.text-color1 }};
+    font-size: calc( {{ section.settings.text-size1-min}}px + ({{section.settings.text-size1-max}} - {{section.settings.text-size1-min}}) * ((100vw - 375px) / (1400 - 375))) !important;                                            
+  }
+  .slideshow_section p.caption {
+    color:{{ section.settings.text-caption-color }};
+    font-size: calc( {{ section.settings.text-caption-min}}px + ({{section.settings.text-caption-max}} - {{section.settings.text-caption-min}}) * ((100vw - 375px) / (1400 - 375))) !important;                                            
+  }  
+
+  .friend-text-block h1{
+    color:{{ section.settings.fri-color }};
+    font-size: calc( {{ section.settings.fri-size-min}}px + ({{section.settings.fri-size-max}} - {{section.settings.fri-size-min}}) * ((100vw - 375px) / (1400 - 375))) !important;                                            
+  }
+  .friend-text-block p{
+    color:{{ section.settings.fri-color1 }};
+    font-size: calc( {{ section.settings.fri-size1-min}}px + ({{section.settings.fri-size1-max}} - {{section.settings.fri-size1-min}}) * ((100vw - 375px) / (1400 - 375))) !important;                                            
+  }
+
+  .dress-right-block h1{
+    color:{{ section.settings.dress-color }};
+    font-size: calc( {{ section.settings.dress-size-min}}px + ({{section.settings.dress-size-max}} - {{section.settings.dress-size-min}}) * ((100vw - 375px) / (1400 - 375))) !important;                                            
+  }
+  .dress-right-block p{
+    color:{{ section.settings.dress-color1 }}; 
+    font-size: calc( {{ section.settings.dress-size1-min}}px + ({{section.settings.dress-size1-max}} - {{section.settings.dress-size1-min}}) * ((100vw - 375px) / (1400 - 375))) !important;                                            
+  }
+
+  .carry-form-block h1{
+    color:{{ section.settings.form-color }}; 
+    font-size: calc( {{ section.settings.form-size-min}}px + ({{section.settings.form-size-max}} - {{section.settings.form-size-min}}) * ((100vw - 375px) / (1400 - 375))) !important;                                            
+  }
+  
+  .carry-form-block .title{
+    color:{{ section.settings.title-color-form }};
+    font-size: calc( {{ section.settings.title-form-min}}px + ({{section.settings.title-form-max}} - {{section.settings.title-form-min}}) * ((100vw - 375px) / (1400 - 375))) !important;                                            
+  }
+  
+  .carry-form-block p{
+    color:{{ section.settings.form-color1 }};
+    font-size: calc( {{ section.settings.form-size1-min}}px + ({{section.settings.form-size1-max}} - {{section.settings.form-size1-min}}) * ((100vw - 375px) / (1400 - 375))) !important;
+  }
+  
+
+  .template-page-carry_us_new p,
+  h1, h2, h3, h4, h5, h6 {line-height:1.4;}
+  
+  .name-grid{margin-bottom:0px !important;}
+  .phoneinner{display:flex; width:100%;}
+  .phoneinnerspan{padding: 8px;}
+
+  .carryform  input[type='text'] {    
+    border: 1px solid #d9d9d9;   
+    box-sizing: border-box;
+    padding: 8px 3px 8px 3px;
+    width: 100%;
+    color: #000000;
+    font-size: 16px;
+  }
+
+  .carryform .btn{
+    width:100%;
+    display: inline-block;
+    background: #000;
+    border: 1px solid #000000;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    color: #fff;
+    padding: 8px 29px 8px;
+    padding: 0 29px;
+    font-size: 19px;
+    font-size: 14px;    
+    text-decoration: none;
+    text-transform: none;
+    font-weight: 500;
+    font-family: 'FuturaND';
+    font-style: normal;
+    text-align: center;
+    letter-spacing: 1px;
+    cursor: pointer;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+    height:44px;
+  }
+  #iam {width:100%;font-size: 14px; border: 1px solid black;}  
+  .carryform {max-width: 639px; margin: auto;}
+  .carryform label{float:left; margin-bottom:7px; font-size: 14px; line-height: 1;}
+  .carryform .grid__item{margin-bottom: 20px;}  
+  .carryform input { height: 32px; border: 1px solid black !important;}
+  .grid__item .one-whole.name-grid-spec {margin-top: 10px;}
+
+  @media (max-width: 739px){
+    .carry_block {padding: 10px 0 0;}
+  }
+
+
+
+
+  /* CAROUSEL */
+  .item_img {padding-top: 8rem;}
+  .slideshow_section .slick-slide img {
+    margin: auto; 
+  }
+  .slideshow_section .slick-list {overflow: initial;}
+  .slideshow_section .table-cell {
+    font-size: 25px;
+    font-size: calc( 12px + (25 - 12) * ((100vw - 375px) / (1400 - 375))) !important;                                        
+    color: #73ABFF;
+    text-align: center;
+    margin-top: 1rem;
+    display: block;
+    margin-top: 20px;    
+  }
+  .slideshow_section .table-cell .text {line-height: 1.5;}
+  .text_section .title {
+    text-align: center;
+    margin: 1rem auto 1rem;
+    font-size: 70px;
+  }  
+  .text_section .caption {
+    max-width: 85%;
+    margin: auto;
+    font-size: 25px !important;
+  }
+  .slideshow_section .slick-slide.slick-current img {
+    transform: translateY(-4%);
+    box-shadow: rgba(0, 0, 0, 0.2) 10px 10px 30px 0px;
+    transition: all 0.6s ease-in-out 0s;    
+  }
+  .slideshow_section .slick-slide.before img {
+    transform: rotate(-3deg);
+    box-shadow: rgba(0, 0, 0, 0.2) 10px 10px 30px 0px;
+    transition: all 0.6s ease-in-out 0s;
+  }
+  .slideshow_section .slick-slide.after img {
+    transform: rotate(3deg);
+    box-shadow: rgba(0, 0, 0, 0.2) 10px 10px 30px 0px;
+    transition: all 0.6s ease-in-out 0s;
+  }
+  .slideshow_section .slick-slide.levitate img {
+    transform: rotate(0) translateY(-4%);
+    box-shadow: rgba(0, 0, 0, 0.2) 10px 10px 30px 0px;
+    transition: all 0.6s ease-in-out 0s;
+  }
+
+
+  @media(min-width:740px){
+    .slideshow_section .table-cell {
+      margin-top: 40px;
+    }
+    .dress-right-block h1 {
+      margin-bottom:25px;
+      position: relative;
+    top: -15px;
+    }
+    .carryform label,
+    .carryform input,
+    .carryform .btn,
+    #iam {font-size: 16px;}
+    
+    .carryform input,
+    .carryform .btn {height:44px;}
+    .carryform .phoneinner input {max-width: 94px;}    
+   
+  }
+  @media(max-width:979px){
+    .item_img {padding-top: 4rem;}
+    .slideshow_section .table-cell {
+      font-size: 14px;
+    }    
+    .text_section .title {
+      font-size: 30px;
+      margin: 19px auto 15px;
+    }      
+    .text_section .caption {
+      font-size: 16px !important;
+    }
+  }
+  
+  @media(min-width:980px){
+    .carry_block .carry-form-block {padding:0px 250px 25px;}        
+  }
+
+</style>
+
+<script>
+
+  
+  $('.carry-us-carousel').on('init', function(slick){
+    $('.slick-slide.slick-current').next('.slick-slide').addClass('after');
+    $('.slick-slide.slick-current').prev('.slick-slide').addClass('before');
+  }).on('beforeChange', function(event, slick, currentSlide, nextSlide){
+    $(slick.$slides.get(currentSlide)).removeClass('levitate');
+    var nextSlide = slick.$slides.get(nextSlide);
+    $(nextSlide).addClass('levitate');
+    var $slides =$('.carry-us-carousel .slick-slide');
+    $slides.removeClass('after');
+    var found = 0;
+    $slides.each(function(i,o){
+      if (!found && nextSlide == o) { found = 1; }
+      $(o).addClass(found?'after':'before');
+    });
+//   }).on('afterChange', function(event, slick, currentSlide){
+  }).slick({
+    autoplay: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    centerMode: true,
+    centerPadding: '225px',
+    initialSlide: 1,
+    waitForAnimate: false,
+    infinite:false,
+        //Fixes the prob it has when it hits the virtual edge
+   // ,variableWidth: true//fixes that the engorged slide is bigger
+    responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        centerPadding: '50px'
+      }
+    }
+    ]
+  });
+  
+  
+//       autoplay: false,
+//     slidesToShow: 1,
+//     slidesToScroll: 1,
+//     arrows: false,
+//     centerMode: true,
+//     centerPadding: '225px',
+//     initialSlide: 1,  
+//     waitForAnimate: false,      
+//     infinite:false  
+ 
+    
+//   $('.carry-us-carousel').on('init', function(slick){
+//     $('.slick-slide.slick-current ').next('.slick-slide').addClass('after');
+//     $('.slick-slide.slick-current ').prev('.slick-slide').addClass('before');
+//   });     
+  
+//   $('.carry-us-carousel').slick({
+//     autoplay: false,
+//     slidesToShow: 1,
+//     slidesToScroll: 1,
+//     arrows: false,
+//     centerMode: true,
+//     infinite:false,
+//     initialSlide: 1
+//   });
+  
+ 
+//   $('.carry-us-carousel').on('swipe ', function(event, slick, direction){
+//     $('.slick-current').removeClass('after');
+//     $('.slick-current').removeClass('before');
+//     $('.slick-slide.slick-current ').next('.slick-slide').addClass('after');
+//     $('.slick-slide.slick-current ').prev('.slick-slide').addClass('before');      
+//   });  
+
+
+</script>
+
+
+{% schema %}
+  {
+    "name": "Carry Us",
+    "settings": [
+       {
+          "type": "header",
+          "content": "1st Section "
+       },
+       {
+          "type": "image_picker",
+          "id": "img",
+          "label": "Left Image"
+       },
+       {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+       },
+       {
+          "type": "image_picker",
+          "id": "img1",
+          "label": "Right Image"
+       },
+       {
+          "type": "text",
+          "id": "text1",
+          "label": "Text"
+       },
+      {
+        "type": "range",
+        "id": "text-size-min",
+        "min": 12,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Min Text Size",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "text-size-max",
+        "min": 12,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Max Text Size",
+        "default": 20
+      },
+      {
+          "type": "color",
+          "id": "text-color",
+          "label": "Text Color",
+          "default": "#000000"
+      },
+
+
+
+      {
+          "type": "header",
+          "content": "Carousel Options "
+      },
+      {
+          "type": "text",
+          "id": "slide-text",
+          "label": "Carousel Title"
+       },
+      {
+          "type": "html",
+          "id": "slide-caption",
+          "label": "Carousel Caption"
+       },
+      {
+        "type": "range",
+        "id": "text-size1-min",
+        "min": 12,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Carousel Title - Min Text Size",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "text-size1-max",
+        "min": 12,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Carousel Title - Max Text Size",
+        "default": 20
+      },
+      {
+        "type": "color",
+        "id": "text-color1",
+        "label": "Text Color",
+        "default": "#000000"
+      },
+      {
+        "type": "range",
+        "id": "text-caption-min",
+        "min": 12,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Caption - Min Text Size",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "text-caption-max",
+        "min": 12,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Caption - Max Text Size",
+        "default": 20
+      },
+      {
+        "type": "color",
+        "id": "text-caption-color",
+        "label": "Caption Color",
+        "default": "#000000"
+      },
+      {
+          "type": "checkbox",
+          "id": "show_captions",
+          "label": "Show captions?",
+          "default": true
+      },
+      {
+          "type": "header",
+          "content": "Friend Section "
+       },
+       {
+          "type": "text",
+          "id": "friend-text",
+          "label": "Title"
+       },
+      {
+        "type": "range",
+        "id": "fri-size-min",
+        "min": 12,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Title - Min Text Size",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "fri-size-max",
+        "min": 12,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Title - Max Text Size",
+        "default": 20
+      },
+      {
+          "type": "color",
+          "id": "fri-color",
+          "label": "Title Color",
+          "default": "#000000"
+      },
+       {
+          "type": "text",
+          "id": "friend-text1",
+          "label": "Text"
+       },
+      {
+        "type": "range",
+        "id": "fri-size1-min",
+        "min": 12,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Content - Min Text Size",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "fri-size1-max",
+        "min": 12,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Content - Max Text Size",
+        "default": 20
+      },
+      {
+          "type": "color",
+          "id": "fri-color1",
+          "label": "Text Color",
+          "default": "#000000"
+      },
+
+
+
+
+
+       {
+          "type": "header",
+          "content": "Dressing Section "
+       },
+       {
+          "type": "text",
+          "id": "dress-text",
+          "label": "Title"
+       },
+      {
+        "type": "range",
+        "id": "dress-size-min",
+        "min": 12,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Title - Min Text Size",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "dress-size-max",
+        "min": 12,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Title - Max Text Size",
+        "default": 20
+      },
+      {
+          "type": "color",
+          "id": "dress-color",
+          "label": "Title Color",
+          "default": "#000000"
+      },
+       {
+          "type": "text",
+          "id": "dress-text1",
+          "label": "Text"
+       },
+      {
+        "type": "range",
+        "id": "dress-size1-min",
+        "min": 12,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Content - Min Text Size",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "dress-size1-max",
+        "min": 12,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Content - Max Text Size",
+        "default": 20
+      },
+      {
+          "type": "color",
+          "id": "dress-color1",
+          "label": "Title Color",
+          "default": "#000000"
+      },
+
+
+
+
+       {
+          "type": "header",
+          "content": "Form Section"
+       },
+       {
+          "type": "text",
+          "id": "form-text",
+          "label": "Title"
+       },
+      {
+        "type": "range",
+        "id": "form-size-min",
+        "min": 12,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Title - Min Text Size",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "form-size-max",
+        "min": 12,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Title - Max Text Size",
+        "default": 20
+      },
+      {
+          "type": "color",
+          "id": "form-color",
+          "label": "Title Color",
+          "default": "#000000"
+      },
+       {
+          "type": "text",
+          "id": "form-text1",
+          "label": "Text"
+       },
+      {
+        "type": "range",
+        "id": "form-size1-min",
+        "min": 12,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Content - Min Text Size",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "form-size1-max",
+        "min": 12,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Content - Max Text Size",
+        "default": 20
+      },
+      {
+          "type": "color",
+          "id": "form-color1",
+          "label": "Title Color",
+          "default": "#000000"
+      },
+       {
+          "type": "text",
+          "id": "form-title",
+          "label": "Title"
+       },
+      {
+        "type": "range",
+        "id": "title-form-min",
+        "min": 12,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Form Title - Min Text Size",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "title-form-max",
+        "min": 12,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Form Title - Max Text Size",
+        "default": 20
+      },
+      {
+          "type": "color",
+          "id": "title-color-form",
+          "label": "Title Color",
+          "default": "#000000"
+      }
+    ],
+"blocks": [
+      {
+        "type": "slide",
+        "name": "Slide",
+        "settings": [
+		  {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Background Image"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link",
+            "info": "Optional"
+          },
+		  {
+            "type": "html",
+            "id": "prod_caption",
+            "label": "Product Caption"
+          }
+	   ]
+	 }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+
+
+
+
+
+
+
+

@@ -1,0 +1,5 @@
+{% assign coming_soon = false %}
+
+{% if product.tags contains 'coming-soon' %}
+	{% assign coming_soon = true %}
+{% endif %}

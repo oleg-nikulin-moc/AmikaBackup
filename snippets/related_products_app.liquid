@@ -1,0 +1,77 @@
+<script>
+  $(function(){
+    var toShow = 6;
+    var shown = 0;
+    var productHandleQueue = ['{{ product.metafields['related_products'].handles | split: ',' | join: "','" }}'];
+    var wrapper = $('section.related-products .related-slider');
+
+    var processItem = function () {
+      if (productHandleQueue.length && shown < toShow) {
+        if(productHandleQueue[0]!="") {
+          jQuery.ajax({
+            url: '/products/' + productHandleQueue[0] + '?view=item-ajax',
+            cache: false,
+            success: function(product) {
+              wrapper.append(product);
+              productHandleQueue.shift();
+              shown++;
+              processItem();
+            },
+            error: function() {
+              productHandleQueue.shift();
+              processItem();
+            }
+          });
+        }
+        else {
+          productHandleQueue.shift();
+          processItem();
+        }
+      } 
+      else {
+        if(shown > 0) {
+          $('section.related-products').show();
+          initSlider();
+          doAdjustPrices('.related-products');
+        }
+      }
+    };
+
+  var initSlider = function(){
+    $('.related-slider').slick({
+      autoplay: true,
+      speed: 1000,
+      slidesToShow: 5,
+      pauseOnHover: false,
+      slidesToScroll: 5,
+      prevArrow: '<i class="lnr lnr-chevron-left left-arrow animation"></i>',
+      nextArrow: '<i class="lnr lnr-chevron-right right-arrow animation"></i>',
+      responsive: [
+        {
+          breakpoint: 584,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+          }
+        },
+        {
+          breakpoint: 900,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 4,
+          }
+        }
+      ]
+    });
+  };
+
+  processItem();
+  });
+</script>
+
+<section class="related-products" style="display: none;">
+  <div class="container">
+    <h2>{{settings.related_products_title}}</h2>
+    <div class="related-slider"></div>
+  </div>
+</section>

@@ -1,0 +1,133 @@
+<!-- Start of signup -->
+<script language="javascript">
+<!--
+function validate_signup(frm) {
+	var emailAddress = frm.Email.value;
+	var errorString = '';
+	
+        
+
+        if (emailAddress == '' || emailAddress.indexOf('@') == -1) {
+		errorString = 'Please enter your email address';
+	}
+
+    
+var els = frm.getElementsByTagName('input');
+for (var i = 0; i < els.length; i++)
+{
+    if (els[i].className == 'text' || els[i].className == 'date' || els[i].className == 'number')
+    {
+        if (els[i].value == '')
+            errorString = 'Please complete all required fields.';
+    }
+    else if (els[i].className == 'radio')
+    {
+        var toCheck = document.getElementsByName(els[i].name);
+        var radioChecked = false;
+        for (var j = 0; j < toCheck.length; j++)
+        {
+            if (toCheck[j].name == els[i].name && toCheck[j].checked)
+                radioChecked = true;
+        }
+        if (!radioChecked)
+            errorString = 'Please complete all required fields.';
+    }
+}
+
+
+
+	var isError = false;
+    if (errorString.length > 0)
+        isError = true;
+
+    if (isError)
+        alert(errorString);
+	return !isError;
+}
+
+
+//-->
+</script>
+
+<style>
+/* form#signup {
+    display: inline-block;
+    width: 100%;
+    max-width: 450px;
+    padding: 10px 10px 10px 5px;
+    border-bottom: 2px solid #EAEAEA;
+    margin-top: 10px;
+    box-sizing: border-box;
+    background: #f0f0f0; */
+}
+form#signup input[type="email"] {
+    padding: 10px 20px;
+    color: #000000;
+    border-bottom: 2px solid #000000;
+    text-align: center;
+    font-size: 14px;
+  	border-top: none;
+    border-right: none;
+    border-left: none;
+    box-sizing: border-box;
+  	width: 100%;
+  	-webkit-appearance: none;
+    border-radius: 0;
+    background: transparent;
+    border: 0;
+  	font-family: 'FuturaND';
+    font-weight: 400;
+    font-style: normal;
+    vertical-align: middle;
+}
+form#signup input[type="submit"] {
+    background: #fff;
+    color: #000000;
+    margin-top: 15px;
+    font-size: 14px;
+    width: 100%;
+    border-width: 2px;
+    padding: 10px 5px;
+    display: inline-block;
+    border: 1px solid #000000;
+    border-radius: 0px;
+    text-decoration: none;
+    text-transform: none;
+    font-weight: 500;
+    font-family: 'FuturaND';
+    font-style: normal;
+    text-align: center;
+    letter-spacing: normal;
+    cursor: pointer;
+    transition: all 0.2s linear;
+  	-webkit-appearance: none;
+  	box-sizing: border-box;
+    vertical-align: middle;
+}
+</style>
+
+<form name="signup" id="signup" action="https://email-loveamika.com/signup.ashx" method="post" onsubmit="return validate_signup(this)">
+<input type="hidden" name="addressbookid" value="5284766">
+<input type="hidden" name="ci_isconsentform" value="true">
+<input type="hidden" name="userid" value="228576">
+<input type="hidden" name="SIG66bcf01433b9d146e74c099709e529a028005319823c30a4018868ea3e1a2e35" value="">
+<!-- ReturnURL - when the user hits submit, they'll get sent here -->
+<input type="hidden" name="ReturnURL" value="https://loveamika.com/">
+<!-- Email - the user's email address -->
+<input type="email" name="Email" placeholder="enter your email">
+
+<!-- <p><input type="checkbox" name="ci_userConsentCheckBox"> Welcome Series</p> -->
+<input type="hidden" id="ci_consenturl" name="ci_consenturl" value="">
+
+<input type="Submit" name="Submit" value="Major Hair Upgrade">
+
+
+</form>
+
+<script language="javascript">
+	var urlInput = document.getElementById("ci_consenturl");
+	
+	if (urlInput != null && urlInput != 'undefined') {
+		urlInput.value = encodeURI(window.location.href);
+    }
+</script>

@@ -1,0 +1,212 @@
+<div id="contact-form-page" class="page container">
+  <div class="contact-top">
+    <div class="large--table medium--table">
+      <div class="large--table-cell medium--table-cell">
+        <div class="img-contact-container">
+          <img src="{{ "img-contact.jpg" | asset_img_url: "master" }}" class=""/>
+        </div>
+      </div>
+      <div class="large--table-cell medium--table-cell">
+        <div class="contact-text">
+          <h1>contact us</h1>
+          <p>{{ page.content }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-content text-left">
+    <div class="grid">
+      <div class="grid__item one-quarter medium--one-half small--one-whole">
+        <h2>give us a ring</h2>
+        <p class="bolder">Mon – Fri 9am – 5pm EST</p>
+        <div class="table">
+          <div class="table-row">
+            <div class="table-cell">
+              <span>toll - free</span>
+            </div>
+            <div class="table-cell">
+              <strong><a href="tel:1-866-833-3444">1 866 833 3444</a></strong>
+            </div>
+          </div>
+          {% comment %}
+          <div class="table-row">
+            <div class="table-cell">
+              <span>mail</span>
+            </div>
+            <div class="table-cell">
+              <span class="bolder underlined">info@loveamikapro.com</span>
+            </div>
+          </div>
+          {% endcomment %}
+        </div>
+      </div>
+      <div class="grid__item one-quarter medium--one-half small--one-whole">
+        <h2>drop us a note</h2>
+        <p>
+          general questions, product help, order inquiries, or loyalty program feedback<br>
+          <a href="mailto:info@loveamikapro.com">info@loveamikapro.com</a>
+        </p>
+      </div>
+    </div>
+    
+{% comment %}
+  <h1>Contact Us</h1>
+  <div class="form">
+
+    {% form 'contact' %}
+
+    {% if form.posted_successfully? %}
+    <p class="success-msg">Thanks for contacting us! We'll get back to you as soon as possible.</p>
+    {% endif %}
+
+    {% if form.errors %}
+    <div class="error-msg">
+      <ul class="error-list">
+        {% for field in form.errors %}
+        {% if field == 'body' %}
+        <li>Your message cannot be blank.</li>
+        {% endif %}
+        {% if field == 'email' %}
+        <li>Please enter a valid email address.</li>
+        {% endif %}        
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <input type="hidden" id="section" name="contact[section]" value="Contact" />
+    <ul id="contact-form">
+      <li class="clearfix type-text">
+        <input placeholder="Name" type="text" id="name" class="name" name="contact[name]" />
+      </li> 
+      <li class="clearfix type-text">
+        <input placeholder="Email" type="email" id="email" class="email  {% if form.errors contains 'email' %} error{% endif %}" name="contact[email]" />
+      </li>  
+      <li class="clearfix type-text">
+        <input placeholder="Phone" type="phone" id="phone" class="phone {% if form.errors contains 'phone' %} error{% endif %}" name="contact[phone]" />
+      </li>
+      <li class="clearfix type-textarea">
+        <textarea placeholder="Message" id="message" class="message {% if form.errors contains 'body' %} error{% endif %}" name="contact[body]"></textarea>
+      </li>
+      <li class="clearfix type-submit">
+        <input type="submit" class="submit btn" value="Send" />
+      </li>
+    </ul>
+    {% endform %}
+  </div>
+{% endcomment %}
+</div><!-- /#col-main -->
+
+<div class="hide">
+  <div id="review-popup">
+    <div class="review-container">
+<!--       <iframe height="1300" allowtransparency="true" frameborder="0" style="width: 100%; border: none;" src="https://loveamika.wufoo.com/embed/r1wth1ep1artoor/">&amp;lt;a href="https://loveamika.wufoo.com/forms/r1wth1ep1artoor/"&amp;gt;Fill out my Wufoo form!&amp;lt;/a&amp;gt;</iframe> -->
+      <div id="wufoo-r1wth1ep1artoor">
+        Fill out my <a href="https://loveamika.wufoo.com/forms/r1wth1ep1artoor">online form</a>.
+      </div>
+      <script type="text/javascript">var r1wth1ep1artoor;(function(d, t) {
+  var s = d.createElement(t), options = {
+    'userName':'loveamika',
+    'formHash':'r1wth1ep1artoor',
+    'autoResize':true,
+    'height':'1186',
+    'async':true,
+    'host':'wufoo.com',
+    'header':'show',
+    'ssl':true};
+  s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'www.wufoo.com/scripts/embed/form.js';
+  s.onload = s.onreadystatechange = function() {
+    var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+    try { r1wth1ep1artoor = new WufooForm();r1wth1ep1artoor.initialize(options);r1wth1ep1artoor.display(); } catch (e) {}};
+  var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+})(document, 'script');</script>
+      
+    </div>
+  </div>
+</div>
+
+
+<!-- Want work featured in local press -->
+<div class="hide">
+  <div id="stylist-popup">
+    <div class="stylist-container">
+      <div id="wufoo-s14h4oxf1blz4tl">
+        Fill out my <a href="https://loveamika.wufoo.com/forms/s14h4oxf1blz4tl">online form</a>.
+      </div>
+      <script type="text/javascript">var s14h4oxf1blz4tl;(function(d, t) {
+      var s = d.createElement(t), options = {
+        'userName':'loveamika',
+        'formHash':'s14h4oxf1blz4tl',
+        'autoResize':true,
+        'height':'2613',
+        'async':true,
+        'host':'wufoo.com',
+        'header':'show',
+        'ssl':true};
+      s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'www.wufoo.com/scripts/embed/form.js';
+      s.onload = s.onreadystatechange = function() {
+        var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+        try { s14h4oxf1blz4tl = new WufooForm();s14h4oxf1blz4tl.initialize(options);s14h4oxf1blz4tl.display(); } catch (e) {}};
+      var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+    })(document, 'script');
+      </script>
+    </div>
+  </div>
+</div>
+
+
+<!-- Want work featured in local press -->
+<!-- <div class="hide">
+  <div id="stylist-popup">
+    <div class="stylist-container">
+      <div id="wufoo-s14h4oxf1blz4tl">						   
+        Fill out my <a href="https://loveamika.wufoo.com/forms/s14h4oxf1blz4tl">online form</a>.
+      </div>
+      <script type="text/javascript">var s14h4oxf1blz4tl;(function(d, t) {
+  var s = d.createElement(t), options = {
+    'userName':'loveamika',
+    'formHash':'s14h4oxf1blz4tl',
+    'autoResize':true,
+    'height':'2681',
+    'async':true,
+    'host':'wufoo.com',
+    'header':'show',
+    'ssl':true};
+  s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'www.wufoo.com/scripts/embed/form.js';
+  s.onload = s.onreadystatechange = function() {
+    var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+    try { s14h4oxf1blz4tl = new WufooForm();s14h4oxf1blz4tl.initialize(options);s14h4oxf1blz4tl.display(); } catch (e) {}};
+  var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+})(document, 'script');
+      </script>    
+    </div>
+  </div>
+</div>     -->
+
+
+<script>
+  $(document).ready(function(){
+    $(document).on("click", "#contact-form-page .signup", function(event){
+      if($(this).attr("href").indexOf('wufoo') > -1){
+        event.preventDefault();
+        $.fancybox.open({
+          src  : '#review-popup',
+          type : 'inline'
+        });
+      }
+    });
+    $(document).on("click", "#contact-form-page .popup-form", function(event){
+      if($(this).attr("href").indexOf('wufoo') > -1){
+        event.preventDefault();
+        $.fancybox.open({
+          src  : '#stylist-popup',
+          type : 'inline'
+        });
+      }
+    });
+    
+  });
+</script>
+
+<script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=bcc68b38-547d-4423-9ca6-b9edc12b715d"> </script>
+  

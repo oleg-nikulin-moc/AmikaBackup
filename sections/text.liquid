@@ -1,0 +1,96 @@
+<div class="container introduction-text">
+  <h2 style="font-style:medium">{% if section.settings.h_intro_link %}<a href="{{section.settings.h_intro_link}}">{% endif %}<p>{{section.settings.h_intro}}</p>{% if section.settings.h_intro_link %}</a>{% endif %}</h2>
+</div>
+
+
+<style> 
+  
+  
+  .template__index .introduction-text h2 span {
+    border-bottom: 5px solid #fff;
+  }
+    
+   .template__index .introduction-text h2 {
+    text-align: center;
+    font-size: 32px;
+    line-height: 1.7em;
+    margin-bottom: 30px;
+     
+  }
+  .introduction-text { display: block;
+  					font-style:medium;
+  				
+  }
+ 
+@media(min-width:320px) and (max-width: 768px){
+  .template__index .introduction-text h2 {
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.7em;
+    margin-bottom: 0px;
+  }
+  
+@media all and (max-width: 768px) {
+    .mo-br {display: inherit;text-decoration:none;}
+  }
+
+  
+  .introduction-text { display: block;
+  						font-style:medium;
+  						
+  }
+}
+
+/*   .template__index .introduction-text h2 span { font-size: {{section.settings.text_size2}}vw; } */
+/*   .template__index .introduction-text h2 p { font-size: {{section.settings.text_size2}}vw; }   */
+</style>
+
+
+
+{% schema %}
+  {
+  "name": "Text Block",
+  "settings": [
+      {
+        "type": "header",
+        "content": "Introduction text"
+      },
+      {
+        "type": "url",
+        "id": "h_intro_link",
+        "label": "Introduction Text Link"
+      },
+      {
+        "type": "html",
+        "id": "h_intro",
+        "label": "Introduction Text",
+        "default": "Test"
+      }
+  ],
+  "presets": [
+      {
+        "name": "Text Block",
+        "category": "Text"
+      }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+
+
+
+<!--       {
+        "type":    "range",
+        "min":     0,
+        "max":     10,
+		"step":    1,
+        "default": 5,
+        "id": "text_size2",
+        "label": "Text Size",
+		"info": "Set with vw instead of pixels so that it'll adjust according to the viewport width. At mobile font is set to 16px."
+      } -->

@@ -1,0 +1,167 @@
+{%- assign image_size = "700x" -%}
+
+{% schema %}
+  {
+    "name": "Half Width Image",
+    "class": "grid-images",
+	"settings": [
+          {
+            "type": "checkbox",
+            "id": "check_swap",
+            "label": "Swap position of blocks"
+          },
+          {
+           "type":  "header",
+           "content": "Block 1"
+          },
+          {
+            "type": "image_picker",
+            "id": "half_image",
+            "label": "Half Width Image"
+          },
+		  {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text"
+          },
+		  {
+            "type": "select",
+            "id": "text_align_x",
+            "label": "Text Alignment - Horizontal",
+            "options": [
+              {"value": "left", "label": "Left"},
+			  {"value": "center", "label": "Center"},
+			  {"value": "right", "label": "Right"}
+            ],
+            "default": "center"
+          },
+          {
+            "type": "select",
+            "id": "text_align_y",
+            "label": "Text Alignment - Vertical",
+            "options": [
+              {"value": "top", "label": "Top"},
+			  {"value": "center", "label": "Center"},
+			  {"value": "bottom", "label": "Bottom"}
+            ],
+            "default": "center"
+          },
+
+
+
+          {
+           "type":  "header",
+           "content": "Block 2"
+          },
+          {
+            "type": "html",
+            "id": "half_image_txt",
+            "label": "Text Block",
+ 		    "default": "<p>Default <em>richtext</em> <a href=\"https://example.com/\">content</a></p>"
+          },
+		  {
+            "type": "url",
+            "id": "link_text",
+            "label": "Text Link"
+          },
+          {
+            "type": "select",
+            "id": "text_align",
+            "label": "Text Alignment",
+            "options": [
+              {"value": "left", "label": "Left"},
+              {"value": "center", "label": "Center"},
+              {"value": "right", "label": "Right"}
+            ],
+          "default": "center"
+          },
+		  {
+            "type": "select",
+            "id": "text_align_x_2",
+            "label": "Text Alignment - Horizontal",
+            "options": [
+              {"value": "left", "label": "Left"},
+			  {"value": "center", "label": "Center"},
+			  {"value": "right", "label": "Right"}
+            ],
+            "default": "center"
+          },
+          {
+            "type": "select",
+            "id": "text_align_y_2",
+            "label": "Text Alignment - Vertical",
+            "options": [
+              {"value": "top", "label": "Top"},
+			  {"value": "center", "label": "Center"},
+			  {"value": "bottom", "label": "Bottom"}
+            ],
+            "default": "center"
+          }
+
+    ],
+    "presets": [
+      {
+        "name": "Half Width Image",
+        "category": "Image"
+      }
+    ]
+  }
+{% endschema %}
+
+<div class="gallery-images container half-block">
+  <div class="grid grid-full">
+    {% assign rowNumber = 0 %}     
+      <div class="gallery-row clearfix row-1 {%if section.settings.check_swap %}swap{%endif%}">    
+        <div id="block-1" class="grid__item one-half small--one-half">
+          <a href="{{ section.settings.link }}">
+            <div class="gallery-image custom-cursor" style="background-image:url({{ section.settings.half_image  | img_url: image_size }});">
+              <div class="text pos-x-{{section.settings.text_align_x}} pos-y-{{section.settings.text_align_y}}">
+                <span>{{ section.settings.text | newline_to_br }}</span>
+              </div>
+            </div>
+          </a>
+        </div>  
+        <div id="block-2" class="grid__item one-half small--one-half">
+          <a href="{{ section.settings.link_text }}">
+            <div class="gallery-image gallery-text custom-cursor">
+              <div class="text text-{{section.settings.text_align}} pos-x-{{section.settings.text_align_x_2}} pos-y-{{section.settings.text_align_y_2}}">
+                <p>{{ section.settings.half_image_txt | newline_to_br }}</p>       
+              </div>
+            </div>
+          </a>
+        </div>         
+      </div>
+  </div>
+</div>
+
+
+<style>
+  .gallery-images.container {clear: both;}
+  .half-block .gallery-image {padding-top: 121%;}
+  .half-block .grid__item {padding-bottom: 0;}
+  .gallery-row.swap {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;  
+  }
+  .swap #block-1 {order: 2;}
+  .swap #block-2 {order: 1;}  
+  .half-block .text p {font-size: 1.5rem;}
+  .half-block .text p strong:nth-of-type(1) {text-decoration: underline;}
+  .half-block .text p strong:nth-of-type(2) {display: block;}  
+  .half-block .gallery-image.custom-cursor {background-size: cover;}
+  .half-block .text {padding: 0;}
+  .half-block.gallery-images .gallery-image .text.pos-y-center { top: 35%; transform: translateY(-35%);
+  
+  @media(max-width:768px){
+    .half-block .text{max-width: 100% !important;}
+    .half-block .text p {font-size: 1rem;}
+  }
+</style>

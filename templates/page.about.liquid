@@ -1,0 +1,148 @@
+<div class="page" id="page-about">
+  <section class="about-section-a custom-cursor">
+    <div class="container">
+      <div class="grid large--table medium--table">
+        <div class="img-container large--table-cell medium--table-cell grid__item one-half small--one-whole">
+          <img src="{{"skull_flower.gif" | asset_url}}}" class="img-responsive" />
+        </div>
+        <div class="large--table-cell medium--table-cell grid__item one-half text-center small--one-whole small--hide">
+          <p class="p-big">Haircare + tools for a lifestyle of self-expression and hair rebellion against conformity and the mundane.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% comment %}<section class="about-section-b">
+    <div class="container">
+      <div class="img-container logo-rotating-container text-center">
+        <img src="{{ "about_pattern.png" | asset_url }}" class="img-responsive"/>
+      </div>
+    </div>
+  </section>{% endcomment %}
+  <section class="about-section-c container">
+    <div class="container text-center">
+      <div class="img-container">
+        <img src="{{"about_1.png" | asset_url}}" class="img-responsive"/>
+      </div>
+      <div class="about-items clearfix">
+        <p>we stand for:</p>
+        <div class="about-item">
+          <div class="number">
+            <span class="nr">No</span><span class="count">1</span>
+          </div>
+          <p class="black">experimentation</p>
+          <p class="white">over perfection</p>
+        </div>
+        <div class="about-item">
+          <div class="number">
+            <span class="nr">No</span><span class="count">2</span>
+          </div>
+          <p class="black">fun</p>
+          <p class="white">over elite</p>
+        </div>
+        <div class="about-item">
+          <div class="number">
+            <span class="nr">No</span><span class="count">3</span>
+          </div>
+          <p class="black">individuality</p>
+          <p class="white">over conformity</p>
+        </div>
+        <div class="about-item">
+          <div class="number">
+            <span class="nr">No</span><span class="count">4</span>
+          </div>
+          <p class="black">collaboration</p>
+          <p class="white">over ego</p>
+        </div>
+        <div class="about-item">
+          <div class="number">
+            and ...
+          </div>
+          <p class="black">hair</p>
+          <p class="white">before clothes</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="about-section-d">
+    <div class="container">
+      <div class="video">
+        <div class="video-wrapper">
+          <div class="overlay">
+            <div class="table">
+              <div class="table-cell">
+                <div class="button hide"></div>
+              </div>
+            </div>
+          </div>
+          <script>
+            $(function(){
+              $('#page-about .video .overlay').click(function(){
+                if($(this).find('.button').is(':visible')) {
+                  $('#page-about video').get(0).play();
+                  $(this).find('.button').hide();
+                } else {
+                  $('#page-about video').get(0).pause();
+                  $(this).find('.button').show();
+                }
+              });
+            });
+          </script>
+          <video poster="{{ "poster_about.png" | asset_url }}" loop autoplay>
+            <source src="https://api.imago.io/api/play_redirect?uuid=493614f6-320f-4f73-2079-4aba7ca8836c&amp;codec=mp4&amp;size=1080p" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div id="our-story" class="custom-cursor">
+        <div class="grid large--table medium--table">
+          <div class="img-container large--table-cell medium--table-cell grid__item one-half small--one-whole text-center">
+            <img src="{{"about_2.png" | asset_url}}}" class="img-responsive" />
+          </div>
+          <div class="large--table-cell medium--table-cell grid__item one-half small--one-whole text-left">
+            <div class="our-story">
+              <h2>our story</h2>
+              <p class="p-medium">amika was founded by industry OUTSIDERS in Williamsburg, Brooklyn in 2007 and is the antithesis of a typical beauty brand.</p>
+              <p class="p-medium">Instead of purveying unattainable perfection we believe in an idiosyncratic and totally individual version of beauty. The result is a culture of inclusion and positivity, all while delivering puddles of fun and a sunny disposition from looking at our packaging.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="about-section-e">
+    <div class="container">
+      {% comment %}<div class="img-container text-center">
+        <img src="{{ "about_3.png" | asset_url }}" class="img-responsive">
+      </div>{% endcomment %}
+      <div id="our-products" class="grid large--table medium--table">
+        <div class="img-container large--table-cell medium--table-cell grid__item one-half small--one-whole text-center">
+          <img src="{{ "seabuckthorn_text.png" | asset_img_url: "680x" }}" class="img-responsive">
+        </div>
+        <div class="large--table-cell medium--table-cell grid__item one-half small--one-whole text-left">
+          <div class="our-products">
+            <h2>our products</h2>
+            <p class="p-medium">amika products are like a good friend – straightforward, dependable, and fun to spend time with. We are kind-of obsessed with this “super-fruit” Sea Buckthorn Berry, so we include it in every haircare and styling product.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="about-section-e-2">
+    <div class="container">
+      <div class="grid large--table medium--table" id="our-commitment">
+        <div class="large--table-cell medium--table-cell grid__item one-half small--one-whole text-left">
+          <div class="our-commitment text-left">
+            <h2>our commitment</h2>
+            <p class="p-medium">We are always on a quest for new technologies and ingredients to deliver high-performing products – even replacing ingredients when better alternatives are available. Our products are vegetarian-friendly, cruelty-free and free from* sulfates, MIT, MCI, Phthalates and artificial colors.</p>
+            <p class="p-medium">amika never has and never will conduct animal testing. When we create a product, we test it on ourselves, our friends, anyone and everyone we can get our hands on! We test on people, never animals.</p>
+          </div>
+        </div>
+        <div class="img-container large--table-cell medium--table-cell grid__item one-half small--one-whole text-center">
+          <img src="{{ "hair_not-rabbits.png" | asset_url }}" class="img-responsive">
+        </div>
+      </div>
+    </div>
+  </section>
+  
+</div>

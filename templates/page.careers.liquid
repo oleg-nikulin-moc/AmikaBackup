@@ -1,0 +1,13 @@
+<div class="page page-{{page.handle}} container text-center">
+  <h1 class="page-title">{{page.title}}</h1>
+  <div class="grid grid-full">
+    <div class="one-third small--one-whole push--large--one-third push--medium--one-third">
+      <div class="img-container">
+        <img src="{{ "careers_1.jpg" | asset_url }}" class="img-responsive" />
+      </div>
+    </div>
+  </div>
+  {{ page.content }}
+  {% section 'careers' %}
+  
+</div>

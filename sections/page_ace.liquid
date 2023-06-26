@@ -1,0 +1,147 @@
+<div class="ace__main_container">
+    <div class="container-fluid">
+        <div class="ace__content">
+            <div class="ace_text_part">
+                <div class="ace_text_part_content">
+                    {% if section.settings.ace__title %}<h2>{{ section.settings.ace__title }}</h2> {% endif %}
+                    {% if section.settings.ace__subtext %}<p>{{section.settings.ace__subtext}}</p>{% endif %}
+                    {% if section.settings.ace__btn_text %}<a class="btn ace_text_btn" {% if section.settings.ace__btn_link %} href="{{section.settings.ace__btn_link}}" {% else %} href="#chat-container"{% endif %} >{{section.settings.ace__btn_text}}</a>{% endif %}
+                </div>
+            </div>
+
+            <div class="ace_image_part">
+                <img src="{{ section.settings.main__banner_image | img_url:'1000x' }}" class="hidden--small">
+                <img src="{{ section.settings.mobile__banner_image | img_url:'600x' }}" class="hidden--large">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="ace" id="ace">
+    <div class="container">
+      <div class="grid large--table medium--table">
+            <div class="container">
+                <div class="review__slider">
+                    {% for block in section.blocks %}
+                        <div class="review__slider_slide">
+                            <div class="customer__review_star">{% for i in ( 1 .. block.settings.review_star )%}<span>★</span>{% endfor %}</div>
+                            <p class="customer__review_text">{{block.settings.customer_review}}</p>
+                            <p class="customer__review_name">{{block.settings.customer_name}}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div id="chat-container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        $('.review__slider').slick({
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: true,
+            arrows: true,
+            prevArrow:"<button type='button' class='slick-prev pull-left'><i class='fa fa-angle-left' aria-hidden='true'></i></button>",
+            nextArrow:"<button type='button' class='slick-next pull-right'><i class='fa fa-angle-right' aria-hidden='true'></i></button>"
+        });
+    });
+</script>
+
+<style>
+  .content-wrapper {
+    background-color: #BDABBC;
+    border-top: unset;
+  }
+
+  #chat-container {
+    z-index : 10000000;
+  }
+
+  #shopify-section-page_ace,
+  #page {
+    background: #d2bad4;
+  }
+  .ace__main_container {
+    background-color: {{ section.settings.background_color }};
+  }
+</style>
+
+
+{% schema %}
+  {
+    "name": "Page ACE",
+    "settings": [
+        {
+            "type" : "image_picker",
+            "label": "Banner Image",
+            "id": "main__banner_image"
+        },
+        {
+            "type" : "image_picker",
+            "label": "Mobile Banner Image",
+            "id": "mobile__banner_image"
+        },
+        {
+            "type": "color",
+            "id": "background_color",
+            "label": "Background color",
+            "default": "#EB6DD5"
+        },
+        {
+            "type": "html",
+            "id": "ace__title",
+            "label": "Title",
+            "default": "discover your best hair routine yet"
+        },
+        {
+            "type": "richtext",
+            "id": "ace__subtext",
+            "label": "Subtext",
+            "default": "<p>upgrade your hair with ace our \<br\>virtual hair expert, here to find your \<br\>personalalized routine in \<br\>just a few questions</p>"
+        },
+        {
+            "type": "text",
+            "id": "ace__btn_text",
+            "label": "Button text",
+            "default": "find my hair routine"
+        },
+        {
+            "type": "url",
+            "id": "ace__btn_link",
+            "label": "Button Link"
+        }
+    ],
+    "blocks": [
+      {
+        "type": "reviews",
+        "name": "Review",
+        "settings": [
+          {
+            "type": "text",
+            "id": "customer_review",
+            "label": "Customer Review"
+          },
+          {
+            "type":    "range",
+            "min":     1,
+            "max":     5,
+            "step":    1,
+            "default": 5,
+            "id": "review_star",
+            "label": "Review Star",
+            "info": "Number of Stars to show"
+          },
+          {
+            "type": "text",
+            "id": "customer_name",
+            "label": "Customer Name"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

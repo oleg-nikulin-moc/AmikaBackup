@@ -1,0 +1,279 @@
+{% schema %}
+  {
+    "name": "Utility Bar",
+    "class": "utility-bar",
+	  "max_blocks": 15,
+    "settings": [
+
+      {
+        "type": "checkbox",
+        "id": "show_utility_bar",
+        "label": "Show utility bar?"
+      },
+      {
+        "type": "header",
+        "content": "Desktop Settings"
+      },      
+      {
+        "type": "color",
+        "id": "utility_bar_color",
+        "label": "Bar Color #1",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "utility_bar_color_2",
+        "label": "Bar Color #2",
+        "default": "#000"
+      },
+      {
+      "type": "color",
+      "id": "utility_bar_color_3",
+      "label": "Bar Color #3",
+      "default": "#000"
+      },
+      {
+      "type": "color",
+      "id": "utility_bar_color_4",
+      "label": "Bar Color #4",
+      "default": "#000"
+      },
+      {
+      "type": "color",
+      "id": "utility_bar_color_5",
+      "label": "Bar Color #5",
+      "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "utility_bar_text_color",
+        "label": "Text Color",
+        "default": "#fff"
+      },
+      {
+        "type": "color",
+        "id": "utility_bar_close_color",
+        "label": "Close Icon Color",
+        "default": "#fff"
+      },
+		  {
+            "type": "image_picker",
+            "id": "promo-img",
+            "label": "Promo Image"
+          },
+		  {
+            "type":   "range",
+            "id":     "img-slider",
+            "min":    0,
+            "max":    100,
+			"unit":   "%",
+            "default": 0,
+            "label":  "Image Slider"
+          }
+    ],
+    "blocks": [
+      {
+        "type": "message",
+        "name": "Message",
+        "settings": [
+		  {
+            "type": "html",
+            "id": "text",
+            "label": "Text"
+          },
+		  {
+            "type":   "range",
+            "id":     "text-slider",
+            "min":    0,
+            "max":    100,
+            "unit":   "%",
+            "default":0,
+            "label":  "Text Slider"
+          },
+          {
+            "type": "url",
+            "id": "utility_bar_link",
+            "label": "Link",
+            "info": "Optional"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+<style>
+@media only screen and (max-width: 1023px){
+  #utility-bar-mobile.desktop-hide {
+    display: block;
+  }
+}
+#utility-bar-mobile,
+#utility-bar,
+#utility-bar-mobile p,
+#utility-bar p,
+#utility-bar a,
+#utility-bar-mobile a {
+  color: #000;
+  font-family: 'Founders Grotesk Mono',helvetica,sans-serif;
+}
+
+#utility-bar a:hover,
+#utility-bar-mobile a:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+
+#utility-bar-mobile p {
+  margin-bottom: 0;
+}
+
+#utility-bar-mobile {
+  position: relative;
+  /* color: {{settings.utility_bar_text_color}}; */
+  overflow: hidden; 
+  height:28px; 
+  background-color: #FE6A27;
+
+}
+
+#utility-bar-mobile .marquee_slider ul {
+  width:auto;
+  border: 0;
+}
+
+#utility-bar-mobile .marquee_slider ul li {
+  padding: 0 15px;
+}
+
+#utility-bar-mobile .marquee_slider ul li,
+#utility-bar-mobile .marquee_slider ul li a {
+  font-size: 12px;
+}
+
+#utility-bar-mobile .marquee_slider ul li,
+#utility-bar-mobile .marquee_slider ul li a {
+  font-size: 12px;
+}
+
+
+  
+  #utility-bar .promo-img-container {position: absolute;}
+  #utility-bar .promo-img {display: inline-block;}
+  #utility-bar .utility-text {max-width: 90%; margin: auto; font-size: 12px;}
+  
+  #utility-bar {
+      animation: colorchange 50s; /* animation-name followed by duration in seconds; you could also use milliseconds (ms) or something like 2.5s */
+      -webkit-animation: colorchange 50s; /* Chrome and Safari */
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+    }
+
+    @keyframes colorchange
+    {
+      0%   {background: {{section.settings.utility_bar_color}};}
+      20%  {background: {{section.settings.utility_bar_color_2}};}
+      40%  {background: {{section.settings.utility_bar_color_3}};}
+      60%  {background: {{section.settings.utility_bar_color_4}};}
+      80%  {background: {{section.settings.utility_bar_color_5}};}
+      100% {background-color: {{section.settings.utility_bar_color}};}
+    }
+
+    @-webkit-keyframes colorchange /* Safari and Chrome - necessary duplicate */
+    {
+      0%   {background: {{section.settings.utility_bar_color}};}
+      20%  {background: {{section.settings.utility_bar_color_2}};}
+      40%  {background: {{section.settings.utility_bar_color_3}};}
+      60%  {background: {{section.settings.utility_bar_color_4}};}
+      80%  {background: {{section.settings.utility_bar_color_5}};}
+      100% {background-color: {{section.settings.utility_bar_color}};}
+    }  
+  
+</style>
+
+{% if section.settings.show_utility_bar %}
+
+{% capture promo_block_html %}
+  {% for block in section.blocks %}
+    <li class="slideItem">
+      {% if block.settings.utility_bar_link != blank %}<a href="{{block.settings.utility_bar_link}}">{% endif %}
+      {{ block.settings.text }}
+      {% if block.settings.utility_bar_link != blank %}</a>{% endif %}
+    </li>
+  {% endfor %}
+{% endcapture %}
+
+<div id="utility-bar-mobile" class='desktop-hide'>
+  <div class="container clearfix">
+      <div class="utility-items marquee-relative">
+        <div class="marquee_slider extend_slider">
+          <ul class="slideContainer--utilitybar">
+            {{ promo_block_html }}
+            {{ promo_block_html }}
+          </ul>
+        </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Used in mobile Ham announcement bar
+let promobar_text = {{ promo_block_html | replace: '</li>', '#' | strip | strip_html | strip | json }} || '';
+</script> 
+
+
+<div id="utility-bar" class='mobile-hide'>
+  <div class="container clearfix">
+    <div class="left one-eighth medium-down--three-twelfths promo-img-container">
+      {% if section.settings.promo-img %} 
+        <img src="{{ section.settings.promo-img | img_url: '800x' }}" style="padding-left:{{ section.settings.img-slider }}%;" class="promo-img"/>
+      {% else%}
+      {%endif%}
+    </div>
+    <div class="left four-fifths medium-down--nine-twelfths text">
+      <div class="utility-items">
+        {% for block in section.blocks %}
+        <div>
+          <div class="table">
+            <div class="table-cell">
+              {% if block.settings.utility_bar_link != blank %}<a href="{{block.settings.utility_bar_link}}">{% endif %}
+              <div class="utility-text" style="{% if block.settings.text-slider > 0 %}padding-left:{{ block.settings.text-slider }}%; {%else%} text-align: center;{%endif%}">{{ block.settings.text }}</div>
+              {% if block.settings.utility_bar_link != blank %}</a>{% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+<!--   <a href="#" onclick="$('#utility-bar').slideUp(); return false;">
+    <svg class="img close" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.33 99.33"><defs><style>.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:3px;}</style></defs><title>close</title><line class="cls-1" x1="1.5" y1="1.5" x2="97.83" y2="97.83"/><line class="cls-1" x1="97.83" y1="1.5" x2="1.5" y2="97.83"/></svg>
+    {% comment %}<i class="lnr lnr-cross"></i> {% endcomment %}
+  </a> -->
+</div>
+{% endif %}
+
+<script>
+  $(function(){
+    var messagesCarousel = $('#utility-bar .utility-items');
+    messagesCarousel.slick({
+      autoplay: true,
+      autoplaySpeed: 4000,
+      dots: false,
+      arrows: false,
+      fade: false,
+      vertical: true,
+      pauseOnHover: true,
+      speed: 1000,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            fade: true,
+            vertical: false
+          }
+        }
+      ]
+    });
+  });
+</script>

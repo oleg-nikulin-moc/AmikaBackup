@@ -1,0 +1,71 @@
+<div id="login-register-popup-container" style="display:none;">
+  {% render 'customer-login-form', form_heading: 'Pro Login' %}
+  <div id="customer-register" class="register-login" >
+    <h1>Create Account</h1>
+    {% render "customer-fields", form_id: "9YtJ7k" %}
+  </div>
+  <div class="register-alert-popup-verbiage">
+    <div>Online friends with benefits rewards for salons serviced by goldwell of NY and qualifying jewel accounts</div>
+    <div class='second-verbiage-line'>Contact us at <a href="mailto:info@loveamikapro.com">info@loveamikapro.com</a></div>
+  </div>
+</div>
+
+{% unless request.page_type == 'customers/activate_account' or request.page_type == 'customers/reset_password' or request.design_mode%}
+<script>
+  var loginRegisterAlertPopup = new tingle.modal({
+      footer: false,
+      stickyFooter: false,
+      closeMethods: [],
+      cssClass: ['login-register-alert-popup'],
+    });
+
+  // set content
+  var content = $('#login-register-popup-container').html();
+  loginRegisterAlertPopup.setContent( content );
+
+
+  // open modal
+  loginRegisterAlertPopup.open();
+  
+  $('.tingle-modal.login-register-alert-popup').on('click', function (event) {
+
+    var $createAccountNextButton = $(event.target).closest('.cf-next-step');
+
+    if ( $createAccountNextButton.length ) {
+      setTimeout(function () {
+        if (loginRegisterAlertPopup.isOverflow()) {
+          loginRegisterAlertPopup.checkOverflow();
+        }
+      }, 300)
+    }
+  })
+</script>
+{% endunless %}
+<style>
+  .tingle-modal-box{
+    padding-bottom: 0!important;
+  }
+  .register-alert-popup-verbiage {
+    clear: both;
+    color: gray;
+    text-align: center;
+    margin: 0 0px 10px 0;
+    padding-top: 38px;
+  }
+  .register-alert-popup-verbiage .second-verbiage-line{
+    margin-top: 2px;
+  }
+  .register-alert-popup-verbiage .second-verbiage-line a{
+    cursor: pointer;
+    color: red;
+  }
+  @media(max-width: 749px){
+    .register-alert-popup-verbiage {
+      padding-bottom: 15px;
+      margin: 0 -64px;
+    }
+    .register-alert-popup-verbiage .second-verbiage-line{
+      margin-top: 5px;
+    }
+  }
+</style>

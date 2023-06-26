@@ -1,0 +1,25 @@
+{% comment %}
+
+ 2021.02.08 Update 
+ Remove exsiting banner CSS, HTML in Shopify. Make banner loaded from Automat SDK only
+
+ 2020.12.04 Update
+  Keep banners below category pages and remove Automat chat inside. 
+  Automat SDK, which installed on theme.liquid, inject existing banner and inject CTA button and chat inside.
+  The reason, not inject whole banner through SDK, is showing banner through shopify is faster to load, better for UX.
+
+  Banner content in the following order: 
+  * CSS class name
+  * banner bg image
+  * mobile banner bg color
+{% endcomment %}
+
+{% if collection.title == "shop all"%}
+  {% assign automat_banner_content = "orange-blue || https://s3.amazonaws.com/bot-brain.com/AMIKA/asset/amika_shop-all.png || #ff6a25" | split: " || " %}
+{% elsif collection.title == "shampoos + conditioners" %}
+  {% assign automat_banner_content = "orange-blue || https://s3.amazonaws.com/bot-brain.com/AMIKA/asset/amika_shampoo-conditioner.png || #fe5eda" | split: " || " %}
+{% endif %}
+
+{% if (collection.title == "shampoos + conditioners") or (collection.title == "shop all") %}
+  <div id="automat-banner"></div>
+{% endif %}

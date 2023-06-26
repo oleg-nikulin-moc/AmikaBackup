@@ -1,0 +1,423 @@
+{% schema %}
+{
+  "name": "Grid images",
+  "class": "grid-images",
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "range",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "default": 5,
+      "id": "text_size2",
+      "label": "Text Size",
+      "info": "Set with vw instead of pixels so that it'll adjust according to the viewport width."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "grid-image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Background Image"
+        },
+        {
+          "type":"image_picker",
+          "id":"reduced_motion_image",
+          "label": "Alt Image for Reduced Motion Users"
+        },
+        {
+          "type": "select",
+          "id": "image_size",
+          "label": "Image Size",
+          "options": [
+            {
+              "value": "bg-cover",
+              "label": "Cover"
+            },
+            {
+              "value": "bg-contain",
+              "label": "Contain"
+            }
+          ],
+          "default": "bg-cover"
+        },
+        {
+          "type": "header",
+          "content": "Email Settings"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_email",
+          "label": "Show Email form?",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "email__addressID",
+          "label": "Address Book ID",
+          "default": "5284766"
+        },
+        {
+          "type": "text",
+          "id": "email_title",
+          "label": "Title"
+        },
+        {
+          "type": "html",
+          "id": "email_text",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "email_button",
+          "label": "Button"
+        },
+        {
+          "type": "select",
+          "id": "email_align_x",
+          "label": "Text Alignment - Horizontal",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "email_align_y",
+          "label": "Text Alignment - Vertical",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "header",
+          "content": "Desktop Settings"
+        },
+        {
+          "type": "header",
+          "content": "Link",
+          "info": "If email is in use the below text settings are automatically disabled"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "select",
+          "id": "text_align_x",
+          "label": "Text Alignment - Horizontal",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "text_align_y",
+          "label": "Text Alignment - Vertical",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "header",
+          "content": "Mobile Settings"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile Background Image"
+        },
+        {
+          "type": "url",
+          "id": "mobile_link",
+          "label": "Link"
+        },
+        {
+          "type": "text",
+          "id": "mobile_text",
+          "label": "Mobile Text"
+        },
+        {
+          "type": "select",
+          "id": "mobile_text_align_x",
+          "label": "Mobile Text Alignment - Horizontal",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "mobile_text_align_y",
+          "label": "Mobile Text Alignment - Vertical",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ],
+          "default": "center"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gallery",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="gallery-images container">
+  <div class="grid grid-full">
+    {% assign rowNumber = 0 %}
+    {% for block in section.blocks %}
+      {% assign emailAddr = block.settings.show_email %}
+      {% assign indexModulo = forloop.index | modulo:2 %}
+      {% if indexModulo == 1 %}
+      {% assign rowNumber = rowNumber | plus: 1 %}
+      <div class="gallery-row clearfix row-{{rowNumber}}">
+      {% endif %}
+        <div id="block-{{forloop.index}}" class="grid__item one-half small--one-whole block__{{block.id}} custom__grid_block">
+        {% unless emailAddr %}
+          <a href="{{ block.settings.link }}" {% if block.settings.mobile_link != blank %}data-mobile_link='{{ block.settings.mobile_link }}' {% endif %} {% if block.settings.link != blank %}data-desktop_link="{{ block.settings.link }}"{% endif %} >
+        {% endunless %}
+            <div class="gallery-image {{block.settings.image_size}} custom-cursor" style="">
+              
+          	{% if emailAddr %}
+              <div class="gallery__email pos-x-{{block.settings.email_align_x}} pos-y-{{block.settings.email_align_y}}">
+                <div class="table">
+                  <div class="table-cell text-vertical-{{block.settings.email_vertical_align}}">
+                    <form id="block__email_{{block.id}}" class="slider__form" data-address_book_id="{{block.settings.email__addressID}}" >
+
+                      {% if block.settings.email_title != blank %}
+                        <h1 class="title ">{{ block.settings.email_title }}</h1>
+                      {% endif %}
+
+                      {% if block.settings.email_text != blank or true %}
+                        <div class="text ">{{ block.settings.email_text }}</div>
+                      {% endif %}
+
+                        <input type="email" placeholder="Email" name="email" class="required email email-input" >
+                      
+                       {% if block.settings.email_button !=  blank %}
+                          <a class="custom-cursor">
+                            <button class="custom-cursor btn" >{{ block.settings.email_button }}</button>
+                          </a>
+                       {% endif %}
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            {% else %}
+              
+              <div class="desktop__text text pos-x-{{block.settings.text_align_x}} pos-y-{{block.settings.text_align_y}}">
+                <span >{{ block.settings.text | newline_to_br }}</span>
+              </div>
+              
+              <div class="mobile__text text pos-x-{{block.settings.mobile_text_align_x}} pos-y-{{block.settings.mobile_text_align_y}}">
+                <span >{{ block.settings.mobile_text | newline_to_br }}</span>
+              </div>
+              
+            {% endif %}
+              
+            </div>
+        {% unless emailAddr %}
+          </a>
+        {% endunless %}
+          
+        </div>
+      {% if indexModulo == 0 %}
+      </div>
+      {% endif %}
+    
+    <style>
+      .block__{{block.id}} .gallery-image { background-image:url({{ block.settings.image  | img_url: 'master' }});}
+      {% if block.settings.reduced_motion_image != blank %}
+        @media (prefers-reduced-motion: reduce) {
+          .block__{{block.id}} .gallery-image { 
+            background-image :url( {{ block.settings.reduced_motion_image  | img_url: 'master' }} );
+          }          
+        }
+      {% endif %}
+      
+      @media(max-width: 600px) {
+        .block__{{block.id}} .gallery-image { background-image:url({{ block.settings.mobile_image  | img_url: 'master' }});}
+        
+        .block__{{block.id}} .desktop__text { display: none;}
+        .block__{{block.id}} .mobile__text {display: block;}
+      }
+      
+    </style>
+    
+    {% unless emailAddr %}
+    <script>
+                    
+      $(window).on("load resize",function(e){
+        if( window.screen.width < 767 ){
+          $('.block__{{block.id}} a[data-mobile_link]').attr("href", $(".block__{{block.id}} a[data-mobile_link]").attr("data-mobile_link"));
+        } else {
+          $('.block__{{block.id}} a[data-desktop_link]').attr("href", $(".block__{{block.id}} a[data-desktop_link]").attr("data-desktop_link"));
+        }
+        
+        
+      });           
+    </script>
+    {% endunless %}
+    
+    {% endfor %}
+    
+  </div>
+</div>
+
+{% for block in section.blocks %}
+  {% if block.settings.show_email %}
+    <script>
+      document.addEventListener("DOMContentLoaded", function(event) { 
+          $('#block__email_{{block.id}}').on('submit',function(e) {
+              e.stopPropagation();
+			  SectionSendMail($(this).find('.email-input').val(),$(this).attr('data-address_book_id'));
+              return false;
+            });
+        });
+    </script>
+  {% endif %}
+{% endfor %}
+
+<style>
+.gallery-images .gallery-image .gallery__email { position: absolute; padding: 5em 3em; font-size: 16px; min-width: 260px;}
+.gallery-images .gallery-image .gallery__email .text{ position: unset;padding: 0px;line-height: 1; margin-bottom: 20px;}
+.gallery-images .gallery-image .gallery__email.pos-y-top{top:0;}
+.gallery-images .gallery-image .gallery__email.pos-y-bottom{bottom:0;}
+.gallery-images .gallery-image .gallery__email.pos-y-center{top:50%;transform:translateY(-50%);}
+
+.gallery-images .gallery-image .gallery__email.pos-x-left{left:0;}
+.gallery-images .gallery-image .gallery__email.pos-x-right{right:0;text-align:right;}
+.gallery-images .gallery-image .gallery__email.pos-x-center{left:50%;transform:translateX(-50%);text-align:center;}
+  
+.gallery-images .gallery-image .gallery__email.pos-x-center.pos-y-center {transform:translate(-50%,-50%);}
+  
+  
+  .mobile__text { display: none;}
+  .gallery-images .gallery-image .text span {font-size: {{section.settings.text_size2}}vw;}
+  .gallery-images .gallery-image .gallery__email .title {font-size: {{section.settings.text_size2}}vw;margin-bottom: 20px;}
+  {% unless section.settings.text_size2 <= 1%}
+  .gallery-images .gallery-image .gallery__email .text {font-size: {{ section.settings.text_size2 | minus: 1 }}vw;}
+  {% endunless %}
+  
+  
+  @media (max-width: 900px){
+    .gallery-images .gallery-image .gallery__email .title {
+        font-size: 21.6px;
+      margin-bottom: 10px;
+    }
+    .gallery-images .gallery-image .gallery__email .text {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .gallery-images .gallery-image .text span {
+      font-size: 21.6px;
+      border-bottom-width: 2px;
+    }
+  }
+  
+  /* For Email RS DEV*/
+  
+  .gallery-images.container .custom__grid_block {
+    position: relative;
+  }
+  
+  .gallery-images.container .captions {
+    position: absolute;
+  }
+  
+  .gallery-images.container .gallery__email .custom-cursor.btn{
+    line-height: 1;
+    float: right;
+    margin-top: 14px;
+    padding: 10px 30px;
+  }
+</style>

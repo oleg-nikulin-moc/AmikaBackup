@@ -1,0 +1,1286 @@
+<div
+  class="template__page template__about-us page page-{{page.handle}}{% unless block.settings.section_class == blank %} {{ block.settings.section_class }}{% endunless %}"
+  data-section-id="{{ section.id }}">
+      <section
+      class="animated__section {% unless section_class == blank %} {{ section_class }}{% endunless %}">
+        <div class="about__us_header_image">
+          <div><img src="https://cdn.shopify.com/s/files/1/2117/1151/files/Mask_Group.jpg?v=1617070590"></div>
+          <div class="custom__text h1">a friend to hair,<br> hair stylist, her, him, them,<br> and you.</div>
+        </div>
+      </section>
+    {% for block in section.blocks %}
+      <section
+        class="page__section{% unless section_class == blank %} {{ section_class }}{% endunless %}"
+        data-block-id="{{ block.id }}"
+        data-block-type="{{block.type | handle }}">
+        {%- if block.type == 'Marquees' and  block.settings.text_to_scroll != blank -%}
+            {% render 'component_marquee',
+              data_id: block.id,
+              wrapper_class: section.settings.marquee_color,
+              text_to_scroll: block.settings.text_to_scroll
+            %}
+        {%- endif -%}
+
+        {% if block.type == 'Banner' %}
+          {% if block.settings.image != blank %}
+            {%- capture img_url -%}{{ block.settings.image | img_url: 'master' }}{%- endcapture -%}
+            {%- capture img_alt -%}{{ block.settings.image.alt }}{%- endcapture -%}
+          {% endif %}
+
+          {% if block.settings.image_mobile != blank %}
+            {%- capture img_url_mobile -%}{{ block.settings.image_mobile | img_url: 'master' }}{%- endcapture -%}
+            {%- capture img_mobile_alt -%}{{ block.settings.image_mobile.alt }}{%- endcapture -%}
+          {% endif %}
+
+            {% render 'component__banner-overlay',
+              id: block.id,
+              img_url: img_url,
+              img_alt: img_alt,
+              img_url_mobile: img_url_mobile,
+              img_mobile_alt: img_mobile_alt,
+              show_caption: block.settings.show_caption,
+              apply_to_desktop: block.settings.apply_to_desktop,
+              stack_mobile: block.settings.stack_mobile,
+              caption_padding_t_mobile: block.settings.caption_padding_t_mobile,
+              caption_padding_b_mobile: block.settings.caption_padding_b_mobile,
+              caption_padding_l_mobile: block.settings.caption_padding_l_mobile,
+              caption_padding_r_mobile: block.settings.caption_padding_r_mobile,
+              caption_padding_t: block.settings.caption_padding_t,
+              caption_padding_b: block.settings.caption_padding_b,
+              caption_padding_l: block.settings.caption_padding_l,
+              caption_padding_r: block.settings.caption_padding_r,
+              overlay_color_mobile: block.settings.overlay_color_mobile,
+              overlay_color: block.settings.overlay_color,
+              bg_color_mobile: block.settings.bg_color_mobile,
+              bg_color: block.settings.bg_color,
+              overlay_position_mobile: block.settings.overlay_position_mobile,
+              overlay_position: block.settings.overlay_position,
+              overlay_width_mobile: block.settings.overlay_width_mobile,
+              overlay_width: block.settings.overlay_width,
+              overlay_height_mobile: block.settings.overlay_height_mobile,
+              overlay_height: block.settings.overlay_height,
+              text_position_mobile: block.settings.text_position_mobile,
+              text_position: block.settings.text_position,
+              text_align_mobile: block.settings.text_align_mobile,
+              text_align: block.settings.text_align,
+              title: block.settings.title,
+              title_tag: block.settings.title_tag,
+              title_weight: block.settings.title_weight,
+              title_color: block.settings.text_color,
+              text: block.settings.text,
+              text_color: block.settings.text_color,
+              button: block.settings.button, 
+              button_class: block.settings.button_style,
+              link: block.settings.link
+            %} 
+
+          {%- capture img_url -%}{%- endcapture -%}
+          {%- capture img_alt -%}{%- endcapture -%}
+          {%- capture img_url_mobile -%}{%- endcapture -%}
+          {%- capture img_mobile_alt -%}{%- endcapture -%}
+        {% endif %}
+
+        {% if block.type == 'centered-banner-overlay' %}
+          {% if block.settings.image != blank %}
+            {%- capture img_url -%}{{ block.settings.image | img_url: 'master' }}{%- endcapture -%}
+            {%- capture img_alt -%}{{ block.settings.image.alt }}{%- endcapture -%}
+          {% endif %}
+
+          {% if block.settings.image_mobile != blank %}
+            {%- capture img_url_mobile -%}{{ block.settings.image_mobile | img_url: 'master' }}{%- endcapture -%}
+            {%- capture img_mobile_alt -%}{{ block.settings.image_mobile.alt }}{%- endcapture -%}
+          {% endif %}
+
+            {% render 'component__centered_image_text',
+              wrapper_class: "banner-overlay__centered",
+              id: block.id,
+              img_url: img_url,
+              img_alt: img_alt,
+              img_url_mobile: img_url_mobile,
+              img_mobile_alt: img_mobile_alt,
+              show_caption: true,
+              caption_padding_t_mobile: block.settings.caption_padding_t_mobile,
+              caption_padding_b_mobile: block.settings.caption_padding_b_mobile,
+              caption_padding_l_mobile: block.settings.caption_padding_l_mobile,
+              caption_padding_r_mobile: block.settings.caption_padding_r_mobile,
+              caption_padding_t: block.settings.caption_padding_t,
+              caption_padding_b: block.settings.caption_padding_b,
+              caption_padding_l: block.settings.caption_padding_l,
+              caption_padding_r: block.settings.caption_padding_r,
+              bg_color_mobile: block.settings.bg_color_mobile,
+              bg_color: block.settings.bg_color,
+              overlay_width_mobile: 100,
+              overlay_height_mobile: 100,
+              overlay_width: 100,
+              overlay_height: 100,
+              text_position_mobile: 'text-v-center--mobile text-h-center--mobile',
+              text_align_mobile: 'small-text-align--center',
+              title: block.settings.title,
+              text: block.settings.text
+            %} 
+
+          {%- capture img_url -%}{%- endcapture -%}
+          {%- capture img_alt -%}{%- endcapture -%}
+          {%- capture img_url_mobile -%}{%- endcapture -%}
+          {%- capture img_mobile_alt -%}{%- endcapture -%}
+
+          <style>
+            [data-block-id="{{ block.id }}"] .banner-overlay__title {
+              color: {{ block.settings.title_color }};
+            }
+            @media (max-width: 1024px){
+               [data-block-id="{{ block.id }}"] .banner-overlay__title {
+                  color: #000;
+                  font-size: 32px;
+                  line-height: 44px; 
+                }
+            }
+            [data-block-id="{{ block.id }}"] .banner-overlay__text p {
+              color: {{ block.settings.text_color }};
+            }
+          </style>
+        {% endif %}
+
+        {%- if block.type == "image-text-blocks" -%}
+          {% render 'component__large-image-text-block',
+            image: block.settings.image,
+            image_mobile: block.settings.image_mobile,
+            caption: block.settings.caption,
+            title_1: block.settings.title_1,
+            description_1: block.settings.description_1,
+            cta_link_1: block.settings.cta_link_1,
+            cta_text_1: block.settings.cta_text_1,
+            title_2: block.settings.title_2,
+            description_2: block.settings.description_2,
+            cta_link_2: block.settings.cta_link_2,
+            cta_text_2: block.settings.cta_text_2,
+            title_3: block.settings.title_3,
+            description_3: block.settings.description_3,
+            cta_link_3: block.settings.cta_link_3,
+            cta_text_3: block.settings.cta_text_3,
+            title_4: block.settings.title_4,
+            description_4: block.settings.description_4,
+            cta_link_4: block.settings.cta_link_4,
+            cta_text_4: block.settings.cta_text_4
+          %}
+        {%- endif -%}
+
+        {%- if block.type == "solo-image-video" -%}
+          {%- capture image -%}{{ block.settings.image | img_url: 'master' }}{%- endcapture -%}
+          {%- if block.settings.image_mobile == blank -%}
+            {%- capture image_mobile -%}{{ image }}{%- endcapture -%}
+          {%- else -%}
+            {%- capture image_mobile -%}{{ block.settings.image_mobile | img_url: 'master' }}{%- endcapture -%}
+          {%- endif -%}
+          {%- capture video -%}{{ block.settings.video }}{%- endcapture -%}
+          {%- capture video_mobile -%}{{ block.settings.video_mobile | default: video }}{%- endcapture -%}
+          {% render 'component__banner-overlay',
+            id: block.id,
+            img_url: image,
+            img_alt: block.settings.image.alt,
+            img_url_mobile: image_mobile,
+            img_mobile_alt: block.settings.image_mobile.alt,
+            video_url: video,
+            video_url_mobile: video_mobile,
+            show_caption: false,
+            apply_to_desktop: true,
+            autoplay: block.settings.autoplay,
+            loops: block.settings.loops,
+            muted: block.settings.muted,
+            controls: block.settings.controls,
+          %}
+
+          {%- if block.settings.max_width != blank -%}
+            <style>
+              [data-block-id="{{ block.id }}"] .banner-overlay__image--desktop,
+              [data-block-id="{{ block.id }}"] .banner-overlay__video--desktop {
+                max-width: {{ block.settings.max_width }}px;
+              }
+            </style>
+          {%- endif -%}
+        {%- endif -%}
+        
+        {% if block.type == 'super_stuff' %}
+          {% render 'super_stuff',
+              animated_text: block.settings.animated_text,
+              image: block.settings.image,
+              title: block.settings.title,
+              title_mobile: block.settings.title_mobile,
+              description: block.settings.description
+          %}
+        {% endif %}
+
+        {% if block.type == 'strand' %}
+          {% render 'the_strand',
+              post_1: block.settings.post_1,
+              post_2: block.settings.post_2,
+              post_3: block.settings.post_3
+          %}
+        {% endif %}
+      </section>
+      <style>
+        [data-block-id="{{ block.id }}"].page__section {
+          {% comment %}
+            Default margin-top on sections is 50px.
+            Default margin-bottom on sections is 0.
+            Don't need to set if the same value as default.
+          {% endcomment %}
+          {%- if block.settings.margin_top_mobile != blank and block.settings.margin_top_mobile != '0' -%}
+            margin-top: {{ block.settings.margin_top_mobile }}px;
+          {%- endif -%}
+          {%- if block.settings.margin_bottom_mobile != blank and block.settings.margin_bottom_mobile != '50' -%}
+            margin-bottom: {{ block.settings.margin_bottom_mobile }}px;
+          {%- endif -%}
+        }
+
+        @media screen and (min-width: 1024px) {
+          [data-block-id="{{ block.id }}"].page__section {
+            {%- if block.settings.margin_top_mobile != block.settings.margin_top -%}
+              margin-top: {{ block.settings.margin_top }}px;
+            {%- endif -%}
+            {%- if block.settings.margin_bottom_mobile != block.settings.margin_bottom -%}
+              margin-bottom: {{ block.settings.margin_bottom }}px;
+            {%- endif -%} 
+          }
+        }
+      </style>
+    {% endfor %}
+</div>
+
+{%- if section.settings.background_color != blank and section.settings.background_color != 'rgba(0,0,0,0)' -%}
+  <style>
+    [data-section-id="{{ section.id }}"] {
+      background-color: {{ section.settings.background_color }};
+    }
+  </style>
+{%- endif -%}
+
+<script>
+  $(function() {
+    if ( $(document).width() < 767 ) {
+        $('#hp-blog-grid').css('display', 'block').slick({
+            autoplay: false,
+            speed: 1000,
+            slidesToShow: 1,
+            pauseOnHover: false,
+            slidesToScroll: 1,
+            arrows: false,
+        });
+    }
+
+    // Remove Image Logo
+    $('#header .logo a img').remove();
+
+    // Header animation 
+    let headLogoPosition = document.querySelector('#header .logo a').getBoundingClientRect();
+    if(screen.width > 1024){
+    $('<style>').text(".template-page-about-us-2020.animated__logo #header .logo svg.amika_logo_svg {top:"+headLogoPosition.top+"px; left: "+headLogoPosition.left+"px;}").appendTo(document.head)
+    } else {
+      $('<style>').text(".template-page-about-us-2020.animated__logo #header .logo svg.amika_logo_svg {top:"+headLogoPosition.top+"px; left: "+(screen.width/2)+"px;}").appendTo(document.head)
+    }
+
+    let svg__logo = '<svg id="logo_svg" class="amika_logo_svg" data-name="logo svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 818.3 156.21"><path d="M387.56,162.31V60.06a50.31,50.31,0,0,0-85.43-35.83,48.9,48.9,0,0,0-7.59,9.55A50.06,50.06,0,0,0,251.89,9.94c-13.66,0-26,8.56-35.07,17.42V13.22h-35V162.31h35L216.9,66a25.15,25.15,0,0,1,50.3,0v96.31h35.06V66a25.16,25.16,0,0,1,50.23,0v96.31Z" transform="translate(0 -9.86)"/><path d="M709.42,13.24V25.51A76,76,0,0,0,663.08,10a78,78,0,0,0,0,156,76,76,0,0,0,46.34-15.52v11.85h35.65V13.24ZM669,135.52h-.23c-26.14,0-46.27-21.21-46.27-47.34s20.13-47.32,46.27-47.32H669c26.12,0,45.16,21.17,45.16,47.32s-19,47.34-45.16,47.34" transform="translate(0 -9.86)"/><path d="M793.3,59.86a25,25,0,1,0-25-25,25,25,0,0,0,25,25" transform="translate(0 -9.86)"/><polygon points="596.1 3.37 549.84 3.37 501.4 51.59 501.4 3.37 466.37 3.37 466.37 152.44 501.4 152.44 501.4 95.08 506.86 89.58 556.14 152.44 600.85 152.44 531.4 65.97 596.1 3.37"/><path d="M793.3,116.07a25,25,0,1,0,25,25,25,25,0,0,0-25-25h0" transform="translate(0 -9.86)"/><path d="M124.34,13.24V25.51A75.88,75.88,0,0,0,78,10a78,78,0,0,0,0,156,76,76,0,0,0,46.34-15.52v11.85H160V13.24ZM83.87,135.52c-26.16,0-46.27-21.21-46.27-47.34S57.71,40.86,83.87,40.86,129,62,129,88.18s-19,47.34-45.16,47.34" transform="translate(0 -9.86)"/><rect x="409.45" y="3.38" width="35.03" height="149.07"/></svg>'
+    $('#header .logo a').append(svg__logo);
+
+
+    $(window).scroll(function(e){
+      var scrollTop = $(window).scrollTop();
+      var docHeight = $(document).height();
+      var winHeight = $(window).height();
+      var scrollPercent = (scrollTop) / (docHeight - winHeight);
+      var scrollPercentRounded = Math.round(scrollPercent*100);
+        if(scrollPercentRounded < 2 ) {
+          $('body').removeClass('animated__logo')
+        } else {
+          $('body').addClass('animated__logo');
+        }
+    });
+    //Scroll 1px so function self check 
+    $(window).scrollTop($(window).scrollTop()+1);
+  });
+  </script>
+
+  <style>
+  @media screen and (max-width: 1024px) {
+    .template__page .custom__mobile_font_size {
+      font-size: 32px;
+      text-transform: lowercase;
+      background: unset;
+      line-height: 44px;
+    }
+  }
+  </style>
+{% schema %}
+  {
+    "name": "About Us",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Page Background Color"
+      } 
+    ],
+    "blocks": [
+    // Marquee Block Settings
+      {
+        "type": "Marquees",
+        "name": "Marquees",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Margin Settings"
+          },
+          {
+            "type": "text",
+            "id": "margin_top_mobile",
+            "label": "Mobile Section Margin Top",
+            "info": "Enter number only. Default 0. Units in px.",
+            "default": "0"
+          },
+          {
+            "type": "text",
+            "id": "margin_bottom_mobile",
+            "label": "Mobile Section Margin Bottom",
+            "info": "Enter number only. Default 50. Units in px.",
+            "default": "50"
+          },
+          {
+            "type": "text",
+            "id": "margin_top",
+            "label": "Desktop Section Margin Top",
+            "info": "Enter number only. Default 0. Units in px.",
+            "default": "0"
+          },
+          {
+            "type": "text",
+            "id": "margin_bottom",
+            "label": "Desktop Section Margin Bottom",
+            "info": "Enter number only. Default 50. Units in px.",
+            "default": "50"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Marqee Title"
+          },
+          {
+            "type": "text",
+            "id": "section_class",
+            "label": "Section class (Optional)"
+          },
+          {
+            "type": "header",
+            "content": "Marquee Settings"
+          },
+          {
+            "type": "select",
+            "id": "marquee_color",
+            "label": "Marquee Color",
+            "options": [
+              {"value": "ico--accent-secondary", "label": "Orange"},
+              {"value": "ico--accent-primary", "label": "Pink"},
+              {"value": "", "label": "Black"}
+            ],
+            "default": ""
+          },
+          {
+            "type": "html",
+            "id": "text_to_scroll",
+            "label": "Text to Scroll"
+          }
+        ]
+      },
+    // END Marquee Block Settings
+
+    // Banner Overlay Settings
+      {
+        "type": "Banner",
+        "name": "Banner w/ Text Overlay",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Margin Settings"
+          },
+          {
+            "type": "text",
+            "id": "margin_top_mobile",
+            "label": "Mobile Section Margin Top",
+            "info": "Enter number only. Default 0. Units in px.",
+            "default": "0"
+          },
+          {
+            "type": "text",
+            "id": "margin_bottom_mobile",
+            "label": "Mobile Section Margin Bottom",
+            "info": "Enter number only. Default 50. Units in px.",
+            "default": "50"
+          },
+          {
+            "type": "text",
+            "id": "margin_top",
+            "label": "Section Margin Top",
+            "info": "Enter number only. Default 0. Units in px.",
+            "default": "0"
+          },
+          {
+            "type": "text",
+            "id": "margin_bottom",
+            "label": "Section Margin Bottom",
+            "info": "Enter number only. Default 50. Units in px.",
+            "default": "50"
+          },
+          {
+            "type": "header",
+            "content": "Global Section Settings"
+          },
+          {
+            "type": "text",
+            "id": "section_class",
+            "label": "Section class"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_caption",
+            "label": "Show caption?",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "apply_to_desktop",
+            "label": "Apply Mobile Settings to Desktop Settings?",
+            "info": "If checked, mobile specific settings are applied to desktop settings. Margin settings are kept separate.",
+            "default": true
+          },
+          {
+            "type": "image_picker",
+            "id": "image_mobile",
+            "label": "Mobile Background Image"
+          },
+          {
+            "type": "checkbox",
+            "id": "stack_mobile",
+            "label": "Stack Overlay on Mobile",
+            "default": false
+          },
+          {
+            "type": "header",
+            "content": "Title & Text Settings"
+          },
+          {
+            "type": "select",
+            "id": "text_color",
+            "label": "Text Color",
+            "options": [
+              {"value": "text--dark", "label": "dark"},
+              {"value": "text--light", "label": "light"}
+            ],
+            "default": "text--light"
+          },
+          {
+            "type": "html",
+            "id": "title",
+            "label": "Title",
+            "default": "This is an Image"
+          },
+          {
+            "type": "select",
+            "id": "title_tag",
+            "label": "Title tag",
+            "options": [
+              {"value": "h1", "label": "h1"},
+              {"value": "h2", "label": "h2"},
+              {"value": "h3", "label": "h3"},
+              {"value": "h4", "label": "h4"},
+              {"value": "h5", "label": "h5"},
+              {"value": "h6", "label": "h6"}
+            ],
+            "default": "h2"
+          },
+          {
+            "type": "select",
+            "id": "title_weight",
+            "label": "Title Weight",
+            "options": [
+              {"value": "fut_300", "label": "light"},
+              {"value": "fut_400", "label": "normal"},
+              {"value": "", "label": "bold"}
+            ],
+            "default": ""
+          },
+          {
+            "type": "html",
+            "id": "text",
+            "label": "Description",
+            "default": "<p>Lorem ipsum dolor sit amet, consectur adipiscing elit. Nunc eu eros augue. Cras tempus finibus mi, at aliquet orci vestibulum sit amet.</p>"
+          },
+          {
+            "type": "header",
+            "content": "Button Settings"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+          },
+          {
+            "type": "text",
+            "id": "button",
+            "label": "Button",
+            "default": "Button"
+          },
+          {
+            "type": "select",
+            "id": "button_style",
+            "label": "Button Style",
+            "options": [
+              {"value": "button--primary", "label": "Primary"},
+              {"value": "button--inverse", "label": "Inverse"}
+            ],
+            "default": "button--primary"
+          },
+          {
+            "type": "header",
+            "content": "Mobile Settings"
+          },
+          {
+            "type": "color",
+            "id": "bg_color_mobile",
+            "label": "Mobile Background Color"
+          },
+          {
+            "type": "color",
+            "id": "overlay_color_mobile",
+            "label": "Mobile Overlay Background Color"
+          },
+          {
+            "type": "select",
+            "id": "text_align_mobile",
+            "label": "Mobile Text Alignment",
+            "options": [
+              {"value": "small-text-align--left", "label": "Left"},
+              {"value": "small-text-align--center", "label": "Center"},
+              {"value": "small-text-align--right", "label": "Right"}
+            ],
+            "default": "small-text-align--center"
+          },
+          { 
+            "type": "select",
+            "id": "text_position_mobile",
+            "label": "Mobile Text Position",
+            "options": [
+              {"value": "text-v-top--mobile text-h-left--mobile", "label": "Top - Left"},
+              {"value": "text-v-top--mobile text-h-center--mobile", "label": "Top - Center"},
+              {"value": "text-v-top--mobile text-h-right--mobile", "label": "Top - Right"},
+              {"value": "text-v-center--mobile text-h-left--mobile", "label": "Center - Left"},
+              {"value": "text-v-center--mobile text-h-center--mobile", "label": "Center - Center"},
+              {"value": "text-v-center--mobile text-h-right--mobile", "label": "Center - Right"},
+              {"value": "text-v-bottom--mobile text-h-left--mobile", "label": "Bottom - Left"},
+              {"value": "text-v-bottom--mobile text-h-center--mobile", "label": "Bottom - Center"},
+              {"value": "text-v-bottom--mobile text-h-right--mobile", "label": "Bottom - Right"}
+            ],
+            "default": "text-v-center--mobile text-h-center--mobile",
+            "info": "Text placement w/i overlay."
+          },
+          { 
+            "type": "select",
+            "id": "overlay_position_mobile",
+            "label": "Mobile Overlay Position",
+            "options": [
+              {"value": "v-top--mobile h-left--mobile", "label": "Top - Left"},
+              {"value": "v-top--mobile h-center--mobile", "label": "Top - Center"},
+              {"value": "v-top--mobile h-right--mobile", "label": "Top - Right"},
+              {"value": "v-center--mobile h-left--mobile", "label": "Center - Left"},
+              {"value": "v-center--mobile h-center--mobile", "label": "Center - Center"},
+              {"value": "v-center--mobile h-right--mobile", "label": "Center - Right"},
+              {"value": "v-bottom--mobile h-left--mobile", "label": "Bottom - Left"},
+              {"value": "v-bottom--mobile h-center--mobile", "label": "Bottom - Center"},
+              {"value": "v-bottom--mobile h-right--mobile", "label": "Bottom - Right"}
+            ],
+            "default": "v-center--mobile h-center--mobile"
+          },
+          {
+            "type": "range",
+            "id": "overlay_width_mobile",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Mobile Overlay Width",
+            "info": "Default 95%. How much horizontal space should the overlay take?",
+            "default": 95
+          },
+          {
+            "type": "range",
+            "id": "overlay_height_mobile",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Mobile Overlay Height",
+            "info": "Default 95%. How much vertical space should the overlay take? Only applied when not stacked.",
+            "default": 95
+          },
+          {
+            "type": "text",
+            "id": "caption_padding_t_mobile",
+            "label": "Mobile Caption Top Padding",
+            "info": "Space above caption. Default 2. Units in em.",
+            "default": "2"
+          },
+          {
+            "type": "text",
+            "id": "caption_padding_b_mobile",
+            "label": "Mobile Caption Bottom Padding",
+            "info": "Space below caption. Default 2. Units in em.",
+            "default": "2"
+          },
+          {
+            "type": "text",
+            "id": "caption_padding_lmobile",
+            "label": "Mobile Caption Left Padding",
+            "info": "Space left of caption. Default 2. Units in em.",
+            "default": "2"
+          },
+          {
+            "type": "text",
+            "id": "caption_padding_r_mobile",
+            "label": "Mobile Caption Right Padding",
+            "info": "Space right of caption. Default 2. Units in em.",
+            "default": "2"
+          },
+          {
+            "type": "header",
+            "content": "Desktop Settings"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Background Image"
+          },
+          {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Background Color"
+          },
+          {
+            "type": "color",
+            "id": "overlay_color",
+            "label": "Overlay Background Color"
+          },
+          {
+            "type": "select",
+            "id": "text_align",
+            "label": "Text Alignment",
+            "options": [
+              {"value": "tablet-lg-up-text-align--left", "label": "Left"},
+              {"value": "tablet-lg-up-text-align--center", "label": "Center"},
+              {"value": "tablet-lg-up-text-align--right", "label": "Right"}
+            ],
+            "default": "tablet-lg-up-text-align--center"
+          },
+          { 
+            "type": "select",
+            "id": "text_position",
+            "label": "Desktop Text Position",
+            "options": [
+              {"value": "text-v-top text-h-left", "label": "Top - Left"},
+              {"value": "text-v-top text-h-center", "label": "Top - Center"},
+              {"value": "text-v-top text-h-right", "label": "Top - Right"},
+              {"value": "text-v-center text-h-left", "label": "Center - Left"},
+              {"value": "text-v-center text-h-center", "label": "Center - Center"},
+              {"value": "text-v-center--mobile text-h-right--mobile", "label": "Center - Right"},
+              {"value": "text-v-bottom text-h-left", "label": "Bottom - Left"},
+              {"value": "text-v-bottom text-h-center", "label": "Bottom - Center"},
+              {"value": "text-v-bottom text-h-right", "label": "Bottom - Right"}
+            ],
+            "default": "text-v-center text-h-center",
+            "info": "Text placement w/i overlay."
+          },
+          {
+            "type": "select",
+            "id": "overlay_position",
+            "label": "Overlay Position",
+            "options": [
+              {"value": "v-top h-left", "label": "Top - Left"},
+              {"value": "v-top h-center", "label": "Top - Center"},
+              {"value": "v-top h-right", "label": "Top - Right"},
+              {"value": "v-center h-left", "label": "Center - Left"},
+              {"value": "v-center h-center", "label": "Center - Center"},
+              {"value": "v-center h-right", "label": "Center - Right"},
+              {"value": "v-bottom h-left", "label": "Bottom - Left"},
+              {"value": "v-bottom h-center", "label": "Bottom - Center"},
+              {"value": "v-bottom h-right", "label": "Bottom - Right"}
+            ],
+            "default": "v-center h-center"
+          },
+          {
+            "type": "range",
+            "id": "overlay_width",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Desktop Overlay Width",
+            "info": "Default 95%. How much horizontal space should the overlay take?",
+            "default": 95
+          },
+          {
+            "type": "range",
+            "id": "overlay_height",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Desktop Overlay Height",
+            "info": "Default 95%. How much vertical space should the overlay take? Only applied when not stacked.",
+            "default": 95
+          },
+          {
+            "type": "text",
+            "id": "caption_padding_t",
+            "label": "Desktop Caption Top Padding",
+            "info": "Space above caption. Default 3. Units in em.",
+            "default": "3"
+          },
+          {
+            "type": "text",
+            "id": "caption_padding_b",
+            "label": "Desktop Caption Bottom Padding",
+            "info": "Space below caption. Default 3. Units in em.",
+            "default": "3"
+          },
+          {
+            "type": "text",
+            "id": "caption_padding_l",
+            "label": "Desktop Caption Left Padding",
+            "info": "Space left of caption. Default 3. Units in em.",
+            "default": "3"
+          },
+          {
+            "type": "text",
+            "id": "caption_padding_r",
+            "label": "Desktop Caption Right Padding",
+            "info": "Space right of caption. Default 3. Units in em.",
+            "default": "3"
+          }
+        ]
+      },
+    // END Banner Overlay Settings
+
+    // Image Text Block Settings
+      {
+        "type": "image-text-blocks",
+        "name": "Image Text Blocks",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Margin Settings"
+          },
+          {
+            "type": "text",
+            "id": "margin_top_mobile",
+            "label": "Mobile Section Margin Top",
+            "info": "Enter number only. Default 0. Units in px.",
+            "default": "0"
+          },
+          {
+            "type": "text",
+            "id": "margin_bottom_mobile",
+            "label": "Mobile Section Margin Bottom",
+            "info": "Enter number only. Default 50. Units in px.",
+            "default": "50"
+          },
+          {
+            "type": "text",
+            "id": "margin_top",
+            "label": "Section Margin Top",
+            "info": "Enter number only. Default 0. Units in px.",
+            "default": "0"
+          },
+          {
+            "type": "text",
+            "id": "margin_bottom",
+            "label": "Section Margin Bottom",
+            "info": "Enter number only. Default 50. Units in px.",
+            "default": "50"
+          },
+          {
+            "type": "header",
+            "content": "Image & Text Settings"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Background Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_mobile",
+            "label": "Mobile Background Image"
+          },
+    
+          {
+            "type": "header",
+            "content": "Caption"
+          },
+          {
+            "type": "text",
+            "id": "caption",
+            "label": "Caption",
+            "default": "Caption placeholder"
+          },
+          {
+            "type": "header",
+            "content": "Description Boxes"
+          },
+        
+          {
+            "type": "text",
+            "id": "title_1",
+            "label": "Title 1",
+            "default": "Title"
+          },
+          {
+            "type": "textarea",
+            "id": "description_1",
+            "label": "Description Text 1",
+            "default": "Description Copy Here..."
+          },
+          {
+            "type": "url",
+            "id": "cta_link_1",
+            "label": "CTA Link 1"
+          },
+          {
+            "type": "text",
+            "id": "cta_text_1",
+            "label": "CTA Text 1",
+            "default": "Learn More"
+          },
+          {
+            "type": "text",
+            "id": "title_2",
+            "label": "Title 2 ",
+            "default": "Title "
+          },
+          {
+            "type": "textarea",
+            "id": "description_2",
+            "label": "Description Text 2",
+            "default": "Description Copy Here..."
+          },
+          {
+            "type": "url",
+            "id": "cta_link_2",
+            "label": "CTA Link 2"
+          },
+          {
+            "type": "text",
+            "id": "cta_text_2",
+            "label": "CTA Text 2",
+            "default": "Learn More"
+          },
+    
+          {
+            "type": "text",
+            "id": "title_3",
+            "label": "Title 3",
+            "default": "Title"
+          },
+          {
+            "type": "textarea",
+            "id": "description_3",
+            "label": "Description Text 3",
+            "default": "Description Copy Here..."
+          },
+          {
+            "type": "url",
+            "id": "cta_link_3",
+            "label": "CTA Link 3"
+          },
+          {
+            "type": "text",
+            "id": "cta_text_3",
+            "label": "CTA Text 3",
+            "default": "Learn More"
+          },
+    
+          {
+            "type": "text",
+            "id": "title_4",
+            "label": "Title 4",
+            "default": "Title"
+          },
+          {
+            "type": "textarea",
+            "id": "description_4",
+            "label": "Description Text 4",
+            "default": "Description Copy Here..."
+          },
+          {
+            "type": "url",
+            "id": "cta_link_4",
+            "label": "CTA Link 4"
+          },
+          {
+            "type": "text",
+            "id": "cta_text_4",
+            "label": "CTA Text 4",
+            "default": "Learn More"
+          }
+        ]
+      },
+    // END Image Text Block Settings
+
+    // Solo Video/Image Block settings
+      {
+        "type": "solo-image-video",
+        "name": "Image/Video",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          }, 
+          {
+            "type": "header",
+            "content": "Margin Settings"
+          },
+          {
+            "type": "text",
+            "id": "margin_top_mobile",
+            "label": "Mobile Section Margin Top",
+            "info": "Enter number only. Default 0. Units in px.",
+            "default": "0"
+          },
+          {
+            "type": "text",
+            "id": "margin_bottom_mobile",
+            "label": "Mobile Section Margin Bottom",
+            "info": "Enter number only. Default 50. Units in px.",
+            "default": "50"
+          },
+          {
+            "type": "text",
+            "id": "margin_top",
+            "label": "Section Margin Top",
+            "info": "Enter number only. Default 0. Units in px.",
+            "default": "0"
+          },
+          {
+            "type": "text",
+            "id": "margin_bottom",
+            "label": "Section Margin Bottom",
+            "info": "Enter number only. Default 50. Units in px.",
+            "default": "50"
+          },                 
+          {
+            "type": "header",
+            "content": "Image/Video Settings",
+            "info": "NOTE: Adding video urls will override the image backgrounds"
+          },
+          {
+            "type": "text",
+            "id": "max_width",
+            "label": "Media Max Width (Desktop only)",
+            "info": "Units in px. Enter number only. Leave blank 100%."
+          },         
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image (Desktop)",
+            "info": "Will be overwritten by Video URL"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_mobile",
+            "label": "Image (Mobile)",
+            "info": "Will be overwritten by Mobile Video URL" 
+          },
+          {
+            "type": "header",
+            "content": "Video Settings",
+            "info": "Adding video urls will override the image backgrounds"
+          },
+          {
+            "type": "checkbox",
+            "id": "autoplay",
+            "label": "Autoplay Video?",
+            "default": false
+          },
+          {
+            "type": "checkbox",
+            "id": "loops",
+            "label": "Loop Video?",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "muted",
+            "label": "Mute Video?",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "controls",
+            "label": "Include Video Controls?",
+            "default": true
+          },         
+          {
+            "type": "text",
+            "id": "video",
+            "label": "Video Url (Desktop)"
+          },
+          {
+            "type": "text",
+            "id": "video_mobile",
+            "label": "Video Url (Mobile)"
+          }
+        ]
+      },
+    // END Solo Video/Image Block Settings
+
+    // Centered Text Overlay Block Settings
+      {
+        "type": "centered-banner-overlay",
+        "name": "Centered Banner Overlay",
+        "settings": [
+          {
+            "type": "text",
+            "id": "section_class",
+            "label": "Section class"
+          },
+          {
+            "type": "header",
+            "content": "Margin Settings"
+          },
+          {
+            "type": "text",
+            "id": "margin_top_mobile",
+            "label": "Mobile Section Margin Top",
+            "info": "Enter number only. Default 0. Units in px.",
+            "default": "0"
+          },
+          {
+            "type": "text",
+            "id": "margin_bottom_mobile",
+            "label": "Mobile Section Margin Bottom",
+            "info": "Enter number only. Default 50. Units in px.",
+            "default": "0"
+          },
+          {
+            "type": "text",
+            "id": "margin_top",
+            "label": "Section Margin Top",
+            "info": "Enter number only. Default 0. Units in px.",
+            "default": "0"
+          },
+          {
+            "type": "text",
+            "id": "margin_bottom",
+            "label": "Section Margin Bottom",
+            "info": "Enter number only. Default 50. Units in px.",
+            "default": "50"
+          },
+          {
+            "type": "header",
+            "content": "Title & Text Settings"
+          },
+          {
+            "type": "color",
+            "id": "title_color",
+            "label": "Title Color",
+            "default": "#000"
+          },
+          {
+            "type": "html",
+            "id": "title",
+            "label": "Title",
+            "default": "This is an Image"
+          },
+          {
+            "type": "select",
+            "id": "title_weight",
+            "label": "Title Weight",
+            "options": [
+              {"value": "fut_300", "label": "light"},
+              {"value": "fut_400", "label": "normal"},
+              {"value": "", "label": "bold"}
+            ],
+            "default": ""
+          },
+          {
+            "type": "color",
+            "id": "text_color",
+            "label": "Text Color",
+            "default": "#000"
+          },
+          {
+            "type": "html",
+            "id": "text",
+            "label": "Description",
+            "default": "<p>Lorem ipsum dolor sit amet, consectur adipiscing elit. Nunc eu eros augue. Cras tempus finibus mi, at aliquet orci vestibulum sit amet.</p>"
+          },
+          {
+            "type": "header",
+            "content": "Mobile Settings"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_mobile",
+            "label": "Mobile Background Image",
+            "info": "Recommended 750x560"
+          },
+          {
+            "type": "color",
+            "id": "bg_color_mobile",
+            "label": "Mobile Background Color"
+          },
+          {
+            "type": "text",
+            "id": "caption_padding_t_mobile",
+            "label": "Mobile Caption Top Padding",
+            "info": "Space above caption. Default 2. Units in em.",
+            "default": "3"
+          },
+          {
+            "type": "text",
+            "id": "caption_padding_b_mobile",
+            "label": "Mobile Caption Bottom Padding",
+            "info": "Space below caption. Default 2. Units in em.",
+            "default": "3"
+          },
+          {
+            "type": "text",
+            "id": "caption_padding_l_mobile",
+            "label": "Mobile Caption Left Padding",
+            "info": "Space left of caption. Default 2. Units in em.",
+            "default": "1"
+          },
+          {
+            "type": "text",
+            "id": "caption_padding_r_mobile",
+            "label": "Mobile Caption Right Padding",
+            "info": "Space right of caption. Default 2. Units in em.",
+            "default": "1"
+          },
+          {
+            "type": "header",
+            "content": "Desktop Settings"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Background Image",
+            "info": "Recommended 2000x1050"
+          },
+          {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Background Color"
+          },
+          {
+            "type": "text",
+            "id": "caption_padding_t",
+            "label": "Desktop Caption Top Padding",
+            "info": "Space above caption. Default 3. Units in em.",
+            "default": "5"
+          },
+          {
+            "type": "text",
+            "id": "caption_padding_b",
+            "label": "Desktop Caption Bottom Padding",
+            "info": "Space below caption. Default 3. Units in em.",
+            "default": "5"
+          },
+          {
+            "type": "text",
+            "id": "caption_padding_l",
+            "label": "Desktop Caption Left Padding",
+            "info": "Space left of caption. Default 3. Units in em.",
+            "default": "1"
+          },
+          {
+            "type": "text",
+            "id": "caption_padding_r",
+            "label": "Desktop Caption Right Padding",
+            "info": "Space right of caption. Default 3. Units in em.",
+            "default": "1"
+          }
+        ]
+      },
+    // END Centered Text Overlay Block Settings
+
+    // Super Stuff Block Settings
+      {
+        "type": "super_stuff",
+        "name": "Super Stuff",
+        "settings": [
+          {
+            "type": "text",
+            "id": "animated_text",
+            "label": "Text around image",
+            "default": "7 sea buckthrone berry fatty-acid omega"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image inside rotating text"
+          },
+          {
+            "type": "html",
+            "id": "title",
+            "label": "Title",
+            "default": "every bottle is full<br>of super stuff"
+          },
+          {
+            "type": "html",
+            "id": "title_mobile",
+            "label": "Title Mobile",
+            "default": "every bottle is full of super stuff"
+          },
+          {
+            "type": "textarea",
+            "id": "description",
+            "label": "Description Text",
+            "default": "we hunted down one of the most potent natural ingredients on the planet, sea buckthorn. this “superfruit” is one of the few plant sources of the fatty-acid omega 7 (typically found in fish oil) making it the ultimate holy grail ingredient for healthy hair and scalp."
+          }
+        ]
+      },
+    // END Super Stuff Block Settings
+    // The Strand Block Settings
+      {
+        "type": "strand",
+        "name": "Blog Posts",
+        "settings": [
+          {
+            "type": "article",
+            "id": "post_1",
+            "label": "Blog Post 1"
+          },
+          {
+            "type": "article",
+            "id": "post_2",
+            "label": "Blog Post 2"
+          },
+          {
+            "type": "article",
+            "id": "post_3",
+            "label": "Blog Post 3"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_1",
+            "label": "Image 1"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_2",
+            "label": "Image 2"
+          }
+        ]
+      }
+      // END Strand Block Settings
+    ]
+  }
+{% endschema %}

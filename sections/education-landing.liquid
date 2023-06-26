@@ -1,0 +1,305 @@
+<div class="education_landing_content">
+  <div class="container-fluid">
+    <div class="header_wrapper">
+      <div class="header_container">
+        <img src="{{section.settings.headerBannerContent | img_url:'master'}}" />
+      </div>
+    </div>
+    <div class="body_wrapper">
+      <div class="body_conatiner">
+        <div class="text_wrapper">
+          <div class="text_content">
+            {{section.settings.eduactional_text}}
+          </div>
+          <div class="button_wrapper">
+            <div class="button_content">
+              {% if section.settings.button_one_Text != blank %}<a class='btn' href="{{section.settings.button_one_link}}">{{section.settings.button_one_Text}}</a>{% endif %}
+              {% if section.settings.button_two_Text != blank %}<a class='btn' href="{{section.settings.button_two_link}}">{{section.settings.button_two_Text}}</a>{% endif %}
+              {% if section.settings.button_three_Text != blank %}<a class='btn' href="{{section.settings.button_three_link}}">{{section.settings.button_three_Text}}</a>{% endif %}
+            </div>
+          </div>
+        </div>
+        <!-- <div class="box_wrapper">
+          <div class="box_conatiner">
+            <div class="featured_academy_box_wrap">
+              <h2 class="heading">{{section.settings.featured_academy_heading_one}}</h2>
+              <div class="featured_academy_box_conatiner">
+                <div class="box_content">
+                  <div class="box_one box">
+                    <div class="box_text">
+                      <h2>{{section.settings.box_one_heading}}</h2>
+                      <p>{{section.settings.box_one_paragraph}}</p>
+                    </div>
+                  </div>
+                  <div class="box_two box">
+                    <div class="box_text">
+                      <h2>{{section.settings.box_two_heading}}</h2>
+                      <p>{{section.settings.box_two_paragraph}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="featured_box_wrap">
+              <h2 class="heading">{{section.settings.featured_academy_heading_two}}</h2>
+              <div class="featured_academy_box_conatiner">
+                <div class="box_content">
+                  <div class="box_one box">
+                    <div class="box_text">
+                      <h2>{{section.settings.box_three_heading}}</h2>
+                      <p>{{section.settings.box_three_paragraph}}</p>
+                    </div>
+                  </div>
+                  <div class="box_two box">
+                    <div class="box_text">
+                      <h2>{{section.settings.box_four_heading}}</h2>
+                      <p>{{section.settings.box_four_paragraph}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <div class="faq_wrapper">
+          <div class="faq_container">
+            <h2>{{section.settings.box_section_header}}</h2>
+            <div class="faq_content_container">
+              <ul>
+
+                {% for block in section.blocks %}
+                <li>
+                  <h4 class="faq_content_title">{{block.settings.faq_content_heading}}</h4>
+                  <div class="faq_content_text">
+                    {{block.settings.faq_content_paragraph}}
+                  </div>
+                </li>
+                {% endfor %}
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .header_container{
+    background-image: url('{{section.settings.headerBanner | img_url:'master'}}');
+  }
+
+
+  @media(min-width:481px) and (max-width:1024px){
+
+    .header_container{
+      background-image: url('{{section.settings.headerBannerTablet | img_url:'master'}}');
+     }
+  }
+  @media(max-width:480px){
+
+    .header_container{
+      background-image: url('{{section.settings.headerBannerMobile | img_url:'master'}}');
+     }
+  }
+  .education_landing_wrapper .education_landing_content .body_wrapper .body_conatiner .box_wrapper .box_conatiner .featured_academy_box_wrap .box_content .box.box_one .box_text{
+    background-color: {{section.settings.box_one_color}};
+  }
+  .education_landing_wrapper .education_landing_content .body_wrapper .body_conatiner .box_wrapper .box_conatiner .featured_academy_box_wrap .box_content .box.box_two .box_text{
+    background-color: {{section.settings.box_two_color}};
+  }
+  .education_landing_wrapper .education_landing_content .body_wrapper .body_conatiner .box_wrapper .box_conatiner .featured_box_wrap .box_content .box.box_one .box_text{
+  	background-color: {{section.settings.box_three_color}};
+  }
+  .education_landing_wrapper .education_landing_content .body_wrapper .body_conatiner .box_wrapper .box_conatiner .featured_box_wrap .box_content .box.box_two .box_text{
+  	background-color: {{section.settings.box_four_color}};
+  }
+</style>
+
+
+<script>
+  $(".faq_content_title").on('click', function(){
+    $(this).toggleClass("active");
+    $(this).next().toggleClass("active");
+  })
+</script>
+
+{% schema %}
+  {
+   "name":"Education Landpage",
+   "settings":[
+      {
+         "type":"image_picker",
+         "id":"headerBanner",
+         "label":"Banner Image"
+      },
+      {
+         "type":"image_picker",
+         "id":"headerBannerTablet",
+         "label":"Banner Tablet Image"
+      },
+      {
+         "type":"image_picker",
+         "id":"headerBannerMobile",
+         "label":"Banner Mobile Image"
+      },
+      {
+         "type":"image_picker",
+         "id":"headerBannerContent",
+         "label":"Banner Content Image"
+      },
+      {
+         "type":"html",
+         "id":"eduactional_text",
+         "label":"Education Body Text"
+      },
+      {
+         "type":"header",
+         "content": "Button Customization"
+      },
+      {
+         "type":"text",
+         "id":"button_one_Text",
+         "label":"Button One Text"
+      },
+      {
+         "type":"url",
+         "id":"button_one_link",
+         "label":"Button One Url"
+      },
+      {
+         "type":"text",
+         "id":"button_two_Text",
+         "label":"Button Two Text"
+      },
+      {
+         "type":"url",
+         "id":"button_two_link",
+         "label":"Button Two Url"
+      },
+ {
+         "type":"text",
+         "id":"button_three_Text",
+         "label":"Button Three Text"
+      },
+      {
+         "type":"url",
+         "id":"button_three_link",
+         "label":"Button Three Url"
+      },
+      {
+         "type":"header",
+         "content": "Featured Academy Customization"
+      },
+      {
+         "type":"text",
+         "id":"featured_academy_heading_one",
+         "label":"Academy Heading one"
+      },
+      {
+         "type":"text",
+         "id":"featured_academy_heading_two",
+         "label":"Academy Heading Two"
+      },
+      {
+         "type":"color",
+         "id":"box_one_color",
+         "label":"Box One Color"
+      },
+      {
+         "type":"text",
+         "id":"box_one_heading",
+         "label":"Box One Heading"
+      },
+      {
+         "type":"text",
+         "id":"box_one_paragraph",
+         "label":"Box One Paragraph"
+      },
+      {
+         "type":"color",
+         "id":"box_two_color",
+         "label":"Box Two Color"
+      },
+      {
+         "type":"text",
+         "id":"box_two_heading",
+         "label":"Box Two Heading"
+      },
+      {
+         "type":"text",
+         "id":"box_two_paragraph",
+         "label":"Box Two Paragraph"
+      },
+      {
+         "type":"color",
+         "id":"box_three_color",
+         "label":"Box Three Color"
+      },
+      {
+         "type":"text",
+         "id":"box_three_heading",
+         "label":"Box Three Heading"
+      },
+      {
+         "type":"text",
+         "id":"box_three_paragraph",
+         "label":"Box Three Paragraph"
+      },
+      {
+         "type":"color",
+         "id":"box_four_color",
+         "label":"Box Three Color"
+      },
+      {
+         "type":"text",
+         "id":"box_four_heading",
+         "label":"Box Three Heading"
+      },
+      {
+         "type":"text",
+         "id":"box_four_paragraph",
+         "label":"Box Three Paragraph"
+      },
+      {
+         "type":"text",
+         "id":"box_section_header",
+         "label":"faq section header"
+      }
+
+
+   ],
+   "blocks":[
+      {
+         "type":"Text",
+         "name":"Faq Content",
+         "settings":[
+            {
+               "type":"header",
+               "content":"Faq Content Customization"
+            },
+            {
+               "type":"text",
+               "id":"faq_content_heading",
+               "label":"Faq Content Haeding",
+               "default":"Heading"
+            },
+            {
+               "type":"text",
+               "id":"faq_content_paragraph",
+               "label":"Faq Content",
+               "default":"Paragraph"
+            }
+         ]
+      }
+   ]
+}
+
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

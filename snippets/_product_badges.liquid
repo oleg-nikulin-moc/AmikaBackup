@@ -1,0 +1,87 @@
+{% if product.metafields.kind_and_clean.badges %}
+
+    {% if product.metafields.kind_and_clean.badges.free_from_text %}
+        <div class="kind-clean">
+            <h6>FREE FROM</h6>
+            <p>{{  product.metafields.kind_and_clean.badges.free_from_text }}</p>
+        </div>
+    {% endif %}
+
+  <div class="product-badges__wrapper js-kind-clean__overflow">
+    <div class="product-badges"></div>
+  </div>
+
+  <script>
+    let free_from_badge_data_badge = {{ product.metafields.kind_and_clean.badges | json }};
+    if(free_from_badge_data_badge && free_from_badge_data_badge.badge){
+        let badge_data_badge = free_from_badge_data_badge.badge;
+
+        function initSliderBadge() {
+            $('.product-badges').slick({
+                infinite: false,
+                autoplay: false,
+                speed: 1000,
+                dots: false,
+                slidesToShow: 5.5,
+                slidesToScroll: 4,
+                arrows: false, 
+                adaptiveHeight: true,
+                responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 4.5,
+                        slidesToScroll: 4,
+                    }
+                }
+                ]
+            });
+        }
+        function calculateMarginBadge() {
+            var screenWidth = $(window).width();
+            var sectionWidth = $('#section-product').width();
+            var marginRight = (screenWidth - sectionWidth);
+
+            if(screenWidth > 949) {
+                $('.product-badges').css({'margin-right': '-' + marginRight + 'px'})
+            } else {
+                $('.product-badges').css({ 'margin-right': '-20px'})
+            }
+        }
+        
+        $(document).ready(function() {
+            let badge_html = "";
+            badge_data_badge.forEach(function (element,index){
+                
+                badge_html += `<div class="product-badge">
+                    <div class="image_wrap">
+                    <img src="${element.icon}">
+                    </div>
+                    <span class="product-badge__details">${element.text}</span>
+                </div>`
+            });
+
+            $('.product-badges').html(badge_html);
+            if(badge_data_badge.length > 5 || (badge_data_badge.length > 4 && $(window).width() < 949) ){
+                $('.product-badges').on('afterChange',function(){
+                    $('.product-kind-badge').addClass('custom_width');
+                    let custom_width = $('.product-badges__wrapper .product-badge').width();
+                    $('.product-kind-badge .product-badge').width(custom_width);
+                })
+                initSliderBadge();
+                $('.product-badges').slick('slickGoTo', 1)
+            } else {
+                $('.product-badges').addClass('not-slider');
+            }
+            calculateMarginBadge();
+
+            // enable horizontal scrolling with swipe gestures
+            $('.js-kind-clean__overflow .slick-list').css('overflow', 'auto');
+        });
+        
+        $(window).on('resize', function() {
+            calculateMarginBadge();
+        });
+    }
+  </script>
+{% endif %}

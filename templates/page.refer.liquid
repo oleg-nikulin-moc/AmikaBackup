@@ -1,0 +1,40 @@
+<div class="rewards-page">
+  <div class="referral-holder">
+    <img class="swell-loader" src="{{'loader.gif'|asset_url}}">
+    <div class="inner-holder">
+      <div class="swell-referral">
+      </div>
+      {% if customer %}
+      <div class="middle-border"></div>
+      <div class="swell-referral-content">
+        <div class="swell-referral-content-holder">
+          <div class="reward-balance">
+            <a href="/pages/rewards">check rewards balance</a>
+          </div>
+          <div class="swell-your-referrals">
+            <h2>your referrals</h2>
+            <div class="table-wrapper">
+              <table class="swell-referral-table">
+                <thead>
+                  <tr>
+                    <th>email</th>
+                    <th>status</th>
+                  </tr>
+                </thead>
+                <tbody class="table-data">
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="swell-redeem">
+            <div class="heading-holder">
+              <h4>how do i redeem my reward balance?</h4>
+              <p>now, the fun part! simply redeem any rewards credit you've earned directly at checkout.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

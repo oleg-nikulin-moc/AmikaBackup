@@ -1,0 +1,79 @@
+<div class="bf_container">
+  <div class="bf_content_container">    
+    <div class="mailing-list" id="join-us">        
+    <!-- rare.io subscription form -->
+    <style type="text/css">
+      .rare-signup-form{background:#fff;clear:left;font:14px Helvetica,Arial,sans-serif;color: #545454;}
+      .rare-signup-form label,.rare-signup-form input{display:block;margin-top:10px}
+      .rare-signup-form label{font-weight:700}
+      .rare-signup-form input[type="text"]{width:100%;padding:8px 16px;font-size:16px;height:auto;border-width:2px;width:100%;height:34px;padding:6px 12px;border:1px solid #ccc;border-radius:4px;line-height:1.42857143;color:#555}
+      .rare-signup-form input[type="submit"]{background:#19A0CF;color:#fff;display:inline-block;border:0;-webkit-border-radius:5px;border-radius:5px;text-decoration:none;font-size:15px;font-weight:400;line-height:1em;padding:12px 25px}
+    </style>
+    <div class="rare-signup-form">
+      <form id="rareio" method="POST" action="https://api4.rarelogic.com/shop/amika-1/customer_lists/478ac4f2-1b3a-11e8-b5a7-0da8ec25463d/subscribe">
+        <h2>Subscribe to our mailing list</h2>
+        <label>Email:</label>
+        <input id="rareioemail" type="text" name="email" />
+        <input id="rareiobut" type="submit" name="subscribe" value="Subscribe" />
+      </form>
+    </div>
+    <!-- ./ rare.io subscription form -->    
+    </div>
+    
+    
+  </div>
+</div>
+
+<script>
+  $('#rareiobut').on('click', function(e){
+  	e.preventDefault();
+    var email = $('#rareioemail').val();
+    if (email && email.indexOf('@')>0) {
+      $.ajax({
+        method:"POST",
+        url:"https://api4.rarelogic.com/shop/amika-1/customer_lists/478ac4f2-1b3a-11e8-b5a7-0da8ec25463d/subscribe",
+        data:{email:email}
+      }).done(function (){
+        //hiding it is not enough, as it still sits on top of the page
+      	$('#shopify-section-bf-popup').remove();
+        localStorage['rareio']=1;
+      }).fail (function(){
+        $('#rareioemail').val('Please enter a valid email address');
+      });
+    }
+  })
+  //Add class to Gateway Popup  
+  $('#shopify-section-bf-popup').addClass('trans');
+  if (localStorage['rareio']) {
+    $('#shopify-section-bf-popup').remove();
+  } else {
+	var temail = location.href.match(/email=([^&]+)/);
+    if (tmemail) {
+      $('#rareioemail').val(temail[1]);
+	  $('#rareiobut').click();
+    }
+  }
+</script>
+
+{% schema %}
+  {
+    "name": "Gateway Popup",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Gateway Popup"
+      },
+      {
+        "type": "html",
+        "id": "title",
+        "label": "Title"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

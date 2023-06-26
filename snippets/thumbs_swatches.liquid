@@ -1,0 +1,17 @@
+<div class="thumbs-swatches-wrap clearfix">
+  <div class="active feat" style="background-image: url('{{ currentProduct.featured_image | product_img_url: 'large' }}');"></div>
+  {% assign totalThumbs = 0 %}
+  {% for img in currentProduct.images %}
+    {% if img.variants.size > 0 and totalThumbs < 4 and img != currentProduct.featured_image %}
+      <div class="{% if totalThumbs >= 3 %}last{% endif %} {% if totalThumbs == 0 %}first{% endif %}" style="background-image: url('{{ img | product_img_url: 'thumb' }}');"></div>
+      {% assign totalThumbs = totalThumbs | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+  {% assign showMore = 0 %}
+  {% for img in currentProduct.images %}
+    {% if img.variants.size > 0 %}
+      {% assign showMore = totalThumbs | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+  {% if showMore > 4 %}<span class="more"><a href="{{ currentProduct.url | within: collection }}{% if fromSearch %}#search{% endif %}">More</a></span>{% endif %}
+</div>

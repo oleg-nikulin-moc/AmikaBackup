@@ -1,0 +1,23 @@
+<div class="super_stuff--container">
+
+    <div class="super_stuff--animation">
+        <svg class="super_stuff--rotatesvg" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="300px" height="300px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
+            <defs>
+                <path id="circlePath" d="M17.1,150C17.1,76.6,76.6,17.1,150,17.1S282.9,76.6,282.9,150S223.4,282.9,150,282.9
+			S17.1,223.4,17.1,150"/>
+            </defs>
+            <g>
+                <use xlink:href="#circlePath" fill="none"/>
+                <text fill="#000">
+                    <textPath xlink:href="#circlePath">{{animated_text}}</textPath>
+                </text>
+            </g>
+        </svg>
+        <img class="super_stuff--animationBackground" src="{{ image | img_url: 'master'}}">
+    </div>
+    <div class="super_stuff--description">
+        <h1 class="super_stuff--description_desktop">{{title}}</h1>
+        <h1 class="super_stuff--description_mobile">{{title_mobile}}</h1>
+        <p>{{description}}</p>
+    </div>
+</div>

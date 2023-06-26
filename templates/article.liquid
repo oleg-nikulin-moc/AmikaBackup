@@ -1,0 +1,39 @@
+{% include 'shogun-products', content: article %}
+<div id="article" class="container clearfix">
+
+  <div class="wrapper">
+  <article class="post clearfix">
+    <div id="page-header">
+      <h1 id="page-title">{{ article.title }}</h1> 
+      <p class="author">Written by {{ article.author }} &mdash; {{ article.published_at | date: "%B %d, %Y" }}</p>
+      <div id="sharing">
+        <ul class="social-meta">
+          <li><a class="facebook-share" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url }}{{ article.url }}&title={{ article.title }}&description={{ article.content | strip_html }}"><i class="fa fa-facebook"></i></a></li>
+          <li><a class="twitter-share" target="_blank" href="https://twitter.com/share?url={{ shop.url }}{{ article.url }}&title={{ article.title }}&description={{ article.content | strip_html }}"><i class="fa fa-twitter"></i></a></li>
+          <li><a class="google-share" target="_blank" href="https://plus.google.com/share?url={{ shop.url }}{{ article.url }}&title={{ article.title }}&description={{ article.content | strip_html }}"><i class="fa fa-google-plus"></i></a></li>
+          <li><a class="pinterest-share" target="_blank" href="//pinterest.com/pin/create/button/?url={{ shop.url }}{{ article.url }}&media={{ article.image.src | img_url: 'master' }}&title={{ article.title }}&description={{ article.content | strip_html }}"><i class="fa fa-pinterest-p"></i></a></li>
+        </ul>
+      </div>
+    </div>
+    
+    {% comment %}{% if article.image != blank %}
+      <img style="margin-top: 30px;" src="{{article.image.src | img_url: 'master'}}" />
+    {% endif %}{% endcomment %}
+
+    <div class="content">
+      {{ article.content }}
+    </div>
+    
+    {% if blog.comments_enabled? %}
+       {% include 'blog_comments' %}
+    {% endif %}
+
+  </article>
+
+  </div>
+  
+  <div class="blog-sidebar">
+    {% include 'blog_sidebar' %}
+  </div>
+
+</div> <!-- /#col-main -->

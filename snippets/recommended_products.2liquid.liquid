@@ -1,0 +1,55 @@
+{% if product.metafields.recommended_products.handles %}
+  {% assign rec_product_handles = product.metafields.recommended_products.handles | split: ',' %}
+  <section class="recommended-products">
+    <div class="container">
+      <h2>works well with</h2>
+      <div class="recommended-slider">
+        {% for handle in rec_product_handles %}
+          {% assign rec_product = all_products[handle] %}
+          {% assign rec_product_variant = rec_product.selected_or_first_available_variant %}
+          {% assign rec_product_title_a = rec_product.title | split: '|' %}
+          {% assign rec_product_title = rec_product_title_a.first %}
+          {% if rec_product_title_a.first != rec_product_title_a.last %}
+            {% assign rec_product_subtitle = rec_product_title_a.last %}
+          {% endif %}
+          {% if rec_product.has_only_default_variant %}
+            {% assign first_image = rec_product.images[0] %}
+          {% elsif rec_product_variant.image %}
+            {% assign first_image = rec_product_variant.image %}
+          {% else %}
+            {% assign first_image = rec_product.images[0] %}
+          {% endif %}
+          <div class="product-item animation" id="grid-item-{{rec_product.id}}">
+            <form action="/cart/add" method="post" class="add-to-cart-form" id="product-actions-{{rec_product.id}}" enctype="multipart/form-data" data-matchbox-click="{{rec_product.id}} {% for variant in rec_product.variants %}{{variant.id}} {% endfor %}">
+              <div class="image-wrapper " style="position: relative;" handle="{{handle}}" data-matchbox-item="{{rec_product.id}} {% for variant in rec_product.variants %}{{variant.id}} {% endfor %}">
+                <a href="{{rec_product.url}}">
+                  <div class="image show-second-image" id="image-{{rec_product.id}}">
+                    <div class="img animation" style="background-image: url({{first_image | img_url:'large' ;}});"></div>
+                    <div class="img second-img animation" style="background-image: url({{rec_product.images[1] | img_url:'large' ;}});" />
+                  </div>
+                </a>
+                <a class="iWishAddColl iwishcheck" href="#" data-variant="{{rec_product.selected_or_first_available_variant}}" data-product="{{rec_product.id}}" data-pTitle="{{rec_product.title}}">
+                  <img src=" //cdn.shopify.com/s/files/1/2117/1151/t/236/assets/heart-shape-silhouette.png?v=6089884480176029142" />
+                </a>                  
+              </div>
+
+              <div class="info plp-info ">
+                <a href="{{rec_product.url}}">
+                  <div class="title">
+                    {{rec_product_title}}
+                    {% if rec_product_subtitle %}
+                    <span>{{rec_product_subtitle}}</span>
+                    {% endif %}
+                  </div>
+                </a>
+                <div class="price clearfix">
+                </div>
+              </div>
+            </form>
+          </div>
+
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endif %}

@@ -1,0 +1,76 @@
+
+{% assign col = collections[section.settings.hbs_collection] %}
+{% if col.products.length > 0%}
+<section class="best-sellers container">
+  <h3 class="section-title">{{section.settings.home_best_sellers}}</h3>
+  <div class="product-carousel">
+    <span class="slick-nav slick-prev">{% include 'sprite-icon', glyph: 'carousel-left-carret', width: '60px', height: '60px' %}</span>
+    {% for prod in col.products limit:10 %}
+      {% if prod.available %}
+          {% comment %} {% include 'product_item_bestsellers', currentProduct: prod, quickview: settings.allow_quick_view, isCarousel: true  %} {% endcomment %}
+          {% include 'product_item_new', currentProduct: prod, quickview: true, collection: col, isCarousel: true %}
+      {% endif %}
+    {% endfor %}
+    <span class="slick-nav slick-next">{% include 'sprite-icon', glyph: 'carousel-left-carret', width: '60px', height: '60px' %}</span>
+  </div>
+
+  <script>
+    $(function(){
+      	$('.best-sellers .product-carousel').slick({
+          autoplay: false,
+          pauseOnHover: false,
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          slide: '.product-item',
+          prevArrow: '.slick-prev',
+      	  nextArrow: '.slick-next',
+          infinite: false,
+          arrows: true,
+          responsive: [
+            {
+              breakpoint: 769,
+                settings: {
+                  slidesToShow: 1.5,
+                  slidesToScroll: 1,
+                  arrows:false,
+                  centerMode:false
+                }
+            }
+          ]
+        });
+    });
+
+    $('.quickbuy__options .quickbuy__item input').on('change', function(e) {
+        if($(this).is(':checked')) {
+          $(this).parents('.quickbuy__options').find('label').removeClass('selected');
+          $(this).parent().addClass('selected');
+        }
+     });
+  </script>
+</section>
+{% endif %}
+
+{% schema %}
+  {
+  "name": "Best Sellers",
+  "settings": [
+    {
+        "type": "text",
+        "id": "home_best_sellers",
+        "label": "Title",
+        "default": "Bestsellers"
+    },
+    {
+        "type": "collection",
+        "id": "hbs_collection",
+        "label": "Select The Collection"
+    }
+  ],
+  "presets": [
+      {
+        "name": "Best Sellers",
+        "category": "Products"
+      }
+  ]
+  }
+{% endschema %}

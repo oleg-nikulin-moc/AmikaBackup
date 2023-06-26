@@ -1,0 +1,73 @@
+{% if iwish_v2 == 'iwishlink' %}
+	<a class="iWishView" href="/apps/iwish">Wishlist (<span class="iWishCount">0</span>)</a>
+{% elsif iwish_v2 == 'iwishproduct' %}
+<div class="iwishAddWrap">
+  <a class="iWishAdd" href="#" data-product="{{ product.id }}" data-pTitle="{{ product.title | escape }}">add to wishlist</a>
+    {% unless customer %}
+    	<p class="iWishLoginMsg" style="display: none;">Temporarily saved.<br/>Please <a href="/account/login">Log in</a> to save it permanently.</p>
+    {% endunless %}
+</div>
+{% elsif iwish_v2 == 'iwishCollection' %}
+	<a class="iWishAddColl iwishcheck" href="#" data-variant="{{ currentProduct.variants.first.id }}" data-product="{{ currentProduct.id }}" data-pTitle="{{ currentProduct.title | escape | replace_first: '|', '<span>' }}"><img src=" {{'heart-shape-silhouette.png' | asset_url }}" ></a>
+{% elsif iwish_v2 == 'iwishfooter' %}
+<script type="text/javascript">
+  var iwish_shop = "{{ shop.permanent_domain }}";
+  var iwish_pro_template = {% if template contains 'product' %}true{% else %}false{% endif %};
+  var iwish_cid = "{{ customer.id }}";
+  //Add to Wishlist - Product Page Text
+  var iwish_added_txt = '<svg class="icon"><use xlink:href="#icon-wishlist-wished"></use></svg>'; //'added in Wishlist';
+  var iwish_add_txt = 'add to Wishlist';
+  //Add to Wishlist - Collection Page Text
+  var iwish_added_txt_col = '<img src=" {{'heart-shape-silhouette-filled.png' | asset_url }}" >';
+  var iwish_add_txt_col = '<img src=" {{'heart-shape-silhouette.png' | asset_url }}" >';
+  //Quick View - Classes
+  var iwish_qvButton = '.quick-view-btn';
+  var iwish_qvWrapper = '.quick-view';
+</script>
+<script src="https://cdn.myshopapps.com/iwish/iwishlist.js"></script>
+<script type="text/javascript">
+  jQuery( document ).ready(function() {
+    jQuery(document).on("click", "a[href='/apps/iwish']", function(e) {
+      if(typeof(Storage) !== "undefined") {
+        e.preventDefault();
+        iWishPost('/apps/iwish',{iwishlist:JSON.stringify(iWishlistmain),cId:iwish_cid});
+      }
+    });
+    /*jQuery(document).on("click", ".iWishAdd", function() {
+      var iWishvId = jQuery(this).parents(iwishWrapperClass).find(iWishVarSelector).val();
+      if(jQuery(this).hasClass('iwishAdded')){
+        if(iwish_remove(jQuery(this), iWishvId)) {
+          jQuery(this).removeClass('iwishAdded').html(iwish_add_txt);
+        }
+      }
+      else {
+        iwish_add(jQuery(this), iWishvId);
+      }
+      return false;
+    });*/
+    jQuery("body").on("click",".iWishAddColl",function() {
+      var iWishvId = jQuery(this).attr("data-variant");
+      if(jQuery(this).hasClass('iwishAdded')){
+        if(iwish_remove(jQuery(this), iWishvId)) {
+          jQuery(this).removeClass('iwishAdded').html(iwish_add_txt_col);
+        }
+      }
+      else{
+        iwish_addCollection(jQuery(this),iWishvId);
+      }
+      return false;
+    });
+    iwishCheckColl();
+  });
+  function iwishCheckColl(){
+    if(jQuery(".iwishcheck").length > 0) {
+      jQuery(".iwishcheck").each(function() {
+        var iWishvId = jQuery(this).attr("data-variant");
+        var iWishpId = jQuery(this).attr("data-product");
+        if(isInWishlist(iWishpId,iWishvId)){ jQuery(this).addClass("iwishAdded").html(iwish_added_txt_col); }
+        jQuery(this).removeClass("iwishcheck");
+      });
+    }
+  }
+</script>
+{% endif %}

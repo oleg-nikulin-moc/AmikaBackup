@@ -1,0 +1,289 @@
+<div class="rewards-page">
+  <div class="swell-banner">
+    <img class="desktop" src="{{'swell-banner.png'|asset_url}}">
+    <img class="mobile" src="{{'swell-banner-mob.png'|asset_url}}">
+    <div class="text-section {% if customer %} logged-in{% endif %}">
+      <div class="text-holder">
+        <h1 class="heading">friends with benefits</h1>
+        <p class="sub-text {% if customer %} logged-in{% endif %}">as a friends with benefits member, you’ll get closer to earning exclusive rewards every time you shop.<br/><br/></p>
+        {% unless customer %}
+        <a href="/account/register" class="sign-up">sign up</a>
+        <p class="already-account">already have an account? <a href="/account/login">login.</a></p>
+        {% endunless %}
+      </div>
+    </div>
+  </div>
+  {% if customer %}
+  <div class="hi-section">
+    {% if customer.first_name == "" %}
+    <h2 class="hi-line">hi there,</h2>
+    {% else %}
+    <h2 class="hi-line">hi <span>{{customer.first_name}}</span>,</h2>
+    {% endif %}
+    <h2 class="points-line">you have <span class="swell-point-balance">x</span> points</h2>
+    <h2 class="status">your status is <span class="vip-status"></span></h2>
+    <div class="swell-buttons">
+      <a href="javascript:void();" class="swell-redeem-now">redeem now</a>
+      <a href="javascript:void();" class="swell-history-link">rewards history</a>
+    </div>  
+  </div>
+  {% else %}
+  <div class="how-it-works">
+    <h2>how it works</h2>
+    <ul class="steps">
+      <li class="join">
+        <div class="inner-container">
+          <h2 class="number">1</h2>
+          <h2 class="text swell-orange">join</h2>
+          <p class="sub-text">and start earning.</p>
+        </div>
+      </li>
+      <li class="earn">
+        <div class="inner-container">
+          <h2 class="number">2</h2>
+          <h2 class="text swell-orange">earn points</h2>
+          <p class="sub-text">every</br>time you shop.</p>
+        </div>
+      </li>
+      <li class="redeem">
+        <div class="inner-container">
+          <h2 class="number">3</h2>
+          <h2 class="text swell-orange">redeem</h2>
+          <p class="sub-text">points</br>for exclusive discounts.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+  {% endif %}
+  {% unless customer %}
+  <div class="ways-to-earn">
+    <h2>ways to earn points</h2>
+    <!-- <img src="{{'swell-logo.png'|asset_url}}"> -->
+    <ul class="campaigns{% if customer %} logged-in{% endif %}"></ul>
+    <img class="swell-loader" src="{{'loader.gif'|asset_url}}">
+  </div>
+  {% endunless %}
+  <div class="swell-products {% if customer %}logged-in{% endif %}">
+    <div class="tier1-section">
+      <h2>steady rewards</h2>
+      <p>redeemable products for all members with cart subtotal greater than $25</p>
+     <p> steady members can redeem a maximum of 2 products per purchase </p>
+      <ul class="tier1-redeemable"></ul>
+      <img class="swell-loader" src="{{'loader.gif'|asset_url}}">
+    </div>
+    <div class="tier2-section">
+      <h2>committed rewards</h2>
+      <p> redeemable products for committed and ride or die members only with cart subtotal greater than $25 </p>
+      <p> committed members can redeem a maximum of 3 products per purchase  </p> 
+      <ul class="tier2-redeemable"></ul>
+      <img class="swell-loader" src="{{'loader.gif'|asset_url}}">
+    </div>
+    <div class="tier3-section">
+      <h2>ride or die rewards</h2>
+      <p>redeemable products for ride or die members only with cart subtotal greater than $25 </p>
+      <p> ride or die members can redeem a maximum of 4 products per purchase </p>
+      <ul class="tier3-redeemable"></ul>
+      <img class="swell-loader" src="{{'loader.gif'|asset_url}}">
+    </div>
+  </div>
+  <div class="vips-earn-more">
+    <h2>earn even more</h2>
+    <p>the more you spend, the more exclusive perks you unlock!</p>
+    <img class="swell-loader" src="{{'loader.gif'|asset_url}}">
+    <div class="swell-tier-table{% if customer %} logged-in{% endif %}"></div>
+    <div class="swell-tier-table-bottom">
+      <div class="swell-tier-table-btm-first-div"></div>
+      <p class="swell-tier-table-btm-second-div">*within a dynamic 12-month period starting when a customer reaches a certain tier</p></div>
+  </div>
+  {% if customer %}
+  <div class="ways-to-earn" id="campaign-section">
+    <h2>ways to earn points</h2>
+    <ul class="campaigns{% if customer %} logged-in{% endif %}" ></ul>
+    <img class="swell-loader" src="{{'loader.gif'|asset_url}}">
+  </div>
+  {% endif %}
+  <div class="swell-faq">
+    <h2>FAQ</h2>
+    <div class="desktop-faq">
+      <ul class="left-section">
+         <li>
+          <ul class="accordian">
+            <li class="question"><span class="para">do points ever expire?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">Points are valid for 12 months from the date of the last qualifying purchase. Each qualifying purchase will automatically extend the expiration date of all unused points in your account for 12 months from the month of the qualifying purchase. If the account has no qualifying purchase activity within a 12-month period, all points in the account will expire.</li>
+          </ul>
+        </li>
+        <li>
+          <ul class="accordian">    
+            <li class="question"><span class="para">what is the friends with benefits program?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">The friends with benefits free rewards program lets you earn points on all your product purchases, birthday and other ways to earn! You can then redeem these points for merchandise rewards and discounts on purchases. To sign up for the friends with benefits program, please go to https://www.loveamika.com/pages/friends-with-benefits and follow the prompts.</li>
+          </ul>
+        </li>
+        <li>
+          <ul class="accordian">      
+            <li class="question"><span class="para">how do i earn points?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">There are many ways to earn. You first earn points by signing up and joining the free friends with benefits program. Points can then be earned by purchasing products. We also give you points for your birthday too!</li>
+          </ul>
+        </li>
+        <li>
+          <ul class="accordian">      
+            <li class="question"><span class="para">can i earn points if i purchase in retail stores or other sites that carry amika?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">You can only redeem points when purchasing from loveamika.com</li>
+          </ul>
+        </li>
+         <li>
+          <ul class="accordian">      
+            <li class="question"><span class="para">how do i refer a friend?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">Visit https://loveamika.com/pages/refer and enter your friend's email address to give your friend $10 off on their first order of $59+. You'll get 1,000 points for each successful referral. If you are entering multiple email address to refer, please seperate them by comma.</li>
+          </ul>
+        </li>
+        <li>
+            <ul class="accordian">      
+            <li class="question"><span class="para">Is the friends with benefits loyalty program applicable to stylists and salons?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">  If you are a stylist or salon, please fill out this form to join our salon loyalty program https://loveamika.com/pages/friends-with-benefits-enrollment-form</li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="right-section">
+         <li>
+          <ul class="accordian">      
+            <li class="question"><span class="para">how can i check my points balance?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">To view your current points balance, simply login to your account and select the “my rewards” hyperlink on the left hand navigation of your account page. Your points balance will populate under the “earn points” heading of this page and can also be viewed on the right-hand of the checkout page.</li>
+          </ul>
+        </li>
+        <li>
+          <ul class="accordian">      
+            <li class="question"><span class="para">what happens to my points when i return items?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">When items are refunded, your points balance will be deducted from the amount.</li>
+          </ul>
+        </li>
+        <li>
+          <ul class="accordian">      
+            <li class="question"><span class="para">how do i spend my points? </span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">Login to your account and select the “my rewards” hyperlink on the left hand navigation of your account page  and your rewards points will populate. You can choose to redeem for products to add to your order. You can also proceed to the cart page and add your redeem for products before checkout. Per order, your subtotal must be $25 in order to redeem. You can add as many rewards as your point balance and tier permits. 
+<br/>steady members can redeem a maximum of 2 products per purchase
+<br/>committed members can redeem a maximum of 3 products per purchase<br/>
+ride or die members can redeem a maximum of 4 products per purchase</li>
+          </ul>
+        </li>
+        <li>
+          <ul class="accordian">      
+            <li class="question"><span class="para">i can’t login to my account.</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">Please reset your password by selecting the "forgot password" link on the account page. We'll send an email to the address on file that will prompt you to reset your password, then sign in as usual! If you're still having issues, please contact us at info@loveamika.com.</li>
+          </ul>
+        </li>
+        <li>
+          <ul class="accordian">      
+            <li class="question"><span class="para">i performed an action that you reward with points but my points aren’t showing up.</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">You must take all the actions to earn via the modal on the friends with benefits landing page for points to automatically register in your account. Please note that it may take up to 24 hours for your point balance to adjust. If your balance still doesn't look right after this time, please contact us at info@loveamika.com.</li>
+          </ul>
+        </li>
+             <li>
+          <ul class="accordian">      
+            <li class="question"><span class="para">why is my cart giving me an error when trying to redeem?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">Your cart subtotal per order must be greater than $25 in order to be eligible to redeeem for a product.
+A maximum of 2 products at a time per order can be redeemed in steady tier.
+A maxiumum of 3 products at a time per order can be redeemed in committed tier. 
+A maxiumum of 4 products at a time per order can be redeemed in ride or die tier.  If you are still receiving an error, please contact us at info@loveamika.com.</li>
+          </ul>
+               <ul class="accordian">      
+            <li class="question"><span class="para">how often can I earn rewards for leaviing a review?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">earn 250 points for leaving a product review. you can earn this reward once per month. two weeks after you've made a purchase you will receive an email to leave a review.</li>
+          </ul>
+                        <ul class="accordian">      
+            <li class="question"><span class="para">can I merge two or more accounts for rewards?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">no, we cannot merge existing accounts for rewards. when you sign up for account, you're automatically entered into our rewards program.</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="mobile-faq">
+      <ul class="mob-section">
+          <li>
+          <ul class="accordian">
+            <li class="question"><span class="para">do points ever expire?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">Points are valid for 12 months from the date of the last qualifying purchase. Each qualifying purchase will automatically extend the expiration date of all unused points in your account for 12 months from the month of the qualifying purchase. If the account has no qualifying purchase activity within a 12-month period, all points in the account will expire.</li>
+          </ul>
+        </li>
+        <li>
+          <ul class="accordian">    
+            <li class="question"><span class="para">what is the friends with benefits program?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">The friends with benefits free rewards program lets you earn points on all your product purchases, birthday and other ways to earn! You can then redeem these points for merchandise rewards and discounts on purchases. To sign up for the friends with benefits program, please go to https://www.loveamika.com/pages/friends-with-benefits and follow the prompts.</li>
+          </ul>
+        </li>
+        <li>
+          <ul class="accordian">      
+            <li class="question"><span class="para">how do i earn points?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">There are many ways to earn. You first earn points by signing up and joining the free friends with benefits program. Points can then be earned by purchasing products. We also give you points for your birthday too!</li>
+          </ul>
+        </li>
+        <li>
+          <ul class="accordian">      
+            <li class="question"><span class="para">can i earn points if i purchase in retail stores or other sites that carry amika?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">You can only redeem points when purchasing from loveamika.com</li>
+          </ul>
+        </li>
+         <li>
+          <ul class="accordian">      
+            <li class="question"><span class="para">how do i refer a friend?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">Visit https://loveamika.com/pages/refer and enter your friend's email address to give your friend $10 off on their first order of $59+. You'll get 1,000 points for each successful referral. If you are entering multiple email address to refer, please seperate them by comma.</li>
+          </ul>
+        </li>
+        <li>
+            <ul class="accordian">      
+            <li class="question"><span class="para">Is the friends with benefits loyalty program applicable to stylists and salons?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">  If you are a stylist or salon, please fill out this form to join our salon loyalty program https://loveamika.com/pages/friends-with-benefits-enrollment-form</li>
+          </ul>
+        </li>
+         <li>
+          <ul class="accordian">      
+            <li class="question"><span class="para">how can i check my points balance?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">To view your current points balance, simply login to your account and select the “my rewards” hyperlink on the left hand navigation of your account page. Your points balance will populate under the “earn points” heading of this page and can also be viewed on the right-hand of the checkout page.</li>
+          </ul>
+        </li>
+        <li>
+          <ul class="accordian">      
+            <li class="question"><span class="para">what happens to my points when i return items?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">When items are refunded, your points balance will be deducted from the amount.</li>
+          </ul>
+        </li>
+        <li>
+          <ul class="accordian">      
+            <li class="question"><span class="para">how do i spend my points? </span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">Login to your account and select the “my rewards” hyperlink on the left hand navigation of your account page  and your rewards points will populate. You can choose to redeem for products to add to your order. You can also proceed to the cart page and add your redeem for products before checkout. Per order, your subtotal must be $25 in order to redeem. You can add as many rewards as your point balance and tier permits. 
+<br/>steady members can redeem a maximum of 2 products per purchase
+<br/>committed members can redeem a maximum of 3 products per purchase<br/>
+ride or die members can redeem a maximum of 4 products per purchase</li>
+          </ul>
+        </li>
+        <li>
+          <ul class="accordian">      
+            <li class="question"><span class="para">i can’t login to my account.</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">Please reset your password by selecting the "forgot password" link on the account page. We'll send an email to the address on file that will prompt you to reset your password, then sign in as usual! If you're still having issues, please contact us at info@loveamika.com.</li>
+          </ul>
+        </li>
+        <li>
+          <ul class="accordian">      
+            <li class="question"><span class="para">i performed an action that you reward with points but my points aren’t showing up.</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">You must take all the actions to earn via the modal on the friends with benefits landing page for points to automatically register in your account. Please note that it may take up to 24 hours for your point balance to adjust. If your balance still doesn't look right after this time, please contact us at info@loveamika.com.</li>
+          </ul>
+        </li>
+             <li>
+          <ul class="accordian">      
+            <li class="question"><span class="para">why is my cart giving me an error when trying to redeem?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">Your cart subtotal per order must be greater than $25 in order to be eligible to redeeem for a product.
+A maximum of 2 products at a time per order can be redeemed in steady tier.
+A maxiumum of 3 products at a time per order can be redeemed in committed tier. 
+A maxiumum of 4 products at a time per order can be redeemed in ride or die tier.  If you are still receiving an error, please contact us at info@loveamika.com.</li>
+          </ul>
+                   <ul class="accordian">      
+            <li class="question"><span class="para">how often can I earn rewards for leaviing a review?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">earn 250 points for leaving a product review. you can earn this reward once per month. two weeks after you've made a purchase you will receive an email to leave a review.</li>
+          </ul>
+                      <ul class="accordian">      
+            <li class="question"><span class="para">can I merge two or more accounts for rewards?</span><span class="cross"><i class="fa fa-chevron-right"></i></span></li>
+            <li class="answer">no, we cannot merge existing accounts for rewards. when you sign up for account, you're automatically entered into our rewards program.</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>

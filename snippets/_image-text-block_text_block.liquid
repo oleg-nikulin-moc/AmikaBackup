@@ -1,0 +1,7 @@
+<div{% unless wrapper_class == blank %} class="{{ wrapper_class }}"{% endunless %}>
+  <div class="desc__heading">
+    {% if title != blank %}<strong class="desc__heading"> {{ title }} </strong>{% endif %}
+  </div>
+  {% if description != blank %}<p> {{ description }} </p>{% endif %}
+  <a href="{{ cta_link }}" target="_blank">{{ cta_text }}</a>
+</div>

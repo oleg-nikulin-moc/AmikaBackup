@@ -1,0 +1,99 @@
+{% capture bodyCopy %}
+    <h2 class="greeting body-copy">
+      {% if section.settings.h_greeting_link %}<a href="{{ section.settings.h_greeting_link }}">{% endif %}
+        <p>{{ section.settings.h_greeting | newline_to_br }}</p>
+      {% if section.settings.h_greeting_link %}</a>{% endif %}
+    </h2>
+{% endcapture %}
+
+<div class="greeting-text container">
+  {% if section.settings.tiny_print %}<div class="greeting tiny-print">{{ section.settings.tiny_print }}</div>{% endif %}
+  {% if section.settings.h_greeting %}
+    {{ bodyCopy | strip }}
+  {% endif %}
+</div>
+
+
+{% comment %} <style>
+
+  #home .introduction-text h2 span {
+    border-bottom: 5px solid #fff;
+  }
+
+   #home .introduction-text h2 {
+    text-align: center;
+    font-size: 32px;
+    line-height: 1.7em;
+    margin-bottom: 30px;
+
+  }
+  .introduction-text { display: block;
+  					font-style:medium;
+
+  }
+
+@media(min-width:320px) and (max-width: 768px){
+  #home .introduction-text h2 {
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.7em;
+    margin-bottom: 0px;
+  }
+
+@media all and (max-width: 768px) {
+    .mo-br {display: inherit;text-decoration:none;}
+  }
+
+
+  .introduction-text { display: block;
+  						font-style:medium;
+
+  }
+}
+
+/*   #home .introduction-text h2 span { font-size: {{section.settings.text_size2}}vw; } */
+/*   #home .introduction-text h2 p { font-size: {{section.settings.text_size2}}vw; }   */
+</style> {% endcomment %}
+
+
+
+{% schema %}
+  {
+  "name": "Text Greeting",
+  "settings": [
+      {
+        "type": "header",
+        "content": "Greeting text"
+      },
+      {
+        "type": "text",
+        "id": "tiny_print",
+        "label": "Heading",
+        "placeholder": "Hi there"
+      },
+      {
+        "type": "url",
+        "id": "h_greeting_link",
+        "label": "Greeting Text Link"
+      },
+      {
+        "type": "html",
+        "id": "h_greeting",
+        "label": "Greeting Text",
+        "placeholder": "Body Copy"
+      }
+  ],
+  "presets": [
+      {
+        "name": "Text Greeting",
+        "category": "Text"
+      }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

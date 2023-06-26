@@ -1,0 +1,39 @@
+{% assign coming_soon = false %}
+{% if product.tags contains 'coming-soon' %}
+	{% assign coming_soon = true %}
+{% endif %}
+
+
+{% assign title = 'Sorry, I am very loved' %}
+{% if coming_soon == true %}
+  {% assign title = 'Coming Soon' %}
+{% endif %} 
+{% assign subtitle = 'Enter your email address below and we will let you know when this product becomes available!' %}
+
+<div id="notifyMeForm" class="klaviyoBackInStock">
+  <button class="klaviyoBackInStock__close" onclick="$.magnificPopup.close(); return false;">Close</button>
+    <h2 class="klaviyoBackInStock__title">
+      {{title}}
+    </h2>
+  <div class="klaviyoBackInStock__subtitle">
+    {{ subtitle }}
+  </div>
+  <div class="klaviyoBackInStock__form">
+    {% if request.page_type == 'collection' or request.page_type == 'search' %}
+      <input type="hidden" name="id" value="{{product.selected_or_first_available_variant.id}}"/>
+      {% endif %}  
+      <input type="email" name="email" placeholder="Please enter your email..." class="klaviyoBackInStock__input--text">
+      <button class="klaviyoBackInStock__button btn" onclick="submitBackInStock(); return false;" type="button" >notify me</button>
+  </div>
+  <div class="klaviyoBackInStock__newsletter">
+    <input id="klaviyoBackInStock__acceptMarketing" name="marketing" type="checkbox" class="klaviyoBackInStock__input--checkbox">
+    <label for="klaviyoBackInStock__acceptMarketing" class="klaviyoBackInStock__label">Join our marketing list for related news and offers.</label>
+  </div>
+  <div class="klaviyoBackInStock__message"></div>
+</div>
+
+{% assign coming_soon = false %}
+
+{% if product.tags contains 'coming-soon' %}
+	{% assign coming_soon = true %}
+{% endif %}

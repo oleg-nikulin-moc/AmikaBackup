@@ -1,0 +1,53 @@
+/* ====== WEBCHAT AUTOMAT ====== */
+
+.automat-cta {
+    position: fixed;
+    z-index: 100;
+    background-color: transparent;
+    display: flex;
+    align-items: flex-end;
+    padding: 1rem;
+    outline: 0;
+    right: 0.5rem;
+    bottom: 0.5rem;
+}
+
+.automat-cta:focus {
+ outline: 0; 
+}
+
+.automat-cta-image {
+    height: 40px;
+    max-width: 30px;
+}
+
+.automat-cta-prompt {
+  padding-left: 1rem;
+  padding-right: 0.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.25;
+  background: #F8CF49;
+  padding: 1rem;
+  margin-left: 10px;
+  border-radius: 22px;
+  border-bottom-left-radius: 0;
+  padding-right: 0;
+}
+
+.automat-cta-prompt-line-one {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.automat-cta-prompt-line-two {
+  font-weight: 300;
+  font-size: 16px;
+  color: #826A20;
+  max-width: 190px;
+  text-align: left;
+}
+
+/* ====== END WEBCHAT AUTOMAT ======= */

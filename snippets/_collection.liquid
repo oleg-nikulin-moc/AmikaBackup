@@ -1,0 +1,152 @@
+<div id="collection" class="container clearfix">
+
+  <div class="grid">
+<!--     <div class="grid__item one-sixth medium--hide small--hide sid-wrp sidebarToggle">
+
+      <div class="stickySidebar">
+        <div class="sidebar__inner">
+      <div class="sidebar-collection text-left">
+        <div class="sidebar-group collections">
+
+          <h2 class="head-coll">Collection</h2>
+		{% comment%}
+          {% include '_collection_menu' %}
+		{% endcomment%}
+        </div>
+		{% comment%}
+        {% include 'filter-menu' %}
+		{% endcomment%}
+      </div>
+    </div>
+      </div>
+    </div> -->
+<!--     <div class="grid__item five-sixths medium--one-whole small--one-whole collectionToggle"> -->
+    <div class="grid__item six-sixths medium--one-whole small--one-whole collectionToggle">
+
+      {% paginate collection.products by 24 %}
+      {% if collection.products.size > 0 %}
+      <div id="MainContent">
+        <div class="grid-uniform">
+          <div class="EndlessClick">
+            {% for product in collection.products %}
+              {% include 'product_item', currentProduct: product, quickview: settings.allow_quick_view %}
+            {% endfor %}
+            {% if paginate.next %}
+            <div class="grid__item one-whole view-all clearfix">
+              <a href="{{ paginate.next.url }}" class=" btn-view-all button--secondary">View All</a>
+            </div>
+            {% endif %}
+          </div>  
+        </div>
+        {% comment %}{% include 'pagination' %}{% endcomment %}
+      </div>
+      {% else %}
+        <div id="no-products"><i class="fa fa-tag"></i><br />No products found in this collection</div>
+      {% endif %}
+      {% endpaginate %}
+
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+
+    ajaxify({linkParent:".view-all", callback:doAdjustPrices});
+
+    if(!isMobile.any) {
+      stickySidebar();
+    }
+    $(".sidebar-group .opener").on("click", function(event){
+      event.preventDefault();
+      if($(this).hasClass('opened')){
+        $(this).removeClass('opened')
+      }else{
+        $(this).addClass('opened')
+      }
+
+      $(this).closest('li').find('ul').slideToggle();
+    });
+    $('.sidebar-group li.selected').parent().closest('li').find('a.opener').click();
+  });
+  function stickySidebar(){
+    $('.stickySidebar').stickySidebar({
+    containerSelector: '#collection'
+    ,topSpacing: $("#header").height() + $('.collection-top').innerHeight() + 50
+      ,bottomSpacing: 50
+	});
+    /*.stickyBlock({
+      'top': $("#header").height() + $('.collection-top').innerHeight() + 50,
+      'start': {'offset': ($("#header").height() + $('.collection-top').innerHeight() + 50) * -1},
+      'end': {
+        'element': $('#footer'),
+        'offset': 20
+      }
+    });*/
+  }
+
+
+  dataLayer.push({
+    'event': 'ecommerce_event',
+    'eventCategory': 'ecommerce',
+    'eventAction': 'view',
+    'ecommerce': {
+      'currencyCode': 'USD',
+      'view' : {
+        'collection': '{{ collection.title }}'
+      }
+    }
+  });
+
+  //Mobile safari does not work. Real Safari does work in small view.
+  //While looking at this, I added a debugging click handler, and it worked.
+  //Doesn't print my debugging thing, but the actual click handler worked.
+  //I don't know what is going on, and at 6:45, don't actually care.
+  $('.rs__mobile_options').on("click", function() {console.log('wtfox')})
+  $('.single__product__add').on("click", function() {console.log('spoop')})
+</script>
+
+<script type="text/javascript" >
+
+  $(document).on('click', '.offerLiquid' , function(){
+    let prodsel = $(this).hasClass('offerLiquid1');
+    setTimeout(function(){
+      //open dialog
+      //-find dialog. There's some cloud thing
+
+      hideSideCart();
+      modal = new tingle.modal({
+        closeMethods: ['overlay', 'button', 'escape'],
+        closeLabel: "",
+        cssClass: ['promotion-popup']
+      });
+      modal.setContent( 
+        '<div id="promotion-pop-up-success">\
+        <div id="promotion-pop-up-success-wrapper">\
+        <div class="wrap">\
+        <h1>Do you need a new set of pumps for your liter?</h1>\
+        <p><button id=pumpok>Yes, I need pumps</button></p>\
+        <p><button id=pumpno>No, I\'ll reuse mine <i class="fa fa-recycle" aria-hidden="true"></i></button></p>\
+          </div>\
+          </div>\
+          </div>');
+      modal.open();
+      $('#pumpok').on('click', function(){
+        modal.close();
+        //add id:193236500498 to cart
+        $.ajax({
+          type: 'POST',
+          url: '/cart/add.js',
+          data: {id:( prodsel ? '1771444273170':'1771444273170'),quantity:1},
+          dataType: 'json',
+
+          error: addToCartFail,
+          success: addToCartSuccess
+        });
+      });
+      $('#pumpno').on('click', function(){
+        modal.close();
+      });
+    }, 750);
+  });
+
+</script>

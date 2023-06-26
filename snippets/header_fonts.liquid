@@ -1,0 +1,112 @@
+{% assign font = "'Lato', sans-serif" %}
+{% if settings.heading_font == font or settings.body_font == font %}
+<link href='//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
+{% endif %}  
+
+{% assign font = "'Lobster Two', cursive" %}
+{% if settings.heading_font == font or settings.body_font == font %}
+<link href='//fonts.googleapis.com/css?family=Lobster+Two:400,700,700italic,400italic' rel='stylesheet' type='text/css'>
+{% endif %}   
+
+{% assign font = "'Open Sans', sans-serif" %}
+{% if settings.heading_font == font or settings.body_font == font %}
+<link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,700,300,400' rel='stylesheet' type='text/css'>
+{% endif %}  
+
+{% assign font = "'Open Sans Condensed', sans-serif" %}
+{% if settings.heading_font == font or settings.body_font == font %}
+<link href='//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700' rel='stylesheet' type='text/css'>
+{% endif %}
+
+{% assign font = "'Oswald', sans-serif" %}
+{% if settings.heading_font == font or settings.body_font == font %}
+<link href='//fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+{% endif %}
+
+{% assign font = "'Source Sans Pro', sans-serif" %}
+{% if settings.heading_font == font or settings.body_font == font %}
+<link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
+{% endif %}
+
+{% assign font = "'Droid Serif', serif" %}
+{% if settings.heading_font == font or settings.body_font == font %}
+<link href='//fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+{% endif %}
+
+{% assign font = "'Raleway', sans-serif" %}
+{% if settings.heading_font == font or settings.body_font == font %}
+<link href='https://fonts.googleapis.com/css?family=Raleway:400,300,100,500,700' rel='stylesheet' type='text/css'>
+{% endif %} 
+
+{% assign font = "'Roboto', sans-serif" %}
+{% if settings.heading_font == font or settings.body_font == font %}
+<link href='//fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+{% endif %}
+
+{% assign font = "'Roboto Condensed', sans-serif" %}
+{% if settings.heading_font == font or settings.body_font == font %}
+<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+{% endif %}
+
+{% assign font = "'Roboto Slab', sans-serif" %}
+{% if settings.heading_font == font or settings.body_font == font %}
+<link href='//fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
+{% endif %}
+
+{% assign font = "'Bitter', serif" %}
+{% if settings.heading_font == font or settings.body_font == font %}
+<link href='//fonts.googleapis.com/css?family=Bitter:400,700,400italic' rel='stylesheet' type='text/css'>
+{% endif %}
+
+{% assign font = "'PT Serif', serif" %}
+{% if settings.heading_font == font or settings.body_font == font %}
+<link href='//fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+{% endif %}
+
+{% assign font = "'Crete Round', serif" %}
+{% if settings.heading_font == font or settings.body_font == font %}
+<link href='//fonts.googleapis.com/css?family=Crete+Round:400,400italic' rel='stylesheet' type='text/css'>
+{% endif %}
+
+{% assign font = "'Playfair Display', serif" %}
+{% if settings.heading_font == font or settings.body_font == font %}
+<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+{% endif %}
+
+{% assign font = "'Quicksand', sans-serif" %}
+{% if settings.heading_font == font or settings.body_font == font %}
+<link href='//fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+{% endif %} 
+
+{% assign font = "'Work Sans', sans-serif" %}
+{% if settings.heading_font == font or settings.body_font == font %}
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,600,700" rel="stylesheet">
+{% endif %}
+
+{% assign font = "'FuturaND'" %}
+{% if settings.heading_font == font or settings.body_font == font %}
+{% include "_custom_fonts" %}
+{% endif %}
+
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+{% if settings.font_icons_linear %}
+<link rel="stylesheet" href="//cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+{% endif %}
+
+{% if settings.font_icons_ion %}
+<link rel="stylesheet" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+{% endif %}
+
+{% if settings.font_icons_drip %}
+{{ 'dropicons-v2.css' | asset_url | stylesheet_tag }}
+{% endif %}
+
+{% if settings.font_icons_stroke %}
+{{ 'Pe-icon-7-stroke.css' | asset_url | stylesheet_tag }}
+{% endif %}
+
+{% if settings.font_icons_themify %}
+{{ 'themify.css' | asset_url | stylesheet_tag }}
+{% endif %}

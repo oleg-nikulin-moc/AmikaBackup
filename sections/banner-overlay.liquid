@@ -1,0 +1,460 @@
+{% if section.settings.image != blank %}
+  {%- capture img_url -%}{{ section.settings.image | img_url: 'master' }}{%- endcapture -%}
+  {%- capture img_alt -%}{{ section.settings.image.alt }}{%- endcapture -%}
+{% endif %}
+
+{% if section.settings.image_mobile != blank %}
+  {%- capture img_url_mobile -%}{{ section.settings.image_mobile | img_url: 'master' }}{%- endcapture -%}
+  {%- capture img_mobile_alt -%}{{ section.settings.image_mobile.alt }}{%- endcapture -%}
+{% endif %}
+
+<section
+  class="section__index{% unless section.settings.section_class == blank %} {{ section.settings.section_class }}{% endunless %}"
+  data-section-id="{{ section.id }}">
+  {% render 'component__banner-overlay',
+    id: section.id,
+    img_url: img_url,
+    img_alt: img_alt,
+    img_url_mobile: img_url_mobile,
+    img_mobile_alt: img_mobile_alt,
+    show_caption: section.settings.show_caption,
+    apply_to_desktop: section.settings.apply_to_desktop,
+    stack_mobile: section.settings.stack_mobile,
+    caption_padding_t_mobile: section.settings.caption_padding_t_mobile,
+    caption_padding_b_mobile: section.settings.caption_padding_b_mobile,
+    caption_padding_l_mobile: section.settings.caption_padding_l_mobile,
+    caption_padding_r_mobile: section.settings.caption_padding_r_mobile,
+    caption_padding_t: section.settings.caption_padding_t,
+    caption_padding_b: section.settings.caption_padding_b,
+    caption_padding_l: section.settings.caption_padding_l,
+    caption_padding_r: section.settings.caption_padding_r,
+    overlay_color_mobile: section.settings.overlay_color_mobile,
+    overlay_color: section.settings.overlay_color,
+    bg_color_mobile: section.settings.bg_color_mobile,
+    bg_color: section.settings.bg_color,
+    overlay_position_mobile: section.settings.overlay_position_mobile,
+    overlay_position: section.settings.overlay_position,
+    overlay_width_mobile: section.settings.overlay_width_mobile,
+    overlay_width: section.settings.overlay_width,
+    overlay_height_mobile: section.settings.overlay_height_mobile,
+    overlay_height: section.settings.overlay_height,
+    text_position_mobile: section.settings.text_position_mobile,
+    text_position: section.settings.text_position,
+    text_align_mobile: section.settings.text_align_mobile,
+    text_align: section.settings.text_align,
+    title: section.settings.title,
+    title_tag: section.settings.title_tag,
+    title_weight: section.settings.title_weight,
+    title_color: section.settings.text_color,
+    text: section.settings.text,
+    text_color: section.settings.text_color,
+    button: section.settings.button, 
+    button_class: section.settings.button_style,
+    link: section.settings.link
+  %} 
+</section>
+
+<style>
+  [data-section-id="{{ section.id }}"].section__index  {
+    {% comment %}
+      Default margin-top on sections w/ class .section__index is 50px.
+      Default margin-bottom on sections w/ class .section__index is 0.
+      Don't need to set if the same value as default.
+    {% endcomment %}
+    {%- if section.settings.margin_top_mobile != blank and section.settings.margin_top_mobile != '0' -%}
+      margin-top: {{ section.settings.margin_top_mobile }}px;
+    {%- endif -%}
+    {%- if section.settings.margin_bottom_mobile != blank and section.settings.margin_bottom_mobile != '50' -%}
+      margin-bottom: {{ section.settings.margin_bottom_mobile }}px;
+    {%- endif -%}
+  }
+
+  @media screen and (min-width: 1024px) {
+    [data-section-id="{{ section.id }}"].section__index  {
+      {%- if section.settings.margin_top_mobile != section.settings.margin_top -%}
+        margin-top: {{ section.settings.margin_top }}px;
+      {%- endif -%}
+      {%- if section.settings.margin_bottom_mobile != section.settings.margin_bottom -%}
+        margin-bottom: {{ section.settings.margin_bottom }}px;
+      {%- endif -%}
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Banner w/ Overlay",
+    "class": "banner-overlay",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Global Section Settings"
+      },
+      {
+        "type": "text",
+        "id": "section_class",
+        "label": "Section class"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_caption",
+        "label": "Show caption?",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "apply_to_desktop",
+        "label": "Apply Mobile Settings to Desktop Settings?",
+        "info": "If checked, mobile specific settings are applied to desktop settings. Margin settings are kept separate.",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "stack_mobile",
+        "label": "Stack Overlay on Mobile",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Title & Text Settings"
+      },
+      {
+        "type": "select",
+        "id": "text_color",
+        "label": "Text Color",
+        "options": [
+          {"value": "text--dark", "label": "dark"},
+          {"value": "text--light", "label": "light"}
+        ],
+        "default": "text--light"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "This is an Image"
+      },
+      {
+        "type": "select",
+        "id": "title_tag",
+        "label": "Title tag",
+        "options": [
+          {"value": "h1", "label": "h1"},
+          {"value": "h2", "label": "h2"},
+          {"value": "h3", "label": "h3"},
+          {"value": "h4", "label": "h4"},
+          {"value": "h5", "label": "h5"},
+          {"value": "h6", "label": "h6"}
+        ],
+        "default": "h2"
+      },
+      {
+        "type": "select",
+        "id": "title_weight",
+        "label": "Title Weight",
+        "options": [
+          {"value": "fut_300", "label": "light"},
+          {"value": "fut_400", "label": "normal"},
+          {"value": "", "label": "bold"}
+        ],
+        "default": ""
+      },
+      {
+        "type": "html",
+        "id": "text",
+        "label": "Description",
+        "default": "<p>Lorem ipsum dolor sit amet, consectur adipiscing elit. Nunc eu eros augue. Cras tempus finibus mi, at aliquet orci vestibulum sit amet.</p>"
+      },
+      {
+        "type": "header",
+        "content": "Button Settings"
+      },
+      {
+        "type": "url",
+        "id": "link",
+        "label": "Link"
+      },
+      {
+        "type": "text",
+        "id": "button",
+        "label": "Button",
+        "default": "Button"
+      },
+      {
+        "type": "select",
+        "id": "button_style",
+        "label": "Button Style",
+        "options": [
+          {"value": "button--primary", "label": "Primary"},
+          {"value": "button--inverse", "label": "Inverse"}
+        ],
+        "default": "button--primary"
+      },
+      {
+        "type": "header",
+        "content": "Mobile Settings"
+      },
+      {
+        "type": "text",
+        "id": "margin_top_mobile",
+        "label": "Mobile Section Margin Top",
+        "info": "Enter number only. Default 0. Units in px.",
+        "default": "0"
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom_mobile",
+        "label": "Mobile Section Margin Bottom",
+        "info": "Enter number only. Default 50. Units in px.",
+        "default": "50"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_mobile",
+        "label": "Mobile Background Image"
+      },
+      {
+        "type": "color",
+        "id": "bg_color_mobile",
+        "label": "Mobile Background Color"
+      },
+      {
+        "type": "color",
+        "id": "overlay_color_mobile",
+        "label": "Mobile Overlay Background Color"
+      },
+      {
+        "type": "select",
+        "id": "text_align_mobile",
+        "label": "Mobile Text Alignment",
+        "options": [
+          {"value": "small-text-align--left", "label": "Left"},
+          {"value": "small-text-align--center", "label": "Center"},
+          {"value": "small-text-align--right", "label": "Right"}
+        ],
+        "default": "small-text-align--center"
+      },
+      { 
+        "type": "select",
+        "id": "text_position_mobile",
+        "label": "Mobile Text Position",
+        "options": [
+          {"value": "text-v-top--mobile text-h-left--mobile", "label": "Top - Left"},
+          {"value": "text-v-top--mobile text-h-center--mobile", "label": "Top - Center"},
+          {"value": "text-v-top--mobile text-h-right--mobile", "label": "Top - Right"},
+          {"value": "text-v-center--mobile text-h-left--mobile", "label": "Center - Left"},
+          {"value": "text-v-center--mobile text-h-center--mobile", "label": "Center - Center"},
+          {"value": "text-v-center--mobile text-h-right--mobile", "label": "Center - Right"},
+          {"value": "text-v-bottom--mobile text-h-left--mobile", "label": "Bottom - Left"},
+          {"value": "text-v-bottom--mobile text-h-center--mobile", "label": "Bottom - Center"},
+          {"value": "text-v-bottom--mobile text-h-right--mobile", "label": "Bottom - Right"}
+        ],
+        "default": "text-v-center--mobile text-h-center--mobile",
+        "info": "Text placement w/i overlay."
+      },
+      { 
+        "type": "select",
+        "id": "overlay_position_mobile",
+        "label": "Mobile Overlay Position",
+        "options": [
+          {"value": "v-top--mobile h-left--mobile", "label": "Top - Left"},
+          {"value": "v-top--mobile h-center--mobile", "label": "Top - Center"},
+          {"value": "v-top--mobile h-right--mobile", "label": "Top - Right"},
+          {"value": "v-center--mobile h-left--mobile", "label": "Center - Left"},
+          {"value": "v-center--mobile h-center--mobile", "label": "Center - Center"},
+          {"value": "v-center--mobile h-right--mobile", "label": "Center - Right"},
+          {"value": "v-bottom--mobile h-left--mobile", "label": "Bottom - Left"},
+          {"value": "v-bottom--mobile h-center--mobile", "label": "Bottom - Center"},
+          {"value": "v-bottom--mobile h-right--mobile", "label": "Bottom - Right"}
+        ],
+        "default": "v-center--mobile h-center--mobile"
+      },
+      {
+        "type": "range",
+        "id": "overlay_width_mobile",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "label": "Mobile Overlay Width",
+        "info": "Default 95%. How much horizontal space should the overlay take?",
+        "default": 95
+      },
+      {
+        "type": "range",
+        "id": "overlay_height_mobile",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "label": "Mobile Overlay Height",
+        "info": "Default 95%. How much vertical space should the overlay take? Only applied when not stacked.",
+        "default": 95
+      },
+      {
+        "type": "text",
+        "id": "caption_padding_t_mobile",
+        "label": "Mobile Caption Top Padding",
+        "info": "Space above caption. Default 2. Units in em.",
+        "default": "2"
+      },
+      {
+        "type": "text",
+        "id": "caption_padding_b_mobile",
+        "label": "Mobile Caption Bottom Padding",
+        "info": "Space below caption. Default 2. Units in em.",
+        "default": "2"
+      },
+      {
+        "type": "text",
+        "id": "caption_padding_lmobile",
+        "label": "Mobile Caption Left Padding",
+        "info": "Space left of caption. Default 2. Units in em.",
+        "default": "2"
+      },
+      {
+        "type": "text",
+        "id": "caption_padding_r_mobile",
+        "label": "Mobile Caption Right Padding",
+        "info": "Space right of caption. Default 2. Units in em.",
+        "default": "2"
+      },
+      {
+        "type": "header",
+        "content": "Desktop Settings"
+      },
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Section Margin Top",
+        "info": "Enter number only. Default 0. Units in px.",
+        "default": "0"
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom",
+        "label": "Section Margin Bottom",
+        "info": "Enter number only. Default 50. Units in px.",
+        "default": "50"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Background Image"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color"
+      },
+      {
+        "type": "color",
+        "id": "overlay_color",
+        "label": "Overlay Background Color"
+      },
+      {
+        "type": "select",
+        "id": "text_align",
+        "label": "Text Alignment",
+        "options": [
+          {"value": "tablet-lg-up-text-align--left", "label": "Left"},
+          {"value": "tablet-lg-up-text-align--center", "label": "Center"},
+          {"value": "tablet-lg-up-text-align--right", "label": "Right"}
+        ],
+        "default": "tablet-lg-up-text-align--center"
+      },
+      { 
+        "type": "select",
+        "id": "text_position",
+        "label": "Desktop Text Position",
+        "options": [
+          {"value": "text-v-top text-h-left", "label": "Top - Left"},
+          {"value": "text-v-top text-h-center", "label": "Top - Center"},
+          {"value": "text-v-top text-h-right", "label": "Top - Right"},
+          {"value": "text-v-center text-h-left", "label": "Center - Left"},
+          {"value": "text-v-center text-h-center", "label": "Center - Center"},
+          {"value": "text-v-center--mobile text-h-right--mobile", "label": "Center - Right"},
+          {"value": "text-v-bottom text-h-left", "label": "Bottom - Left"},
+          {"value": "text-v-bottom text-h-center", "label": "Bottom - Center"},
+          {"value": "text-v-bottom text-h-right", "label": "Bottom - Right"}
+        ],
+        "default": "text-v-center text-h-center",
+        "info": "Text placement w/i overlay."
+      },
+      {
+        "type": "select",
+        "id": "overlay_position",
+        "label": "Overlay Position",
+        "options": [
+          {"value": "v-top h-left", "label": "Top - Left"},
+          {"value": "v-top h-center", "label": "Top - Center"},
+          {"value": "v-top h-right", "label": "Top - Right"},
+          {"value": "v-center h-left", "label": "Center - Left"},
+          {"value": "v-center h-center", "label": "Center - Center"},
+          {"value": "v-center h-right", "label": "Center - Right"},
+          {"value": "v-bottom h-left", "label": "Bottom - Left"},
+          {"value": "v-bottom h-center", "label": "Bottom - Center"},
+          {"value": "v-bottom h-right", "label": "Bottom - Right"}
+        ],
+        "default": "v-center h-center"
+      },
+      {
+        "type": "range",
+        "id": "overlay_width",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "label": "Desktop Overlay Width",
+        "info": "Default 95%. How much horizontal space should the overlay take?",
+        "default": 95
+      },
+      {
+        "type": "range",
+        "id": "overlay_height",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "label": "Desktop Overlay Height",
+        "info": "Default 95%. How much vertical space should the overlay take? Only applied when not stacked.",
+        "default": 95
+      },
+      {
+        "type": "text",
+        "id": "caption_padding_t",
+        "label": "Desktop Caption Top Padding",
+        "info": "Space above caption. Default 3. Units in em.",
+        "default": "3"
+      },
+      {
+        "type": "text",
+        "id": "caption_padding_b",
+        "label": "Desktop Caption Bottom Padding",
+        "info": "Space below caption. Default 3. Units in em.",
+        "default": "3"
+      },
+      {
+        "type": "text",
+        "id": "caption_padding_l",
+        "label": "Desktop Caption Left Padding",
+        "info": "Space left of caption. Default 3. Units in em.",
+        "default": "3"
+      },
+      {
+        "type": "text",
+        "id": "caption_padding_r",
+        "label": "Desktop Caption Right Padding",
+        "info": "Space right of caption. Default 3. Units in em.",
+        "default": "3"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Banner w/ Overlay",
+        "category": "Image"
+      }
+    ]
+  }
+{% endschema %}
+

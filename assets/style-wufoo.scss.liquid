@@ -1,0 +1,220 @@
+/*
+/******************************** RESET *****************************
+*/
+html, body, div, span, iframe, button, input, select, textarea, p, img, sub, sup, ol, ul, li, form, label, table, tbody, tfoot, thead, tr, th, td, article, aside, canvas, footer, header, nav, section, summary, video
+{ margin: 0;  padding: 0;  border: 0;  font-size: 100%;  font: inherit;  vertical-align: baseline; }
+article, aside, details, footer, header, nav, section  { display: block; }
+hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0; }
+input, select { vertical-align: middle; }
+html { overflow-y: scroll; }
+ol { list-style-type: decimal; list-style-position: inside;}
+small { font-size: 85%; }
+strong, th { font-weight: bold; }
+sub { font-size: 65%; line-height: 0; position: relative; }
+sup { top: -0.5em; }
+textarea { overflow: auto; }
+label, input[type="button"], input[type="submit"], input[type="image"], button { cursor: pointer; }
+input.error, textarea.error { border-color:red }
+a {color: inherit; text-decoration: none;}
+.ie7 img { -ms-interpolation-mode: bicubic; }
+table{  width: 100%;  border-collapse: collapse; vertical-align: middle; border-spacing: 0; }
+table td, table th {vertical-align: middle; }
+img {display: inline-block;}
+ul {list-style-position: inside;}
+
+.wufoo .info div{font-size: 18px;margin: 0 0 10px 0;font-weight: 400;font-style: normal;letter-spacing: 0.025em;line-height: 1.7em;}
+
+.wufoo .info h2{font-size:30px;}
+.wufoo li{width:auto!important;}
+
+.wufoo li span{margin:0!important;padding: 0 1em 0 0!important;width:50%;box-sizing:border-box;}
+.wufoo li span:last-child{padding-right:0!important;}
+.wufoo li.phone span{margin:0!important;padding: 0!important;width:auto!important;}
+.wufoo li.phone span.symbol{width:auto!important;padding:0!important;}
+
+.wufoo input[type='text'],
+.wufoo input[type='url'],
+.wufoo input[type='email'], 
+.wufoo input[type="tel"], 
+.wufoo input[type="phone"], 
+.wufoo input[type='password'], 
+.wufoo input[type='file'], 
+.wufoo textarea,
+.wufoo select{border-top: none!important;border-right: none!important;border-bottom: 1px solid #d9d9d9!important;border-left: none!important; box-sizing: border-box; padding: 8px 3px; width: 100%; color: {{settings.content_text_color}}; font-size: {{settings.body_font_size}}; }
+.wufoo select{font-family: 'futura-pt';}
+.wufoo textarea{border: 1px solid #eee!important; height: 130px; padding: 15px 20px; background: transparent }
+.wufoo span.symbol{line-height:175%;}
+form li div label, form li span label{font-size:60%!important;}
+.wufoo label.desc, .wufoo legend.desc{font-size:120%!important;}
+/*.wufoo li span{position:relative;}
+
+.wufoo input[type="text"]+label,
+.wufoo input[type="email"]+label,
+.wufoo textarea+label,
+.wufoo select+label{padding: 0 0.3em;position: absolute;top: 20px;left: 0px;z-index: 2;}
+.wufoo .field-container{position:relative;margin:30px 0;}*/
+
+/*.wufoo input[type="text"].not-empty+label, 
+.wufoo input[type="text"]:focus+label,
+.wufoo input[type="email"].not-empty+label, 
+.wufoo input[type="email"]:focus+label,
+.wufoo textarea.not-empty+label,
+.wufoo textarea:focus+label,
+.wufoo select.not-empty+label,
+.wufoo select:focus+label{font-size: .8em;top: 0;color: gray;}
+
+.wufoo input[type="file"]{width: 0.1px;height: 0.1px;opacity: 0;overflow: hidden;position: absolute;z-index: -1;}
+.wufoo .field-container input[type="file"]+label{padding: 1.5em 3px 0.5em 3px;display: inline-block;cursor: pointer;border-top: none;border-right: none;border-bottom: 1px solid #d9d9d9;border-left: none;}
+*/
+
+/**** BUTTON STYLES ****/
+.wufoo .buttons{text-align:center;}
+.wufoo .buttons .submit{
+  display: inline-block;
+  background: transparent;
+  border: 1px solid {{settings.button_color}};
+  -webkit-border-radius: {{settings.button_radius}};
+  -moz-border-radius: {{settings.button_radius}};
+  border-radius: {{settings.button_radius}};
+  color: {{settings.button_color}};
+  padding: {{settings.button_padding}};
+  font-size: {{settings.button_font_size}};
+  text-decoration: none;
+  text-transform: {{settings.button_transform}};
+  font-weight: {{settings.button_weight}};
+  font-style: normal;
+  text-align: center;
+  letter-spacing: {{settings.button_spacing}};
+  cursor: pointer;
+  -webkit-transition: all 0.2s linear; 
+  -moz-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  -ms-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+	
+.wufoo .buttons .submit:hover{background:{{settings.button_color}};color:#fff; }
+
+/**** CUSTOM CHECKBOX AND RADIO STYLES ****/
+
+.checkbox-custom, .radio-custom {opacity: 0; position: absolute;}
+.checkbox-custom, .checkbox-custom-label, .radio-custom, .radio-custom-label {display: inline-block; vertical-align: middle; cursor: pointer;}
+.checkbox-custom-label, .radio-custom-label { position: relative;}
+.checkbox-custom + .checkbox-custom-label:before {float: left; content: ''; background: #fff url({{"checked.png" | asset_url}}) no-repeat center; background-size: 0%; border: 2px solid #e5e5e5; display: inline-block; vertical-align: middle; width: 18px; height: 18px; margin-right: 15px; text-align: center; -webkit-transition: all 0.2s linear; -moz-transition: all 0.2s linear; -o-transition: all 0.2s linear; -ms-transition: all 0.2s linear; transition: all 0.2s linear; }
+.radio-custom + .radio-custom-label:before {float: left; content: ''; border: 2px solid #e5e5e5; border-radius: 50%; display: inline-block; vertical-align: middle; width: 18px; height: 18px; margin-right: 15px; text-align: center; -webkit-transition: all 0.2s linear; -moz-transition: all 0.2s linear; -o-transition: all 0.2s linear; -ms-transition: all 0.2s linear; transition: all 0.2s linear;}
+.checkbox-custom:checked + .checkbox-custom-label:before {background-color: #e5e5e5; background-size: 70%;}
+.radio-custom + .radio-custom-label:before { border-radius: 50%;}
+.radio-custom:checked + .radio-custom-label:before { background: {{settings.content_main_color}}; box-shadow: inset 0px 0px 0px 4px #fff;}
+
+.wufoo label.choice{font-size:100%!important;}
+html.embed{-webkit-overflow-scrolling: touch;overflow-y: scroll;padding:20px!important;}
+@media all and (max-width: 584px) {
+  
+  .wufoo .instruct small{font-size:75%!important;}
+  .wufoo label.choice{width:200px!important;}
+  .wufoo li span{padding-right:0!important;}
+}
+
+
+
+
+/* ROSWELL */
+.wufoo .info h2 {text-align: center;}
+.wufoo {background: red;}
+.wufoo * {font-family:'futura-pt';}  
+.wufoo {font-family:'futura-pt';}
+.wufoo input.text, 
+.wufoo textarea.textarea, 
+.wufoo input.file {
+    padding: 5px;
+    border: 1px solid #ddd;
+    background: none;
+}
+.wufoo select.select {
+    border-radius: 0;
+    -webkit-appearance: none;
+    padding: 5px;
+    border: 1px solid #ddd;
+    font-size: 100% !important;
+}
+.wufoo .section h3 {
+	border-bottom: 1px solid #ddd;
+	padding-bottom: .5rem;
+	font-size: 175%;
+	line-height: 1.5;
+/*	background: #f37e90;
+	color: white;*/
+	margin-bottom: .75rem;
+	margin-top: 3rem;
+}
+span.right.country {
+    width: 50% !important;
+    position: relative;
+    right: -12px;
+}
+.wufoo textarea.textarea {
+	 width: 100%; 
+	 max-width: 95%; 
+}
+
+.wufoo li.focused {background: initial;}
+.wufoo .info h2 {margin: 1rem auto 2rem;}
+.wufoo .info div { font-size: 14px; margin-bottom: 1rem;}
+form ul {margin-top: 1rem;}
+.wufoo label.desc, .wufoo legend.desc {font-size: 14px; padding-bottom:5px;}
+.wufoo .section div {font-size: 14px;}
+.wufoo li {width: 95%;}
+form li.phone input.text {width: 70%;}
+.fancybox-close-small:focus:after {outline: none;}
+
+
+/*MOBILE*/
+@media (max-width: 768px){
+	.wufoo li#fo7li1 span,
+	.wufoo li#fo7li3 .full,
+	.wufoo li#fo7li3 .city,
+	.wufoo li#fo7li3 .state,
+	.wufoo li#fo7li3 .zip,
+	.wufoo li#fo7li3 .country {
+	  width: 100%;
+	  float: left;
+	  display: block;
+	  position:relative;
+	}
+
+	form li.complex div span.right input,
+	form li.complex div span.left input,
+	form li.complex div span.full input,
+	.wufoo input.text {
+      width: 95%;
+    }
+
+    form li.complex div span.right select {width: 97.5%;}
+
+	span.right.country {
+	  width: 100% !important;
+	  position: relative;
+	  right: 0px;
+	}	
+
+	.wufoo .section h3 {
+	  text-align: center;
+	  padding: 10px;
+	}
+
+	.wufoo input.btTxt {
+      border: 1px solid #ddd;
+      padding: .5rem;
+      width: 100%;
+      max-width: 285px;
+      margin-right: 0;
+      cursor: pointer;
+	}	
+
+	input#Field115 {
+      border: 1px solid #ddd;
+      width: 97.5%;
+    }
+
+    form li.buttons {text-align: center;}
+}

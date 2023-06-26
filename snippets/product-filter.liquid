@@ -1,0 +1,31 @@
+<div class=filters>
+  {% for option in product.options_with_values %}
+    <div class="selector-wrapper" data-option="{{ option.name | handleize }}">
+      <!--label for="SingleOptionSelector-{{ option.name | handleize }}">
+        {{ option.name }}
+      </label-->
+ 
+      <div class="categoryFilters">
+        <ul>
+          <li class="submenuholder rs-and" data-tag="{{ option.name | handleize }}" data-option={{ option.position }} data-index="option{{ option.position }}" data-label="{{option.name}}">
+            <label class="submenupop">
+              {{option.name}}:
+              <svg class="opener icon"><use xlink:href="#icon-plus"></use></svg>
+              <svg class="closer icon"><use xlink:href="#icon-minus"></use></svg>
+            </label>
+            <ul class="submenu">
+              {% for value in option.values %}
+                <li class="rs-or filter-item {% if forloop.first == true %}filter-selected{% endif %}" data-tag="{{ value | handleize }}">
+                  {% comment %} <span>{{ value }}</span> {% endcomment %}
+                  {{ value }}
+                </li>
+              {% endfor %}
+              <!--div class="clear"></div>
+              <span class="rs-clearall-siblings">X clear</span-->
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  {% endfor %}
+</div>

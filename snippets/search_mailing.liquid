@@ -1,0 +1,96 @@
+<div id="search-fullscreen" class="search-mailing animated">
+  <i class='icon-close lnr lnr-cross'></i>
+  <div class='form animated'>
+    <form action="/search" method="get" class="search-form">
+      <div class="clearfix">
+        <input type="text" class="input-search animation" name="q" value="" accesskey="4" autocomplete="off" placeholder="Start Typing">
+        <input type='submit' class="lnr animation input-icon" value="&#xe86f;" />
+        <input type="hidden" name="type" value="product" />
+      </div>
+    </form>
+  </div>
+</div>
+{% comment %}{% include 'search_autocomplete' %}{% endcomment %}
+{% if settings.show_newsletter_header %}
+<div id="mailing-fullscreen" class="search-mailing clearfix hide">
+  <i class='icon-close lnr lnr-cross'></i>
+  <div class='form animated'>
+    <form method="post" action="/contact">
+      <div class="clearfix">
+        <input type="hidden" value="customer" name="form_type">
+        <input type="hidden" class="" id="contact_tags" name="contact[tags]" value="prospect,newsletter"/>
+        <input type="email" class="input-text" placeholder="Email address" id="email-input" name="contact[email]"/>
+        <input type='submit' class="lnr animation input-icon" value="&#xe876;" name="subscribe" id="email-submit" />
+      </div>
+    </form>
+    <div class="success hide">Thank you!</div>
+  </div>
+</div>
+{% endif %}
+
+<script>
+  $(function(){
+    
+    $('.search-target').click( function(){
+      $('body').css({'overflow': 'hidden'});
+      $('#search-fullscreen').fadeIn();
+      $('#search-fullscreen .form').show().addClass('{{settings.search_mailing_effect}}');
+      $('#search-fullscreen i.lnr-cross').fadeIn();
+      $('#search-fullscreen .input-search').focus();
+      return false;
+    });
+
+    $('#search-fullscreen i.lnr-cross').click( function(){
+      $('body').css({'overflow': 'auto'});
+      $('#search-fullscreen .form').fadeOut().removeClass('{{settings.search_mailing_effect}}');
+      $('#search-fullscreen i.fa-close').fadeOut();
+      $('#search-fullscreen').fadeOut();
+      return false;
+    });
+    
+    $('.search-form').on('submit', function(e){
+      e.stopPropagation();
+      e.preventDefault();
+      var query = $(this).serialize();
+      window.location = '/search?'+query;
+    });
+    
+    {% if settings.show_newsletter_header %}
+    
+    $('.newsletter-target').click( function(){
+      $('body').css({'overflow': 'hidden'});
+      $('#mailing-fullscreen').fadeIn();
+      $('#mailing-fullscreen .form').show().addClass('{{settings.search_mailing_effect}}');
+      $('#mailing-fullscreen i.lnr-cross').fadeIn();
+      $('#mailing-fullscreen .input-text').focus();
+      return false;
+    });
+
+    $('#mailing-fullscreen i.lnr-cross').click( function(){
+      $('body').css({'overflow': 'auto'});
+      $('#mailing-fullscreen .form').fadeOut().removeClass('{{settings.search_mailing_effect}}');
+      $('#mailing-fullscreen i.fa-close').fadeOut();
+      $('#mailing-fullscreen').fadeOut();
+      return false;
+    });
+    
+    $('#mailing-fullscreen form').submit(function(e){
+    	e.preventDefault();
+      	e.stopImmediatePropagation();
+
+      	var form = $(this);
+      	$.ajax({
+          	url: form.attr('action'),
+          	data: form.serialize(),
+          	type: 'POST'
+        }).done(function(){
+            $('#mailing-fullscreen form').fadeOut(function(){
+            	$('#mailing-fullscreen .success').fadeIn();
+            });
+        });
+    });
+    
+    {% endif %}
+
+  });
+</script>

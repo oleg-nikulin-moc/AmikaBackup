@@ -1,0 +1,152 @@
+<script>
+  const KlaviyoBackInStock = {
+    selectors: {
+      submissionMessageContainer: '.klaviyoBackInStock__message'
+    },
+    successMessage: 'Thanks! We will notify you when this product becomes available!', 
+    errorMessage: 'Please enter a valid email address.',
+    klaviyoPublicKey: 'RTevZm', 
+    klaviyoList: 'SGHfh7', 
+    platform: 'shopify',
+    revealMessage: function(messageType,$currentProduct=null){
+      let $messageContianer = jQuery(this.selectors.submissionMessageContainer);
+      
+      if($currentProduct){
+        $messageContianer = jQuery('.klaviyoBackInStock__message',$currentProduct);
+      }
+
+      switch(messageType){
+        case 'success':
+          $messageContianer.removeClass('error').text(this.successMessage);
+          break; 
+        case 'error': 
+          $messageContianer.addClass('error').text(this.errorMessage);
+          break; 
+      }
+    },
+    validateEmail: function(emailAddress){
+      let regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      let results = regex.test(String(emailAddress).toLowerCase())
+      console.log(results);
+      return results;
+    },
+    submit: function(variantId, customerEmail, getNewsletter,$currentProduct = null ){
+      let self = this; 
+      if(!customerEmail || typeof customerEmail != 'string'){
+        console.error(customerEmail + ' is an invalid email address')
+        self.revealMessage('error',$currentProduct);
+        return false; 
+      }
+      if(customerEmail && typeof customerEmail == 'string'){
+        if(this.validateEmail(customerEmail) == false){
+          self.revealMessage('error',$currentProduct);
+          return; 
+        } 
+      }
+      if( !variantId || typeof variantId != 'string' ){
+        console.error(variantId + ' is invalid. Please submit using a valid product variant ID'); 
+        return typeof variantId ;
+      }
+      var formObject = {
+        platform: self.platform,
+        a: self.klaviyoPublicKey,
+        g: self.klaviyoList,
+        variant: variantId,
+        email: customerEmail
+      }
+      if(getNewsletter) {
+        formObject['subscribe_for_newsletter'] = 'on';
+      }
+      jQuery.ajax({
+        type: 'POST',
+        url: 'https://a.klaviyo.com/onsite/components/back-in-stock/subscribe',
+        data: formObject, 
+        success: function(response){
+          console.log({rs: response, form: formObject});
+          self.revealMessage('success',$currentProduct);
+        },
+        error: function(response){
+          console.log(response);
+          self.revealMessage('error',$currentProduct);
+        }
+      })
+    }
+  }
+</script>
+
+
+
+{% if request.page_type == 'collection' or request.page_type == 'search' %}
+<script>
+  function submitBackInStock(){
+      let $currentProduct = $(event.target).closest('.klaviyoBackInStock');
+      var currentProductVariantId = $currentProduct.find("input[name=id]").val().toString();
+      var customerEmail = $currentProduct.find("input[name=email]").val();
+      var optIn = $currentProduct.find('input[name=marketing]').val();
+      KlaviyoBackInStock.submit(currentProductVariantId, customerEmail, optIn , $currentProduct);    
+  }
+  function openKlaviyoBisPopup(element){
+    $element = $(element).closest('.product-item').find('.klaviyoBackInStock');
+    console.log($element);
+    $.magnificPopup.open({
+          items: {
+            src: $element, // CSS selector of an element on page that should be used as a popup
+            type: 'inline'            
+          },
+          preloader: true,
+          modal: true,          
+          callbacks: {
+            open: function() {          		
+              $('body').attr( 'data-pos', $(window).scrollTop());
+              $('body, html').addClass('locked');
+            },
+            close: function() {
+              //$("#notify__me_form").find(".iStock-wrapper").unwrap( "<form class='istock_form'></form>" ); 
+              $("body, html").removeClass('locked');
+              $( window ).scrollTop( $('body').attr( 'data-pos' ));
+            }
+          }
+        });
+  }
+</script>
+{% endif %}
+
+
+{% if request.page_type == 'product' %}
+<script>
+  function submitBackInStock(){
+      let $currentProduct = $(event.target).closest('.klaviyoBackInStock');
+      var currentProductVariantId = $("[name=id]").val() || '{{product.selected_or_first_available_variant.id}}';
+      var customerEmail = $currentProduct.find("input[name=email]").val();
+      var optIn = $currentProduct.find('input[name=marketing]').val();
+      KlaviyoBackInStock.submit(currentProductVariantId, customerEmail, optIn);
+  }
+</script>
+
+<script>
+  function openKlaviyoPDPBisPopup(element){
+    var phandle;
+    $('body').attr( 'data-pos', $(window).scrollTop());
+    phandle = jQuery(element).attr("handle");
+    $.magnificPopup.open({
+      items: {
+        src: '#notifyMeForm', // CSS selector of an element on page that should be used as a popup
+        type: 'inline'            
+      },
+      preloader: true,
+      modal: true,          
+      callbacks: {
+        open: function() {          		
+          $('body').attr( 'data-pos', $(window).scrollTop());
+          $('body, html').addClass('locked');
+        },
+        close: function() {
+          //$("#notify__me_form").find(".iStock-wrapper").unwrap( "<form class='istock_form'></form>" ); 
+          $("body, html").removeClass('locked');
+          $( window ).scrollTop( $('body').attr( 'data-pos' ));
+        }
+      }
+    });
+  }
+</script>
+{% endif %} 

@@ -1,0 +1,36 @@
+{% if paginate.pages > 1 %}
+<div style="clear: both;"></div>
+<div class="pagination">
+  <ul>
+    {% if paginate.previous %}
+      <li class="prev"><a href="{{paginate.previous.url}}">&laquo; Prev</a></li>
+    {% else %}
+      <li class="prev disabled"><a href="#" onclick="return false;">&laquo; Prev</a></li>
+    {% endif %}
+    
+    {% for part in paginate.parts %}
+      {% if part.is_link %}
+        <li>{{ part.title | link_to: part.url }}</li>
+      {% else %}
+        {% if part.title == '&hellip;' %}
+        <li class="ellipsis disabled"><a href="#" onclick="return false;">{{ part.title }}</a></li>
+        {% else %}
+        <li class="active">{{ part.title | link_to: part.url }}</li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}     
+
+    {% if paginate.next %}
+      <li class="next"><a href="{{paginate.next.url}}">Next &raquo;</a></li>
+    {% else %}
+      <li class="next disabled"><a href="#" onclick="return false;">Next &raquo;</a></li>
+    {% endif %}    
+  </ul>
+
+  <div style="clear: both;"></div>
+  <p class="pagination-num-showing">
+  Showing: {{ paginate.current_offset | plus: 1 }}-{% if paginate.next %}{{ paginate.current_offset | plus: paginate.page_size }}{% else %}{{ paginate.items }}{% endif %} of {{ paginate.items }}
+  </p>
+  <div style="clear: both;"></div>
+</div>
+{% endif %}

@@ -1,0 +1,162 @@
+{% render 'component__large-image-text-block',
+  image: section.settings.image,
+  image_mobile: section.settings.image_mobile,
+  caption: section.settings.caption,
+  title_1: section.settings.title-1,
+  description_1: section.settings.description-1,
+  cta_link_1: section.settings.cta-link-1,
+  cta_text_1: section.settings.cta-text-1,
+  title_2: section.settings.title-2,
+  description_2: section.settings.description-2,
+  cta_link_2: section.settings.cta-link-2,
+  cta_text_2: section.settings.cta-text-2,
+  title_3: section.settings.title-3,
+  description_3: section.settings.description-3,
+  cta_link_3: section.settings.cta-link-3,
+  cta_text_3: section.settings.cta-text-3,
+  title_4: section.settings.title-4,
+  description_4: section.settings.description-4,
+  cta_link_4: section.settings.cta-link-4,
+  cta_text_4: section.settings.cta-text-4
+%}
+
+{% schema %}
+  {
+    "name": "Large Image Text Blocks",
+    "settings": [
+
+      {
+        "type": "header",
+        "content": "Description text"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Background Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_mobile",
+        "label": "Mobile Background Image"
+      },
+
+      {
+        "type": "header",
+        "content": "Caption"
+      },
+      {
+        "type": "text",
+        "id": "caption",
+        "label": "Caption",
+      "default": "Caption placeholder"
+      },
+
+      {
+        "type": "header",
+        "content": "Description Boxes"
+      },
+      
+      {
+        "type": "text",
+        "id": "title-1",
+        "label": "Title 1",
+        "default": "Title"
+      },
+      {
+        "type": "textarea",
+        "id": "description-1",
+        "label": "Description Text 1",
+        "default": "Description Copy Here..."
+      },
+      {
+        "type": "url",
+        "id": "cta-link-1",
+        "label": "CTA Link 1"
+      },
+      {
+        "type": "text",
+        "id": "cta-text-1",
+        "label": "CTA Text 1",
+        "default": "Learn More"
+      },
+      
+      {
+        "type": "text",
+        "id": "title-2",
+        "label": "Title 2 ",
+        "default": "Title "
+      },
+      {
+        "type": "textarea",
+        "id": "description-2",
+        "label": "Description Text 2",
+        "default": "Description Copy Here..."
+      },
+      {
+        "type": "url",
+        "id": "cta-link-2",
+        "label": "CTA Link 2"
+      },
+      {
+        "type": "text",
+        "id": "cta-text-2",
+        "label": "CTA Text 2",
+        "default": "Learn More"
+      },
+
+      {
+        "type": "text",
+        "id": "title-3",
+        "label": "Title 3",
+        "default": "Title"
+      },
+      {
+        "type": "textarea",
+        "id": "description-3",
+        "label": "Description Text 3",
+        "default": "Description Copy Here..."
+      },
+      {
+        "type": "url",
+        "id": "cta-link-3",
+        "label": "CTA Link 3"
+      },
+      {
+        "type": "text",
+        "id": "cta-text-3",
+        "label": "CTA Text 3",
+        "default": "Learn More"
+      },
+
+      {
+        "type": "text",
+        "id": "title-4",
+        "label": "Title 4",
+        "default": "Title"
+      },
+      {
+        "type": "textarea",
+        "id": "description-4",
+        "label": "Description Text 4",
+        "default": "Description Copy Here..."
+      },
+      {
+        "type": "url",
+        "id": "cta-link-4",
+        "label": "CTA Link 4"
+      },
+      {
+        "type": "text",
+        "id": "cta-text-4",
+        "label": "CTA Text 4",
+        "default": "Learn More"
+      }
+    ],
+    "presets": [
+        {
+          "name": "Large Image With Text Blocks",
+          "category": "Image"
+        }
+    ]
+  }
+{% endschema %}

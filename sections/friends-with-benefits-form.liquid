@@ -1,0 +1,154 @@
+<div class="page container friends_with_benefits-page" >
+  <div class="page_content_image">
+    <div class="page_content_image--content">
+<!--       <div class="content--logo">
+        <img src="{{ section.settings.content_logo | img_url: 'master'}}" alt="amika_logo">
+      </div> -->
+      <div class="content--heading">
+        <h1 class="fst_line">friends with benefits</h1>
+        <h1 class="snd_line"> enrollment form </h1>
+      </div>
+      <div class="content--subheading">
+        <h3> Who said it has to be all work and no play?</h3> 
+      </div>
+      <div class="content--paragraph">
+        <p>
+          amika: friends with benefits is a program designed to reward salons for
+          continued loyalty and support. amika is committed to the growth and success
+          of salons and independent stylists worldwide, and through this program will
+          provide the business building tools needed to maximize sales. In true amika
+          fashion, our reward program stands out from the crowd. At the end of each
+          quarter, eligible salons will be sent a pre-packaged, curated reward box
+          based on quarterly purchases.
+        </p>
+      </div>
+    </div>
+    <div class="page_content_image--img">
+      <img src="{{ section.settings.content_img | img_url: 'large'}}" alt="content_img">
+    </div>
+  </div>
+  <div class="page_form-categories">
+    <div class="form-category form-category--first">
+      <h3 class="category--heading">downtown </h3>
+      <p class="category--quarter">$1200-$2100/quarter</p>
+      <p class="category--paragraph">($400-$700 monthly purchases)</p>
+      <p class="category--paragraph">reward box valued at $215</p>
+    </div>
+    <div class="form-category form-category--second">
+      <h3 class="category--heading">midtown </h3>
+      <p class="category--quarter">$2101-$3000/quarter</p>
+      <p class="category--paragraph">($701-$1000 monthly purchases)</p>
+      <p class="category--paragraph">reward box valued at $420</p>
+    </div>
+    <div class="form-category form-category--third">
+      <h3 class="category--heading">uptown </h3>
+      <p class="category--quarter">$3001-$6000/quarter</p>
+      <p class="category--paragraph">($1001-$2000  monthly purchases)</p>
+      <p class="category--paragraph">reward box valued at  $690</p>
+    </div>
+    <div class="form-category form-category--fourth">
+      <h3 class="category--heading">jewel </h3>
+      <p class="category--quarter">$6,001+/quarter</p>
+      <p class="category--paragraph">Receive an order form for 23% return on purchases at quarter close</p>
+      <p class="category--paragraph">23% return is defined as 40% in the Backbar, Station + Armory store, 30% in the Loyalty store, 30% in the SWAG store</p>
+      <img class="category--img" src="{{section.settings.category_img | img_url:'100'}}"/>
+    </div>
+  </div>
+  <div class="form_term-conditions">
+    <div class="term-conditions--heading">
+      <h1>terms and conditions:</h1>
+    </div>
+    <div class="term-conditions--all">
+      <div class="term-conditions--left-side">
+        <p>1. In order for a salon to qualify, salon must accept all terms and conditions stated herein.</p>
+        <p>2. Sales are reported by your distribution partner and then reported to amika.</p>
+        <p>3. Salon understands designated qualifying levels mentioned above (downtown, midtown, uptown, jewel).</p>
+        <p>4. This form must be received by amika for inclusion in this program.</p>
+        <p>5. Reward boxes are shipped by salon's distributor within 30-45 days after the conclusion of the preceding quarter.</p>
+         <p>6. amika will include your salon on its salon locator.</p>
+      </div>
+      <div class="term-conditions--right-side">
+        <p>7. This program may be canceled or changed by amika at any time.</p>
+        <p>8. Salon must purchase a minimum of USD $1200 a quarter of amika 
+          Products. This is a continuing obligation. If Salon fails to meet the minimum
+          purchase for a period of two (2) quarters, the Salon will lose its status in the
+          Loyalty Program, and would have to maintain a minimum average purchase
+          of at least USD $1200 for a period of one (1) quarter to re-qualify.</p>
+        <p>9. Questions about Jewel benefits? email <a href="mailto:jewels@loveamika.com">jewels@loveamika.com</a></p>
+      </div>
+    </div>
+  </div>
+  
+<div id="wufoo-z4wb4lv159ii7y">
+Fill out my <a href="https://loveamika.wufoo.com/forms/z4wb4lv159ii7y">online form</a>.
+</div>
+  <script type="text/javascript">var z4wb4lv159ii7y;(function(d, t) {
+  var s = d.createElement(t), options = {
+    'userName':'loveamika',
+    'formHash':'z4wb4lv159ii7y',
+    'autoResize':true,
+    'height':'1511',
+    'async':true,
+    'host':'wufoo.com',
+    'header':'show',
+    'ssl':true};
+  s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'www.wufoo.com/scripts/embed/form.js';
+  s.onload = s.onreadystatechange = function() {
+    var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+    try { z4wb4lv159ii7y = new WufooForm();z4wb4lv159ii7y.initialize(options);z4wb4lv159ii7y.display(); } catch (e) {}};
+  var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+})(document, 'script');
+  </script>
+</div>																	
+
+
+{% schema %}
+  {
+    "name": "Friends with Benefits",
+	"class": "friends_with_benefits-form",
+    "settings": [
+	{
+      "type" : "image_picker",
+      "label": "Shop Logo",
+      "id": "content_logo"
+	},
+	{
+	  "type" : "image_picker",
+      "label": "Content Image",
+      "id": "content_img"
+	},
+	{
+	  "type" : "image_picker",
+      "label": "Content Image",
+      "id": "category_img"
+	}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+
+<style>
+  .wufoo input.text{
+  	padding: 5px!important;
+    border: 1px solid #000 !important;
+  }
+</style>  
+<script>
+//   $('#form16').css("display","none");
+  var addCssToIframe = function() {
+    if ($('#wufooFormz4wb4lv159ii7y').contents().find("head") != undefined) {
+      $('#wufooFormz4wb4lv159ii7y')
+      .contents()
+      .find("head")
+      .append(
+        '<link rel="stylesheet" href="app/css/iframe.css" type="text/css" />');
+      $interval.cancel(addCssInterval);
+    }
+  };
+  var addCssInterval = $interval(addCssToIframe, 500, 0, false);
+</script>

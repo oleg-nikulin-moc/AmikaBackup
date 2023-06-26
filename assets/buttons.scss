@@ -1,0 +1,48 @@
+$futura: 'FuturaND', helvetica, sans-serif;
+
+
+// Note using !important bcs too risky to remove old styles
+._btn {
+    font-family: $futura;
+    font-size: 11px !important;
+    line-height: 13px !important;
+    letter-spacing: 1px !important;
+    padding: 12px 30px 10px !important;
+    font-weight: normal !important;
+
+    @media (min-width: 749px) {
+        font-size: 14px !important;
+        line-height: 16px !important;
+    }
+}
+
+
+
+// PDP yotpo reviews
+.templateProduct .write-question-review-buttons-container .write-question-review-button .write-question-review-button-text {
+    @extend ._btn;
+    padding: 0 !important;
+}
+
+.yotpo-display-wrapper .write-question-review-buttons-container .write-question-review-button {
+    height: auto !important;
+    padding: 13px 15px 10px !important;
+
+    @media only screen and (min-width: 749px){
+        padding: 13px 30px 10px !important;
+
+    }
+}
+
+body.templateProduct .yotpo input[type="button"].yotpo-default-button {
+    font-size: 11px !important;
+    line-height: 13px !important;
+    letter-spacing: 1px !important;
+    padding: 13px 30px 10px !important;
+
+    @media (min-width: 749px) {
+        font-size: 14px !important;
+        line-height: 16px !important;
+    }
+}
+

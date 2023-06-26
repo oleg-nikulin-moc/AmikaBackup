@@ -1,0 +1,67 @@
+<div class="breadcrumb">
+  <a href="/" class="homepage-link" title="Back to the frontpage">home</a>
+  
+  
+  
+  
+      {% for link in linklists.shop.links %}
+  
+        {% assign list_handle = link.title | handleize %}
+        {% if list_handle != "i-need" %}
+  
+          {% if linklists[list_handle].links != blank %}
+            
+            {% for level2_link in linklists[list_handle].links %}
+              {% assign level2_handle = level2_link.title | handleize %}
+  
+              {% if collection.handle == level2_handle %}
+              <i class="separator fa fa-angle-right"></i> 
+              <a href="/collections/{{ list_handle }}" class="homepage-link">{{ link.title | escape }}</a>
+              {% endif %}
+  
+              {% if linklists[level2_handle].links != blank %}
+  
+                {% assign level3_handle = level3_link.title | handleize %}
+                {% if collection.handle == level3_handle %}
+                <i class="separator fa fa-angle-right"></i> 
+                <a href="/collections/{{ level2_handle }}" class="homepage-link">{{ level2_link.title | escape }}</a>
+                {% endif %}
+  
+                {% for level3_link in linklists[level2_handle].links %}
+  
+                {% endfor %}
+  
+              {% else %}
+  
+              {% endif %}
+  
+            {% endfor %}
+  
+          {% else %}
+          
+          {% endif %}
+        
+        {% endif %}
+  
+      {% endfor %}
+  
+  
+  
+  
+  {% if template contains "product" %}
+    {% if collection %}
+      <i class="separator fa fa-angle-right"></i> 
+      <a href="/collections/{{ collection.handle }}" class="homepage-link">{{ collection.title | escape }}</a>
+    {% else %}
+      {% if product.type != blank %}
+      <i class="separator fa fa-angle-right"></i>  
+      {{ product.type | link_to_type }}
+      {% endif %}
+    {% endif %}
+  {% elsif template == "article" %}
+    <i class="separator fa fa-angle-right"></i> 
+    {{ blog.title | link_to: blog.url }}
+  {% endif %}
+  <i class="separator fa fa-angle-right"></i> 
+  <span class="page-title">{{ page_title }}</span>
+</div>

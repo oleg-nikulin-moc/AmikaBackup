@@ -1,0 +1,508 @@
+<section data-section-id="{{ section.id }}" data-section-type="terra-cycle">
+  <div class="terra__cycle">
+    
+    <!-- FIRST SECTION -->
+    <div class="container-fluid max-width-container">      <div class="banner__section">
+        <div class="banner__content">
+          {% if section.settings.first_section_heading != blank %}
+            <h3 class="text--heading">
+              {{ section.settings.first_section_heading }}
+            </h3>
+          {% endif %}
+          {% if section.settings.first_section_paragraph != blank %}
+            <div class="text--paragraph">
+              {{ section.settings.first_section_paragraph }}
+            </div>
+          {% endif %}
+
+          {% if section.settings.first_section_btn1 != blank %}
+            <div class="text--buttons">
+              <a class=" button--primary"
+			  	       target="_blank"
+                 href="{{ section.settings.first_section_btn1_url }}">
+                {{ section.settings.first_section_btn1 }}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+        <div class="banner__media">
+          {% if section.settings.enable_first_section_video %}
+            {% if section.settings.first_section_video != blank %}
+              <video width="100%" height="100%">
+                <source src="{{ section.settings.first_section_video }}" type="video/mp4">
+              </video>
+            {% endif %}
+          {% else %}
+            {% if section.settings.first_section_image_d != nil %}
+              {% assign image_d = section.settings.first_section_image_d %}
+              {% assign image_m = section.settings.first_section_image_m | default: section.settings.first_section_image_d %}
+
+              <img src="{{ image_d | img_url: 'master' }}" class="image--desktop" alt="Image" />
+              <img src="{{ image_m | img_url: 'master' }}" class="image--mobile" alt="Image" />
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    
+    <!-- QUIZ BUTTON -->
+    <div class="container-fluid max-width-container">
+      <div class="quiz__button">
+        <a href="/pages/ace" target="_blank">
+          hair IQ
+        </a>
+      </div>
+    </div>
+    
+	<!-- SECOND SECTION -->
+    <div class="image__overlay">
+      <div class="overlay__media">
+        {% if section.settings.enable_second_section_video %}
+          {% if section.settings.second_section_video != blank %}
+        	<video width="100%" height="100%">
+        	  <source src="{{ section.settings.second_section_video }}" type="video/mp4">
+        	</video>
+          {% endif %}
+        {% else %}
+          {% if section.settings.second_section_image_d != nil %}
+        	{% assign image_d = section.settings.second_section_image_d %}
+        	{% assign image_m = section.settings.second_section_image_m | default: section.settings.second_section_image_d %}
+        
+        	<img src="{{ image_d | img_url: 'master' }}" class="image--desktop" alt="Image" />
+        	<img src="{{ image_m | img_url: 'master' }}" class="image--mobile" alt="Image" />
+          {% endif %}
+        {% endif %}
+      </div>
+      <div class="overlay__content">
+        <div class="text__wrapper">
+          {% if section.settings.second_section_heading != blank %}
+            <h3 class="text--heading">
+              {{ section.settings.second_section_heading }}
+            </h3>
+          {% endif %}
+          {% if section.settings.second_section_paragraph != blank %}
+            <div class="text--paragraph">
+              {{ section.settings.second_section_paragraph }}
+            </div>
+          {% endif %}
+          
+          {% if section.settings.second_section_btn1 != blank or section.settings.second_section_btn2 != blank %}
+            <div class="text--buttons">
+              {% if section.settings.second_section_btn1 != blank %}
+                <a class="text--button button--pink"
+				           target="_blank"
+                   href="{{ section.settings.second_section_btn1_url }}">
+              	  {{ section.settings.second_section_btn1 }}
+              	</a>
+              {% endif %}
+              {% if section.settings.second_section_btn2 != blank %}
+                <a class="text--button button--orange"
+        				   target="_blank"
+                   href="{{ section.settings.second_section_btn2_url }}">
+              	  {{ section.settings.second_section_btn2 }}
+              	</a>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    
+    <!-- THIRD SECTION -->
+    <div class="container-fluid max-width-container">
+      <div class="image__flex">
+        <div class="flex__item">
+          {% if section.settings.enable_third_section_video %}
+            {% if section.settings.third_section_video != blank %}
+              <video width="100%" height="100%">
+                <source src="{{ section.settings.third_section_video }}" type="video/mp4">
+              </video>
+            {% endif %}
+          {% else %}
+            {% if section.settings.third_section_image_d != nil %}
+              {% assign image_d = section.settings.third_section_image_d %}
+              {% assign image_m = section.settings.third_section_image_m | default: section.settings.third_section_image_d %}
+
+              <img src="{{ image_d | img_url: 'master' }}" class="image--desktop" alt="Image" />
+              <img src="{{ image_m | img_url: 'master' }}" class="image--mobile" alt="Image" />
+            {% endif %}
+          {% endif %}
+        </div>
+        <div class="flex__item">
+          {% if section.settings.third_section_heading != blank %}
+            <h3 class="text--heading">
+              {{ section.settings.third_section_heading }}
+            </h3>
+          {% endif %}
+          {% if section.settings.third_section_paragraph != blank %}
+            <div class="text--paragraph">
+              {{ section.settings.third_section_paragraph }}
+            </div>
+          {% endif %}
+        </div>      
+      </div>
+    </div>
+    
+    <!-- MARQUEE -->
+    <div class="marquee__wrapper">
+      <div class="marquee__flex">        
+        {% for i in (1..10) %}
+          <div class="marquee__element">
+            <span>a friend to the planet</span>
+		  </div>
+		  <div class="marquee__element element__icon">
+			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="82" height="64" viewBox="0 0 82 64">
+			  <image id="Vector_Smart_Object" data-name="Vector Smart Object" width="81" height="64" xlink:href="data:img/png;base64,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"/>
+			</svg>
+		  </div>
+          <div class="marquee__element">
+            <span>going cleaner and greener</span>
+          </div>
+		  <div class="marquee__element element__icon">
+			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="82" height="64" viewBox="0 0 82 64">
+			  <image id="Vector_Smart_Object" data-name="Vector Smart Object" width="81" height="64" xlink:href="data:img/png;base64,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"/>
+			</svg>
+		  </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+    <!-- FOURTH SECTION -->
+    <div class="container-fluid mobile-padding max-width-container">
+      <div class="howto__container">
+        {% if section.settings.fourth_section_heading != blank %}
+          <h3 class="text--heading">
+            {{ section.settings.fourth_section_heading }}
+          </h3>
+        {% endif %}
+
+        {% if section.blocks.size > 0 %}
+          <div class="step__flex">
+            {% for block in section.blocks %}
+              <div class="flex__item">
+				{% if block.settings.show_video and block.settings.video_url != blank %}
+				  <div class="video__wrapper">
+					<video autoplay loop muted playsinline>
+					  <source src="{{ block.settings.video_url }}" type="video/mp4">
+					</video>
+				  </div>
+				{% else %}
+				  {% if block.settings.image != nil %}
+					<img src="{{ block.settings.image | img_url: 'master' }}" alt="Image" />
+				  {% endif %}
+				{% endif %}
+                
+                <div class="item--content">
+                  {% if block.settings.heading != blank %}
+                    <h4 class="block--heading">
+                      {{ block.settings.heading }}
+                    </h4>
+                  {% endif %}
+                  {% if block.settings.paragraph != blank %}
+                    <div class="text--paragraph">
+                      {{ block.settings.paragraph | replace: '<a', '<a target="_blank"' }}
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    
+    <!-- MARQUEE -->
+    <div class="marquee__wrapper second">
+      <div class="marquee__flex">        
+        {% for i in (1..10) %}
+          <div class="marquee__element">
+            <span>a friend to the planet</span>
+		  </div>
+		  <div class="marquee__element element__icon">
+			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="82" height="64" viewBox="0 0 82 64">
+			  <image id="Vector_Smart_Object" data-name="Vector Smart Object" width="81" height="64" xlink:href="data:img/png;base64,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"/>
+			</svg>
+		  </div>
+          <div class="marquee__element">
+            <span>going cleaner and greener</span>
+		  </div>
+		  <div class="marquee__element element__icon">
+			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="82" height="64" viewBox="0 0 82 64">
+			  <image id="Vector_Smart_Object" data-name="Vector Smart Object" width="81" height="64" xlink:href="data:img/png;base64,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"/>
+			</svg>
+		  </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+    <!-- FIFTH SECTION -->
+    <div class="imagetext__flex">
+      <div class="flex__item">
+        {% if section.settings.fifth_third_section_video %}
+          {% if section.settings.fifth_section_video != blank %}
+        	<video width="100%" height="100%">
+        	  <source src="{{ section.settings.fifth_section_video }}" type="video/mp4">
+        	</video>
+          {% endif %}
+        {% else %}
+          {% if section.settings.fifth_section_image_d != nil %}
+        	{% assign image_d = section.settings.fifth_section_image_d %}
+        	{% assign image_m = section.settings.fifth_section_image_m | default: section.settings.fifth_section_image_d %}
+        
+        	<img src="{{ image_d | img_url: 'master' }}" class="image--desktop" alt="Image" />
+        	<img src="{{ image_m | img_url: 'master' }}" class="image--mobile" alt="Image" />
+          {% endif %}
+        {% endif %}
+      </div>
+      <div class="flex__item">
+        {% if section.settings.fifth_section_text != blank %}
+          <div class="text--paragraph">
+            {{ section.settings.fifth_section_text }}
+          </div>
+        {% endif %}
+      </div>  
+    </div>
+    
+  </div>
+</section>
+
+<style>
+  body #header,
+  body .content-wrapper {
+	  background: #FEFAF0;
+  }
+  body #footer {
+	margin-top: 50px;
+  }
+</style>
+
+
+{% schema %}
+  {
+    "name": "Terra Cycle",
+    "settings": [
+	  {
+		"type": "header",
+		"content": "Section: 1"
+	  },
+	  {
+		"type": "checkbox",
+		"id": "enable_first_section_video",
+		"label": "Show video",
+		"default": false
+	  },
+	  {
+		"type": "url",
+		"id": "first_section_video",
+		"label": "Video URL"
+	  },
+	  {
+		"type": "image_picker",
+		"id": "first_section_image_d",
+		"label": "Image (Desktop)"
+	  },
+	  {
+		"type": "image_picker",
+		"id": "first_section_image_m",
+		"label": "Image (Mobile)"
+	  },
+	  {
+		"type": "text",
+		"id": "first_section_heading",
+		"label": "Heading",
+		"default": "TerraCycle x amika"
+	  },
+	  {
+		"type": "richtext",
+		"id": "first_section_paragraph",
+		"label": "Paragraph",
+		"default": "<p>80% of the 35 million tons of plastic the US produces each year ends up in landfills or oceans. to reduce amika's virgin plastic production, we've partnered with TerraCycle to create a free recycling program for all our packaging</p>"
+	  },
+	  {
+		"type": "text",
+		"id": "first_section_btn1",
+		"label": "Button text",
+		"default": "JOIN NOW"
+	  },
+	  {
+		"type": "url",
+		"id": "first_section_btn1_url",
+		"label": "Button link"
+	  },
+	  {
+		"type": "header",
+		"content": "Section: 2"
+	  },
+	  {
+		"type": "checkbox",
+		"id": "enable_second_section_video",
+		"label": "Show video",
+		"default": false
+	  },
+	  {
+		"type": "url",
+		"id": "second_section_video",
+		"label": "Video URL"
+	  },
+	  {
+		"type": "image_picker",
+		"id": "second_section_image_d",
+		"label": "Image (Desktop)"
+	  },
+	  {
+		"type": "image_picker",
+		"id": "second_section_image_m",
+		"label": "Image (Mobile)"
+	  },
+	  {
+		"type": "text",
+		"id": "second_section_heading",
+		"label": "Heading",
+		"default": "recycling is free"
+	  },
+	  {
+		"type": "richtext",
+		"id": "second_section_paragraph",
+		"label": "Paragraph",
+		"default": "<p>recycle from home by joining the program - save your packaging, download a free shipping label, and send in your empties or search the map for a local recycling solution</p>"
+	  },
+	  {
+		"type": "text",
+		"id": "second_section_btn1",
+		"label": "Button text",
+		"default": "print your shipping label"
+	  },
+	  {
+		"type": "url",
+		"id": "second_section_btn1_url",
+		"label": "Button link"
+	  },
+	  {
+		"type": "text",
+		"id": "second_section_btn2",
+		"label": "Button text",
+		"default": "see dropoffs near you"
+	  },
+	  {
+		"type": "url",
+		"id": "second_section_btn1_ur2",
+		"label": "Button link"
+	  },
+	  {
+		"type": "header",
+		"content": "Section: 3"
+	  },
+	  {
+		"type": "checkbox",
+		"id": "enable_third_section_video",
+		"label": "Show video",
+		"default": false
+	  },
+	  {
+		"type": "url",
+		"id": "third_section_video",
+		"label": "Video URL"
+	  },
+	  {
+		"type": "image_picker",
+		"id": "third_section_image_d",
+		"label": "Image (Desktop)"
+	  },
+	  {
+		"type": "image_picker",
+		"id": "third_section_image_m",
+		"label": "Image (Mobile)"
+	  },
+	  {
+		"type": "text",
+		"id": "third_section_heading",
+		"label": "Heading",
+		"default": "What is TerraCycle?"
+	  },
+	  {
+		"type": "richtext",
+		"id": "third_section_paragraph",
+		"label": "Paragraph",
+		"default": "<p>TerraCycle is a social enterprise dedicated to eliminating the idea of waste that specializes in recycling the un-recyclable. Ever look at a product and think, can this be recycled…? Well TerraCycle removes that worry and recycles your empties into something new. They collect, store, and recycle everything from our shampoo bottles to our spray pumps.</p>"
+	  },
+	  {
+		"type": "header",
+		"content": "Section: 4"
+	  },
+	  {
+		"type": "text",
+		"id": "fourth_section_heading",
+		"label": "Heading",
+		"default": "how it works"
+	  },
+	  {
+		"type": "paragraph",
+		"content": "Use the blocks to add the contents"
+	  },
+	  {
+		"type": "header",
+		"content": "Section: 5"
+	  },
+	  {
+		"type": "checkbox",
+		"id": "enable_fifth_section_video",
+		"label": "Show video",
+		"default": false
+	  },
+	  {
+		"type": "url",
+		"id": "fifth_section_video",
+		"label": "Video URL"
+	  },
+	  {
+		"type": "image_picker",
+		"id": "fifth_section_image_d",
+		"label": "Image (Desktop)"
+	  },
+	  {
+		"type": "image_picker",
+		"id": "fifth_section_image_m",
+		"label": "Image (Mobile)"
+	  },
+	  {
+		"type": "richtext",
+		"id": "fifth_section_text",
+		"label": "Text"
+	  }
+	],
+	"blocks": [
+	  {
+		"type": "how-it-works",
+		"name": "how it works",
+		"limit": 4,
+		"settings": [
+		  {
+			"type": "checkbox",
+            "id": "show_video",
+            "label": "Show video"
+		  },
+		  {
+			"type": "url",
+            "id": "video_url",
+            "label": "Video URL"
+		  },
+		  {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+          },
+          {
+            "type": "richtext",
+            "id": "paragraph",
+            "label": "Paragraph"
+		  }
+		]
+	  }
+	]
+  }
+{% endschema %}

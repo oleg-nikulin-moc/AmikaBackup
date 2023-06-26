@@ -1,0 +1,53 @@
+<div class="related-products">
+  <div class="container">
+    <h2>{{settings.related_products_title}}</h2>
+	<div class="product-carousel">
+      {% assign showed = 0 %}
+      {% if collection != blank %}
+      	{% assign relatedCollection = collection %}
+      {% else %}
+      	{% assign relatedCollection = currentProduct.collections.first %}
+      {% endif %}
+      
+      {% for relprod in relatedCollection.products %}
+      	{% if relprod.available %}
+          {% if showed < 3 and relprod.handle != product.handle %}
+        	{% include 'product_item', currentProduct: relprod, quickview: false, collection: relatedCollection, isCarousel: true %}
+            {% assign showed = showed | plus: 1 %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function() {
+    $('.product-carousel').slick({
+          autoplay: true,
+          speed: 1000,
+      	  slidesToShow: 5,
+      	  pauseOnHover: false,
+          slidesToScroll: 5,
+          prevArrow: '<i class="lnr lnr-chevron-left left-arrow animation"></i>',
+      	  nextArrow: '<i class="lnr lnr-chevron-right right-arrow animation"></i>',
+          responsive: [
+            {
+            	breakpoint: 584,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 2,
+                }
+            },
+			{
+            	breakpoint: 900,
+                settings: {
+                  slidesToShow: 4,
+                  slidesToScroll: 4,
+                }
+            }
+          ]
+     });
+    
+  });
+</script>

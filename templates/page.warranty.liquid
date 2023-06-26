@@ -1,0 +1,53 @@
+<div class="page page-{{page.handle}} container text-center">
+  <h1 class="page-title">{{page.title}}</h1>  
+  <div class="one-half small--one-whole push--large--one-quarter push--medium--one-quarter">
+    {{ page.content }}
+  </div>
+</div>
+<div class="hide">
+  <div id="warranty-popup">
+    <div class="warranty-container">
+<!--       <iframe allowtransparency="true" frameborder="0" style="margin-left:20px;width: 100%; border: none;height:1600px;" src="https://loveamika.wufoo.com/embed/z1prl5iv0al68qg/">&amp;lt;a href="https://loveamika.wufoo.com/forms/z1prl5iv0al68qg/"&amp;gt;Fill out my Wufoo form!&amp;lt;/a&amp;gt;</iframe> -->
+           
+      
+      <div id="wufoo-p1vofkgl1bgq4uc">
+        Fill out my <a href="https://loveamika.wufoo.com/forms/p1vofkgl1bgq4uc">online form</a>.
+      </div>
+      <script type="text/javascript">var p1vofkgl1bgq4uc;(function(d, t) {
+  var s = d.createElement(t), options = {
+    'userName':'loveamika',
+    'formHash':'p1vofkgl1bgq4uc',
+    'autoResize':true,
+    'height':'1431',
+    'async':true,
+    'host':'wufoo.com',
+    'header':'show',
+    'ssl':true};
+  s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'www.wufoo.com/scripts/embed/form.js';
+  s.onload = s.onreadystatechange = function() {
+    var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+    try { p1vofkgl1bgq4uc = new WufooForm();p1vofkgl1bgq4uc.initialize(options);p1vofkgl1bgq4uc.display(); } catch (e) {}};
+  var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+})(document, 'script');</script>
+
+
+      
+
+
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $(document).on("click", ".page-warranty a", function(event){
+      if($(this).attr("href").indexOf('wufoo') > -1){
+        event.preventDefault();
+        $.fancybox.open({
+          src  : '#warranty-popup',
+          type : 'inline'
+        });
+      }
+    });
+  });
+</script>

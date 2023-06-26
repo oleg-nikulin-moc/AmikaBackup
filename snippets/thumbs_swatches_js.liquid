@@ -1,0 +1,29 @@
+<script>
+  $(function(){
+    if(!isMobile.any) {
+      $(document).on('mouseenter', '.thumbs-swatches-wrap div', function(){  /* HOVER ON DESKTOP */
+          var wrapper = $(this).closest('.thumbs-swatches-wrap');
+          var thumbs = wrapper.find('div');
+          var form = $(this).closest('form');
+          var index = thumbs.index($(this));
+
+          thumbs.removeClass('active');
+          $(this).addClass('active');
+          form.find('.image .img').hide();
+          form.find('.image .img:eq('+index+')').show();
+      });
+    } else {
+      $(document).on('click', '.thumbs-swatches-wrap div', function(){  /* CLICK ON MOBILE */
+          var wrapper = $(this).closest('.thumbs-swatches-wrap');
+          var thumbs = wrapper.find('div');
+          var form = $(this).closest('form');
+          var index = thumbs.index($(this));
+
+          thumbs.removeClass('active');
+          $(this).addClass('active');
+          form.find('.image .img').hide();
+          form.find('.image .img:eq('+index+')').show();
+      });
+    }    
+  });
+</script>

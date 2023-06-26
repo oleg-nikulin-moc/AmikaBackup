@@ -1,0 +1,89 @@
+
+
+{% for tag in product.tags %}
+{% if tag contains  'buy_at_sephora__' %}
+{% assign product_tags = tag | split:'__' %}
+{% assign link_tag = product_tags[1] %}
+{% endif %}
+{% endfor %}
+
+<div class="content-available text-center">
+
+  {% if currentProduct.sku == 'AM45.15072' or currentProduct.handle == 'blonde-bombshell' %}
+    <a href="https://www.sephora.com/product/blonde-bombshell-kit-P437666" target="_blank" class="btn animation">
+      buy at sephora
+    </a>
+
+
+  {% elsif currentProduct.sku == 'AM21.15986' or currentProduct.handle == 'amika-x-fabfitfun-limited-edition-mini-polished-perfection-straightening-brush' %}
+    <a href="https://fabfitfun.com/" target="_blank" class="btn animation">
+      buy at fabfitfun
+    </a>
+    <style>
+    #product-info .iwishAddWrap {display: none !important;}
+    </style>
+
+  {% elsif currentProduct.sku == 'AM30.16090' or currentProduct.handle == 'amika-x-fabfitfun-limited-edition-1-25-strand-perfect-ceramic-styler' %}
+    <a href="https://fabfitfun.com/" target="_blank" class="btn animation">
+      buy at fabfitfun
+    </a>
+
+  {% elsif currentProduct.sku == 'AM32.15633' or currentProduct.handle == 'polished-perfection-span-straightening-brush-2-0' %}
+    {% if event.buy_url %}
+    <a href="{{ event.buy_url }}" class="btn event__btn btn__black">buy here</a>
+    {% else %}
+    <input type="submit" name="add" id="add-to-cart-button" class="btn animation" value="add to bag" data-matchbox-addToCart="{{ currentProduct.id }} {% for variant in currentProduct.variants %}{{variant.id}} {% endfor %}"/>
+    {% endif %}
+
+    {%- comment -%}
+    {% if customer %}
+
+  	  {% assign show_cart_button = false %}
+  	  {% for tag in customer.tags %}
+  		{% if tag == 'HMS' %}
+  		  {% assign show_cart_button = true %}
+  		{% endif %}
+  	  {% endfor %}
+
+  	  {% if show_cart_button == true %}
+  		  {% if event.buy_url %}
+        <a href="{{ event.buy_url }}" class="btn event__btn btn__black">buy here</a>
+        {% else %}
+        <input type="submit" name="add" id="add-to-cart-button" class="btn animation" value="add to bag" data-matchbox-addToCart="{{ currentProduct.id }} {% for variant in currentProduct.variants %}{{variant.id}} {% endfor %}"/>
+        {% endif %}
+  	  {% else %}
+  		<a href="https://www.sephora.com/product/ired-polished-perfection-straightening-brush-P441833" target="_blank" class="btn animation">
+          buy at sephora
+        </a>
+  	  {% endif %}
+    {% else %}
+      <a href="https://www.sephora.com/product/ired-polished-perfection-straightening-brush-P441833" target="_blank" class="btn animation">
+        buy at sephora
+      </a>
+    {% endif %}
+    {%- endcomment -%}
+  {% elsif link_tag != blank  %}
+  <a href="{{link_tag}}" target="_blank" class="btn animation link_tag">
+    buy at sephora
+  </a>
+  
+
+  <style>
+    .afterpay-paragraph,
+    .iStock-wrapper {
+      display: none !important; 
+    }
+  </style>
+  
+  {% else %}
+    {% if event.buy_url %}
+    <!-- <a href="{{ event.buy_url }}" class="btn event__btn btn__black">buy at saloncentric.com</a> -->
+    <a href="{{ event.buy_url }}" class="btn event__btn btn__black">event link</a>
+    {% else %}
+    <input type="submit" name="add" id="add-to-cart-button" class="btn animation" value="add to bag" data-matchbox-addToCart="{{ currentProduct.id }} {% for variant in currentProduct.variants %}{{variant.id}} {% endfor %}"/>
+    {% endif %}
+  {% endif %}
+</div>
+<div class="content-soldout text-center red-message hide">
+  This product is SOLD OUT.
+</div>

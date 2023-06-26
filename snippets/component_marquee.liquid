@@ -1,0 +1,14 @@
+<!-- MARQUEE -->
+{% if text_to_scroll %}
+  <div
+    class="marquee__wrapper{% unless wrapper_class == blank %} {{ wrapper_class }}{% endunless %}"
+    {% unless data_id == blank %}data-id="marquee-{{ data_id }}"{% endunless %}>
+    <div class="marquee__flex">        
+      {% for i in (1..20) %}
+        <div class="marquee__element">
+          <span>{{ text_to_scroll }}</span>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %} 

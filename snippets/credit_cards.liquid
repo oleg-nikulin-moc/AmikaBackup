@@ -1,0 +1,25 @@
+<div id="payment-methods">
+  
+  {% if settings.plus_american_express %}
+    <img width="50" src="{{ 'american_express' | payment_type_img_url }}" />
+  {% endif %}
+  {% if settings.plus_diners_club %}
+    <img width="50" src="{{ 'diners_club' | payment_type_img_url }}" />
+  {% endif %}
+  {% if settings.plus_discover %}
+    <img width="50" src="{{ 'discover' | payment_type_img_url }}" />
+  {% endif %}
+  {% if settings.plus_jcb %}
+    <img width="50" src="{{ 'jcb' | payment_type_img_url }}" />
+  {% endif %}
+  {% if settings.plus_master %}
+    <img width="50" src="{{ 'master' | payment_type_img_url }}" />
+  {% endif %}
+  {% if settings.plus_paypal %}
+    <img width="50" src="{{ 'paypal' | payment_type_img_url }}" />
+  {% endif %}
+  {% if settings.plus_visa %}
+    <img width="50" src="{{ 'visa' | payment_type_img_url }}" />
+  {% endif %}
+  
+</div>

@@ -1,0 +1,45 @@
+<div class="recently-viewed">
+  <div class="container">
+    <h2>Recently Viewed</h2>
+	<div id="recently-viewed-products"></div>
+  </div>
+</div>
+
+<script>
+  $(function(){
+    Shopify.Products.showRecentlyViewed({
+      howManyToShow: 6, 
+      onComplete: function(){
+        if($('#recently-viewed-products .product-item').length > 0) {
+        	$('.recently-viewed').show();
+          	
+          	$('#recently-viewed-products').slick({
+                autoplay: true,
+                speed: 1000,
+                slidesToShow: 5,
+                pauseOnHover: false,
+                slidesToScroll: 5,
+                prevArrow: '<i class="lnr lnr-chevron-left left-arrow animation"></i>',
+                nextArrow: '<i class="lnr lnr-chevron-right right-arrow animation"></i>',
+                responsive: [
+                  {
+                      breakpoint: 584,
+                      settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                      }
+                  },
+                  {
+                      breakpoint: 900,
+                      settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 4,
+                      }
+                  }
+                ]
+            });
+        }
+      }
+    });
+  });
+</script>

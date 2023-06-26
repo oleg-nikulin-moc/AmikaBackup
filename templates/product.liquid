@@ -1,0 +1,46 @@
+{% section 'product' %}
+
+{% include 'marquee_text' , text_to_scroll: product.metafields.marquee_text.review , marquee__full: true%}
+
+{% if product.metafields.yotpo.reviews_count and product.metafields.yotpo.reviews_count != "0" %}
+  <div class="yotpoRating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+    <span itemprop="itemReviewed">{{ product.title }}</span>
+    has a rating of <span itemprop="ratingValue">{{ product.metafields.yotpo.reviews_average }}</span> stars
+    based on <span itemprop="ratingCount">{{ product.metafields.yotpo.reviews_count }}</span> reviews.
+  </div>
+{% endif %}
+
+{% if product.metafields.youtube.videos %}
+  {% include 'marquee_text' , text_to_scroll: product.metafields.marquee_text.video %}
+  {% include 'product_videos' %}
+{% endif %}
+
+{% if product.metafields.recommended_products.handles %}
+  {% include 'marquee_text' , text_to_scroll: product.metafields.marquee_text.recommended_products %}
+  {% include 'recommended_products' %}
+{% endif %}
+
+{% comment %} Blog Marquee {% endcomment %}
+{% comment %}{% include 'marquee_text' , text_to_scroll: product.metafields.marquee_text.blog %}{% endcomment %}
+{% comment %} Product Blog Section {% endcomment %}
+{% comment %}{% include '_product_blog' %}{% endcomment %}
+{% comment %} Reviews Marquee {% endcomment %}
+{% include 'marquee_text' , text_to_scroll: product.metafields.marquee_text.reviews %}
+{% comment %} Reviews Section {% endcomment %}
+{% include '_product_reviews' %}
+
+{% if settings.show_related_products %}
+  {% if quickView != true %}
+    {% comment %}{% include 'related_products' %}{% endcomment %}
+  {% endif %}
+{% endif %}
+
+<style>
+  {% if product.tags contains 'gift-BFCM' or product.tags contains 'sample' %}
+  .variants.add-to-cart-form{
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+  {% endif %}
+</style>

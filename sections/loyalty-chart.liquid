@@ -1,0 +1,64 @@
+<div class="loyalty-chart">
+  <div class="chart-table container">
+    <table>
+      <thead>
+        <tr>
+          <td>level</td>
+          <td>monthly salon purchases</td>
+          <td>% earned</td>
+        </tr>
+      </thead>
+      <tr>
+        <td>SUITE</td>
+        <td>$750 QUARTERLY</td>
+        <td>10%</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>$500 - $999</td>
+        <td>15%</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>$1000 - $1499</td>
+        <td>17%</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>$1500 - $1999</td>
+        <td>19%</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>$2000 - $2999</td>
+        <td>21%</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>$3000+</td>
+        <td>25%</td>
+      </tr>
+    </table>
+    <img class="loyalty-chart-img" 
+      srcset="{{ 'campaign-2020_amika_belle_1597_v2_1-semi_2x_1.jpg' | file_img_url: '1440x' }} 1440w, 
+              {{ 'campaign-2020_amika_belle_1597_v2_1-semi_2x_1.jpg' | file_img_url: '1000x' }} 1000w,
+              {{ 'campaign-2020_amika_belle_1597_v2_1-semi_2x_1.jpg' | file_img_url: '700x' }} 700w"
+      sizes="(min-width: 750px) 33vw, 80vw"
+      src="{{ 'campaign-2020_amika_belle_1597_v2_1-semi_2x_1.jpg' | file_img_url: '1440x' }} 1440w"
+      loading="lazy"
+    >
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Loyalty Chart",
+  "presets": [
+      {
+        "name": "Loyalty Chart",
+        "category": "custom"
+      }
+  ]
+}
+{% endschema %}

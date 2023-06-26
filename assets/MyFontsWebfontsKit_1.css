@@ -1,0 +1,59 @@
+/**
+ * @license
+ * MyFonts Webfont Build ID 3416970, 2017-07-05T12:44:04-0400
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: FuturaND-Bold by Neufville Digital
+ * URL: https://www.myfonts.com/fonts/neufville/futura-nd/bold/
+ * 
+ * Webfont: FuturaNDDemibold by Neufville Digital
+ * URL: https://www.myfonts.com/fonts/neufville/futura-nd/demibold/
+ * 
+ * 
+ * License: https://www.myfonts.com/viewlicense?type=web&buildid=3416970
+ * Licensed pageviews: 10,000
+ * Webfonts copyright: © Copyright 1998, Neufville Digital. ALL RIGHTS RESERVED. This font is licensed, not sold, and may not be reproduced without the written consent of Neufville Digital. Parts © Visualogik Technology & Design, 1998.The digitally encoded mac
+ * 
+ * © 2017 MyFonts Inc
+*/
+
+
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/34238a");
+
+  
+@font-face {
+  font-family: 'FuturaND';
+  
+  src: url('34238A_0_0.eot');
+  src: url('34238A_0_0.eot?#iefix') format('embedded-opentype'),
+       url('34238A_0_0.woff2') format('woff2'),
+       url('34238A_0_0.woff') format('woff'),
+       url('34238A_0_0.ttf') format('truetype');
+  
+  /*src: url('34238A_1_0.eot');
+  src: url('34238A_1_0.eot?#iefix') format('embedded-opentype'),
+       url('34238A_1_0.woff2') format('woff2'),
+       url('34238A_1_0.woff') format('woff'),
+       url('34238A_1_0.ttf') format('truetype');*/
+  font-weight:900;
+  font-style:normal;
+}
+ 
+  
+@font-face {
+  font-family: 'FuturaND';
+  src: url('34238A_1_0.eot');
+  src: url('34238A_1_0.eot?#iefix') format('embedded-opentype'),
+       url('34238A_1_0.woff2') format('woff2'),
+       url('34238A_1_0.woff') format('woff'),
+       url('34238A_1_0.ttf') format('truetype');
+  font-weight:700;
+  font-style:normal;
+}
+ 

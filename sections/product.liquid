@@ -1,0 +1,712 @@
+{{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+{% comment %} {% include 'breadcrumb' %} {% endcomment %}
+<product id="section-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state='true' class="product grid sticky-block">
+
+  {%- assign current_variant = product.selected_or_first_available_variant -%}
+  {%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
+
+  <div class="grid__item f7-12 small--f12-12 image-container">
+    <div class="product-images" data-matchbox-item="{{ product.id }} {% for variant in product.variants %} {{variant.id}}{% endfor %}" aria-hidden="true">
+      <div class="award">
+      {% if product.tags contains "award_totalbeauty" %}
+        <img class="badge" src="{{ 'totalbeauty.png' | asset_url }}" />
+      {% endif %}
+      {% if product.tags contains "award_shefinds" %}
+        <img class="badge" src="{{ 'shefinds.png' | asset_url }}" />
+      {% endif %}
+      {% if product.tags contains "award_refinery" %}
+        <img class="badge" src="{{ 'refinery29.png' | asset_url }}" />
+      {% endif %}
+      {% if product.tags contains "award_influenster" %}
+        <img class="badge" src="{{ 'influenster.png' | asset_url }}" />
+      {% endif %}
+      {% if product.tags contains "award_fitness" %}
+        <img class="badge" src="{{ 'fitness.png' | asset_url }}" />
+      {% endif %}
+      {% if product.tags contains "award_cosmopolitan" %}
+        <img class="badge" src="{{ 'cosmopolitan.png' | asset_url }}" />
+      {% endif %}
+      {% if product.tags contains "travel-award-2019" %}
+        <img class="badge" src="{{'People_Travel_Award.png'| asset_url }}" />
+      {% endif %}
+      </div>
+
+      <div class="innerzoomer js f12-12 small--f12-12">
+      {% if product.images.size >= 1 %}
+        <div class="pslider_big" data-matchbox-item="{{ product.id }}" data-media-size="{{ product.media.size }}">
+            {% for media in product.media %}
+            {% case media.media_type %}
+            {% when 'image' %}
+                <div>
+                  <img class="ps-trigger" data-lazy="{{ media | img_url: '1000x'}}" alt="{{ image.alt | escape }}" data-position="{{ media.position }}">
+                </div>
+              {% when 'external_video' %}
+                <div class="product-single__media" data-media-id="{{ media.id }}">
+                  <div class="video__wrapper">
+                   {{ media | external_video_tag }}
+                  </div>
+                </div>
+              {% when 'video' %}
+                <div data-position="{{ media.position }}" class="touch__play">
+                  {{ media | video_tag: controls: false }}
+                </div>
+              {% when 'model' %}
+                <div class="product-single__media" style="padding-top: 100%" data-media-id="{{ media.id }}">
+                  {{ media | model_viewer_tag }}
+                </div>
+              {% else %}
+                <div class="product-single__media" style="padding-top: 100%;" data-media-id="{{ media.id }}">
+                  {{ media | media_tag }}
+                </div>
+              {% endcase %}
+          {% endfor %}
+        </div>
+      {% endif %}
+      </div>
+
+      {% if product.images.size > 1 %}
+      <div class="pslider_small f1-12">
+        {% for image in product.media %}
+      
+            <div class="slider-thumbnail" data-position="{{ media.position }}">
+            <img class="js f1-12" src="{{ image | img_url: '160x160' }}" alt="{{ image.alt | escape }}">
+            <a class="no-js" href="{{ image | img_url: 'master' }}">
+              <img src="{{ image.src | img_url: '160x160' }}" alt="{{ image.alt | escape }}" data-position="{{ image.position }}">
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="grid__item f5-12 small--f12-12 info-container product__redesign">
+    <div class="sidebar">
+      <div class="sidebar__inner">
+        <div class="rs-product-info">
+          <div class="flex title-ratings">
+            {% assign titles = product.title | split: '|' %}
+            <h1>
+              {% for title in titles %}
+                <div>{{ title | strip }}</div>
+              {% endfor %}
+
+              {% if product.tags contains 'final sale' %}
+                <p class="final-sale">**Final Sale**</p>
+              {% endif %}
+            </h1>
+            {% comment %} <p>{{ product.vendor }}</p> {% endcomment %}
+            <div class="align-right">
+              <div class="review-ratings">
+                {% comment %} {% if product.metafields.yotpo.reviews_average %}
+                <div class="collection-item__ratings star-ratings ratings-{{product.metafields.yotpo.reviews_average}}"></div>
+                {% endif %}
+                {% endcomment %}
+                <div class="yotpo bottomLine" data-product-id="{{ product.id }}"></div>
+                {% if product.metafields.yotpo.reviews_count %}
+                  <div class="reviews-count">({{ product.metafields.yotpo.reviews_count }})</div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <div class="flex desc-price">
+            <div class="f6-12 medium--f12-12 small--f8-12 description">
+            {% if product.metafields.global['short_desc'] != blank %}
+              {{ product.metafields.global['short_desc'] }}
+            {% endif %}
+            </div>
+            <div class="f6-12 medium--f12-12 small--f4-12">
+              {% assign is_discounted = false %}
+              {% if product.compare_at_price_max > product.price_max or product.compare_at_price_min > product.price_min %}{% assign is_discounted = true %}{% endif %}
+              <div class="price {% if is_discounted %}price-discounted{% endif %}">
+                <div class="price-discounted__compare-at">
+                  <span class="product-price">
+                    {{ product.compare_at_price_min | money_without_trailing_zeros }}
+                  </span>
+                  {% unless product.has_only_default_variant or product.compare_at_price_max == product.compare_at_price_min %}
+                  <span>&ndash;</span>
+                  <span class="product-price">
+                    {{ product.compare_at_price_max | money_without_trailing_zeros }}
+                  </span>
+                  {% endunless %}
+                </div>
+                <div class="price-discounted__discount">
+                  <span class="product-price">
+                    {{ product.price_min | money_without_trailing_zeros }}
+                  </span>
+                  {% unless product.has_only_default_variant or product.price_max == product.price_min %}
+                  <span>&ndash;</span>
+                  <span class="product-price">
+                    {{ product.price_max | money_without_trailing_zeros }}
+                  </span>
+                  {% endunless %}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {% if section.settings.show_local_wishlist %}
+            <span class="rs_wishlist iWishAdd" data-product="{{ product.id }}" data-pTitle="{{ product.title | escape }}">
+              <svg class="icon"><use xlink:href="#icon-wishlist"></use></svg>
+            </span>
+          {% endif %}
+
+        </div>
+
+        {% if section.settings.show_share_buttons and false %}
+          {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: featured_image %}
+        {% endif %}
+        
+        {% comment %}
+        <div class="rte">
+          {{ product.description }}
+        </div>
+        {% endcomment %}
+
+        <form action="/cart/add" method="post" enctype="multipart/form-data" class="variants add-to-cart-form {% if product.has_only_default_variant %}single__option{% endif %}" id="product-actions">
+          {% unless product.has_only_default_variant %}
+            <div id="rs-filtervariant" class="js">
+              <div class="hidden-selectors"></div>
+              {% include 'product-filter' %}
+              <div class="afterpay">{% include 'afterpay__product__page' %}</div>
+            </div>
+          {% else %}
+            <div id="rs-filtervariant" class="js"> 
+              <div class="filters">
+                <div class="selector-wrapper">
+                  <div class="categoryFilters">
+                    <ul>
+                      <li class="submenuholder rs-and" data-tag="size" data-option="1" data-index="option1" data-label="Size">
+                        <label class="submenupop"></label>
+                        <ul class="submenu"></ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="afterpay">{% include 'afterpay__product__page' %}</div>
+          {% endunless %}
+
+          <select name="id" class="no-js product-select">
+            {% for variant in product.variants %}
+              <option
+                {% if product.selected_variant != nil and variant == current_variant %}selected="selected"{% endif %}
+                {% unless variant.available %}disabled="disabled"{% endunless %}
+                value="{{ variant.id }}">
+                  {{ variant.title }}
+              </option>
+            {% endfor %}
+          </select>
+
+          <div id="atc-main" class="atc-container">
+            <div class="subscription"></div>
+
+            <div class="flex atc-btns">
+              <div class="quantity">
+                <label for="Quantity">quantity:</label>
+                <input type="number" id="Quantity" name="quantity" value="1" min="1">
+              </div>
+
+              <button
+                type="submit"
+                name="add"
+                class="add-to-cart cta button--primary"
+                id="add-to-cart-button"
+                {% unless current_variant.available %}disabled="disabled"{% endunless %}>
+                  {% if current_variant.available %}
+                    {% comment %} {{ 'products.product.add_to_cart' | t }} {% endcomment %}
+                    add to bag
+                  {% else %}
+                    {% comment %} {{ 'products.product.sold_out' | t }} {% endcomment %}
+                    notify me when available
+                  {% endif %}
+                  <span class="price">{{ product.selected_variant.price | money_without_trailing_zeros }}</span>
+              </button>
+
+              <a href="#" onclick="openKlaviyoPDPBisPopup(this); return false;" class="cta bis-trigger notify__me button--primary" handle="{{ product.handle }}" style="display:none;">notify me when available</a>
+
+              
+            </div>
+          </div>
+
+          <div id="atc-fixed" class="atc-container fixed">
+            <div class="img-holder"><img /></div>
+            <div class="flex atc-btns">
+              <button
+                type="submit"
+                name="add"
+                class="add-to-cart cta button--primary"
+                id="fixed-add-to-cart-button"
+                onclick="event.preventDefault();"
+                {% unless current_variant.available %}disabled="disabled"{% endunless %}>
+                  {% if current_variant.available %}
+                    {% comment %} {{ 'products.product.add_to_cart' | t }} {% endcomment %}
+                    add to bag
+                  {% else %}
+                    {% comment %} {{ 'products.product.sold_out' | t }} {% endcomment %}
+                    notify me when available
+                  {% endif %}
+                  <span class="price">{{ product.selected_variant.price | money_without_trailing_zeros }}</span>
+              </button>
+              <a href="#" onclick="openKlaviyoPDPBisPopup(this); return false;" class="cta bis-trigger notify__me button--primary" handle="{{ product.handle }}" style="display:none;">notify me when available</a>
+            </div>
+          </div>
+
+          <div class="atc-overlay-fixed"></div>
+
+          <div class="hidden" style="display:none;">
+            {% include 'klaviyo_bis_tag_filter' %} 
+            {% include 'klaviyo_bis_form' show_popup: true  %}            
+          </div>
+
+        </form>
+
+        <!--div class="spacer">&nbsp;</div-->
+        {% comment %} Kind + Clean {% endcomment %}
+        {% include '_product_kind-clean' %}
+        {% comment %} Orange Badges Section {% endcomment %}
+        {% include '_product_badges' %}
+        {% comment %} Details Marquee {% endcomment %}
+        {% include 'marquee_text' , text_to_scroll: product.metafields.marquee_text.details, marquee__extend: true %}
+        {% comment %} Details Section {% endcomment %}
+        {% include '_product_details' %} 
+        {% comment %} Testimonials Marquee {% endcomment %}
+        {% include 'marquee_text' , text_to_scroll: product.metafields.marquee_text.testimonials, marquee__extend: true %}
+        {% comment %} Testimonials Section {% endcomment %}
+        {% include '_product_testimonials' %}
+        {% comment %} Press Badges Section {% endcomment %}  
+        {% include '_product_press_badges' %}
+        {% comment %} Video Marquee 
+        {% include 'marquee_text' , text_to_scroll: product.metafields.marquee_text.video %}
+        {% endcomment %}
+
+        {% include 'donation' %}
+
+        {% comment %}
+        The original product section js uses this, because there's no way to pass data in directly.
+        <script id="data-product-json" type="application/json">
+          {{ product | json }}
+        </script>
+
+        would need
+        = JSON.parse($('#data-product-json').html());
+        Instead of the direct  = {{ product | json }};
+        {% endcomment %}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(function(){
+      $('.filter-item:first-child').trigger('click'); 
+
+    })
+  </script>
+
+  <script>
+    var $largeBreakPoint = 990,
+        $mediumBreakPoint = 560;
+
+    $(document).on('loaded.theme', function(){
+
+
+      var tabs = $('.tab-nav .tab');
+      // console.log(tabs);
+      if(tabs.length > 0) {
+        var t = $(tabs[0]).find('a').attr('id');
+        $(tabs[0]).addClass('tab-open');
+        $('#'+ t + 'c').fadeIn('slow');
+      }
+
+      /* NEW PDP: sticky tabs */
+      if (window.matchMedia("(max-width: 1024px)").matches) {
+        $('#utility-bar .utility-items').on('init', function(event, slick, direction){
+          var h = $('#header').outerHeight();
+          $('.tab-nav').css('top',(h-1) +'px')
+        });
+      }
+
+
+
+      //Pick one:
+      var productSingleObject = {{ product | json }};
+      // var productSingleObject = {% assign pJSON = product | json %}
+      // {% assign size = pJSON | size | minus: 1 %}
+      // {% assign pJSON = pJSON | slice: 0, size %}
+      // {{pJSON}}
+      //   ,"metafields":[{{ product.metafields.c_f | json }}];
+      // } ;
+      console.log(productSingleObject);
+
+      var $container = $('#section-{{ section.id }}');
+      
+      var rs_filter = theme.rs_filter($container, theme.CUSTOM_FILTERS, true);
+      //The copy and paste I'm encouraging you to do may result in too may filters. Get rid of them.
+      rs_filter.restrictFilterOptions([productSingleObject]);
+      //read exotic urls
+      var m = location.pathname.match(/\/products\/[^\/]+\/([^\/]+)/);
+      if (m) {
+        //TODO: Word case that? or just have all the match lower case? Or make the source lower case?
+        rs_filter.searchToFilter(m[1].replace('-',' ').replace('+',' ').split('_'));
+      }
+      //If there's a currently selected variant (via the variant=id url, presumably)
+      //set up the filters (assuming that selects set themselves up, above)
+      {%- assign selected_variant = product.selected_variant -%}
+      {% if selected_variant %}
+      rs_filter.searchToFilter({{selected_variant.options | json}});
+      {% endif %}
+      //create compatibility selectors from filters.
+      $('.hidden-selectors', $container).html(rs_filter.filterToSelectList());
+      // rs_filter.customSelect();
+
+      //link the product and filters to the variants
+      var ProductFilter = new theme.ProductFilter($container, rs_filter, productSingleObject);
+      
+      //add the quantity clickers
+      theme.adjusters($('.quantity', $container));
+      // $('form', $container).on('submit', theme.rsCartListener);
+
+      //TODO: SWATCH HOVER: on hover, copy the data-name, or .text() to a span.
+      //Changing swatch (click) should also probably do the same, but perhaps to a different span.
+      //see https://aceandeverett.com/products/peyton?variant=3259416707098
+      //Config dual sliders
+      //See http://kenwheeler.github.io/slick/ for many more config options.
+      var slickCenterPadding = '0';
+      var slickCenterMode = false;
+      if(parseInt($('.pslider_big').attr('data-media-size')) > 1) {
+        slickCenterPadding = '3em';
+        slickCenterMode = true;
+      }
+
+      $('.pslider_big', $container).on('afterChange',function(event, slick, slide){
+        if ($(slick.$slides[slide]).children('video').length) {
+          $(slick.$slides[slide]).children('video')[0].play();
+          // for mobile:
+          if (window.innerWidth<$mediumBreakPoint) {
+            $(slick.$slides[slide]).closest('.touch__play').on('click touch', function () {
+              $(slick.$slides[slide]).children('video')[0].play();
+            });
+          }
+        } else {
+          $(slick.$slides[slide], $container).not('.z').addClass('z').zoom({touch:window.innerWidth>=$mediumBreakPoint});
+        }
+      }).on('init', function(event, slick){
+        setTimeout(function(){//bg
+          var img = $(slick.$slides[0]).find('img');
+          if (img) {
+            console.log(img);
+            var currentimage = new Image();
+            currentimage.src = img.attr('src')||img.attr('data-lazy');
+            currentimage.onload = function() {
+              $(slick.$slides[0]).addClass("z").zoom({touch:window.innerWidth>=$mediumBreakPoint})
+            }
+          }
+        },1000);
+        $('.pslider_big').css('opacity', 1);
+      }).slick({
+        lazyLoad: 'ondemand',
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        dots: false,
+        fade: true,
+        autoplay: true,
+        autoplaySpeed: 8000,
+        asNavFor: '#section-{{ section.id }} .pslider_small',
+        responsive: [
+          {
+            breakpoint: $largeBreakPoint,
+            settings: {
+              centerMode: true,
+              centerPadding: '5em',
+              infinite: true,
+              fade: false,
+            }
+          },
+          {
+            breakpoint: $mediumBreakPoint,
+            settings: {
+              centerMode: slickCenterMode,
+              centerPadding: slickCenterPadding,
+              infinite: true,
+              fade: false,
+            }
+          }
+        ]
+      });
+      $('.pslider_small', $container).slick({
+        slidesToShow: 10,
+        slidesToScroll: 1,
+        asNavFor: '#section-{{ section.id }} .pslider_big',
+        dots: false,
+        arrows: false,
+        focusOnSelect: true,
+        vertical: true,
+        verticalSwiping: false
+      });
+
+      $('.slide-thumbnail', $container).on('click',function(){
+        $('.pslider_big div[data-position]').find('video').each(function() { this.pause(); });
+        var position = $(this).data("position")
+        $('.pslider_big div[data-position="' + position + '"]').find('video').each(function() {
+          this.play();
+        })
+      })
+
+
+
+
+      {% if section.settings.show_local_wishlist %}
+      //wishlist
+      var $wl = $('.rs_wishlist', $container);
+      $wl.on('click',function (){
+        theme.wishlist.save(productSingleObject)
+        $wl.addClass('isWished')
+      })
+      $wl.length && setTimeout(function(){
+        if (theme.wishlist.isWished(productSingleObject)) {
+          $wl.addClass('isWished')//TODO: document css class
+        }
+      },1)
+      {% endif %}
+
+      $(document).trigger('loaded.product',[productSingleObject, $container]);
+      {% comment %}
+      // TO THIS POINT, all of this works in a quickview, or having multiple products per page. Try to not break that for no reason.
+      //Use the event if you want to do random junk every time a product is displayed.
+      {% endcomment %}
+    });
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+      function calculateMarginMarque() {
+        var screenWidth = $(window).width();
+        var sectionWidth = $('.image-container').width();
+        var productDescriptionWidth = $('.product__redesign .sidebar__inner').outerWidth();
+
+        var marginRight = (screenWidth - (sectionWidth + productDescriptionWidth ));
+
+        console.log(marginRight)
+
+        if(screenWidth > 949) {
+          $('.product__redesign .marquee_relative').css({
+            'margin-right': '-' + marginRight + 'px'
+          })
+        } else {
+          $('[data-id=marquee-product-details]').css({
+            'margin-right': '-20px',
+            'margin-left': '-20px',
+          })
+        }
+      }
+
+      calculateMarginMarque();
+
+      $(window).on('resize', function() {
+        calculateMarginMarque();
+      });
+    });
+
+    /* NEW PDP: detail tabs accordion */
+    $(document).on("click", '.accordion a', function(event){
+      event.preventDefault();
+      // alert('hi')
+      if ($(this).parent().hasClass('accordion-open')) {
+        $(this).parent().removeClass('accordion-open');
+        $(this).closest('.accordion-container').find('.accordion-content').slideUp();
+      } else {
+        $('.accordion-container h2').removeClass('accordion-open');
+        $('.accordion-content').addClass('hide').slideUp();
+
+        $(this).parent().addClass('accordion-open');
+        $(this).closest('.accordion-container').find('.accordion-content').removeClass('hide').slideDown();
+      }
+    });
+
+    /* NEW PDP: detail TABS */
+    $(document).on("click", 'h2.tab a', function(event){
+      event.preventDefault();
+      console.log('hi')
+      var t = $(this).attr('id');
+
+      var wasOpenTab = $(this).parent().hasClass('tab-open');
+
+      $(this).parents('.tabs').find('h2.tab').removeClass('tab-open');
+      $(this).parents('.tabs').find('.tab-content').hide();
+      
+      if(!wasOpenTab) {
+        $(this).parent().addClass('tab-open');
+        // $(this).parent().next().show('fast');
+        $('#'+ t + 'c').fadeIn('slow');
+        if($(window).width() <= 1024) {
+          $([document.documentElement, document.body]).animate({
+            scrollTop: $('#'+ t + 'c').offset().top - 190
+          }, 500);
+        }
+      }
+    });
+
+   
+
+
+{% if product.tags contains 'liter' %}
+    $('#add-to-cart-button').on('click', function(){
+      let prodsel = $('.submenu li.filter-selected').text().trim();
+      if (prodsel === '1 l / 33.8 fl oz'
+          || prodsel === '1000ml / 33.8 oz'
+          || prodsel === '2 for 1 litre' ) {
+          setTimeout(function(){
+            //open dialog
+            //-find dialog. There's some cloud thing
+
+            hideSideCart();
+            modal = new tingle.modal({
+              closeMethods: ['overlay', 'button', 'escape'],
+              closeLabel: "",
+              cssClass: ['promotion-popup']
+            });
+            modal.setContent( 
+              '<div id="promotion-pop-up-success">\
+              <div id="promotion-pop-up-success-wrapper">\
+              <div class="wrap gyu">\
+              <h1>Do you need a new set of pumps for your liter?</h1>\
+              <p><button id=pumpok>Yes, I need pumps!</button></p>\
+              <p><button id=pumpno>No, I\'ll reuse mine <i class="fa fa-recycle" aria-hidden="true"></i></button></p>\
+                </div>\
+                </div>\
+                </div>');
+            modal.open();
+            $('#pumpok').on('click', function(){
+              modal.close();
+              //add id:193236500498 to cart
+              $.ajax({
+                type: 'POST',
+                url: '/cart/add.js',
+                data: {id:( prodsel ? '1771444273170':'1771444273170'),quantity:1},
+                dataType: 'json',
+                error: addToCartFail,
+                success: addToCartSuccess
+              });
+            });
+            $('#pumpno').on('click', function(){
+              modal.close();
+            });
+          }, 750);
+      }
+    });
+  {% endif %}
+
+  {% if product.tags contains 'FlashLiter' %}
+      $('#add-to-cart-button').on('click', function(){
+        let prodsel = $('.submenu li.filter-selected').text();
+        if (prodsel === '1 l / 33.8 fl oz'
+            || prodsel === '1000ml / 33.8 oz'
+            || prodsel === '2 for 1 litre' ) {
+          setTimeout(function(){
+            //open dialog
+            //-find dialog. There's some cloud thing
+
+            hideSideCart();
+            modal = new tingle.modal({
+              closeMethods: ['overlay', 'button', 'escape'],
+              closeLabel: "",
+              cssClass: ['promotion-popup']
+            });
+            modal.setContent(
+              '<div id="promotion-pop-up-success">\
+                <div id="promotion-pop-up-success-wrapper">\
+                  <div class="wrap">\
+                  <h1>Do you need a new set of pumps for your liter?</h1>\
+                  <p><button id=pumpok>Yes, I need pumps</button></p>\
+                  <p><button id=pumpno>No, I\'ll reuse mine <i class="fa fa-recycle" aria-hidden="true"></i></button></p>\
+                  </div>\
+                </div>\
+              </div>');
+            modal.open();
+            $('#pumpok').on('click', function(){
+              modal.close();
+              //add id:193236500498 to cart
+              $.ajax({
+                type: 'POST',
+                url: '/cart/add.js',
+                data: {id:(prodsel === '1 l / 33.8 fl oz'?'1771444273170':'1771444273170'),quantity:1},
+                dataType: 'json',
+
+                error: addToCartFail,
+                success: addToCartSuccess
+              });
+            });
+            $('#pumpno').on('click', function(){
+              modal.close();
+            });
+          }, 750);
+        }
+      });
+    {% endif %}
+
+
+    // <!-- Klaviyo Tracking Script -->
+    var _learnq = _learnq || [];
+
+    var item = {
+      Name: {{ product.title|json }},
+      ProductID: {{ product.id|json }},
+      Categories: {{ product.collections|map:'title'|json }},
+      ImageURL: "https:{{ product.featured_image.src|img_url:'grande' }}",
+      URL: "{{ shop.secure_url }}{{ product.url }}",
+      Brand: {{ product.vendor|json }},
+      Price: {{ product.price|money|json }},
+      CompareAtPrice: {{ product.compare_at_price_max|money|json }}
+    };
+
+    _learnq.push(['track', 'Viewed Product', item]);
+    _learnq.push(['trackViewedItem', {
+      Title: item.Name,
+      ItemId: item.ProductID,
+      Categories: item.Categories,
+      ImageUrl: item.ImageURL,
+      Url: item.URL,
+      Metadata: {
+        Brand: item.Brand,
+        Price: item.Price,
+        CompareAtPrice: item.CompareAtPrice
+      }
+    }]);
+    //<!-- End Klaviyo Tracking Script -->
+
+    //<!-- Klaviyo Add to Cart Script -->
+    var _learnq = _learnq || [];
+    document.getElementById("add-to-cart-button").addEventListener('click',function (){
+      _learnq.push(['track', 'Added to Cart', item]);
+    });
+    //<!-- End Klaviyo Add to Cart Script -->
+  </script>
+</product>
+
+{% schema %}
+  {
+    "name": "Product pages",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": "Show social sharing buttons",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_local_wishlist",
+        "label": "Show localStorage Wishlist",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_null_option",
+        "label": "Force variant selection",
+        "info": "Require that the customer select a variant before enabling the buy button. Assumes the first variant is selected, otherwise.",
+        "default": false
+      }
+    ]
+  }
+{% endschema %}

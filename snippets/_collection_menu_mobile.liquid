@@ -1,0 +1,87 @@
+<select id="filter-collections">
+  {% for link in linklists.shop.links %}
+    {% assign current = false %}{% if template == 'index' and link.url == '/' %}{% assign current = true %}{% else %}{% if collection.url == link.url %}{% assign current = true %}{% else %}{% if blog.url == link.url %}{% assign current = true %}{% else %}{% if page.url == link.url %}{% assign current = true %}{% else %}{% if page_title == link.title %}{% assign current = true %}{% else %}{% if template == 'list-collections' and link.url == '/collections' %}{% assign current = true %}{% else %}{% if page_title == 'Products' and link.url == '/collections/all' %}{% assign current = true %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+    {% assign list_handle = link.title | handleize %}
+    {% if list_handle != "i-need" %}
+    <li class="{% if current %}selected{% endif %} top_list animation">
+
+      {% if linklists[list_handle].links != blank %}
+
+      <a href="javascript:void(0);" class="opener"><span class="fa arrow">&#xf107;</span></a>
+      <!-- <ul class="hide"> -->
+        <option class="animation {% if current %}selected{% endif %}">
+          <a href="{{ link.url }}" ><span>{{ link.title | escape }}</span></a>
+        </option>
+        {% for level2_link in linklists[list_handle].links %}
+        {% assign current = false %}{% if template == 'index' and level2_link.url == '/' %}{% assign current = true %}{% else %}{% if collection.url == level2_link.url %}{% assign current = true %}{% else %}{% if blog.url == level2_link.url %}{% assign current = true %}{% else %}{% if page.url == level2_link.url %}{% assign current = true %}{% else %}{% if page_title == level2_link.title %}{% assign current = true %}{% else %}{% if template == 'list-collections' and level2_link.url == '/collections' %}{% assign current = true %}{% else %}{% if page_title == 'Products' and level2_link.url == '/collections/all' %}{% assign current = true %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+        {% assign level2_handle = level2_link.title | handleize %}
+
+        <option class="animation {% if current %}selected{% endif %}">
+          {% if linklists[level2_handle].links != blank %}
+          <a href="{{ level2_link.url }}" ><span>{{ level2_link.title | escape }}</span></a>
+          &nbsp;
+          <a href="javascript:void(0);" class="opener"><span class="fa arrow">&#xf107;</span></a>
+          <ul class="hide">
+            {% for level3_link in linklists[level2_handle].links %}
+            {% assign current = false %}{% if template == 'index' and level3_link.url == '/' %}{% assign current = true %}{% else %}{% if collection.url == level3_link.url %}{% assign current = true %}{% else %}{% if blog.url == level3_link.url %}{% assign current = true %}{% else %}{% if page.url == level3_link.url %}{% assign current = true %}{% else %}{% if page_title == level3_link.title %}{% assign current = true %}{% else %}{% if template == 'list-collections' and level3_link.url == '/collections' %}{% assign current = true %}{% else %}{% if page_title == 'Products' and level3_link.url == '/collections/all' %}{% assign current = true %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+            <option class="{% if current %}selected{% endif %}">
+              <a href="{{ level3_link.url }}"><span>{{ level3_link.title | escape }}</span></a>
+            </option>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <a href="{{ level2_link.url }}"><span>{{ level2_link.title | escape }}</span></a>
+          {% endif %}
+        </option>
+
+        {% endfor %}
+      <!-- </ul> -->
+      {% else %}
+      <option><a href="{{ link.url }}" class="animation"><span>{{ link.title | escape }}</span></a></option>
+      {% endif %}
+
+    </li>
+    {% endif %}
+  {% endfor %}
+
+
+
+
+
+  {% assign current = false %}
+  {% if collection.url contains "besties" %}{% assign current = true %}{% endif %}
+  <li class="{% if current %}selected{% endif %} animation">
+
+    <a href="/collections/besties" >
+      <span class="nav-label">besties</span>
+    </a>
+    &nbsp;
+    <a href="javascript:void(0);" class="opener"><span class="fa arrow">&#xf107;</span></a>
+    <!-- <ul class="hide"> -->
+      {% for level2_link in linklists['besties'].links %}
+      {% assign current = false %}{% if template == 'index' and level2_link.url == '/' %}{% assign current = true %}{% else %}{% if collection.url == level2_link.url %}{% assign current = true %}{% else %}{% if blog.url == level2_link.url %}{% assign current = true %}{% else %}{% if page.url == level2_link.url %}{% assign current = true %}{% else %}{% if page_title == level2_link.title %}{% assign current = true %}{% else %}{% if template == 'list-collections' and level2_link.url == '/collections' %}{% assign current = true %}{% else %}{% if page_title == 'Products' and level2_link.url == '/collections/all' %}{% assign current = true %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+      {% assign level2_handle = level2_link.title | handleize %}
+      <option class="animation {% if current %}selected{% endif %}">
+
+        {% if linklists[level2_handle].links != blank %}
+        <a href="{{ level2_link.url }}" {% if level2_link.url contains "newnewnew" %}style="text-transform:uppercase;"{% endif %}><span>{{ level2_link.title | escape }}</span></a>
+        &nbsp;
+        <a href="javascript:void(0);" class="opener"><span class="fa arrow">&#xf107;</span></a>
+        <ul class="hide">
+          {% for level3_link in linklists[level2_handle].links %}
+          {% assign current = false %}{% if template == 'index' and level3_link.url == '/' %}{% assign current = true %}{% else %}{% if collection.url == level3_link.url %}{% assign current = true %}{% else %}{% if blog.url == level3_link.url %}{% assign current = true %}{% else %}{% if page.url == level3_link.url %}{% assign current = true %}{% else %}{% if page_title == level3_link.title %}{% assign current = true %}{% else %}{% if template == 'list-collections' and level3_link.url == '/collections' %}{% assign current = true %}{% else %}{% if page_title == 'Products' and level3_link.url == '/collections/all' %}{% assign current = true %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+          <li class="{% if current %}selected{% endif %}">
+            <a href="{{ level3_link.url }}" {% if level3_link.url contains "newnewnew" %}style="text-transform:uppercase;"{% endif %}><span>{{ level3_link.title | escape }}</span></a>
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <a href="{{ level2_link.url }}" {% if level2_link.url contains "newnewnew" %}style="text-transform:uppercase;"{% endif %}><span>{{ level2_link.title | escape }}</span></a>
+        {% endif %}
+      </option>
+      {% endfor %}
+    <!-- </ul> -->
+
+  </li>
+
+</select>

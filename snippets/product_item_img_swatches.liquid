@@ -1,0 +1,18 @@
+<a href="{{ currentProduct.url | within: collection }}{% if fromSearch %}#search{% endif %}">
+  <div class="image" id="image-{{ currentProduct.id }}">
+    <div class="img" style="display: block; background-image:url('{{ currentProduct.featured_image | product_img_url: 'large' }}')"></div>
+    {% assign totalImages = 0 %}
+    {% for img in currentProduct.images %}
+      {% if img.variants.size > 0 and totalImages < 4 and img != currentProduct.featured_image %}
+        <div class="img" style="display: none; background-image:url('{{ img | product_img_url: 'large' }}')"></div>
+        {% assign totalImages = totalImages | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+    {% if currentProduct.available and currentProduct.price_min < currentProduct.compare_at_price_min %}
+      <div class="sale animation"><div>sale</div></div>
+    {% endif %}
+    {% unless currentProduct.available %}
+      <div class="sold-out animation fish"><div>sold<br />out</div></div>
+    {% endunless %}
+  </div>
+</a>

@@ -1,0 +1,26 @@
+{% assign hide_default_title = false %}
+{% assign variant_id = currentProduct.variants[0].id %}
+{% if currentProduct.variants.size == 1 and currentProduct.variants.first.title contains 'Default' %}
+	{% assign hide_default_title = true %}
+{% endif %}
+<div class="options animation clearfix {% if hide_default_title %}visuallyhidden{% endif %}">
+  {% if settings.variants_layout == 'swatches' %}
+    {% for option in currentProduct.options %}
+      {% include 'swatch' with option %}
+    {% endfor %}
+  {% endif %}
+
+  {% if currentProduct.options.size == 1 and settings.variants_layout == 'dropdown' %}
+  	<label class="single">{{ currentProduct.options }}</label>
+  {% endif %}
+  <select class="select-variant" id="product-select-{{ currentProduct.id }}">
+    {% for variant in currentProduct.variants %}
+			{% if currentProduct.selected_variant.id == variant.id %}
+				{% assign variant_id = variant.id %}
+			{% endif %}
+    	<option value="{{ variant.id }}" {% if currentProduct.selected_variant.id == variant.id %}selected{% endif%}>{{ variant.title | escape }}</option>
+    {% endfor %}
+  </select>
+  <input type="hidden" class="variant-id" name="id" id="product-{{ currentProduct.id }}-variant" value="{{ variant_id }}" />
+
+</div>

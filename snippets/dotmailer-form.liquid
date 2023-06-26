@@ -1,0 +1,120 @@
+<!-- Start of signup -->
+<script language="javascript">
+<!--
+function validate_signup(frm) {
+	var emailAddress = frm.Email.value;
+	var errorString = '';
+	
+        
+
+        if (emailAddress == '' || emailAddress.indexOf('@') == -1) {
+		errorString = 'Please enter your email address';
+	}
+
+    
+var els = frm.getElementsByTagName('input');
+for (var i = 0; i < els.length; i++)
+{
+    if (els[i].className == 'text' || els[i].className == 'date' || els[i].className == 'number')
+    {
+        if (els[i].value == '')
+            errorString = 'Please complete all required fields.';
+    }
+    else if (els[i].className == 'radio')
+    {
+        var toCheck = document.getElementsByName(els[i].name);
+        var radioChecked = false;
+        for (var j = 0; j < toCheck.length; j++)
+        {
+            if (toCheck[j].name == els[i].name && toCheck[j].checked)
+                radioChecked = true;
+        }
+        if (!radioChecked)
+            errorString = 'Please complete all required fields.';
+    }
+}
+
+
+
+	var isError = false;
+    if (errorString.length > 0)
+        isError = true;
+
+    if (isError)
+        alert(errorString);
+	return !isError;
+}
+
+
+//-->
+</script>
+
+<style>
+form#signup {
+    display: inline-block;
+    width: 100%;
+    max-width: 450px;
+    padding: 10px 10px 10px 5px;
+    border-bottom: 2px solid #EAEAEA;
+    margin-top: 10px;
+    box-sizing: border-box;
+    background: #f0f0f0;
+}
+form#signup input[type="email"] {
+    width: 74%;
+    color: #000000;
+    border: none;
+    padding: 0;
+    font-size: 18px;
+    letter-spacing: 0.05em;
+    -webkit-appearance: none;
+    border-radius: 0;
+    background: transparent;
+}
+form#signup input[type="submit"] {
+    width: 24%;
+    color: #000000;
+    text-align: right;
+    padding: 0;
+    font-weight: bold;
+    font-size: 18px;
+    font-family: 'FuturaND';
+    -webkit-appearance: none;
+    border-radius: 0;
+    background: transparent;
+    border: 0;
+    transition: all 0.2s linear;
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    vertical-align: middle;
+    cursor: pointer;
+}
+</style>
+
+<form name="signup" id="signup" action="https://email-loveamika.com/signup.ashx" method="post" onsubmit="return validate_signup(this)">
+<input type="hidden" name="addressbookid" value="5284766">
+<input type="hidden" name="ci_isconsentform" value="true">
+<input type="hidden" name="userid" value="228576">
+<input type="hidden" name="SIG66bcf01433b9d146e74c099709e529a028005319823c30a4018868ea3e1a2e35" value="">
+<!-- ReturnURL - when the user hits submit, they'll get sent here -->
+<input type="hidden" name="ReturnURL" value="https://loveamika.com/">
+<!-- Email - the user's email address -->
+<input type="email" name="Email" placeholder="Email">
+
+<!-- <p><input type="checkbox" name="ci_userConsentCheckBox"> Welcome Series</p> -->
+<input type="hidden" id="ci_consenturl" name="ci_consenturl" value="">
+
+<input type="Submit" name="Submit" value="Subscribe">
+
+
+</form>
+
+<script language="javascript">
+	var urlInput = document.getElementById("ci_consenturl");
+	
+	if (urlInput != null && urlInput != 'undefined') {
+		urlInput.value = encodeURI(window.location.href);
+    }
+</script>

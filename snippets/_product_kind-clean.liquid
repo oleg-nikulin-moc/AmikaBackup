@@ -1,0 +1,46 @@
+{% if product.metafields.kind_and_clean.badges.badge_top and product.metafields.kind_and_clean.hide != true  %}
+<div class="kind-clean">
+    <h2>kind + clean</h2>
+
+    {% assign badges = product.metafields.kind_and_clean.badges %}
+    {% if badges != blank %}
+        <div class="product-kind-badge">
+            {% for x in badges.badge_top limit:3 %}
+            <div class="product-badge">
+                <div class="image_wrap">
+                <img src="{{ x.icon }}">
+                </div>
+                <span class="product-badge__details">{{ x.text }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+<style>
+    .product-kind-badge {
+        display: flex;
+    }
+
+    {% if badges != blank %}
+        {% for x in badges.badge_top limit:3 %}
+        .kind-clean ul li.b-{{forloop.index}} {
+            background-image: url( {{ x.icon }} );
+        }
+        {% endfor %}
+    {% endif %}
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var screenWidth = $(window).width();
+        var sectionWidth = $('#section-product').width();
+        var marginRight = (screenWidth - sectionWidth);
+
+        if(screenWidth > 949) {
+            $('.product-kind-badge').css({'margin-right': '-' + marginRight + 'px'})
+        } else {
+            $('.product-kind-badge').css({ 'margin-right': '-20px'})
+        }
+    })
+</script>
+{% endif %}

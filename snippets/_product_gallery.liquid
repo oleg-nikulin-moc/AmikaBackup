@@ -1,0 +1,66 @@
+<div id="product-gallery" class="clearfix {% if settings.product_thumbs_slide == 'vertical' %}vertical {% endif %}{% if currentProduct.images.size > 0 %}{% if settings.main_image_display == 'Zoom-in' or settings.main_image_display == 'Both' %}zoom-in{% endif %}{% endif %}">
+  {%if product.tags contains 'coming-soon'%}
+  <div class="coming_soon_container"><p class="{% if currentProduct.images.size > 1 %}push--one-twelfth {%endif%}">coming soon!</p></div>
+  {% endif %}
+  
+  <div class="{% if settings.product_thumbs_slide == 'vertical' and currentProduct.images.size > 1 %}right ten-twelfths small--one-whole{% endif %} main__image_container" data-matchbox-item="{{ currentProduct.id }} {% for variant in currentProduct.variants %}{{variant.id}} {% endfor %}">
+    {% if product.tags contains 'travel-award-2019' %}
+    <div class="badge__container">
+      <img class="people__travel_icon" src="{{'People_Travel_Award.png'| asset_url }}">
+    </div>
+    {% endif %}
+    {% if product.tags contains 'beauty-seal' %}
+    <div class="badge__container">
+      <img class="people__travel_icon" src="{{'BestofBeauty_2019.png'| asset_url }}">
+    </div>
+    {% endif %}
+    <div id="active-wrapper">
+      {% if  quickView != true %}
+      {% if settings.main_image_display == 'Lightbox' or settings.main_image_display == 'Both' %}
+      <a href="{{ currentProduct.featured_image | product_img_url: 'master' }}" class="productImage" {% if currentProduct.images.size == 1 %}rel="photoswipe"{% endif %}>
+        {% endif %}
+        {% endif %}
+        <div><img src="{{ currentProduct.featured_image | product_img_url: 'master' }}" id="large-thumb" itemprop="image" /></div>
+
+
+
+        {% if  quickView != true %}
+        <div class="magnify animation"><i class="fa fa-search"></i></div>
+        {% if settings.main_image_display == 'Lightbox' or settings.main_image_display == 'Both' %}
+      </a>
+      {% endif %}
+      {% endif %}
+    </div><!-- /#active-wrapper -->
+  </div>
+
+  {% if currentProduct.images.size > 1 %}
+    <div id="thumbs-wrapper" class="{% if settings.product_thumbs_slide == 'vertical' %}left two-twelfths small--one-whole{% endif %} small--hide">
+      <div id="thumbs" class="slick-pending switch">
+        {% for image in currentProduct.images %}
+        {% if image.alt != "alt-image" %}
+        <div>
+          <a class="gallery" href="{{ image | product_img_url: 'master' }}" variant-id="{{ image.variants.first.id }}">
+            <img src="{{ image | product_img_url: 'x120' }}" alt="{{ image.alt | escape }}" class="img-responsive"/>
+          </a>
+          <a rel="photoswipe" style="display:none;" href="{{ image | product_img_url: 'master' }}"></a>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div><!-- /#thumbs-wrapper -->
+  {% endif %}
+    <div id="thumbs-wrapper-2" class="hide small--show">
+      <div id="thumbs-2" class="slick-pending switch">
+        {% for image in currentProduct.images %}
+        {% if image.alt != "alt-image" %}
+        <div>
+          <a class="gallery" href="{{ image | product_img_url: 'master' }}" variant-id="{{ image.variants.first.id }}">
+            <img src="{{ image | product_img_url: 'master' }}" alt="{{ image.alt | escape }}" class="img-responsive transform-to-video"/>
+          </a>
+          <a rel="photoswipe-2" style="display:none;" href="{{ image | product_img_url: 'master' }}"></a>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div><!-- /#thumbs-wrapper -->
+</div>

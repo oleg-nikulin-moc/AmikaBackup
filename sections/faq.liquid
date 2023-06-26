@@ -1,0 +1,104 @@
+{% comment %} Check if we need 'Show More' button {% endcomment %}
+{% if section.blocks.size > 5 %}{% assign show_more = true %}{% endif %}
+
+<div class="faqs-wrapper one-half small--one-whole push--large--one-quarter push--medium--one-quarter">
+  {% if section.settings.title %}
+    <h2 class="acc-heading">{{ section.settings.title }}</h2>
+  {% endif %}
+  <div class="accordion">
+    {% for block in section.blocks %}
+
+      {% comment %} Wrap 'Show More' content in div {% endcomment %}
+      {% if forloop.index == 6%}
+      <div class="show-more-container">
+      {% endif %}
+
+      <div class="acc-item clearfix" data-item="{{forloop.index}}">
+        <h2>
+          <a href="javascript:void(0);" class="acc-title">{{ block.settings.question }}</a>
+          <svg class="acc-toggle" fill="none" height="12" viewBox="0 0 12 12" width="12" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="#000" stroke-linecap="round" stroke-width="2">
+              <path class="vertical-bar" d="m6 1v10" />
+              <path d="m11 6h-10" />
+            </g>
+          </svg>
+        </h2>
+        <div class="hide acc-content clearfix">
+          {{ block.settings.answer }}
+        </div>
+      </div>
+
+      {% comment %} Close 'Show More' wrapper {% endcomment %}
+      {% if show_more and forloop.last == true %}
+      </div>  
+      {% endif %}
+
+    {% endfor %}
+
+    {% comment %} Show More button {% endcomment %}
+    {% if show_more %}
+      <button class="acc-show-more-button button--primary">Show More</button>
+    {% endif %}
+
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const $faqsWrapper = $('.faqs-wrapper');
+    const $showMoreContainer = $('.show-more-container');
+    const $faqsButton = $('.acc-show-more-button');
+    $faqsButton.click(toggleMore);
+
+    function toggleMore(){
+      requestAnimationFrame(function() {
+        // Change the button text
+        $showMoreContainer.hasClass('open')
+          ? $faqsButton.html('Show More')
+          : $faqsButton.html('Show Less')
+
+        // toggle 'Show More' content
+        $showMoreContainer.toggleClass('open').slideToggle();
+
+        // scroll to top of FAQs section
+        $('html,body').animate({
+            scrollTop: $faqsWrapper.offset().top - 200
+        });
+      })
+    }
+  })
+</script>
+
+
+{% schema %}
+  {
+    "name": "FAQs",
+    "class": "faqs",
+	  "max_blocks": 20,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "question",
+        "name": "Question",
+        "settings": [
+          {
+            "type": "text",
+            "id": "question",
+            "label": "Question"
+          },
+		      {
+            "type": "richtext",
+            "id": "answer",
+            "label": "Answer"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

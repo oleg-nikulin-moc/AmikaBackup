@@ -1,0 +1,137 @@
+<div class="page" id="page-carry-us">
+  <script>
+    $(document).ready(function(){
+      $(window).scroll(function(){
+        var benefitsLimitTop = $("#the-benefits").offset().top - ($(this).height() / 2);
+        var benefitsLimitBottom = $("#the-benefits").offset().top + $("#the-benefits").find('.img-container').height() - ($(this).height() / 2);
+
+        var learningLimitTop = $("#the-learning").offset().top - ($(this).height() / 2);
+        var learningLimitBottom = $("#the-learning").offset().top + $("#the-learning").find('.img-container').height() - ($(this).height() / 2);
+
+        var opportunitiesLimitTop = $("#the-opportunities").offset().top - ($(this).height() / 2);
+        var opportunitiesLimitBottom = $("#the-opportunities").offset().top + $("#the-opportunities").find('.img-container').height() - ($(this).height() / 2);
+
+        if(
+          /*($(this).scrollTop() > benefitsLimitTop && $(this).scrollTop() < benefitsLimitBottom)
+          ||*/
+          ($(this).scrollTop() > learningLimitTop && $(this).scrollTop() < learningLimitBottom)
+          /*||
+          ($(this).scrollTop() > opportunitiesLimitTop && $(this).scrollTop() < opportunitiesLimitBottom)*/
+        ){
+          $(".floating-nav").addClass('white');
+        }else{
+          $(".floating-nav").removeClass('white');
+        }
+      });
+    });
+  </script>
+  <nav class="floating-nav small--hide">
+    <div class="floating-nav-inner clearfix">
+      <a href="#the-brand">The Brand</a>
+      <a href="#the-line">The Line</a>
+      <a href="#the-benefits">The Benefits</a>
+      <a href="#the-learning">The Learning</a>
+      <a href="#the-opportunities">The Opportunities</a>
+      <a href="#join-us">Join us</a>
+    </div>
+  </nav>
+  
+  <section id="the-brand" class="target text-center">
+    <div class="img-container container">
+      <img src="{{"carry-us_1.jpg" | asset_url}}" class="img-responsive full-width" />
+    </div>
+    <div class="container">
+      <div class="one-half small--one-whole push--large--one-quarter push--medium--one-quarter">
+        <h2>The Brand</h2>
+        <p>amika is a professional line of haircare and tools that work. </p>
+        <p>They don’t just work on your hair, they also #dowork by selling themselves. How do we know they sell themselves? Because we created them to do just that. We are not stylists, we are consumers. We love shopping for beauty products, and we know what it takes to turn a want into a need. We creatively collaborate with people from all walks of life to create things your clients need. So, what do your clients need? Well, that changes quite often, and luckily for you, so do we. We continue to innovate and bring newness to the market, whether it is out of the box products, tools, promotions or SWAG.</p>
+        <p><br></p>
+      </div>
+    </div>
+  </section>
+  
+  <section id="the-line" class="target text-center">
+    <div class="grid grid-full">
+      <div class="grid__item one-whole small--one-whole">
+        <div class="img-container">
+          <img src="{{"carry-us_2.png" | asset_url}}" class="img-responsive" />
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="one-half small--one-whole push--large--one-quarter push--medium--one-quarter">
+        <h2>The Line</h2>
+        <p>Bright colors and exuberant shapes decorate retail shelves and client vanities. The addictive aroma of warm vanilla, fresh citrus, and sweet clover create a lasting experience. The unrivaled power of the sea buckthorn berry protects and nourishes hair with every use.</p>
+      </div>
+    </div>
+  </section>
+  
+  <section id="the-benefits" class="target text-center">
+    <div class="img-container">
+      <div class="eight-twelfths small--one-whole push--large--two-twelfths push--medium--two-twelfths">
+        <img src="{{"carry-us_3.png" | asset_url}}" class="img-responsive" />
+      </div>
+    </div>
+    <div class="container">
+      <div class="one-half small--one-whole push--large--one-quarter push--medium--one-quarter">
+        <h2>Salon Loyalty</h2>
+        <p>Who said it has to be all work and no play? amika: friends with benefits is a program designed to reward salons for continued loyalty and support. amika is committed to the growth and success of salons and independent stylists worldwide, and through this program will provide the business-building tools needed to maximize sales.</p>
+      </div>
+    </div>
+  </section>
+  
+  <section id="the-learning" class="target text-center">
+    <div class="container">
+      <div class="grid grid-full large--table medium--table">
+        <div class="large--table-cell medium--table-cell grid__item one-half small--one-whole">
+          <div class="img-container">
+            <img src="{{"carry-us_4.jpg" | asset_url}}" class="img-responsive full-width" />
+          </div>
+        </div>
+        <div class="large--table-cell medium--table-cell grid__item one-half small--one-whole">
+          <div class="text-container">
+            <h2>The Artistry of Hair Dressing</h2>
+            <p>Artistry is what brings amika to life. While some brands may specialize in color or cutting, amika brings the art of hairdressing to the forefront; from session & editorial styling to show-stopping, avant-garde hair. With fashion being the birthplace of all trends, each season we delve the runways on New York Fashion Week for inspiration. Our Artistic Team creates a collection of looks designed to capture the essence of the season—delivering them to salon professionals worldwide. With ever-changing trends and the emergence of new techniques, constant education is vital to the success of today’s industry professional.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="the-opportunities" class="target text-center">
+    <div class="container">
+      <div class="grid grid-full large--table medium--table">
+        <div class="large--table-cell medium--table-cell grid__item one-half small--one-whole" style="vertical-align:top!important;">
+          <div class="text-container">
+            <h2>Opportunities</h2>
+            <ul>
+              <li>Become an educator</li>
+              <li>Become a network salon</li>
+              <li>DNYFW</li>
+            </ul>
+            <div id="wufoo-w13840uq0ypnn64">
+            Fill out my <a href="https://loveamika.wufoo.com/forms/w13840uq0ypnn64">online form</a>.
+            </div>
+            <script type="text/javascript">var w13840uq0ypnn64;(function(d, t) {
+            var s = d.createElement(t), options =
+            { 'userName':'loveamika', 'formHash':'w13840uq0ypnn64', 'autoResize':true, 'height':'482', 'async':true, 'host':'wufoo.com', 'header':'show', 'ssl':true}
+            ;
+            s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'www.wufoo.com/scripts/embed/form.js';
+            s.onload = s.onreadystatechange = function() {
+            var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+            try
+            { w13840uq0ypnn64 = new WufooForm();w13840uq0ypnn64.initialize(options);w13840uq0ypnn64.display(); }
+            catch (e) {}};
+            var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+            })(document, 'script');</script>
+          </div>
+        </div>
+        <div class="large--table-cell medium--table-cell grid__item one-half small--one-whole">
+          <div class="img-container">
+            <img src="{{"carry-us_5.jpg" | asset_url}}" class="img-responsive full-width" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

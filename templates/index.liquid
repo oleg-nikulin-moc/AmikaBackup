@@ -1,0 +1,46 @@
+<!-- <script>
+  $(function(){
+    $('#home .video .overlay').click(function(){
+      if($(this).find('.button').is(':visible')) {
+      	$('#home video').get(0).play();
+        $(this).find('.button').hide();
+      } else {
+      	$('#home video').get(0).pause();
+        $(this).find('.button').show();
+      }
+    });
+  });
+</script> -->
+
+<div id="home" class="template__index">
+  
+  {{ content_for_index }}
+
+  {% comment %}
+  <div class="insta-title">
+  <a href="http://www.instagram.com/amika/" target="_blank">@amika</a>
+  </div>
+  
+
+  <div class="container yotpo-gallery-home">  
+    <div class="yotpo yotpo-pictures-widget"
+  data-album-id="5b805e594dafbd51dc188793"
+  data-layout="num_of_rows"
+  data-layout-rows="1"
+  data-spacing="1"
+  data-title="0"
+  data-hover-color="#ffffff"
+  data-hover-opacity="0.8"
+  data-hover-icon="true"
+  data-cta-text="Shop Now"
+  data-cta-color="#2f84ed"
+  data-upload-button="0"></div>
+    </div> 
+  {% endcomment %}
+    
+    
+    {% if settings.show_instagram_feed %}
+      {% include 'instagram_feed' %}
+    {% endif %}
+</div>
+

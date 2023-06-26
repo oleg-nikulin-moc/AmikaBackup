@@ -1,0 +1,53 @@
+<div
+id="blog"
+class="section__index"
+data-section-id="{{ section.id }}">
+<img id='logo-blog' src='{{ 'amika-thestrand.svg' | asset_url }}' alt='The Strand' />
+
+<div id="hp-blog-grid" class='slick-see-next grid'>
+    {%- assign a = articles[post_1] -%}
+    {%- assign tag = a.tags | last | split: "tag_" | last | upcase | replace: "_", " "  -%}
+
+    <div class="grid__item one-third small--one-whole pdp-blog">
+        <a href="{{ a.url }}" title="{{ a.title | escape }}">
+            <img src="{{ a.image.src | img_url: '500x' }}" alt="{{ a.image.alt }}" />
+        </a>
+        {%- unless tag == blank -%}
+            <h5 class="blog-tag">{{ tag }}</h5>
+        {%- endunless -%}
+        {%- if a.title.size > 0 -%}
+            <a class="blog-title" href="{{ a.url }}">{{ a.title | escape }}</a>
+        {%- endif -%}
+    </div> 
+
+    {%- assign a = articles[post_2] -%}
+    {%- assign tag = a.tags | last | split: "tag_" | last | upcase | replace: "_", " "  -%}
+
+    <div class="grid__item one-third small--one-whole pdp-blog">
+        <a href="{{ a.url }}" title="{{ a.title | escape }}">
+            <img src="{{ a.image.src | img_url: '500x' }}" alt="{{ a.image.alt }}" />
+        </a>
+        {%- unless tag == blank -%}
+            <h5 class="blog-tag">{{ tag }}</h5>
+        {%- endunless -%}
+        {%- if a.title.size > 0 -%}
+            <a class="blog-title" href="{{ a.url }}">{{ a.title | escape }}</a>
+        {%- endif -%}
+    </div> 
+
+    {%- assign a = articles[post_3] -%}
+    {%- assign tag = a.tags | last | split: "tag_" | last | upcase | replace: "_", " "  -%}
+
+    <div class="grid__item one-third small--one-whole pdp-blog">
+        <a href="{{ a.url }}" title="{{ a.title | escape }}">
+            <img src="{{ a.image.src | img_url: '500x' }}" alt="{{ a.image.alt }}" />
+        </a>
+        {%- unless tag == blank -%}
+            <h5 class="blog-tag">{{ tag }}</h5>
+        {%- endunless -%}
+        {%- if a.title.size > 0 -%}
+            <a class="blog-title" href="{{ a.url }}">{{ a.title | escape }}</a>
+        {%- endif -%}
+    </div> 
+</div>
+</div>

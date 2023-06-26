@@ -1,0 +1,165 @@
+{% if template == 'product' and product.vendor == 'zestard-easy-donation' %} 
+	<div class='donation' id='zehGYpaakq1iQ' page='product' productid='{{ product.id }}'></div>
+{% endif %}
+{% if template == 'cart' %}
+	<div class='donation' id='zehGYpaakq1iQ' page='cart'></div>   
+{% endif %}
+<link href="https://zestardshop.com/shopifyapp/easy_donation/public/css/rangeslider.css" rel="stylesheet" type="text/css" />
+<script src="https://zestardshop.com/shopifyapp/easy_donation/public/js/rangeslider.js"></script>
+<script src="https://zestardshop.com/shopifyapp/easy_donation/public/js/donation.js"></script>
+<style>
+  .ztpl_easy_slider{
+  	max-width:160px !important;
+  }
+  .ztpl_easy_slider .rangeslider--horizontal, .ztpl_easy_slider .rangeslider__fill, .ztpl_easy_slider .rangeslider__handle{
+     margin: 0px !important;
+    display: inline-block !important;
+    max-width: 100% !important;
+  }
+  
+  .ztpl_easy_slider .rangeslider--horizontal {
+    height: 6px;
+    width: 100%;
+    border-radius: 0px;
+}
+  .ztpl_easy_slider .rangeslider , .ztpl_easy_slider .rangeslider__fill {
+    background: #000;
+  }
+  .ztpl_easy_slider .rangeslider--horizontal .rangeslider__handle {
+    border-radius: 0px;
+    width: 5px;
+    background: #000;
+    border-color: #000;
+    height: 28px;
+    background-image: none;
+    box-shadow: none;
+}
+   .ztpl_easy_slider .rangeslider__handle:after{
+    display:none;
+  }
+  .price-slider .panel{
+    position: relative;
+  }
+  .price-slider .panel .price-form {
+    margin-left: 0 !important;
+    position: absolute;
+    top: 36%;
+    left: 15%;
+}
+  .price-slider .panel input.btn.button.frontbutton {
+    margin-left: 0px;
+    margin-top: 20px;
+}
+  @media(max-width: 1300px){
+     .price-slider .panel .price-form {
+    
+    left: 18%;
+}
+  }
+  @media(max-width: 1140px){
+     .price-slider .panel .price-form {
+    
+    left: 22%;
+       margin-top: 0px !important;
+    top: 50%;
+}
+  }
+  
+  @media(max-width: 1140px){
+     .price-slider .panel .price-form {
+  
+    top: 55%;
+}
+  }
+  
+  @media(max-width: 1080px){
+    .ztpl_easy_slider .rangeslider--horizontal .rangeslider__handle {
+      width: 10px;
+    }
+     .price-slider .panel .price-form {
+   		 top: 47%;
+    left: 30%;
+	}
+    #cart-wrap .bottom-btns #pricebarform_0 #price_map {
+    	margin-top: 50px !important;
+	}
+    .price-slider .panel input.btn.button.frontbutton {
+    	margin-top: 50px;
+	}
+  }
+  @media(max-width: 803px){
+  .price-slider .panel .price-form {
+   	
+    top: 50%;
+	}
+    .ztpl_easy_slider .rangeslider--horizontal {
+      height: 10px;
+    }
+  }
+  @media(max-width: 767px){
+  .ztpl_easy_slider {
+    	margin-top: 30px !important;
+	}
+    .price-slider .panel .price-form {
+    top: 47%;
+}
+  }
+  
+    @media(max-width: 740px){
+  .price-slider .panel .price-form {
+   	
+    left: 40%;
+	}
+  }
+   @media(max-width: 677px){
+  .price-slider .panel .price-form {
+    left: 40%;
+    margin-bottom: 0px !important;
+    top: 51%;
+}
+  }
+  @media(max-width: 575px){
+  .price-slider .panel .price-form {
+    left: 50%;
+    margin-bottom: 0px !important;
+    top: 53%;
+}
+  }
+  @media (max-width: 540px){
+.price-slider .panel .price-form {
+    top: 56%;
+}
+    .price-slider .panel .price-form p{
+    margin-bottom:0px;
+    }
+  }
+    @media (max-width: 480px){
+.price-slider .panel .price-form {
+    top: 57%;
+}
+      .price-slider .panel input.btn.button.frontbutton {
+    margin-top: 100px;
+}
+   
+  }
+    @media (max-width: 460px){
+.price-slider .panel .price-form {
+    left: 60%;
+}
+    }
+    @media (max-width: 420px){
+.price-slider .panel .price-form {
+    top: 61%;
+}
+    }
+    @media (max-width: 370px){
+.price-slider .panel .price-form {
+    left: 80%;
+}
+    }
+    @media (max-width: 370px){
+.price-slider .panel .price-form {
+    top: 63%;
+}
+    }
+</style>

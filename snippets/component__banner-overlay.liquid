@@ -1,0 +1,193 @@
+{%- if img_url == blank -%}
+  {%- capture img_url -%}{{ "placeholder-image.jpg" | asset_url }}{%- endcapture -%}
+  {%- capture img_alt -%}banner image{%- endcapture -%}
+{%- endif -%}
+
+{% if img_url_mobile == blank %}
+  {%- capture img_url_mobile -%}{{ img_url }}{%- endcapture -%}
+  {%- capture img_mobile_alt -%}{{ img_alt }}{%- endcapture -%}
+{% endif %}
+
+{% if video_url_mobile == blank %}
+  {%- capture video_url_mobile -%}{{ video_url }}{%- endcapture -%}
+{% endif %}
+
+{%- if stack_mobile -%}
+  {%- capture stack_mobile -%}stacked--mobile{%- endcapture -%}
+{%- endif -%}
+
+{%- if apply_to_desktop -%}
+  {%- capture bg_color -%}{{ bg_color_mobile }}{%- endcapture -%}
+  {%- capture overlay_color -%}{{ overlay_color_mobile }}{%- endcapture -%}
+  {%- capture caption_padding_t -%}{{ caption_padding_t_mobile }}{%- endcapture -%}
+  {%- capture caption_padding_b -%}{{ caption_padding_b_mobile }}{%- endcapture -%}
+  {%- capture caption_padding_l -%}{{ caption_padding_l_mobile }}{%- endcapture -%}
+  {%- capture caption_padding_r -%}{{ caption_padding_r_mobile }}{%- endcapture -%}
+  {%- capture overlay_position -%}{%- endcapture -%}
+  {%- capture overlay_width -%}{{ overlay_width_mobile }}{%- endcapture -%}
+  {%- capture overlay_height -%}{{ overlay_height_mobile }}{%- endcapture -%}
+  {%- capture text_align -%}{{ text_align_mobile }}{%- endcapture -%}
+  {%- capture text_position -%}{%- endcapture -%}
+{%- endif -%}
+
+<div
+  class="banner-overlay__container{% unless wrapper_class == blank %} {{ wrapper_class }}{% endunless %}{% unless stack_mobile == blank %} {{ stack_mobile }}{% endunless %}"
+  {% unless id == blank %}data-id="banner-overlay-{{ id }}"{% endunless %}>
+  <div class="banner-overlay__media">
+    {%- if video_url_mobile != blank -%}
+      <video
+        playsinline
+        {% if loops %}loop{% endif %}
+        {% if muted %}muted{% endif %}
+        {% if controls %}controls{% endif %}
+        {% if autoplay %}autoplay{% endif %}
+        class="banner-overlay__video banner-overlay__video--mobile">
+        <source src="{{ video_url_mobile }}" type="video/mp4">
+      </video>
+    {%- elsif img_url_mobile != blank -%}
+      <img
+        class="banner-overlay__image banner-overlay__image--mobile"
+        src="{{ img_url_mobile }}"
+        alt="{{ img_mobile_alt }}">
+    {%- endif -%}
+
+    {%- if video_url != blank -%}
+      <video
+        playsinline
+        {% if loops %}loop{% endif %}
+        {% if muted %}muted{% endif %}
+        {% if controls %}controls{% endif %}
+        {% if autoplay %}autoplay{% endif %}
+        muted
+        class="banner-overlay__video banner-overlay__video--desktop">
+        <source src="{{ video_url }}" type="video/mp4" >
+      </video>
+    {%- elsif img_url != blank -%}
+      <img
+        class="banner-overlay__image banner-overlay__image--desktop"
+        src="{{ img_url }}"
+        alt="{{ img_alt }}">
+    {%- endif -%}
+  </div>
+
+  {%- if show_caption -%}
+    <div class="banner-overlay__overlay {{ overlay_position }} {{ overlay_position_mobile }} {{ text_position_mobile }} {{ text_position }}">
+      <div
+        class="banner-overlay__text-container {{ text_align }} {{ text_align_mobile }}">
+        <div class="banner-overlay__text-block text-vertical-{{text_vertical_align}}">
+          {% if title != blank %}
+            <h2
+              class="{{ title_tag | default: 'h1' }} banner-overlay__title{% unless title_color == blank %} {{ title_color }} {% endunless %}{% unless title_weight == blank %}{{ title_weight }} {% endunless %}">{{ title }}
+            </h2>
+          {% endif %}
+          {% if text != blank %}
+            <div
+              class="banner-overlay__text{% unless text_color == blank %} {{ text_color }}{% endunless %}">{{ text }}
+            </div>
+          {% endif %}
+          {% if button != blank %}
+            <a href="{{ link | default: '#' }}" class="banner-overlay__link{% unless link_class == blank %} {{ link_class }}{% endunless %}">
+              <button
+                class="button{% unless button_class == blank %} {{ button_class }}{% endunless %}">{{ button }}
+              </button>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+<style>
+  {%- if bg_color_mobile != blank -%}
+    [data-id="banner-overlay-{{ id }}"] {
+    {%- if bg_color_mobile != 'rgba(0,0,0,0)' -%}
+        background-color: {{ bg_color_mobile }};
+      {%- else -%}
+        background-color: transparent;
+      {%- endif -%}
+    }
+  {%- endif -%}
+
+  [data-id="banner-overlay-{{ id }}"] .banner-overlay__overlay {
+    {%- if overlay_color_mobile != 'rgba(0,0,0,0)' -%}
+      background-color: {{ overlay_color_mobile | color_modify: 'alpha', 0.5 }};
+    {% else %}
+      background-color: transparent;
+    {%- endif -%}
+    width: {{ overlay_width_mobile }}%;
+    height: {{ overlay_height_mobile }}%;
+  }
+
+  {%- if caption_padding_t_mobile != blank and caption_padding_t_mobile != '2' -%}
+    [data-id="banner-overlay-{{ id }}"] .banner-overlay__text-container {
+      padding-top: {{ caption_padding_t_mobile }}em;
+    }
+  {%- endif -%}
+
+  {%- if caption_padding_b_mobile != blank and caption_padding_b_mobile != '2' -%}
+    [data-id="banner-overlay-{{ id }}"] .banner-overlay__text-container {
+      padding-bottom: {{ caption_padding_b_mobile }}em;
+    }
+  {%- endif -%}
+
+  {%- if caption_padding_l_mobile != blank and caption_padding_l_mobile != '2' -%}
+    [data-id="banner-overlay-{{ id }}"] .banner-overlay__text-container {
+      padding-left: {{ caption_padding_l_mobile }}em;
+    }
+  {%- endif -%}
+  {%- if caption_padding_r_mobile != blank and caption_padding_r_mobile != '2' -%}
+    [data-id="banner-overlay-{{ id }}"] .banner-overlay__text-container {
+      padding-right: {{ caption_padding_r_mobile }}em;
+    }
+  {%- endif -%}
+
+  @media screen and (min-width: 1024px) {
+    {%- if bg_color != bg_color_mobile -%}
+      [data-id="banner-overlay-{{ id }}"] {
+      {%- if bg_color != 'rgba(0,0,0,0)' -%}
+        background-color: {{ bg_color }};
+      {%- else -%}
+        background-color: transparent;
+      {%- endif -%}
+      }
+    {%- endif -%}
+
+    [data-id="banner-overlay-{{ id }}"] .banner-overlay__overlay {
+      {%- if overlay_color != overlay_color_mobile -%}
+        {%- if overlay_color != 'rgba(0,0,0,0)' -%}
+          background-color: {{ overlay_color | color_modify: 'alpha', 0.5 }};
+        {%- else -%}
+          background-color: transparent;
+        {%- endif -%}
+      {%- endif -%}
+
+      width: {{ overlay_width }}%;
+      height: {{ overlay_height }}%;
+    }
+
+    {%- if caption_padding_t != blank and caption_padding_t != '3' and caption_padding_t != caption_padding_t_mobile -%}
+      [data-id="banner-overlay-{{ id }}"] .banner-overlay__text-container {
+        padding-top: {{ caption_padding_t }}em;
+      }
+    {%- endif -%}
+
+    {%- if caption_padding_b != blank and caption_padding_b != '3' and caption_padding_b != caption_padding_b_mobile -%}
+      [data-id="banner-overlay-{{ id }}"] .banner-overlay__text-container {
+        padding-bottom: {{ caption_padding_b }}em;
+      }
+    {%- endif -%}
+
+    {%- if caption_padding_l != blank and caption_padding_l != '3' and caption_padding_l != caption_padding_l_mobile -%}
+      [data-id="banner-overlay-{{ id }}"] .banner-overlay__text-container {
+        padding-left: {{ caption_padding_l }}em;
+      }
+    {%- endif -%}
+
+    {%- if caption_padding_r != blank and caption_padding_r != '3' and caption_padding_r != caption_padding_r_mobile -%}
+      [data-id="banner-overlay-{{ id }}"] .banner-overlay__text-container {
+        padding-right: {{ caption_padding_r }}em;
+      }
+    {%- endif -%}
+  }
+</style>

@@ -1,0 +1,513 @@
+/*
+/********************************GIVING BACK *****************************
+*/
+
+ /* -----giving back page----- */
+    
+    
+  .template-page.giving_back {
+  #utility-bar .utility-text {font-family: 'FuturaND';}
+
+
+.page_container_giving-back-page {
+  background: #f7c2be;
+  padding-bottom:30px;
+
+  p {
+    font-size: 16px;
+    margin: 0 0 10px 0;
+    color: #000000;
+    font-family: 'FuturaND';
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0.025em;
+    line-height: 1.7em;
+  }
+  .page{
+    margin: 0 auto 50px auto;
+  }
+  .container{
+    padding: 0 80px;
+    @media only screen and (max-width:768px){padding: 0 30px;}
+  }
+  .page_content_image{
+    padding: 100px 0px 0;
+    display: flex;
+    flex-wrap: wrap;
+    @media only screen and (max-width:768px){
+      display: block;
+      padding: 50px 0px 0;
+      text-align: center;
+    }
+    .page_content_image--content{
+      width: 55%;
+      padding-right: 50px;
+      @media only screen and (max-width:768px){
+        width: 100%;
+        padding-right: 0px;
+      }
+      @media only screen and (min-width:768px) and (max-width: 1024px){
+        padding-right: 26px;
+      }
+      .content--logo{
+        height: 56px;
+        margin-bottom: 70px;
+        @media only screen and (max-width:768px){
+          height: unset;
+          margin-bottom: 12px;
+        }
+        img{
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      .content--heading{
+        h1{
+          font-size: 62px;
+          letter-spacing: 0;
+          text-decoration: underline;
+          @media only screen and (max-width:768px){
+            font-size: 29px;
+          }
+          @media only screen and (min-width:768px) and (max-width: 1024px){
+            font-size: 50px;
+          }
+        }
+        .fst_line{
+          margin-bottom: 12px;
+          @media only screen and (max-width:768px){
+            margin-bottom: 7px;
+          }
+        }
+        .snd_line{
+          margin-bottom: 54px;
+          @media only screen and (max-width:768px){
+            margin-bottom: 16px;
+          }
+        }
+      }
+      .content--subheading h3{
+        color: #fff;
+        font-size: 26px;
+        margin-bottom: 20px;
+        @media only screen and (max-width:768px){
+          font-size: 16px;
+        }
+        @media only screen and (min-width:768px) and (max-width: 1024px){
+          font-size: 22px;
+        }
+      }
+      .content--paragraph p{
+        font-size: 18px;
+        letter-spacing: 0;
+        line-height: 22px;
+        color: #000;
+        font-weight: 400;
+        @media only screen and (max-width:768px){
+          font-size: 14px;
+          line-height: 18px;
+        }
+      }
+    }
+    .page_content_image--img{
+      padding-left: 24px;
+      @media only screen and (max-width:768px){
+        padding-left: 0px;
+        height: 230px;
+      }
+      @media only screen and (min-width:768px) and (max-width: 1024px){
+        padding-left: 0px;
+      }
+      img{
+        height: 100%;
+        @media only screen and (min-width:769px) and (max-width: 1024px){
+          height: 90%;
+        }
+      }
+    }
+  }
+    
+    
+    .page_giving-back-categories{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    margin-top: 20px;
+    padding-bottom: 40px;
+    border-bottom: 2px solid #000;
+    @media only screen and (max-width:768px){
+      display: block;
+    }
+    .form-category-gb {
+      width: 22%;
+      flex: 1;
+      -webkit-flex: 1; /* Safari 6.1+ */
+      -ms-flex: 1; /* IE 10 */
+      border-right: 1px solid #000;
+      margin-top: 20px;
+      &:last-child{
+        border:none;
+      }
+      @media only screen and (max-width:768px){
+        border:none;
+        width:100%;
+        text-align: center;
+        margin-top:8px;
+      }
+      .category--heading-gb {
+        text-decoration: underline;
+        font-size: 22px;
+        letter-spacing: 0;
+        margin-bottom: 14px;
+        position: relative;
+      }
+      .category--quarter-gb {
+        font-weight: 400;
+        font-size: 20px;
+        letter-spacing: 0;
+        @media only screen and (max-width:768px){
+          font-size: 14px;
+          margin:0;
+        }
+      }
+      .category--paragraph-gb{
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 0;
+        @media only screen and (max-width:768px){
+          font-size: 12px;
+          margin:0;
+        }
+      }
+    }
+      
+      .form-category--second-gb,
+    .form-category--third-gb {
+      padding: 5px 22px 20px;
+      @media only screen and (max-width:768px){
+        padding: 0px;
+      }
+      @media only screen and (min-width:769px) and (max-width: 1024px){
+        padding: 5px 20px 20px;
+      }
+    }
+    .form-category--fourth-gb{
+      padding: 5px 0px 20px 50px;
+      position: relative;
+      @media only screen and (max-width:768px){
+        padding: 0px;
+      }
+      @media only screen and (min-width:769px) and (max-width: 1024px){
+        padding: 5px 0px 20px 20px;
+      }
+      .category--quarter-gb{
+        line-height: 28px;
+        width: 80%;
+        margin-bottom: 10%;
+        @media only screen and (max-width:768px){
+          width: 100%;
+          margin-bottom: 0;
+        }
+      }
+      .category--paragraph-gb{line-height: 18px;}
+      
+       .category--paragraph-gb{line-height: 18px;}
+      .category--img-gb{
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 50px;
+        @media only screen and (max-width:768px){display:none;}
+        @media only screen and (min-width:768px) and (max-width: 1024px){
+          right:-26px;
+        }
+      }
+    }
+
+    .form-category--first-gb{
+      padding: 5px 27px 20px 0;
+      @media only screen and (max-width:768px){
+        padding: 0px;
+
+      }
+      @media only screen and (min-width:768px) and (max-width: 1024px){
+        padding: 5px 24px 20px 0;
+      }
+    }
+  }
+    
+    p{
+          line-height: 20px;
+          font-size: 16px;
+          margin: 0;
+          letter-spacing: 0;
+          @media only screen and (max-width:768px){
+            line-height: 19px;
+            font-size: 14px;
+          }
+      
+ }
+  }
+  }
+    */
+
+
+
+
+
+   .gb_text_part {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        @media (max-width: 749px){
+          order: 2;
+        }
+        
+        .gb_text_part_content {
+          max-width: 400px;
+          line-height: 1;
+          text-align: center;
+
+          h2 {
+            font-size: calc( 20px + (36 - 20) * ((100vw - 300px) / (1600 - 300)));
+            text-align: center;
+            line-height: 1.4;
+
+            @media (max-width: 749px) {
+              margin-top: 1em;
+              margin-bottom: 1em;
+              font-size: calc(24px + (36 - 24) * ((100vw - 300px) / (1600 - 300)));
+              padding-left: 15px;
+              padding-right: 15px;
+            }
+          }
+
+          p {
+            text-align: center;
+            font-size: calc(16px + (20 - 16) * ((100vw - 300px) / (1600 - 300)));
+            font-weight: 500;
+
+            @media (max-width: 749px) {
+              font-size: calc(14px + (20 - 14) * ((100vw - 300px) / (1600 - 300)));
+              padding-left: 15px;
+              padding-right: 15px;
+            }
+
+            
+          }
+          
+  .img {
+	@media only screen and (max-width: 584px) {
+		.img {
+			background-image: url(https://cdn.shopify.com/s/files/1/2117/1151/files/landing-banner-mobile.gif?v=1576518071);
+			padding-left: 0px;
+		}
+	}
+	@media only screen and (max-width: 1024px) {
+		.img {
+			background-image: url(https://cdn.shopify.com/s/files/1/2117/1151/files/landing-page-banner.gif?v=1576516277);
+			padding-left: 0px;
+			width: 100%;
+		}
+	}
+}
+
+ 
+  @media only screen and (max-width: 768px)
+.page_giving-back-categories  .page_form-categories .form-category {
+    border: none;
+    width: 100%;
+    text-align: center;
+    margin-top: 8px;
+    text-decoration: underline;
+    font-size: 22px;
+    letter-spacing: 0;
+    margin-bottom: 14px;
+    position: relative;
+}
+ 
+  
+  /*
+.p { 
+  font-size:14px;
+}
+    
+.page {  margin: 0 auto 50px auto;
+}
+  
+.page_container_giving-back-page {
+  background: #f7c2be;
+  padding-bottom:30px;
+  padding: 0 80px;
+    @media only screen and (max-width:768px){padding: 0 30px;}
+  
+}
+    .content--heading{
+        h1{
+          font-size: 62px;
+          letter-spacing: 0;
+          text-decoration: underline;
+          @media only screen and (max-width:768px){
+            font-size: 29px;
+          }
+          @media only screen and (min-width:768px) and (max-width: 1024px){
+            font-size: 50px;
+          }
+        }
+    }
+    
+  .fst_line{
+          margin-bottom: 12px;
+          @media only screen and (max-width:768px){
+            margin-bottom: 7px;
+          }
+        }
+        .snd_line{
+          margin-bottom: 54px;
+          @media only screen and (max-width:768px){
+            margin-bottom: 16px;
+          }
+        }
+  
+  
+   .content--subheading h3{
+        color: #fff;
+        font-size: 26px;
+        margin-bottom: 20px;
+        @media only screen and (max-width:768px){
+          font-size: 16px;
+        }
+        @media only screen and (min-width:768px) and (max-width: 1024px){
+          font-size: 22px;
+        }
+      }
+  
+  
+      .content--paragraph p{
+        font-size: 18px;
+        letter-spacing: 0;
+        line-height: 22px;
+        color: #000;
+        font-weight: 400;
+        @media only screen and (max-width:768px){
+          font-size: 14px;
+          line-height: 18px;
+        }
+      }
+  
+
+    
+    .page_giving-back-categories{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    margin-top: 20px;
+    padding-bottom: 40px;
+    border-bottom: 2px solid #000;
+    }
+      
+    .form-category-gb {
+      width: 22%;
+      flex: 1;
+      -webkit-flex: 1; /* Safari 6.1+ */
+      -ms-flex: 1; /* IE 10 */
+      border-right: 1px solid #000;
+      margin-top: 20px;
+      &:last-child{
+        border:none;
+      }
+      @media only screen and (max-width:768px){
+        border:none;
+        width:100%;
+        text-align: center;
+        margin-top:8px;
+      }
+    }
+      .category--heading-gb {
+        text-decoration: underline;
+        font-size: 22px;
+        letter-spacing: 0;
+        margin-bottom: 14px;
+        position: relative;
+      }
+      .category--quarter-gb {
+        font-weight: 400;
+        font-size: 18px;
+        letter-spacing: 0;
+        @media only screen and (max-width:768px){
+          font-size: 14px;
+          margin:0;
+        }
+      }
+      .category--paragraph-gb{
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 0;
+        @media only screen and (max-width:768px){
+          font-size: 12px;
+          margin:0;
+        }
+      }
+    
+      
+      .form-category--second-gb,
+    .form-category--third-gb {
+      padding: 5px 22px 20px;
+      @media only screen and (max-width:768px){
+        padding: 0px;
+      }
+      @media only screen and (min-width:769px) and (max-width: 1024px){
+        padding: 5px 20px 20px;
+      }
+    }
+    .form-category--fourth-gb{
+      padding: 5px 0px 20px 50px;
+      position: relative;
+      @media only screen and (max-width:768px){
+        padding: 0px;
+      }
+      @media only screen and (min-width:769px) and (max-width: 1024px){
+        padding: 5px 0px 20px 20px;
+      }
+    }
+      .category--quarter-gb{
+        line-height: 28px;
+        width: 80%;
+        margin-bottom: 10%;
+        @media only screen and (max-width:768px){
+          width: 100%;
+          margin-bottom: 0;
+        }
+      }
+      .category--paragraph-gb{line-height: 18px;}
+      
+       .category--paragraph-gb{line-height: 18px;}
+      .category--img-gb{
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 50px;
+        @media only screen and (max-width:768px){display:none;}
+        @media only screen and (min-width:768px) and (max-width: 1024px){
+          right:-26px;
+        }
+      }
+    
+
+    .form-category--first-gb{
+      padding: 5px 27px 20px 0;
+      @media only screen and (max-width:768px){
+        padding: 0px;
+
+      }
+      @media only screen and (min-width:768px) and (max-width: 1024px){
+        padding: 5px 24px 20px 0;
+      }
+    }
+  
+    
+ 
+      
+         /* -----END giving back page----- */
+      

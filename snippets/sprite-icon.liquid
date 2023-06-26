@@ -1,0 +1,24 @@
+{% assign defaultClass = 'sprite-icon' %}
+{% if class %}
+    {% capture className %}{{defaultClass}} {{ class }} {% endcapture %}
+{% else %}
+    {% assign className = defaultClass %}
+{% endif %}
+
+{% if width %}
+    {% assign iconWidth = width %}
+{% else %}
+    {% assign iconWidth = '48px' %}
+{% endif %}
+
+{% if height %}
+    {% assign iconHeight = height %}
+{% else %}
+    {% assign iconHeight = '48px' %}
+{% endif %}
+
+{% if glyph %}
+    <svg class="{{ className }}" width={{ iconWidth }} height={{ iconHeight }}>
+        <use href="#{{ glyph }}" />
+    </svg>
+{% endif %}

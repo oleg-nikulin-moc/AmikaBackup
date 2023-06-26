@@ -1,0 +1,78 @@
+{% assign subheader = 'Watch More' %}
+{% if product.metafields.youtube.videos.subheader %}
+  {% assign subheader = product.metafields.youtube.videos.subheader %}
+{% endif %}
+<section class="product-videos has-product-carousel product__redesign">
+  <div class="container">
+    <div class="videos slider-for">
+      {% for video in product.metafields.youtube.videos.contents %}
+          <div class="video-item">
+            <h2>{{ video.title }}</h2>
+            <div class="video-wrapper">
+              <iframe class="ytplayer" id="ytplayer--{{video.video_id}}" type="text/html" src="https://www.youtube-nocookie.com/embed/{{video.video_id}}?loop=1&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+      {% endfor %}
+    </div>
+
+    <h3>{{subheader}}</h3>
+    <div class="videos slider-nav">
+      {% for video in product.metafields.youtube.videos.contents %}
+        <div class="video-item">
+          <div class="image_wrapper easyvideo-overlay-play-icon">
+            {% if video.cover_image %}
+            <img src="{{video.cover_image}}" style="width:100%"/>
+            {% else %}
+            <img src="https://img.youtube.com/vi/{{ video.video_id }}/mqdefault.jpg" />
+            {% endif %}
+          </div>
+
+          {% if video.description %}
+          <p class="description">{{video.description}}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<script>
+
+  $(function() {
+
+    var $container = $('.product-videos');
+
+    $container.find('.slider-for').on("beforeChange", function(event, slick, currentSlide, nextSlide) {
+      YoutubePlayerEvent.pauseAllVideo();
+    });
+
+    $container.find('.slider-for').slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: false,
+      fade: true,
+      asNavFor: '.slider-nav'
+    });
+    $container.find('.slider-nav').slick({
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      arrows:false,
+      asNavFor: '.slider-for',
+      dots: false,
+      centerMode: true,
+      focusOnSelect: true,
+      prevArrow: '<i class="lnr lnr-chevron-left left-arrow animation"></i>',
+      nextArrow: '<i class="lnr lnr-chevron-left left-arrow animation"></i>',
+
+      responsive: [
+        {
+          breakpoint: 768,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+            }
+        }
+      ]
+    });
+
+  })
+</script>

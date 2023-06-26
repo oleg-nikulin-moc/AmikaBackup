@@ -1,0 +1,80 @@
+<div class="order-summary__section order-summary__section--swell" style="display:none;" id="swell-checkout">
+  <div style="display:none;">
+    <span id="swell-checkout-customer-id">{{ customer.id }}</span>
+    <span id="swell-checkout-customer-email">{{ customer.email }}</span>
+    <span id="swell-checkout-customer-tags">{{ customer.tags | json }}</span>
+  </div>
+  <div class="swell-wrapper" style="line-height: 22px;">
+    <div class="balance">
+    <strong>You have <span class="swell-point-balance"></span> Points</strong>
+    </div>
+  </div>
+
+  <div class="swell-checkout-error-message" id="swell-checkout-error-message-amount" style="display:none;color:red;">Oops, You don't have enough points to redeem yet.</div>
+  <div class="swell-checkout-error-message" id="swell-checkout-error-message-general" style="display:none;color:red;">Sorry something went wrong.  Try again and if the problem persists please contact support.</div>
+  <div class="fieldset" style="margin-top: 15px;">
+    <div class="field">
+      <div class="field__input-btn-wrapper">
+        <div class="field__input-wrapper field__input-wrapper--select">
+          <label class="field__label">Redeem Points</label>
+          <select class="field__input field__input--select" id="swell-checkout-redemption-options" style="color:#76747b"></select>
+        </div>
+   
+        <button type="submit" id="swell-checkout-redeem-btn" style="height:45px" class="field__input-btn btn btn--default swell-button">
+          <span class="btn__content visually-hidden-on-mobile">Apply</span>
+          <i class="btn__content shown-on-mobile icon icons-swell-arrow"></i>
+          <i style="display:none;" class="fa fa-spinner fa-spin"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  
+ // only load swell loader on checkout page, not thank you page as it's already loaded by our app
+  $(document).ready(function(){
+    if(window.location.href.indexOf("checkout") > -1 && window.location.href.indexOf("thank_you") == -1) {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = "https://cdn.swellrewards.com/loader/7AnL4oPIjyC6VX59C9s2XA.js?shop=amika-1.myshopify.com";   // keep loader cdn here
+      document.getElementsByTagName("head")[0].appendChild(script);
+    }
+  });
+  $(document).on("swell:setup", function() {
+    $("#swell-checkout-redemption-options option").detach()
+    var activeRedemptionOptions = spapi.activeRedemptionOptions;
+    activeRedemptionOptions.each(function( activeRedemptionOption ) {
+      if(activeRedemptionOption.type == "cart_fixed_amount") {
+        $("#swell-checkout-redemption-options").append("<option value='"+activeRedemptionOption.id+"'>$10 (100 Points) </option>");   
+      }
+    });
+    $("#swell-checkout-redemption-options").prepend("<option value='choose'>Choose your discount</option>");
+    $("#swell-checkout-redemption-options").val("choose");
+    // dropdown_update();
+    $("#swell-checkout-redemption-options").change(function(){
+      dropdown_update();
+    });
+  });
+
+  $("body").on('DOMSubtreeModified', ".order-summary__section--discount", function() {
+    if($(".tags-list").length>0){
+      setTimeout(function() {
+        if($(".tags-list .tag .animate-floating-labels .tag__wrapper .tag__text .swell__code_replacement").html() == "Discount Code"){
+          $(".tags-list .tag .animate-floating-labels .tag__wrapper .tag__text .swell__code_replacement").html("Gift Code");
+        }
+      }, 100);
+    }
+  });
+
+  function dropdown_update(){
+    if($("#swell-checkout-redemption-options").val()=='choose'){
+      $("#swell-checkout-redeem-btn").attr("disabled", "disabled");
+    }
+    else{
+      $("#swell-checkout-redeem-btn").removeAttr("disabled");
+    }
+  }
+  
+</script>
+

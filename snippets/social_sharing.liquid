@@ -1,0 +1,31 @@
+{% if settings.share_prod_on_twitter or settings.share_prod_on_facebook or settings.share_prod_on_googleplus or settings.share_prod_on_pinterest %}
+
+<div id="sharing">
+  <ul class="social-meta">
+
+    <li>
+      <a class="facebook-share" href="mailto:?Subject=Share&Body={{"#loveamika" }}%20{{shop.url | append: product.url | url_encode}}">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </li>
+
+    {% if settings.share_prod_on_facebook %}
+    <li><a target="_blank" class="facebook-share" href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url | append: product.url | url_encode }}&hashtag={{"#loveamika" | url_encode}}"><i class="fa fa-facebook"></i></a></li>
+    {% endif %}
+
+    {% if settings.share_prod_on_twitter %}
+    <li><a target="_blank" class="twitter-share" href="https://twitter.com/share?url={{ shop.url }}{{ product.url }}&hashtags=loveamika"><i class="fa fa-twitter"></i></a></li>
+    {% endif %}
+
+    {% if settings.share_prod_on_googleplus %}
+    <li><a target="_blank" class="google-share" href="https://plus.google.com/share?url={{ shop.url | append: product.url | url_encode }}&prefilltext={{"#loveamika" | url_encode}}"><i class="fa fa-google-plus"></i></a></li>
+    {% endif %}
+
+    {% if settings.share_prod_on_pinterest %}
+    <li><a target="_blank" class="pinterest-share" href="//pinterest.com/pin/create/button/?url={{ shop.url }}{{ product.url }}&media={{ product.featured_image | product_img_url: 'original' }}&description={{ product.title | strip_html | escape | replace: ' ', '%20' }}"><i class="fa fa-pinterest-p"></i></a></li>
+    {% endif %}
+  </ul>
+  <div class="clear" style="clear:both;"></div>
+</div>
+
+{% endif %}

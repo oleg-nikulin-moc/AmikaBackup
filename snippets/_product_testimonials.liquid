@@ -1,0 +1,29 @@
+<div class="testimonials">
+{% assign t = product.metafields.pdp.testimonials %}
+
+    {% if t != blank %}
+    
+        {% for x in t.testimonial %}
+            <div>
+                <div class='text'><p>{{ x.text }}</p></div>
+                <div class="img">
+                    <img src='{{ x.logo }}' />
+                </div> 
+            </div>
+        {% endfor %}
+
+    {% endif %}
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.testimonials').slick({
+      infinite: true,
+      prevArrow: '',
+      adaptiveHeight: true,
+      dots: true
+      // nextArrow: '<button type="button" class="slick-next">Next</button>'
+  });
+});
+		
+</script>

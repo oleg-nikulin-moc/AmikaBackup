@@ -1,0 +1,1025 @@
+<div class="page page-{{page.handle}} container about-page-s">
+  <!--<h1 class="page-title">{{page.title}}</h1>-->
+  <div class="about-cont-wrpp">
+    
+    
+    <div class="org-head-wrp">
+      <div id="our-story"></div>
+      <div class="big-text" style="padding:10px;">{{ section.settings.main-text }}</div>
+      	<img src="{{ section.settings.about-banner | img_url:'master' }}" class="img-banner" />
+      
+      <div class="abt-container clearfix">
+        
+        <div class="grid__item one-half small--one-whole">
+          <div class="bann-left-sec">{{ section.settings.ban-text1 }}</div>
+        </div>
+        
+        <div class="grid__item one-half small--one-whole">
+          <div class="bann-right-sec">{{ section.settings.ban-text2 }}</div>
+        </div>
+        
+      </div>
+    </div>
+    
+
+    <div class="wht-cont-wrp">
+      <div class="wavetext"></div>
+      
+      <ul class="zig-zag-ulli">
+        
+        <li>
+          <div class="numb">{{ section.settings.zigZ-number1 }}</div>
+          <div class="numb-texts" style="padding:10px;">{{ section.settings.zigZ-para1 }}</div>
+        </li>
+        
+        <li class="zz-list">
+          <div class="numb">{{ section.settings.zigZ-number2 }}</div>
+          <div class="numb-texts" style="padding:10px;">{{ section.settings.zigZ-para2 }}</div>
+        </li>
+        
+        <li>
+          <div class="numb">{{ section.settings.zigZ-number3 }}</div>
+          <div class="numb-texts" style="padding:10px;">{{ section.settings.zigZ-para3 }}</div>
+        </li>
+        
+        <li class="zz-list">
+          <div class="numb">{{ section.settings.zigZ-number4 }}</div>
+          <div class="numb-texts" style="padding:10px;">{{ section.settings.zigZ-para4 }}</div>
+        </li>
+        
+        <li>
+          <div class="numb">{{ section.settings.zigZ-number5 }}</div>
+          <div class="numb-texts" style="padding:10px;">{{ section.settings.zigZ-para5 }}</div>
+        </li>
+        
+        
+      </ul>
+      
+      <div class="img3-head">
+        {{ section.settings.img3-head }}
+      </div>
+      <img src="{{ section.settings.mid-3img | img_url:'master' }}" class="img3img" />
+      
+      
+    </div>
+    
+    <div class="multi-colorwrp">
+      <div id="our-products"></div>      
+      	<div class="abt-container">
+          <div class="cont-colors">
+            <div class="flex-widleft left-color">
+              <div class="wrpp-leftBl">
+              <div class="or-head">{{ section.settings.blu-head }}</div>
+              <div class="or-content">{{ section.settings.blu-cont }}</div>
+              </div>
+            </div>
+            
+            <div class="flex-widright right-color">
+              <div class="wrp-righ">
+                <div class="rih-orhead">{{ section.settings.yellow-head }}</div>
+                <div class="rih-orcont">{{ section.settings.yellow-cont }}</div>
+                <div class="img-anim">
+                  
+                  <span>
+                    <img src="{{ section.settings.left-topImg | img_url:'140x' }}" class="img-ani-1 mobile-only" />
+                    <img src="{{ section.settings.left-topImg | img_url:'400x' }}" class="img-ani-1 desktop-only" />
+                    <span class="img-heads">{{ section.settings.cor4Head1 }}</span>
+                  </span>
+
+                  <span>
+                    <img src="{{ section.settings.right-topImg | img_url:'140x' }}" class="img-ani-2 mobile-only" />
+                    <img src="{{ section.settings.right-topImg | img_url:'400x' }}" class="img-ani-2 desktop-only" />                    
+                    <span class="img-heads">{{ section.settings.cor4Head2 }}</span>
+                  </span>
+                  <span>
+                    <img src="{{ section.settings.left-botImg | img_url:'140x' }}" class="img-ani-3 mobile-only" />
+                    <img src="{{ section.settings.left-botImg | img_url:'400x' }}" class="img-ani-3 desktop-only" />                    
+                    <span class="img-heads">{{ section.settings.cor4Head3 }}</span>
+                  </span>
+                  <span>
+                    <img src="{{ section.settings.right-botImg | img_url:'140x' }}" class="img-ani-4 mobile-only" />
+                    <img src="{{ section.settings.right-botImg | img_url:'400x' }}" class="img-ani-4 desktop-only" />                    
+                    <span class="img-heads">{{ section.settings.cor4Head4 }}</span>
+                  </span>
+                
+                </div>
+                
+                
+              </div>
+            </div>
+          </div>
+      	</div>
+      
+    </div>
+    
+    
+    <div class="slider-wrp">
+      <div id="our-commitment"></div>
+      <div class="slider-head">{{ section.settings.sld-head }}</div>
+    
+    
+    <section class="slideshow_section">
+
+      <div class="about-us-carousel {% unless section.settings.full_width %}container{% endunless %}">
+        {% for block in section.blocks %}
+        <div class="item" id="{{ block.id }}">
+          {% if block.settings.image != blank %}
+          {% assign img_url = block.settings.image | img_url: 'master' %}
+          {% else %}
+          {% assign img_url = "placeholder-image.jpg" | asset_url %}
+          {% endif %}      
+
+          {% if block.settings.link %}<a href="{{ block.settings.link }}">{%endif%}
+          <div class="item_img desktop-image normal" ><img src="{{ img_url }}"></div>        
+          {% if block.settings.link %}</a>{%endif%}
+
+          <div class="overlay overlay-{{forloop.index}}">
+            {% if section.settings.show_captions %}
+            <div class="captions {{ block.settings.text_position }} text-{{block.settings.text_align}}" style="{% if block.settings.text_align == "left" %}margin-right:auto;{% elsif block.settings.text_align == "right" %}margin-left:auto;{% else %}margin-left: auto; margin-right: auto;{% endif %}">
+              <div class="table">
+                <div class="table-cell text-vertical-{{block.settings.text_vertical_align}}">
+                  {% if block.settings.prod_caption != "" %}<a href="{{ block.settings.link }}">{%endif%}
+                  <div class="text">{{ block.settings.prod_caption }}</div>
+                  {% if block.settings.link %}</a>{% endif %}
+                </div>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>    
+      
+
+    </section>    
+      
+      <div class="sld-sm-text">
+      {{ section.settings.slide-SMtext }}
+      </div> 
+      
+      <div class="sld-big-cont">
+      {{ section.settings.slide-BGcont }}
+      </div>
+      
+      <img src="{{ section.settings.skul-img | img_url:'master' }}" class="slull-img" />
+    
+  </div>
+    
+  </div>
+</div>
+
+
+<style>
+
+ 
+
+  section.slideshow_section .item_img {
+    padding: 25px;
+  }
+  @media(max-width:979px){
+  section.slideshow_section .item_img {
+    padding: 25px 20px;
+  }
+  }
+  @media(max-width:739px){
+  section.slideshow_section .item_img {
+    padding: 25px 15px;
+  }
+  }
+  @media(max-width:600px){
+  section.slideshow_section .item_img {
+    padding: 25px 10px;
+  }
+  }
+  
+  @media(max-width:360px){
+  section.slideshow_section .item_img {
+    padding: 25px 7px;
+  }
+  }
+
+  
+  
+  .template-page-about-us.about-page-s .org-head-wrp .big-text {
+    font-size: calc( {{ section.settings.main-text-min}}px + ({{section.settings.main-text-max}} - {{section.settings.main-text-min}}) * ((100vw - 375px) / (1400 - 375)));
+    font-weight: 500;
+  }
+  .template-page-about-us .about-page-s .org-head-wrp .abt-container .bann-left-sec {
+    font-size: calc( {{ section.settings.ban-text1-min}}px + ({{section.settings.ban-text1-max}} - {{section.settings.ban-text1-min}}) * ((100vw - 375px) / (1400 - 375)));  
+  }
+  .template-page-about-us .about-page-s .org-head-wrp .abt-container .bann-right-sec {
+/*     font-size: calc( {{ section.settings.ban-text2-min}}px + ({{section.settings.ban-text2-max}} - {{section.settings.ban-text2-min}}) * ((100vw - 375px) / (1400 - 375))) !important;   */
+    font-size: calc( 13.5px + (25 - 13.5) * ((100vw - 375px) / (1400 - 375)));
+  }  
+  .template-page-about-us .about-page-s .wht-cont-wrp ul.zig-zag-ulli li .numb {
+    font-size: calc( {{ section.settings.num-size-min}}px + ({{section.settings.num-size-max}} - {{section.settings.num-size-min}}) * ((100vw - 375px) / (1400 - 375)));    
+    font-weight: 500;
+  }
+  .template-page-about-us .about-page-s .wht-cont-wrp ul.zig-zag-ulli li .numb-texts {
+    font-size: calc( {{ section.settings.num-content-size-min}}px + ({{section.settings.num-content-size-max}} - {{section.settings.num-content-size-min}}) * ((100vw - 375px) / (1400 - 375)));      
+   padding:20px;
+      }
+  .template-page-about-us .about-page-s .wht-cont-wrp .img3-head {
+    font-size: calc( {{ section.settings.img3-head-min}}px + ({{section.settings.img3-head-max}} - {{section.settings.img3-head-min}}) * ((100vw - 375px) / (1400 - 375)));        
+    font-weight: 500; padding:10px;
+  }
+  .template-page-about-us .about-page-s .multi-colorwrp .flex-widleft .or-head {
+	font-size: calc( {{ section.settings.blu-head-min}}px + ({{section.settings.blu-head-max}} - {{section.settings.blu-head-min}}) * ((100vw - 375px) / (1400 - 375)));          
+    font-weight: 500;
+  }
+  .template-page-about-us .about-page-s .multi-colorwrp .flex-widleft .or-content {
+	font-size: calc( {{ section.settings.blu-cont-min}}px + ({{section.settings.blu-cont-max}} - {{section.settings.blu-cont-min}}) * ((100vw - 375px) / (1400 - 375)));            
+  }
+  .template-page-about-us .about-page-s .multi-colorwrp .flex-widright .wrp-righ .rih-orhead {
+	font-size: calc( {{ section.settings.yellow-head-min}}px + ({{section.settings.yellow-head-max}} - {{section.settings.yellow-head-min}}) * ((100vw - 375px) / (1400 - 375)));              
+    text-align: center;
+  }
+  .template-page-about-us .about-page-s .multi-colorwrp .flex-widright .wrp-righ .rih-orcont {
+	font-size: calc( {{ section.settings.yellow-cont-min}}px + ({{section.settings.yellow-cont-max}} - {{section.settings.yellow-cont-min}}) * ((100vw - 375px) / (1400 - 375)));                
+    text-align: center;      
+  }
+  .template-page-about-us .about-page-s .multi-colorwrp .flex-widright .wrp-righ .img-anim span .img-heads {
+	font-size: calc( {{ section.settings.m-image-min}}px + ({{section.settings.m-image-max}} - {{section.settings.m-image-min}}) * ((100vw - 375px) / (1400 - 375)));                  
+  }
+  .template-page-about-us .about-page-s .slider-wrp .slider-head {
+	font-size: calc( {{ section.settings.sld-head-min}}px + ({{section.settings.sld-head-max}} - {{section.settings.sld-head-min}}) * ((100vw - 375px) / (1400 - 375)));                    
+  }
+  .template-page-about-us .about-page-s .slider-wrp .sld-sm-text {
+	font-size: calc( {{ section.settings.slide-SMtext-min}}px + ({{section.settings.slide-SMtext-max}} - {{section.settings.slide-SMtext-min}}) * ((100vw - 375px) / (1400 - 375)));                      
+  }
+  .template-page-about-us .about-page-s .slider-wrp .sld-big-cont {
+  	font-size: calc( {{ section.settings.slide-BGcont-min}}px + ({{section.settings.slide-BGcont-max}} - {{section.settings.slide-BGcont-min}}) * ((100vw - 375px) / (1400 - 375)));                            
+  }
+  .template-page-about-us .about-page-s .wavetext span {
+  	font-size: calc( {{ section.settings.wh-zzHead-min}}px + ({{section.settings.wh-zzHead-max}} - {{section.settings.wh-zzHead-min}}) * ((100vw - 375px) / (1400 - 375)));      
+  } 
+  
+  .template-page-about-us p,
+  h1, h2, h3, h4, h5, h6 {line-height:1.4;}
+  
+  p, label {font-weight: 500;}
+  
+  
+    /* CAROUSEL */
+/*   .slideshow_section{overflow: hidden;} */
+  .about-us-carousel {padding: 0;}
+  .about-us-carousel .slick-list {overflow: initial;}
+  .item_img {padding-top:3rem;}
+  .slick-slide img {
+    margin: auto; 
+    width: 98%; 
+  }
+  .slideshow_section .table-cell {
+    font-size: 25px;
+    color: #73ABFF;
+    text-align: center;
+    margin-top: 1rem;
+    display: block;
+  }
+  .slideshow_section .table-cell .text {
+    line-height: 1.5;
+    text-decoration: underline;
+    
+    
+  }
+  .text_section .title {
+	text-align: center;
+    margin: 2rem auto 3rem;
+    font-size: 70px;
+  }  
+  .text_section .caption {
+    max-width: 85%;
+    margin: auto;
+    font-size: 25px !important;
+  }
+  .slideshow_section .slick-slide.slick-current img {
+    transform: translateY(-4%);
+    box-shadow: rgba(0, 0, 0, 0.2) 10px 10px 30px 0px;
+    transition: all 0.6s ease-in-out 0s;    
+  }
+  .slideshow_section .slick-slide.before img {
+    transform: rotate(-3deg);
+    box-shadow: rgba(0, 0, 0, 0.2) 10px 10px 30px 0px;
+    transition: all 0.6s ease-in-out 0s;
+  }
+  .slideshow_section .slick-slide.after img {
+    transform: rotate(3deg);
+    box-shadow: rgba(0, 0, 0, 0.2) 10px 10px 30px 0px;
+    transition: all 0.6s ease-in-out 0s;
+  }
+  .slideshow_section .slick-slide.levitate img {
+    transform: rotate(0) translateY(-4%);
+    box-shadow: rgba(0, 0, 0, 0.2) 10px 10px 30px 0px;
+    transition: all 0.6s ease-in-out 0s;
+  }
+
+  #header,
+  .template-page-about-us #header,
+  #menu-mobile-button {
+    background: #ffa750 !important; 
+    box-shadow: initial !important;
+/*     -webkit-transition: .3s ease;
+    -moz-transition: .3s ease;    
+    transition: .3s ease; */
+  }
+  #header.past-main,
+  #menu-mobile-button.past-main {
+    background: #ffa650 !important; 
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+/*     -webkit-transition: .3s ease;
+    -moz-transition: .3s ease;    
+    transition: .3s ease;     */
+  }
+  #menu-mobile-button.past-main {box-shadow: initial !important;}
+  
+  @media(max-width:768px){
+    .item_img {padding-top: 5rem;}
+    .slideshow_section .table-cell {
+      font-size: 12px;
+	  margin-top: 20px;
+    }    
+    .text_section .title {
+      font-size: 30px;
+      margin: 19px auto 15px;
+    }      
+    .text_section .caption {
+      font-size: 16px !important;
+    }
+  }
+  
+  #our-story,  
+  #our-products,
+  #our-commitment {
+    height: 106px;
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    width: 100%;
+    margin-top: -106px;    
+  }
+</style>
+
+
+
+<script type="text/javascript">
+  var text = "what we stand for:";
+
+  for(var i in text) { 
+    if(text[i] === " ") {
+      $(".wavetext").append( $("<span>").html("&nbsp;") ); 
+    } else {  
+      $(".wavetext").append( $("<span>").text(text[i]) ); 
+    }
+  }  
+  
+  $('.about-us-carousel').on('init', function(slick){
+    $('.slick-slide.slick-current').next('.slick-slide').addClass('after');
+    $('.slick-slide.slick-current').prev('.slick-slide').addClass('before'); 
+  }).on('beforeChange', function(event, slick, currentSlide, nextSlide){
+    $(slick.$slides.get(currentSlide)).removeClass('levitate');
+    var nextSlide = slick.$slides.get(nextSlide);
+    $(nextSlide).addClass('levitate');
+    var $slides =$('.about-us-carousel .slick-slide');
+    $slides.removeClass('after');
+    var found = 0;
+    $slides.each(function(i,o){
+      if (!found && nextSlide == o) { found = 1; }
+      $(o).addClass(found?'after':'before');
+    });
+  }).slick({
+    autoplay: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    centerMode: true,
+    centerPadding: '225px',
+    initialSlide: 1,
+    waitForAnimate: false,
+    infinite:false,
+    responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        centerPadding: '50px'
+      }
+    }
+    ]
+  });
+  
+  
+  
+//     }).slick({    
+//     autoplay: false,
+//     slidesToShow: 1,
+//     slidesToScroll: 1,
+//     arrows: false,
+//     centerMode: true,
+//     initialSlide: 1,
+//     waitForAnimate: false,
+//     centerPadding: '225px',
+//     infinite:false     
+//   });
+ 
+  
+  function adjustHeader(){
+    stop = Math.round($(window).scrollTop());
+    if (stop > mainbottom) {
+      $('#header, #menu-mobile-button').addClass('past-main');
+    } else {
+      $('#header, #menu-mobile-button').removeClass('past-main');
+    }
+  } 
+  
+  // get the value of the bottom of the #main element by adding the offset of that element plus its height, set it as a variable
+  var mainbottom = $('.org-head-wrp').offset().top + $('.org-head-wrp').height();
+
+  // on scroll, 
+  $(window).on('scroll',function(){   
+	adjustHeader()
+  });
+  
+  $(window).resize(function(){
+    adjustHeader();
+  })
+  
+</script>
+
+{% schema %}
+  {
+    "name": "About Us",
+    "settings": [
+
+
+  {
+  "type": "header",
+  "content": "Banner Section"
+  },
+  {
+  "type": "html",
+  "id": "main-text",
+  "label": "Main Heading"
+  },
+  {
+  "type": "range",
+  "id": "main-text-min",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Min Text Size",
+  "default": 20
+  },
+  {
+  "type": "range",
+  "id": "main-text-max",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Max Text Size",
+  "default": 20
+  },
+
+
+  {
+  "type": "image_picker",
+  "id": "about-banner",
+  "label": "Page Banner"
+  },
+
+
+
+
+  {
+  "type": "html",
+  "id": "ban-text1",
+  "label": "Banner Left Content"
+  },
+  {
+  "type": "range",
+  "id": "ban-text1-min",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Min Text Size",
+  "default": 20
+  },
+  {
+  "type": "range",
+  "id": "ban-text1-max",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Max Text Size",
+  "default": 20
+  },
+
+
+
+
+  {
+  "type": "html",
+  "id": "ban-text2",
+  "label": "Banner Right Content"
+  },
+  {
+  "type": "range",
+  "id": "ban-text2-min",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Min Text Size",
+  "default": 20
+  },
+  {
+  "type": "range",
+  "id": "ban-text2-max",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Max Text Size",
+  "default": 20
+  },
+
+
+
+
+  {
+  "type": "header",
+  "content": "What We Stand For"
+  },
+  {
+  "type": "image_picker",
+  "id": "wh-zzHead",
+  "label": "Page banner"
+  },
+  {
+  "type": "range",
+  "id": "wh-zzHead-min",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Moving Text - Min Text Size",
+  "default": 20
+  },
+  {
+  "type": "range",
+  "id": "wh-zzHead-max",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Moving Text - Max Text Size",
+  "default": 20
+  },
+
+
+  {
+  "type": "text",
+  "id": "zigZ-number1",
+  "label": "Number"
+  },
+  {
+  "type": "html",
+  "id": "zigZ-para1",
+  "label": "Content"
+  },
+  {
+  "type": "text",
+  "id": "zigZ-number2",
+  "label": "Number"
+  },
+  {
+  "type": "html",
+  "id": "zigZ-para2",
+  "label": "Content"
+  },
+  {
+  "type": "text",
+  "id": "zigZ-number3",
+  "label": "Number"
+  },
+  {
+  "type": "html",
+  "id": "zigZ-para3",
+  "label": "Content"
+  },
+  {
+  "type": "text",
+  "id": "zigZ-number4",
+  "label": "Number"
+  },
+  {
+  "type": "html",
+  "id": "zigZ-para4",
+  "label": "Content"
+  },
+  {
+  "type": "text",
+  "id": "zigZ-number5",
+  "label": "Number"
+  },
+  {
+  "type": "html",
+  "id": "zigZ-para5",
+  "label": "Content"
+  },
+  {
+  "type": "range",
+  "id": "num-size-min",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Number - Min Text Size",
+  "default": 20
+  },
+  {
+  "type": "range",
+  "id": "num-size-max",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Number - Max Text Size",
+  "default": 20
+  },
+  {
+  "type": "range",
+  "id": "num-content-size-min",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Number Content - Min Text Size",
+  "default": 20
+  },
+  {
+  "type": "range",
+  "id": "num-content-size-max",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Number Content - Max Text Size",
+  "default": 20
+  },
+
+
+
+
+
+  {
+  "type": "html",
+  "id": "img3-head",
+  "label": "Image Head"
+  },
+  {
+  "type": "range",
+  "id": "img3-head-min",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Image Text - Min Text Size",
+  "default": 20
+  },
+  {
+  "type": "range",
+  "id": "img3-head-max",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Image Text - Max Text Size",
+  "default": 20
+  },
+
+
+  {
+  "type": "image_picker",
+  "id": "mid-3img",
+  "label": "Mid Center Image"
+  },
+
+
+
+
+  {
+  "type": "header",
+  "content": "Product Section"
+  },
+  {
+  "type": "text",
+  "id": "blu-head",
+  "label": "Blue Section Head"
+  },
+  {
+  "type": "range",
+  "id": "blu-head-min",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Content - Min Text Size",
+  "default": 20
+  },
+  {
+  "type": "range",
+  "id": "blu-head-max",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Content - Max Text Size",
+  "default": 20
+  },
+
+
+  {
+  "type": "html",
+  "id": "blu-cont",
+  "label": "Blue Section Content"
+  },
+  {
+  "type": "range",
+  "id": "blu-cont-min",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Content - Min Text Size",
+  "default": 20
+  },
+  {
+  "type": "range",
+  "id": "blu-cont-max",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Content - Max Text Size",
+  "default": 20
+  },
+
+
+  {
+  "type": "header",
+  "content": "Yellow Section"
+  },
+  {
+  "type": "text",
+  "id": "yellow-head",
+  "label": "Yellow Section Head"
+  },
+  {
+  "type": "range",
+  "id": "yellow-head-min",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Image Text - Min Text Size",
+  "default": 20
+  },
+  {
+  "type": "range",
+  "id": "yellow-head-max",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Image Text - Max Text Size",
+  "default": 20
+  },
+
+
+
+  {
+  "type": "text",
+  "id": "yellow-cont",
+  "label": "Yellow Section Content"
+  },
+  {
+  "type": "range",
+  "id": "yellow-cont-min",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Image Text - Min Text Size",
+  "default": 20
+  },
+  {
+  "type": "range",
+  "id": "yellow-cont-max",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Image Text - Max Text Size",
+  "default": 20
+  },
+
+
+
+  {
+    "type": "image_picker",
+    "id": "left-topImg",
+    "label": "Mobile - Left Top Image"
+  },
+  {
+    "type": "text",
+    "id": "cor4Head1",
+    "label": "Mobile Image Head"
+  },
+  {
+    "type": "image_picker",
+    "id": "right-topImg",
+    "label": "Mobile - Right Top Image"
+  },
+  {
+    "type": "text",
+    "id": "cor4Head2",
+    "label": "Mobile Image Head"
+  },
+  {
+    "type": "image_picker",
+    "id": "left-botImg",
+    "label": "Mobile - Left Bottom Image"
+  },
+  {
+    "type": "text",
+    "id": "cor4Head3",
+    "label": "Mobile Image Head"
+  },
+  {
+    "type": "image_picker",
+    "id": "right-botImg",
+    "label": "Mobile - Right Bottom Image"
+  },
+  {
+    "type": "text",
+    "id": "cor4Head4",
+    "label": "Mobile Image Head"
+  },
+  {
+    "type": "range",
+    "id": "m-image-min",
+    "min": 12,
+    "max": 100,
+    "step": 1,
+    "unit": "px",
+    "label": "Mobile Image Header - Min Text Size",
+    "default": 20
+  },
+  {
+    "type": "range",
+    "id": "m-image-max",
+    "min": 12,
+    "max": 100,
+    "step": 1,
+    "unit": "px",
+    "label": "Mobile Image Header - Max Text Size",
+    "default": 20
+  },
+
+
+
+  {
+  "type": "header",
+  "content": "Slider Section"
+  },
+  {
+  "type": "text",
+  "id": "sld-head",
+  "label": "Slider Heading"
+  },
+  {
+  "type": "range",
+  "id": "sld-head-min",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Title - Min Text Size",
+  "default": 20
+  },
+  {
+  "type": "range",
+  "id": "sld-head-max",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Title - Max Text Size",
+  "default": 20
+  },
+
+
+  {
+  "type": "text",
+  "id": "slide-SMtext",
+  "label": "Slider Small Heading"
+  },
+  {
+  "type": "range",
+  "id": "slide-SMtext-min",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Subtitle - Min Text Size",
+  "default": 20
+  },
+  {
+  "type": "range",
+  "id": "slide-SMtext-max",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Subtitle - Max Text Size",
+  "default": 20
+  },
+
+
+
+  {
+  "type": "html",
+  "id": "slide-BGcont",
+  "label": "Main Slider Content"
+  },
+  {
+  "type": "range",
+  "id": "slide-BGcont-min",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Main Slider - Min Text Size",
+  "default": 20
+  },
+  {
+  "type": "range",
+  "id": "slide-BGcont-max",
+  "min": 12,
+  "max": 100,
+  "step": 1,
+  "unit": "px",
+  "label": "Main Slider - Max Text Size",
+  "default": 20
+  },
+
+
+  {
+  "type": "image_picker",
+  "id": "skul-img",
+  "label": "Skull Image"
+  },
+  {
+    "type": "checkbox",
+    "id": "show_captions",
+    "label": "Show captions?",
+    "default": true
+  }
+
+],
+"blocks": [
+      {
+        "type": "slide",
+        "name": "Slide",
+        "settings": [
+		  {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Background Image"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link",
+            "info": "Optional"
+          },
+		  {
+            "type": "html",
+            "id": "prod_caption",
+            "label": "Product Caption"
+          }
+	   ]
+	 }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+

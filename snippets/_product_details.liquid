@@ -1,0 +1,27 @@
+{% assign detailsTab = product.metafields.details-tab.details %}
+{% assign ingredientsTab = product.metafields.details-tab.ingredients %}
+{% assign howtoTab = product.metafields.details-tab.how-to %}
+{% assign goodtoknowTab = product.metafields.details-tab.good-to-know %}
+
+<div class="details tabs">
+    <div class="tab-nav">
+      {% if detailsTab != blank %}<h2 class='tab'><a id='detail-tab-1' href="javascript:void(0);">details</a></h2>{% endif %}
+      {% if ingredientsTab != blank %}<h2 class='tab'><a id='detail-tab-2' href="javascript:void(0);">ingredients</a></h2>{% endif %}
+      {% if howtoTab != blank %}<h2 class='tab'><a id='detail-tab-3' href="javascript:void(0);">how to</a></h2>{% endif %}
+      {% if goodtoknowTab != blank %}<h2 class='tab'><a id='detail-tab-4' href="javascript:void(0);">good to know</a></h2>{% endif %}
+    </div>
+    <div id='detail-tab-1c' class="tab-content">
+      {{ detailsTab }}
+    </div>
+    <div id='detail-tab-2c' class="tab-content">
+      {{ ingredientsTab }}
+    </div>
+    <div  id='detail-tab-3c' class="tab-content">
+      {{ howtoTab }}
+    </div>
+    <div id='detail-tab-4c' class="tab-content">
+      {{ goodtoknowTab }}
+    </div>
+</div>
+
+

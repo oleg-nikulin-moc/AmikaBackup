@@ -1,0 +1,12 @@
+{% if text_to_scroll %}
+<div class="marquee_relative">
+<div class='marquee_slider{%if marquee__full %} full_width_slider{% endif %}{%if marquee__extend %} extend_slider{% endif %}'>
+    <ul class="slideContainer">
+        <li class="slideItem" >{{text_to_scroll}} {{text_to_scroll}} {{text_to_scroll}} {{text_to_scroll}} {{text_to_scroll}} {{text_to_scroll}} {{text_to_scroll}} {{text_to_scroll}}</li>
+        <li class="slideItem" >{{text_to_scroll}} {{text_to_scroll}} {{text_to_scroll}} {{text_to_scroll}} {{text_to_scroll}} {{text_to_scroll}} {{text_to_scroll}} {{text_to_scroll}}</li>
+    </ul>
+</div>
+</div>
+{% endif %}
+
+

@@ -1,0 +1,39 @@
+<div class="price clearfix" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+   <meta itemprop="url" content="{{ shop.url }}{{ product.selected_or_first_available_variant.url }}" />
+  {% if currentProduct.price_min < currentProduct.compare_at_price_min %}
+  <div class="retail">
+    <span>{{ currentProduct.compare_at_price | money | remove: '.00' | remove: ' ' }}</span>
+  </div>
+  {% endif %}
+  <div class="deal {% if currentProduct.price_min < currentProduct.compare_at_price_min %}disc{%endif%}">
+    <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+    <meta itemprop="price" content="{{ currentProduct.selected_or_first_available_variant.price | money_without_currency | remove: '.00' }}" />
+    <span>{{ currentProduct.selected_or_first_available_variant.price | money | remove: '.00' | remove: ' ' }}</span>
+    
+    <meta itemprop="itemCondition" itemtype="http://schema.org/OfferItemCondition" content="http://schema.org/NewCondition"/>
+{% if product.selected_or_first_available_variant.available %}
+<link itemprop="availability" href="http://schema.org/InStock" />
+{% else %}
+<link itemprop="availability" href="http://schema.org/OutOfStock" />
+{% endif %}
+    
+  </div>
+</div>
+
+
+{% comment %}
+<div class="price clearfix" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+  <meta itemprop="url" content="{{ shop.url }}{{ product.selected_or_first_available_variant.url }}" />
+  <div class="deal {% if currentProduct.price_min < currentProduct.compare_at_price_min or customer.tags contains 'Pro' or 'HMS'%}disc{%endif%}">
+    <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+    <meta itemprop="price" content="{{ currentProduct.price_min | money_without_currency | remove: '.00' }}" />
+    <span>{{ currentProduct.price_min | money | remove: '.00' | remove: ' ' }}</span>
+  </div> 
+  {% if currentProduct.price_min < currentProduct.compare_at_price_min or customer.tags contains 'Pro' or 'HMS'%}
+  <div class="retail">
+    {% if customer.tags contains 'Pro' or 'HMS'%}<span>{{ currentProduct.price_min | money | remove: '.00' | remove: ' ' }}</span>{% endif %}
+    {% if currentProduct.price_min < currentProduct.compare_at_price_min %}<span>{{ currentProduct.compare_at_price | money | remove: '.00' | remove: ' ' }}</span>{% endif %}
+  </div>
+  {% endif %}     
+</div>
+{% endcomment %}

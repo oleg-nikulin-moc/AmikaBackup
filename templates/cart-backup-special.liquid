@@ -1,0 +1,147 @@
+<div id="cart-wrap" class="container">
+  <h1>your cart</h1>
+    {% if cart.items == empty %} 
+        <div class="empty"><i class="fa fa-shopping-cart"></i><br />- Your shopping cart is empty. Check out our <a href="/collections/all">shop</a> to see what's available -</div>
+    {% else %}
+        <form action="/cart" method="post" id="cartform" class="clearfix">
+          <table>
+            {% comment %}<thead class="small--hide">
+              <tr class="top-labels">
+                <th class="text-left">Item</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Remove</th>
+              </tr>
+            </thead>
+            {% endcomment %}
+            <tbody>
+            {% for item in cart.items %}
+            	{% include '_cart-item' %}
+            {% endfor %}
+            </tbody>
+          </table>
+            
+          <div class="subtotal">
+            <table>
+              <tr>
+                <td class="nine-twelfths small--nine-twelfths medium--nine-twelfths text-right">
+                  <div class="label">Subtotal</div>
+                </td>
+                <td class="two-twelfths small--three-twelfths medium--three-twelfths">
+                  <div class="number">{{ cart.total_price | money | remove: '.00' }}</div>
+                </td>
+                <td class="one-twelfth small--hide medium--hide"></td>
+              </tr>
+            </table>
+          </div>
+
+            {% if settings.allow_note %}	
+              <div id="checkout-addnote">
+                <div>
+                  <input type="checkbox" id="chk-is-instructions" class="checkbox-custom" {% if cart.note != nil and cart.note != "" %} checked="checked" {% endif %} />
+                  <label for="chk-is-instructions" class="checkbox-custom-label animation">Add special instructions to your order</label>
+                </div>
+                <div id="instructions-note">
+                  <textarea id="note" name="note" maxlength="100">{{ cart.note }}</textarea>
+                </div>
+              </div>
+            {% endif %}
+          	<div style="clear: both"></div>
+
+          	{% if settings.cart_additional_msg != "" %}
+              <div class="additional-message">{{ settings.cart_additional_msg }}</div>
+            {% endif %}
+
+            {% if settings.cart_return_policy != "" %}
+          	  <div class="hide"><div id="return-policy"><div class="title">Return Policy</div>{{ settings.cart_return_policy }}</div></div>
+              <div class="return-policy-button"><a href="#" onclick="openModal($('#return-policy')); return false;">RETURN POLICY</a></div>
+            {% endif%}
+
+            <div class="bottom-btns text-center">
+              <div class="continue-button"><input type="button" class="btn animation" value="continue shopping" onclick="location.href='/'; return false;"></div>
+              {% comment %}<div class="update-quantities"><input type="submit" id="update-cart" class="btn animation" name="update" value="Update cart" /></div>{% endcomment %}
+              <div class="checkout-button"><input type="submit" id="update-cart" class="btn animation" name="checkout" value="checkout" /></div>
+			  {% if additional_checkout_buttons %}
+              <div id="additional-checkout-buttons">
+                <span id="additional-checkout-buttons-label">Or check out using:</span>
+                {{ content_for_additional_checkout_buttons }}
+              </div>
+              {% endif %}
+            </div>
+
+        </form>
+  
+  		{% include 'shipping-calculator' %}
+  
+    {% endif %}
+    <br />
+</div><!--/#cart-wrap -->
+
+<script>
+  $(function() {
+    $('#cart-wrap input[type=number]').change(function(){
+      $(this).closest('form').submit();
+    });
+  });
+</script>
+{% assign free_gift = false %}
+{% for item in cart.items %}
+  {% if item.product.price == 0 %}
+    {% assign free_gift = true %}
+  {% endif %}
+{% endfor %}
+{% if cart.item_count == 0 %}
+{% assign free_gift = true %}
+{% endif %}
+{% unless free_gift %}
+<div class="hide">
+  <div id="free-gift">
+    <div class="large--table medium--table">
+      <div class="large--table-cell medium--table-cell five-twelfths small--one-whole col-title">
+        <h1><span>select your free sample!</span></h1>
+      </div>
+      <div class="large--table-cell medium--table-cell seven-twelfths small--one-whole free-samples-list">
+        
+          {% for product in collections['samples'].products %}
+          <div class="free-sample one-third small--one-half">
+            <a href="javascript:void(0);" data-id="{{product.first_available_variant.id}}">
+              <div class="img-wrapper">
+                <img src="{{product.featured_image | img_url: "master"}}" class="img-responsive"/>
+              </div>
+              <span>{{product.title}}</span>
+            </a>
+          </div>
+          {% endfor %}
+        
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    setTimeout(function(){
+      modal = new tingle.modal({
+        closeMethods: ['overlay', 'button', 'escape'],
+        closeLabel: "Close",
+        cssClass: ['free-gift-popup']
+      });
+      modal.setContent($('#free-gift'));
+      modal.open();
+    }, 1000);
+    $(document).on("click", ".free-sample a", function(event){
+      event.preventDefault();
+      var prodId = $(this).data('id');
+      $.ajax({
+        type: 'POST',
+        url: '/cart/add.js',
+        data: {id:prodId, quantity:1},
+        dataType: 'json',
+        error: function(){console.log('fail');},
+        success: function(){console.log('success');location.reload();},
+        cache: false
+      });
+    });
+  });
+</script>
+{% endunless %}

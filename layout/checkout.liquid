@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}" dir="{{ direction }}" class="{{ checkout_html_classes }}">
+  <head>
+    <style>
+    /*.notice--warning {
+      display:none!important;
+      }*/
+
+    .strike {
+      text-decoration: line-through;
+      }
+  #loading-overlay {width: 100%; height: 100%; position: fixed; top: 0; left: 0; background:rgba(0,0,0,.7); z-index: 999999; text-align: center; display: none;}
+  .loader {border: 6px solid rgba(255,255,255,0.2); position: absolute; left: 50%; top: 50%; margin-top: -36px; margin-left: -36px; border-top: 6px solid #fff; border-radius: 50%; width: 60px; height: 60px; animation: spin 0.7s linear infinite; } @keyframes spin {0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } } @-webkit-keyframes spin {0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    </style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+    <meta name="referrer" content="origin">
+
+      <!-- Google Ads Tag Start -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-191849875-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-191849875-1');
+    </script>
+    <!-- Google Ads Tag End -->
+
+    <title>{{ page_title }}</title>
+
+    {{ content_for_header }}
+
+    {{ checkout_stylesheets }}
+    {{ checkout_scripts }}
+    {{ 'checkout.scss'| asset_url | stylesheet_tag }}
+    
+    {{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js' | script_tag }}
+  	{{ 'api.jquery.js' | shopify_asset_url | script_tag }}
+    <!--{{ 'simplistic.js' | asset_url | script_tag }}-->
+    {{ 'cookie.js' | asset_url | script_tag }}
+    {{ 'rs-script.js' | asset_url | script_tag }}
+
+  {{ 'slick.css' | asset_url | stylesheet_tag }}
+
+  {{ '//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css'| stylesheet_tag }}
+</head>
+  <body>
+    {{skip_to_content_link}}
+
+    <div class="banner" data-header>
+      <div class="wrap">
+        {{ content_for_logo }}
+      </div>
+    </div>
+
+    {{ order_summary_toggle }}
+
+    <div class="content" data-content>
+      <div class="wrap">
+
+        <div class="main" role="main">
+          <div class="main__header">
+            {{ content_for_logo }}
+            {{ breadcrumb }}
+            {{ alternative_payment_methods }}
+          </div>
+          <div class="main__content">
+            {{ content_for_layout }}
+          </div>
+          <div class="main__footer">
+            {{ content_for_footer }}
+          </div>
+          <div id="loading-overlay"><div class="loader"></div></div>
+        </div>
+        <div class="sidebar" role="complementary">
+          <div class="sidebar__header">
+            {{ content_for_logo }}
+          </div>
+          <div class="sidebar__content">
+            {{ content_for_order_summary }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spinner_bg"
+     style="
+      width: 100%;
+      height: 100%;
+      display: block;
+      position: absolute;
+      top: 0;
+      background: rgba(255,255,255,.65);
+      z-index: 99999;
+      ">
+  <img src="https://cdn.shopify.com/s/files/1/2117/1151/files/amika_Skull_Gif.gif?17199615418137714382" id="spinner" alt="loading..."
+       style="
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      max-width: 150px;
+      margin-right: -50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;"/>
+</div>
+
+    {%comment%}
+   		This is popup for California and Product tag as "prop65".
+    {%endcomment%}
+    {% include 'checkout-popup' %}
+
+    {% comment %}
+    	For Prop65 As Property
+    {% endcomment %}
+    {% if checkout.shipping_address.province_code == 'CA' %}
+    <script>
+      $(document).on('page:load page:change', function() {
+        {% for line_item in checkout.line_items %}
+            {% unless line_item.gift_card %}
+              {% if line_item.product.tags contains 'prop65'%}
+				if($('[data-product-id="{{line_item.product.id}}"] .product__description .prop__65').length < 1 ) {
+                  $('[data-product-id="{{line_item.product.id}}"] .product__description').append(`<span class="product__description__variant order-summary__small-text prop__65">Prop65: Yes</span>`);
+                }
+              {% endif %}
+            {%endunless%}
+        {% endfor %}
+      });
+    </script>
+    {% endif %}
+
+    <script>
+      $(document).on('page:load', function() {
+        {% for line_item in checkout.line_items %}
+              {% if line_item.product.tags contains 'excludeHMS' or line_item.product.tags contains 'salon-merch' %}
+                {% if line_item.product.type == 'Gift Card' %}
+                  $('[data-product-id="{{line_item.product.id}}"] .product__description').append(`<span class="product__description__variant order-summary__small-text no__freeShip">gift cards are delivered by email</span>`);
+                {% else %}
+                  if($('[data-product-id="{{line_item.product.id}}"] .product__description .no__freeShip').length < 1 ) {
+                            $('[data-product-id="{{line_item.product.id}}"] .product__description').append(`<span class="product__description__variant order-summary__small-text no__freeShip">does not qualify for free shipping</span>`);
+                          }
+                {% endif %}
+              {% endif %}
+        {% endfor %}
+      });
+    </script>
+
+    <script>
+       Checkout.$(document).on('page:load page:change', function() {
+         if(Checkout.$('.shipping__extra_msg').length == 0 && Shopify.Checkout.step == 'shipping_method' ) {
+            Checkout.$('.section--shipping-method .section__header')
+            .append('<p class="shipping__extra_msg"><p>Free shippiing on $35 or more orders. Flat shipping rate of $10 for all other orders. We currently do not ship to P.O. boxes, APO, FPO, DPO destinations and freight forwarding addresses.</p>')
+         }
+      });
+    </script>
+
+    <script>
+      $(function (){
+        aerosol = 0;
+        counter = 0;
+        var flat = 0;
+
+        {% for item in checkout.line_items %}
+          counter++;
+
+          {% if item.product.tags contains 'final sale' %}
+          setTimeout(function (){
+            $('tr.product[data-product-id="{{item.product.id}}"] .product__description').append('<span class="final-sale">**Final Sale**</span>')
+              },1250);
+          {% endif %}
+
+          {% if item.product.tags contains 'aerosol' %}
+            aerosol = 1;
+            setTimeout(function (){
+              $('tr.product[data-product-id="{{item.product.id}}"] .product__description').append('<span class="aerosol-text" style="display: block;">Aerosol product</span>')
+                // },1250);
+            },4250);
+          {% endif %}
+
+          {% if item.product.tags contains 'flat-ship' %}
+            flat = 1;
+            setTimeout(function (){
+              $('tr.product[data-product-id="{{item.product.id}}"] .product__description').append('<span class="aerosol-text" style="display: block;">Flat Ship Item</span>')
+            },4250);
+          {% endif %}
+        {% endfor %}
+
+            if (flat > 0 ){
+              $('.section--shipping-method .section__header').append('Salon Merch items have a flat $10 shipping rate.');
+            }
+
+        });
+
+          {% if customer.tags contains 'Pro' %}
+          $('#checkout_reduction_code').parents('.order-summary__section--discount').remove();
+          {% endif %}
+
+    </script>
+
+
+    <script>
+  $('#spinner').fadeIn();
+  $(window).load(function () {
+       $('#spinner').fadeOut();
+       $('.spinner_bg').fadeOut();
+       pageIsLoaded = true;
+  });
+
+    $ = window.Checkout.$;
+    var code = "";
+    var variantid = "";
+    var codes = [];
+    codes.push({"{{settings.gwp_code1}}":"{{settings.gwp_variant_id1}}"});
+    codes.push({"{{settings.gwp_code2}}":"{{settings.gwp_variant_id2}}"});
+    codes.push({"{{settings.gwp_code3}}":"{{settings.gwp_variant_id3}}"});
+    codes.push({"{{settings.gwp_code4}}":"{{settings.gwp_variant_id4}}"});
+    codes.push({"{{settings.gwp_code5}}":"{{settings.gwp_variant_id5}}"});
+    codes.push({"{{settings.gwp_code6}}":"{{settings.gwp_variant_id6}}"});
+    codes.push({"{{settings.gwp_code7}}":"{{settings.gwp_variant_id7}}"});
+    codes.push({"{{settings.gwp_code8}}":"{{settings.gwp_variant_id8}}"});
+    codes.push({"{{settings.gwp_code9}}":"{{settings.gwp_variant_id9}}"});
+    codes.push({"{{settings.gwp_code10}}":"{{settings.gwp_variant_id10}}"});
+    codes = codes.filter(function(obj) {
+            if (Object.keys(obj)[0] == '' || obj[Object.keys(obj)[0]] == '')  //exclude empty
+              return false;
+            return true;
+        });
+    $(document).ready(function() {
+      console.log(codes);
+        $.each(codes,function(i,obj)
+        {
+          //var obj = codes[k];
+          var val =  obj[Object.keys(obj)[0]];
+          console.log(val);
+          if ($('tr.product[data-variant-id='+val+'] td.product__price span').length == 0)
+            return;
+
+          var value = $('tr.product[data-variant-id='+val+'] td.product__price span').html();
+          if (value == '$0.00' || value.toLowerCase() == 'free' || value.indexOf('strike') > -1)
+            return;
+
+          value = '<span class="strike">' + value + "</span>  $0.00";
+          $('tr.product[data-variant-id='+val+'] td.product__price span').html(value);
+        });
+      runGWP();
+    });
+
+    function setup() {
+      $('form.edit_checkout').on('submit',function(e) {
+        if ($('.reduction-code__text').val().toLowerCase() == code.toLowerCase())
+        {
+          //runGWP();
+          //e.stopPropagation();
+          //return false;
+        }
+      });
+
+    }
+
+    const intercept = (urlmatch, callback) => {
+      let send = XMLHttpRequest.prototype.send;
+      XMLHttpRequest.prototype.send = function() {
+        this.addEventListener('readystatechange', function() {
+          if (this.responseURL.includes(urlmatch) && this.readyState === 4) {
+            callback(this);
+          }
+        }, false);
+        send.apply(this, arguments);
+      };
+    };
+
+    let output = response => {
+      console.log(response.responseURL);
+      if (response.responseURL.includes('checkouts')) {
+        setTimeout(function() {
+          console.log('running gwp');
+          runGWP();
+        },500);
+      }
+    };
+
+    intercept('.', output);
+
+    removeGWP = function (cart) {
+      var found = false;
+      $.each(codes,function(i,obj)
+      {
+
+        var val =  Object.keys(obj)[0];
+
+        if (val.toLowerCase() == code)
+          return;
+console.log(obj[val]);
+        $(cart.items).each(function () {
+console.log($(this)[0].variant_id);
+          if ($(this)[0].variant_id == obj[val] && isFree($(this)[0]))
+          {
+            variantid = obj[val];
+            found = true;
+            alterGWP(0);
+          }
+        });
+
+      });
+      console.log(found);
+      if (!found)
+        freeGiftHandler_CheckWithDiscountCode(true,cart);
+    };
+
+    addGWP = function (cart) {
+      var found = false;
+      $(cart.items).each(function () {
+        if ($(this)[0].variant_id == variantid && isFree($(this)[0]))
+          found = true;
+      });
+      if (!found)
+        alterGWP(1);
+      else {
+        if ($('tr.product[data-variant-id='+variantid+'] td.product__price span').length == 0)
+        {Shopify.getCart(removeGWP);
+          return;}
+
+        var value = $('tr.product[data-variant-id='+variantid+'] td.product__price span').html();
+        if (value == '$0.00' || value.toLowerCase() == 'free' || value.indexOf('strike') > -1)
+        {Shopify.getCart(removeGWP);
+          return;}
+
+        value = '<span class="strike">' + value + "</span>  $0.00";
+        $('tr.product[data-variant-id='+variantid+'] td.product__price span').html(value);
+        {Shopify.getCart(removeGWP);
+          return;}
+      }
+    };
+
+    runGWP = function () {
+      var count = 1;
+      var frm = this;
+      var found = false;
+console.log('runGWP1');
+      code = "";
+      $(".reduction-code__text").each(function() {
+        thiscode = $(this);
+        $.each(codes,function(i,obj)
+        {
+          var val =  Object.keys(obj)[0];
+
+          if ($(thiscode).text().toLowerCase() == val.toLowerCase())
+          {
+            code = val.toLowerCase();
+            variantid = obj[val];
+            found = true;
+          }
+         });
+      });
+
+      if (found)
+      { Shopify.getCart(addGWP) }
+      else
+      { Shopify.getCart(removeGWP); }
+
+    };
+
+    alterGWP = function (count) {
+        var ob = {};
+        ob[variantid] = count;
+      /////////////////////////ADD BEGIN////////////////
+            if (count > 0)
+            {
+              var upd = {
+                 quantity: count,
+                 id: variantid,
+                 properties: {
+                   'Gift': 'Free'
+                 }};
+
+              $.ajax({
+                type: 'POST',
+                data: upd,
+                url: '/cart/add.js',
+                dataType: 'json',
+                success: function(item) {
+                  if ((typeof callback) === 'function') {
+                    //$('.cart-count').html(cart.item_count);
+                    Shopify.getCart(callback);
+                  }
+                  else {
+                    jQuery.getJSON("/cart.js", function(cart) {
+                    	freeGiftHandler_CheckWithDiscountCode(true,cart);
+                    	location.reload();  //there might be an ajax cart update for the checkout
+    				});
+                  }
+                },
+                error: function(XMLHttpRequest, textStatus) {
+                  Shopify.onError(XMLHttpRequest, textStatus);
+                },
+                async:false
+              });
+              return;
+            }
+      /////////////////////////ADD END////////////////
+        console.log(ob);
+        var params = {
+          type: 'POST',
+          url: '/cart/update.js',
+          data: { updates: ob },
+          dataType: 'json',
+          success: function(cart) {
+            if ((typeof callback) === 'function') {
+              $('.cart-count').html(cart.item_count);
+              callback(cart);
+            }
+            else {
+              freeGiftHandler_CheckWithDiscountCode(true,cart);
+              location.reload();  //there might be an ajax cart update for the checkout
+            }
+          },
+          error: function(XMLHttpRequest, textStatus) {
+            Shopify.onError(XMLHttpRequest, textStatus);
+          },
+          async:false
+        };
+        $.ajax(params);
+    };
+
+
+      // Add in text below promo code input to inform customers
+//       setTimeout(function (){
+//         $('.field__input-btn-wrapper').after('<p style="margin-top:5px;">WAIT! Place order after gift appears in cart</p>');
+//       },3000);
+
+    </script>
+
+{% if customer.tags contains 'HMS' %}
+{% comment %}
+Removed Sample If HMS customer
+{% endcomment %}
+<script>
+$(document).ready(function(){
+    $.ajax({
+      type: 'GET',
+      url: '/cart.json',
+      error: function(){console.log('fail');},
+      success: function( cart_data ){
+
+          // get cart data to remove Sample/Gift Items
+          let update__sampleItem = {};
+          $.each( cart_data.items , function(key, value) {
+
+            //To remove only Sample Line Items
+            if( !$.isEmptyObject(value.properties) && value.properties.hasOwnProperty('offer_type') && (value.properties.offer_type == 'sample' || value.properties.offer_type == 'gift')) {
+                  update__sampleItem[value.key] = 0;
+            }
+          })
+
+          if( !$.isEmptyObject(update__sampleItem) ) {
+            $.ajax({
+              type: 'POST',
+              url: '/cart/update.js',
+              data: {updates:update__sampleItem},
+              dataType: 'json',
+              error: function(){console.log('fail');},
+              success: function(){
+
+                //Update Cart
+                location.reload();
+              },
+              cache: false
+            });
+          }
+      },
+      cache: false
+    });
+});
+</script>
+{% endif %}
+
+    {% render 'checkout_payment_method' %}
+    {{ tracking_code }}
+  </body>
+</html>

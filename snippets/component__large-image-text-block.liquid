@@ -1,0 +1,92 @@
+<div class="redesign-lg-img-text lg-img-text">
+  {% if image != blank %}
+  {% assign img_url = image | img_url: 'master' %}
+  {% endif %}
+
+  {% if image_mobile != blank %}
+  {% assign img_url_mobile = image_mobile | img_url: 'master' %}
+  {% endif %}
+  
+  
+  <div class="desktop-image hide-on-mobile" >
+    <img src="{{ img_url }}">  
+    {% if caption != blank %}
+      <p class="caption">{{ caption }}</p>
+    {% endif %}
+  
+    <div class="bottom__text ">
+      {% render '_image-text-block_text_block',
+        wrapper_class: 'text__block',
+        title: title_1,
+        description: description_1,
+        cta_link: cta_link_1,
+        cta_text: cta_text_1
+      %}
+
+      {% render '_image-text-block_text_block',
+        wrapper_class: 'text__block',
+        title: title_2,
+        description: description_2,
+        cta_link: cta_link_2,
+        cta_text: cta_text_2
+      %}
+
+      {% render '_image-text-block_text_block',
+        wrapper_class: 'text__block',
+        title: title_3, 
+        description: description_3,
+        cta_link: cta_link_3, 
+        cta_text: cta_text_3 
+      %}
+
+      {% render '_image-text-block_text_block',
+        wrapper_class: 'text__block',
+        title: title_4,
+        description: description_4,
+        cta_link: cta_link_4,
+        cta_text: cta_text_4
+      %}
+    </div>
+  </div>
+  
+  <div class="mobile-image hide-on-desktop">
+    <img src="{{ img_url_mobile }}">  
+    {% if caption != blank %}
+      <p class="caption"> {{caption}}</p>
+    {% endif %}
+  </div>
+  
+  <div class="mobile-bottom__text hide-on-desktop">
+    {% render '_image-text-block_text_block',
+      wrapper_class: 'flex_column',
+      title: title_1,
+      description: description_1,
+      cta_link: cta_link_1,
+      cta_text: cta_text_1
+    %}
+
+    {% render '_image-text-block_text_block',
+      wrapper_class: 'flex_column',
+      title: title_2,
+      description: description_2,
+      cta_link: cta_link_2,
+      cta_text: cta_text_2
+    %}
+
+    {% render '_image-text-block_text_block',
+      wrapper_class: 'flex_column',
+      title: title_3,
+      description: description_3,
+      cta_link: cta_link_3,
+      cta_text: cta_text_3
+    %}
+
+    {% render '_image-text-block_text_block',
+      wrapper_class: 'flex_column',
+      title: title_4,
+      description: description_4,
+      cta_link: cta_link_4,
+      cta_text: cta_text_4
+    %}
+  </div>
+</div>

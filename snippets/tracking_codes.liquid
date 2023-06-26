@@ -1,0 +1,162 @@
+{% if settings.enable_tracking_codes %}
+<script>
+  {% if settings.fb_tracking_id %}
+    <!-- Facebook Pixel Code -->
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','//connect.facebook.net/en_US/fbevents.js');
+
+  	fbq('init', '{{ settings.fb_tracking_id }}');
+
+  {% endif %}
+
+
+  {% if settings.track_pageview %}
+	{% if settings.fb_tracking_id %}
+		{% if settings.debug_tracking_events %}
+        console.log('Facebook ViewContent');
+        {% endif %}
+  		fbq('track', "PageView");
+	{% endif %}
+  {% endif %}
+
+
+  
+  {% if template contains 'index' and settings.track_index %}
+	{% if settings.fb_tracking_id %}
+		{% if settings.debug_tracking_events %}
+        console.log('Facebook ViewContent');
+        {% endif %}
+  		fbq('track', "ViewContent");
+	{% endif %}
+  {% endif %}
+
+  {% if template contains 'product' and settings.track_product %}
+	{% if settings.fb_tracking_id %}
+		{% if settings.debug_tracking_events %}
+        console.log('Facebook ViewContent');
+        {% endif %}
+  		fbq('track', "ViewContent");
+	{% endif %}
+  {% endif %}
+
+  {% if template contains 'collection' and settings.track_collection  %}
+	{% if settings.fb_tracking_id %}
+		{% if settings.debug_tracking_events %}
+        console.log('Facebook ViewContent');
+        {% endif %}
+  		fbq('track', "ViewContent");
+	{% endif %}
+  {% endif %}
+
+  {% if template contains 'list-collections' and settings.track_list_collection %}
+	{% if settings.fb_tracking_id %}
+		{% if settings.debug_tracking_events %}
+        console.log('Facebook ViewContent');
+        {% endif %}
+  		fbq('track', "ViewContent");
+	{% endif %}
+  {% endif %}
+
+  {% if template contains 'cart' and settings.track_cart %}
+	{% if settings.fb_tracking_id %}
+		{% if settings.debug_tracking_events %}
+        console.log('');
+        {% endif %}
+  		fbq('track', "ViewContent");
+	{% endif %}
+  {% endif %}
+  
+  {% if settings.track_add_to_cart %}
+	{% if settings.fb_tracking_id %}
+  	  $(document).ready(function() {
+        $("#add-to-cart-button").click(function() {
+			{% if settings.debug_tracking_events %}
+        	console.log('Facebook AddToCart');
+        	{% endif %}
+        	fbq('track', 'AddToCart');
+        });
+  	  });
+	{% endif %}
+  {% endif %}
+
+  {% if template contains 'blog' and settings.track_blog %}
+	{% if settings.fb_tracking_id %}
+		{% if settings.debug_tracking_events %}
+        console.log('Facebook ViewContent');
+        {% endif %}
+  		fbq('track', "ViewContent");
+	{% endif %}
+  {% endif %}
+
+  {% if template contains 'article' and settings.track_article %}
+	{% if settings.fb_tracking_id %}
+		{% if settings.debug_tracking_events %}
+        console.log('Facebook ViewContent');
+        {% endif %}
+  		fbq('track', "ViewContent");
+	{% endif %}
+  {% endif %}
+
+  {% if template contains '404' %}
+	
+  {% endif %}
+
+  {% if template contains 'page' and settings.track_page %}
+	{% if settings.fb_tracking_id %}
+		{% if settings.debug_tracking_events %}
+        console.log('Facebook ViewContent');
+        {% endif %}
+  		fbq('track', "ViewContent");
+	{% endif %}
+  {% endif %}
+
+  {% if template contains 'search' and settings.track_search %}
+	{% if settings.fb_tracking_id %}
+        {% if settings.debug_tracking_events %}
+        console.log('Facebook Search');
+        {% endif %}
+  		fbq('track', "Search");
+	{% endif %}
+  {% endif %}
+
+  {% if template contains 'gift_card' %}
+
+  {% endif %}
+
+  {% if template contains 'account' %}
+
+  {% endif %}
+
+  {% if template contains 'order' %}
+
+  {% endif %}
+
+  {% if template contains 'register' %}
+
+  {% endif %}
+        
+  {% if settings.track_init_checkout %}
+	{% if settings.fb_tracking_id %}
+  	  $(document).ready(function() {
+        $("input[type=submit][value=Checkout]#update-cart, input[type=image][value=paypal_express]").click(function() {
+			{% if settings.debug_tracking_events %}
+        	console.log('Facebook InitiateCheckout');
+        	{% endif %}
+            fbq('track', 'InitiateCheckout');
+        });
+  	  });
+	{% endif %}
+  {% endif %}
+        
+</script>
+
+  {% if settings.fb_tracking_id %}
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id={{ settings.fb_tracking_id }}&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Facebook Pixel Code -->
+  {% endif %}
+{% endif %}

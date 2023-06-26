@@ -1,0 +1,56 @@
+
+{% assign rec_product_handles = product.metafields.recommended_products.handles | split: ',' %}
+<section class="recommended-products has-product-carousel">
+  <div class="container">
+    <h2>works well with</h2>
+    <div class="recommended-slider">
+      {% if collection != blank %}
+        {% assign relatedCollection = collection %}
+      {% else %}
+        {% assign relatedCollection = currentProduct.collections.first %}
+      {% endif %}        
+      {% for handle in rec_product_handles %}
+        {% assign rec_product = all_products[handle] %}
+        {% if rec_product.available %}
+          {% include 'product_item_new', currentProduct: rec_product, quickview: true, collection: relatedCollection, isCarousel: true, loopId: forloop.index %}
+        {% endif %}
+
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+  var prevArrowSvg = '<?xml version="1.0" encoding="utf-8"?><svg width="73px" height="81px" viewBox="0 0 73 81" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><title>Previous Slide</title><path d="M71 0C71 26.7125 44.137 48.3673 11 48.3673C4.925 48.3673 0 44.3972 0 39.5C0 34.6028 4.925 30.6327 11 30.6327C44.137 30.6327 71 52.2875 71 79" transform="translate(1 1)" id="Stroke-1-Copy" fill="none" stroke="#FF6B26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>';
+  var nextArrowSvg = '<?xml version="1.0" encoding="utf-8"?><svg width="73px" height="81px" viewBox="0 0 73 81" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><title>Next Slide</title><path d="M71 0C71 26.7125 44.137 48.3673 11 48.3673C4.925 48.3673 0 44.3972 0 39.5C0 34.6028 4.925 30.6327 11 30.6327C44.137 30.6327 71 52.2875 71 79" transform="matrix(-1 0 0 1 72 1)" id="Stroke-1" fill="none" stroke="#FF6B26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>';
+  $(function() {
+    $('.recommended-slider').slick({
+          autoplay: false,
+          speed: 1000,
+          slidesToShow: 2,
+          pauseOnHover: false,
+          slidesToScroll: 1,
+          arrows:true,
+          prevArrow: '<button class="lnr left-arrow animation">'+prevArrowSvg+'</button>',
+          nextArrow: '<button class="lnr right-arrow animation">'+nextArrowSvg+'</button>',
+          responsive: [
+            {
+              breakpoint: 768,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                  arrows:false,
+                  centerMode:false
+                }
+            }
+          ]
+     });
+     $('.quickbuy__options .quickbuy__item input').on('change', function(e) {
+        if($(this).is(':checked')) {
+          $(this).parents('.quickbuy__options').find('label').removeClass('selected');
+          $(this).parent().addClass('selected');
+        }
+     });
+    
+  });
+</script>

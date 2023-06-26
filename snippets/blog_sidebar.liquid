@@ -1,0 +1,62 @@
+{% if settings.blog_show_featured %}
+<div class="featured-posts">
+<h3>Featured Articles</h3>
+<ul>
+  {% for i in (1..5) %}
+    {% assign featuredShow = "featured_article_" | append: i | append:"_show" %}
+    {% assign featuredArticle = "featured_article_" | append: i %}
+  	{% if settings[featuredShow] %}
+  	  {% assign featured = articles[settings[featuredArticle]] %}
+      <li>
+        <a href="{{ featured.url }}" class="clearfix">
+          {% if featArtic.image != blank %}<div class="article-thumb" style="background-image:url('{{featArtic.image.src | img_url: 'compact'}}');"></div>{% endif %}
+          <span class="article-title">{{featArtic.title}}</span>
+          <span class="article-sub">{{ featArtic.published_at | date: "%B %d, %Y" }}</span>
+        </a>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>
+</div>
+{% endif %}
+
+<div class="search">
+<h3>Search</h3>
+<form method="get" action="/search" class="clearfix">
+  <input class="searchBox field" type="text" name="q"{% if search.performed %} value="{{ search.terms | escape | downcase }}"{% endif %} /> 
+  <input type="hidden" name="type" value="article" />
+  <input type="hidden" name="view" value="blog" />
+  <input type="submit" value="&#xf105;" class="fa submit" />
+</form>
+</div>
+
+{% if settings.blog_show_recent %}
+<div class="recent-posts">
+<a href="{{ blog.url }}"><h3>Recent Posts</h3></a>
+<ul>
+  {% for article in blogs[blog.handle].articles limit:10 %}
+    <li>
+      <a href="{{ article.url }}">{{ article.title }}</a>
+      <br>
+      <div>{{ article.published_at | date: "%a, %b %d, %y" }}</div>
+    </li>
+  {% endfor %}
+</ul>
+</div>
+{% endif %}
+
+<div class="categories">
+{% if blog.all_tags.size > 0 %}
+<h3>Categories</h3>
+<ul class="no-bullets">
+  <li><a href="{{ blog.url }}">All</a></li>
+  {% for tag in blog.all_tags %}
+    {% if current_tags contains tag %}
+    	<li>{{ tag }}</li>
+    {% else %}
+    	<li>{{ tag | link_to_tag: tag }}</li>
+    {% endif %}
+  {% endfor %}
+</ul>
+{% endif %}
+</div>

@@ -1,0 +1,107 @@
+<section
+  class="section__index{% unless section.settings.section_class == blank %} {{ section.settings.section_class }}{% endunless %}"
+  data-section-id="{{ section.id }}">
+  {% render 'component_marquee',
+    data_id: section.id,
+    wrapper_class: section.settings.marquee_color,
+    text_to_scroll: section.settings.text_to_scroll
+  %}
+</section>
+
+<style>
+  [data-section-id="{{ section.id }}"].section__index  {
+    {% comment %}
+      Default margin-top on sections w/ class .section__index is 50px.
+      Default margin-bottom on sections w/ class .section__index is 0.
+      Don't need to set if the same value as default.
+    {% endcomment %}
+    {%- if section.settings.margin_top_mobile != blank and section.settings.margin_top_mobile != '0' -%}
+      margin-top: {{ section.settings.margin_top_mobile }}px;
+    {%- endif -%}
+    {%- if section.settings.margin_bottom_mobile != blank and section.settings.margin_bottom_mobile != '50' -%}
+      margin-bottom: {{ section.settings.margin_bottom_mobile }}px;
+    {%- endif -%}
+  }
+
+  @media screen and (min-width: 1024px) {
+    [data-section-id="{{ section.id }}"].section__index  {
+      {%- if section.settings.margin_top_mobile != section.settings.margin_top -%}
+        margin-top: {{ section.settings.margin_top }}px;
+      {%- endif -%}
+      {%- if section.settings.margin_bottom_mobile != section.settings.margin_bottom -%}
+        margin-bottom: {{ section.settings.margin_bottom }}px;
+      {%- endif -%}
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Marquee",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Margin Settings"
+      },
+      {
+        "type": "text",
+        "id": "section_class",
+        "label": "Section class (Optional)"
+      },
+      {
+        "type": "text",
+        "id": "margin_top_mobile",
+        "label": "Mobile Section Margin Top",
+        "info": "Enter number only. Default 0. Units in px.",
+        "default": "0"
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom_mobile",
+        "label": "Mobile Section Margin Bottom",
+        "info": "Enter number only. Default 50. Units in px.",
+        "default": "50"
+      },
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Desktop Section Margin Top",
+        "info": "Enter number only. Default 0. Units in px.",
+        "default": "0"
+      },
+      {
+        "type": "text",
+        "id": "margin_bottom",
+        "label": "Desktop Section Margin Bottom",
+        "info": "Enter number only. Default 50. Units in px.",
+        "default": "50"
+      },
+      {
+        "type": "header",
+        "content": "Marquee Settings"
+      },
+      {
+        "type": "select",
+        "id": "marquee_color",
+        "label": "Marquee Color",
+        "options": [
+          {"value": "ico--accent-secondary", "label": "Orange"},
+          {"value": "ico--accent-primary", "label": "Pink"},
+          {"value": "", "label": "Black"}
+        ],
+        "default": "ico--accent-secondary"
+      },
+      {
+        "type": "html",
+        "id": "text_to_scroll",
+        "label": "Text to Scroll"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Marquee",
+        "category": "Homepage"
+      }
+    ]
+  }
+{% endschema %}

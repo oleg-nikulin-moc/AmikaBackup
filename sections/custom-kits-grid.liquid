@@ -1,0 +1,109 @@
+<div class="section-bundle-grid container">
+  <div>
+    <h1 class="bundle-grid-headline">{{ section.settings.description }}</h1>
+    <div class="bundle-grid-subheadline">{{ section.settings.subdescription }}</div>
+  </div>
+
+  <div class="bundle-grid">
+  {% for block in section.blocks %}
+    <!-- card -->
+    <div class="bundle-grid-card"> 
+      <a href="{{ block.settings.button_url }}">
+        <img 
+          class="bundle-grid-image" 
+          srcset="{{ block.settings.image | img_url: '700x' }} 700w, {{ block.settings.image | img_url: '600x' }} 500w, {{ block.settings.image | img_url: '300x' }} 300w,"
+          sizes="(min-width: 1024px) 30vw, 45vw"
+          width="345"
+          height="345"
+        />
+      </a>
+      <p class="bundle-grid-title">{{ block.settings.title }}</p>
+      <a 
+        href="{{ block.settings.button_url }}"
+        class="button--primary button--rounded"
+      >{{ block.settings.button }}</a>
+    </div>
+  {% endfor %}
+  </div>
+
+  <div class="bundle-grid-headup">
+    <h1 class="bundle-headup-headline">heads up!</h1>
+    <div class="bundle-headup-subheadline">{{ section.settings.headup_subdescription }}</div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Custom Kits Product Grid",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Custom Kits Product Grid Settings"
+      },
+      {
+        "type": "textarea",
+        "id": "description",
+        "label": "Description"
+      },
+      {
+        "type":"richtext",
+        "id":"subdescription",
+        "label":"Sub Description"
+      },
+      {
+        "type":"richtext",
+        "id":"headup_subdescription",
+        "label":"Headup Description"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "product-item",
+        "name": "Product Item",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Product Image",
+            "info": "690 × 690 pixels"
+          },
+          {
+            "type":"header",
+            "content":"Content"
+          },
+          {
+            "type":"text",
+            "id":"title",
+            "label":"Title"
+          },
+          {
+            "type":"text",
+            "id":"description",
+            "label":"Description"
+          },
+          {
+            "type":"header",
+            "content":"Button"
+          },
+          {
+            "type": "url",
+            "id": "button_url",
+            "label": "Button Link"
+          },
+          {
+            "type": "text",
+            "id": "button",
+            "label": "Button Text",
+            "default": "BEGIN"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Custom Kits Product Grid",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}

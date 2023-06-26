@@ -1,0 +1,369 @@
+{% schema %}
+  {
+    "name": "Desktop Full Width Image",
+    "class": "carousel",
+	"max_blocks": 1,
+    "settings": [
+      {
+        "type": "header",
+        "content": "General"
+      },
+	  {
+        "type": "checkbox",
+        "id": "full_width",
+        "label": "Full width?",
+        "default": true
+      },
+	  {
+        "type": "text",
+        "id": "img_height",
+        "label": "Height (if not full)",
+        "default": "45%"
+      },
+      {
+        "type":    "range",
+        "min":     0,
+        "max":     4,
+		"step":    1,
+        "default": 2,
+        "id": "text_size",
+        "label": "Carousel Text Size",
+		"info": "Set with vw instead of pixels so that it'll adjust according to the viewport width."
+      }
+    ],
+    "blocks": [
+      {
+        "type": "slide",
+        "name": "Slide",
+        "settings": [
+		  {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Background Image"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link",
+            "info": "Optional"
+          },
+          {
+            "type": "url",
+            "id": "link_2",
+            "label": "Link 2",
+            "info": "Optional"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_captions",
+            "label": "Show captions?",
+            "default": true
+          },
+		  {
+            "type": "text",
+            "id": "overlay_color",
+            "label": "Background color (r,g,b,a)",
+            "default": "0,0,0,0.5",
+			"info": "0,0,0,0 for no background"
+          },
+          {
+            "type": "header",
+            "content": "Text 1"
+          },
+          {
+            "type": "select",
+            "id": "text_align",
+            "label": "Text Alignment",
+            "options": [
+              {"value": "left", "label": "Left"},
+			  {"value": "center", "label": "Center"},
+			  {"value": "right", "label": "Right"}
+            ],
+            "default": "center"
+          },
+          {
+            "type": "select",
+            "id": "text_vertical_align",
+            "label": "Text Vertical Alignment",
+            "options": [
+              {"value": "bottom", "label": "Bottom"},
+			  {"value": "center", "label": "Center"},
+			  {"value": "top", "label": "Top"}
+            ],
+            "default": "center"
+          },
+          {
+            "type": "select",
+            "id": "text_position",
+            "label": "Text Position",
+            "options": [
+              {"value": "v-top h-left", "label": "Top - Left"},
+			  {"value": "v-top h-center", "label": "Top - Center"},
+              {"value": "v-top h-right", "label": "Top - Right"},
+              {"value": "v-center h-left", "label": "Center - Left"},
+			  {"value": "v-center h-center", "label": "Center - Center"},
+              {"value": "v-center h-right", "label": "Center - Right"},
+              {"value": "v-bottom h-left", "label": "Bottom - Left"},
+			  {"value": "v-bottom h-center", "label": "Bottom - Center"},
+              {"value": "v-bottom h-right", "label": "Bottom - Right"}
+            ],
+            "default": "v-center h-center"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+			"default": "This is an Image"
+          },
+		  {
+            "type": "richtext",
+            "id": "text",
+            "label": "Description",
+			"default": "<p>Lorem ipsum dolor sit amet, consectur adipiscing elit. Nunc eu eros augue. Cras tempus finibus mi, at aliquet orci vestibulum sit amet.</p>"
+          },
+		  {
+            "type": "text",
+            "id": "button",
+            "label": "Button",
+			"default": "Button"
+          },
+
+
+
+		  {
+            "type": "header",
+            "content": "Text 2"
+          },
+          {
+            "type": "select",
+            "id": "text_align_2",
+            "label": "Text Alignment",
+            "options": [
+              {"value": "left", "label": "Left"},
+			  {"value": "center", "label": "Center"},
+			  {"value": "right", "label": "Right"}
+            ],
+            "default": "center"
+          },
+          {
+            "type": "select",
+            "id": "text_vertical_align_2",
+            "label": "Text Vertical Alignment",
+            "options": [
+              {"value": "bottom", "label": "Bottom"},
+			  {"value": "center", "label": "Center"},
+			  {"value": "top", "label": "Top"}
+            ],
+            "default": "center"
+          },
+          {
+            "type": "select",
+            "id": "text_position_2",
+            "label": "Text Position",
+            "options": [
+              {"value": "v-top h-left", "label": "Top - Left"},
+			  {"value": "v-top h-center", "label": "Top - Center"},
+              {"value": "v-top h-right", "label": "Top - Right"},
+              {"value": "v-center h-left", "label": "Center - Left"},
+			  {"value": "v-center h-center", "label": "Center - Center"},
+              {"value": "v-center h-right", "label": "Center - Right"},
+              {"value": "v-bottom h-left", "label": "Bottom - Left"},
+			  {"value": "v-bottom h-center", "label": "Bottom - Center"},
+              {"value": "v-bottom h-right", "label": "Bottom - Right"}
+            ],
+            "default": "v-center h-center"
+          },
+          {
+            "type": "text",
+            "id": "title_2",
+            "label": "Title",
+			"default": "This is a Slide"
+          },
+		  {
+            "type": "richtext",
+            "id": "text_2",
+            "label": "Description",
+			"default": "<p>Lorem ipsum dolor sit amet, consectur adipiscing elit. Nunc eu eros augue. Cras tempus finibus mi, at aliquet orci vestibulum sit amet.</p>"
+          },
+		  {
+            "type": "text",
+            "id": "button_2",
+            "label": "Button",
+			"default": "Button"
+          },
+
+
+
+		  {
+            "type": "header",
+            "content": "Featured Image"
+          },
+		  {
+            "type": "image_picker",
+            "id": "featured_image",
+            "label": "Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "featured_image_mobile",
+            "label": "Image (mobile)"
+          },
+		  {
+            "type": "text",
+            "id": "featured_image_width",
+            "label": "Width",
+            "default": "25%"
+          },
+		  {
+            "type": "text",
+            "id": "featured_image_right",
+            "label": "Right Coordinates",
+            "default": "10%"
+          },
+		  {
+            "type": "text",
+            "id": "featured_image_left",
+            "label": "Left Coordinates",
+            "default": "auto"
+          },
+		  {
+            "type": "select",
+            "id": "featured_image_position",
+            "label": "Alignment",
+            "options": [
+              {"value": "center top", "label": "Top"},
+			  {"value": "center", "label": "Center"},
+			  {"value": "center bottom", "label": "Bottom"}
+            ],
+            "default": "center"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Desktop Full Width Image",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "slide"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+<style>
+
+  #shopify-section-{{ section.id }} .hero-carousel .item_img.normal {padding-top: {{section.settings.img_height}};}
+  #shopify-section-{{ section.id }} .hero-carousel .mobile-image{display:none;}
+  #shopify-section-{{ section.id }} .hero-carousel  p {font-size:{{section.settings.text_size}}vw;}
+  
+
+  @media all and (max-width: 600px) {
+    #shopify-section-{{ section.id }} {display:none}
+    #shopify-section-{{ section.id }} .hero-carousel .item_img.normal {padding-top: 114%;}
+    #shopify-section-{{ section.id }} .hero-carousel .featured-img.desktop-image {position: static; margin: auto; width: 50% !important; height: auto; padding-top: 50%;}
+    #shopify-section-{{ section.id }} .hero-carousel .item{padding-bottom:0;}
+    #shopify-section-{{ section.id }} .hero-carousel .mobile-image{display:block;}
+    #shopify-section-{{ section.id }} .hero-carousel .desktop-image{display:none;}
+  }
+</style>
+
+<div class="hero-carousel {% unless section.settings.full_width %}container{% endunless %} custom-cursor">
+  {% for block in section.blocks %}
+      <div class="item" id="{{ block.id }}">
+        {% if block.settings.link != blank %}
+          <a href="{{block.settings.link}}" class="custom-cursor slide-link {% if block.settings.link_2 != blank %}half slide-left{% endif %}">
+          </a>
+        {% endif %}
+        {% if block.settings.link_2 != blank %}
+          <a href="{{block.settings.link_2}}" class="custom-cursor slide-link {% if block.settings.link != blank %}half slide-right{% endif %}">
+          </a>
+        {% endif %}
+            
+            {% if block.settings.image != blank %}
+            {% assign img_url = block.settings.image | img_url: 'master' %}
+            {% else %}
+            {% assign img_url = "placeholder-image.jpg" | asset_url %}
+            {% endif %}
+            
+            {% if block.settings.image_mobile != blank %}
+            {% assign img_url_mobile = block.settings.image_mobile | img_url: 'master' %}
+            {% else %}
+            {% assign img_url_mobile = img_url %}
+            {% endif %}
+            
+            <div class="item_img desktop-image full-height" ><img src="{{img_url}}"></div>
+            <div class="item_img mobile-image full-height" ><img src="{{img_url_mobile}}"></div>
+                        
+            <div class="overlay overlay-{{forloop.index}}" style="background-color: rgba({{block.settings.overlay_color}});">
+                  {% if block.settings.show_captions %}
+                  <div class="captions {{ block.settings.text_position }} text-{{block.settings.text_align}}" style="{% if block.settings.text_align == "left" %}margin-right:auto;{% elsif block.settings.text_align == "right" %}margin-left:auto;{% else %}margin-left: auto; margin-right: auto;{% endif %}">
+                    <div class="table">
+                      <div class="table-cell text-vertical-{{block.settings.text_vertical_align}}">
+                        {% if block.settings.title != "" %}
+                        <h1 class="title {% if forloop.first %}animated {{block.settings.title_effect}}{% else %}{% if block.settings.title_effect != "" %}invisible{% endif %}{% endif %}" {% if block.settings.title_effect != "" %}data-effect="{{block.settings.title_effect}}"{% endif %}>{{ block.settings.title }}</h1>
+                        {% endif %}
+                        {% if block.settings.text != "" %}
+                        <div class="text {% if forloop.first %}animated {{block.settings.text_effect}}{% else %}{% if block.settings.text_effect != "" %}invisible{% endif %}{% endif %}" {% if block.settings.text_effect != "" %}data-effect="{{block.settings.text_effect}}"{% endif %}>{{ block.settings.text }}</div>
+                        {% endif %}
+                        {% if block.settings.button != "" %}
+                        <a href="{{ block.settings.link }}" class="custom-cursor">
+                          <button class="custom-cursor btn {% if forloop.first %}animated {{block.settings.button_effect}}{% else %}{% if block.settings.button_effect != "" %}invisible{% endif %}{% endif %}" {% if block.settings.button_effect != "" %}data-effect="{{block.settings.button_effect}}"{% endif %}>{{ block.settings.button }}</button>
+                        </a>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+              
+              
+                  <div class="captions {{ block.settings.text_position_2 }} text-{{block.settings.text_align_2}}" style="{% if block.settings.text_align_2 == "left" %}margin-right:auto;{% elsif block.settings.text_align_2 == "right" %}margin-left:auto;{% else %}margin-left: auto; margin-right: auto;{% endif %}">
+                    <div class="table">
+                      <div class="table-cell text-vertical-{{block.settings.text_vertical_align_2}}">
+                        {% if block.settings.title_2 != "" %}
+                        <h1 class="title {% if forloop.first %}animated {{block.settings.title_effect}}{% else %}{% if block.settings.title_effect != "" %}invisible{% endif %}{% endif %}" {% if block.settings.title_effect != "" %}data-effect="{{block.settings.title_effect}}"{% endif %}>{{ block.settings.title_2 }}</h1>
+                        {% endif %}
+                        {% if block.settings.text_2 != "" %}
+                        <div class="text {% if forloop.first %}animated {{block.settings.text_effect}}{% else %}{% if block.settings.text_effect != "" %}invisible{% endif %}{% endif %}" {% if block.settings.text_effect != "" %}data-effect="{{block.settings.text_effect}}"{% endif %}>{{ block.settings.text_2 }}</div>
+                        {% endif %}
+                        {% if block.settings.button_2 != "" %}
+                        <a href="{{ block.settings.link_2 }}" class="custom-cursor">
+                          <button class="custom-cursor btn {% if forloop.first %}animated {{block.settings.button_effect}}{% else %}{% if block.settings.button_effect != "" %}invisible{% endif %}{% endif %}" {% if block.settings.button_effect != "" %}data-effect="{{block.settings.button_effect}}"{% endif %}>{{ block.settings.button_2 }}</button>
+                        </a>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                  {% endif %}
+                  {% if block.settings.featured_image != blank %}
+                  <div class="featured-img desktop-image {% if forloop.first %}animated {{block.settings.image_effect}}{% else %}{% if block.settings.image_effect != "" %}invisible{% endif %}{% endif %}" {% if block.settings.image_effect != "" %}data-effect="{{block.settings.image_effect}}"{% endif %} style="background-image: url({{ block.settings.featured_image | img_url: 'master' }}); background-position: {{block.settings.featured_image_position}}; width: {{block.settings.featured_image_width}}; right: {{block.settings.featured_image_right}}; left: {{block.settings.featured_image_left}};"></div>
+                  {% endif %}
+                  {% if block.settings.featured_image_mobile != blank %}
+                  <div class="featured-img hide mobile-image {% if forloop.first %}animated {{block.settings.image_effect}}{% else %}{% if block.settings.image_effect != "" %}invisible{% endif %}{% endif %}" {% if block.settings.image_effect != "" %}data-effect="{{block.settings.image_effect}}"{% endif %} style="background-image: url({{ block.settings.featured_image_mobile | img_url: 'master' }}); background-position: {{block.settings.featured_image_position}}; width: {{block.settings.featured_image_width}}; right: {{block.settings.featured_image_right}}; left: {{block.settings.featured_image_left}};"></div>
+                  {% endif %}
+            </div>
+      </div>
+  {% endfor %}
+</div>
+
+
+
+<script>
+  {% comment %}
+  $(function(){
+      {% if headerMode == "over" %}
+        $('.hero-carousel .item_img.full-height').height($(window).height());
+        $(window).resize(function(){
+          $('.hero-carousel .item_img.full-height').height($(window).height());
+        });
+      {% else %}
+    	$('.hero-carousel .item_img.full-height').height($(window).height() - $('.header.main').height());
+        $(window).resize(function(){
+          $('.hero-carousel .item_img.full-height').height($(window).height() - $('.header.main').height());
+        });
+      {% endif %}
+  });
+  {% endcomment %}  
+</script>

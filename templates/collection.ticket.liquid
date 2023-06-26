@@ -1,0 +1,344 @@
+<!-- Meta robots -->
+
+{% if collection.handle == 'flash-sale' or collection.handle == 'discounts-haircare-only' or collection.handle == 'discounts' or collection.handle == 'haircare' or collection.handle == 'image-test-collection' or collection.handle == 'bogo-september' or collection.handle == 'samples' %}
+<meta name="robots" content="noindex">
+{% endif %}
+
+<!-- End Meta robots -->
+
+{% unless collection.handle contains 'samples' %}
+<div class="collection-banner container text-center" {% comment %}{% if collection.image %}style="background-image:url({{ collection.image | img_url: 'master' }});"{% endif %}{% endcomment %} >
+  <div class="table">
+    <div class="table-cell">
+      {% if collection.image %}
+      <img src="{{ collection.image | img_url: 'master' }}" class="img-responsive desktop-only">
+      <img src="{{ collection.metafields.c_f.collection_mobile_banner | img_size: 'master' }}" class="mobile-only img-responsive">
+      {% else %}
+      <span>{{collection.title}}</span>
+      <span>{{collection.description}}</span>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<div class="container tag__main_selector">
+  {% for tag in collection.all_tags %}
+    {% if tag contains 'main_' %}
+      {% if  current_tags contains tag %}
+  		<a href="{{collection.url}}" class="collection__tag_link clc__active">{{ tag | split: '_' | last }}</a>
+  	  {% else %}
+  		<a href="{{collection.url}}/{{ tag | handle }}" class="collection__tag_link" >{{ tag | split: '_' | last }}</a>
+  	  {% endif %}
+    {% endif %}
+  {% endfor %}
+</div>
+<div class="collection-top container animation">
+  <div class="wrap clearfix">
+    {% include 'breadcrumb' %}
+    <div class="sidebar-collection text-left large--hide one-half mobile__filter">
+
+      <ul class="custom__accordion">
+        <li>
+          <a class="toggle" href="javascript:void(0);">Filter</a>
+          <ul class="inner">
+            <li>
+              <a href="#" class="toggle">Location</a>
+              <div class="inner">
+                <ul>
+                  {% for tag in collection.all_tags %}
+                    {% if tag contains 'location-' %}
+                      {% assign tagName = tag | remove: 'location-' %}
+                      {% if current_tags contains tag %}
+                          <li class="tag__active">
+                            {{ tagName | link_to_remove_tag: tag }}
+                          </li>
+                        {% else %}
+                          <li>
+                            {{ tagName | link_to_add_tag: tag }}
+                          </li>
+                        {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </li>
+            <li>
+              <a href="#" class="toggle">Class</a>
+              <div class="inner">
+                <ul>
+                  {% for tag in collection.all_tags %}
+                    {% if tag contains 'class-' %}
+                      {% assign tagName = tag | remove: 'class-' %}
+                      {% if current_tags contains tag %}
+                          <li class="tag__active">
+                            {{ tagName | link_to_remove_tag: tag }}
+                          </li>
+                        {% else %}
+                          <li>
+                            {{ tagName | link_to_add_tag: tag }}
+                          </li>
+                        {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </li>
+            <li>
+              <a href="#" class="toggle">Date</a>
+              <div class="inner">
+                <ul>
+                  {% for tag in collection.all_tags %}
+                    {% if tag contains 'date-' %}
+                      {% assign tagName = tag | remove: 'date-' %}
+                      {% if current_tags contains tag %}
+                          <li class="tag__active">
+                            {{ tagName | link_to_remove_tag: tag }}
+                          </li>
+                        {% else %}
+                          <li>
+                            {{ tagName | link_to_add_tag: tag }}
+                          </li>
+                        {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    {% comment %}
+    <div id="dd" class="wrapper-dropdown" tabindex="1">
+    	<span class="sort_label">Sort By</span>
+        <ul id="sort-by" class="dropdown">
+            <li data-sort="manual">featured</li>
+            <li data-sort="price-ascending">price: low to high</li>
+            <li data-sort="price-descending">price: high to low</li>
+            <li data-sort="title-ascending">name: a-z</li>
+            <li data-sort="title-descending">name: z-a</li>
+            <li data-sort="best-selling">best-selling</li>
+        </ul>
+    </div>
+    {% endcomment %}
+
+    <script>
+
+  	$(function() {
+  		var dd = new DropDown( $('#dd') );
+  		$(document).click(function() {
+  			// all dropdowns
+  			$('.wrapper-dropdown').removeClass('active');
+  		});
+  	});
+
+    function DropDown(el) {
+        this.dd = el;
+        this.placeholder = this.dd.children('span');
+        this.opts = this.dd.find('ul.dropdown > li');
+        this.val = '';
+        this.index = -1;
+        this.initEvents();
+    }
+    DropDown.prototype = {
+        initEvents : function() {
+            var obj = this;
+
+            obj.dd.on('click', function(event){
+                $(this).toggleClass('active');
+                return false;
+            });
+
+            obj.opts.on('click',function(){
+                var opt = $(this);
+                obj.val = opt.text();
+                obj.index = opt.index();
+                obj.placeholder.text('Sort By: ' + obj.val);
+            });
+        },
+        getValue : function() {
+            return this.val;
+        },
+        getIndex : function() {
+            return this.index;
+        }
+    }
+
+
+      Shopify.queryParams = {};
+      if (location.search.length) {
+        for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+          aKeyValue = aCouples[i].split('=');
+          if (aKeyValue.length > 1) {
+            Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+          }
+        }
+      }
+      //sort-by is not a select list any more. [aliens meme]
+      $('#sort-by li').on('click',function(){
+        Shopify.queryParams.sort_by = jQuery(this).data('sort');
+        location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20');
+      });
+
+      $('#filter-tags').bind('change', function() {
+        var pathname = location.pathname,
+            parts = pathname.split("/"),
+            loc = $(this).val().replace(/[\W_]/g, '-').replace('---', '-');
+
+        if (parts.length >= 4){
+          location.href = '/'+parts[1]+'/'+parts[3]+'/' + loc;
+        } else {
+          location.href = pathname + '/' + loc;
+        }
+      });
+
+
+      setTimeout(function(){
+        //setting mobile select dropdown to selected option
+        var option = $("#filter-collections").find('.selected');
+        option.insertBefore('#filter-collections option:first-of-type');
+        $('#filter-collections').prop('selectedIndex',0);
+      }, 300);
+
+
+      $('#filter-collections').bind('change', function() {
+        // location.href = jQuery(this).val().replace(/ |\+-|\//g, '-');
+        var loc = jQuery(this).val().replace(/[\W_]/g, '-').replace('---', '-'),
+            url = window.location.href,
+        	main = url.substring(34);
+
+        url = url.replace(main, loc);
+        location.href = url;
+      });
+
+//       jQuery('#filter-tags').bind('change', function() {
+//         location.href = jQuery(this).val()
+//       });
+//       jQuery('#filter-collections').bind('change', function() {
+//         location.href = jQuery(this).val()
+//       });
+    </script>
+    <style>
+      
+      @media(max-width: 1280px) {
+        .mobile__filter .toggle:after {
+            content: '';
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: url(https://cdn.shopify.com/s/files/1/2117/1151/files/LA-arrow-down.svg?1299843…);
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position-y: 50%;
+            margin-left: 10px;
+            position: absolute;
+            top: 6px;
+          }
+
+          .mobile__filter_title {
+            text-transform: lowercase;
+            font-size: 12px;
+            font-weight: normal;
+          }
+      }
+      @media(max-width: 767px) {
+        .template-collection-ticket .sidebar-collection {
+          max-width: unset;
+          float: left;
+          position: relative;
+        }
+
+        .mobile__filter .toggle {
+			position: relative;
+        }
+		#collection{
+        	margin-left: 20px !important;
+        }
+
+        .template-collection .sidebar-collection ul li, .template-collection-ticket .sidebar-collection ul li {
+          margin-bottom: 4px !important;
+        }
+
+        .template-collection .sidebar-collection ul li a, .template-collection-ticket .sidebar-collection ul li a {
+          font-size: 12px !important;
+        }
+
+        .template-collection-ticket .sidebar-collection ul li:first-child {
+          font-size: 12px;
+        }
+
+        .dropdown__container {
+          padding-top: 6px;
+          position: absolute;
+          z-index: 1;
+          background: white;
+          width: 100%;
+          display: block;
+        }
+
+       #dd.wrapper-dropdown {
+          width: 50%;
+          padding: 0px;
+          margin: 0px;
+        }
+
+          .mobile__filter ul {
+            list-style: none;
+            padding: 0;
+          }
+
+          .mobile__filter ul .inner {
+            padding-left: 1em;
+            overflow: hidden;
+            display: none;
+          }
+
+          .mobile__filter ul .inner.show {
+            /*display: block;*/
+          }
+
+          .mobile__filter ul li {
+            margin: 0.5em 0;
+            padding-left: 0px !important;
+          }
+
+          .mobile__filter ul li a.toggle {
+            display: block;
+            padding: 4px;
+            transition: background 0.3s ease;
+          }
+
+          ul.custom__accordion {
+              background: #fff;
+              position: absolute;
+              z-index: 1;
+              width: 100%;
+          }
+      }
+    </style>
+  </div>
+</div>
+{% include '_collection_ticket' %}
+{% else %}
+<div class="container">
+  <p>Collection not available</p>
+</div>
+{% endunless %}
+
+<script>
+  $('.toggle').click(function(e) {
+  	e.preventDefault();
+
+    var $this = $(this);
+
+    if ($this.next().hasClass('show')) {
+        $this.next().removeClass('show');
+        $this.next().slideUp(350);
+    } else {
+        $this.parent().parent().find('li .inner').removeClass('show');
+        $this.parent().parent().find('li .inner').slideUp(350);
+        $this.next().toggleClass('show');
+        $this.next().slideToggle(350);
+    }
+});
+</script>

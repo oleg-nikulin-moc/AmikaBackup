@@ -1,0 +1,44 @@
+{% assign col = collections[settings.homepage_collection] %}
+{% if col.products.length > 0%}
+<section class="featured container">
+  {% comment %}<h3><a href="{{col.url}}">{{settings.home_featured_products_title}}</a></h3>{% endcomment %}
+  <h3><span>{{settings.home_featured_products_title}}</span></h3>
+  <div class="product-carousel">
+    {% for prod in col.products limit:10 %}
+      {% if prod.available %}
+          {% include 'product_item', currentProduct: prod, quickview: settings.allow_quick_view, isCarousel: true  %}
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <script>
+    $(function(){
+      	$('.featured .product-carousel').slick({
+          autoplay: false,
+          speed: 1000,
+          pauseOnHover: false,
+          slidesToShow: {{settings.home_featured_products_row}},
+          slidesToScroll: {{settings.home_featured_products_row}},
+          prevArrow: '<i class="lnr lnr-chevron-left left-arrow animation"></i>',
+      	  nextArrow: '<i class="lnr lnr-chevron-right right-arrow animation"></i>',
+          responsive: [
+            {
+            	breakpoint: 584,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 2,
+                }
+            },
+			{
+            	breakpoint: 900,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 3,
+                }
+            }
+          ]
+        });
+    });
+  </script>
+</section>
+{% endif %}

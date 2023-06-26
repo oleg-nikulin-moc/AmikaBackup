@@ -1,0 +1,154 @@
+/**
+ * @license
+ * MyFonts Webfont, 2017-07-05
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * Licensed pageviews: 10,000
+ * Webfonts copyright: © Copyright 1998, Neufville Digital. ALL RIGHTS RESERVED. This font is licensed, not sold, and may not be reproduced without the written consent of Neufville Digital. Parts © Visualogik Technology & Design, 1998.The digitally encoded mac
+ * 
+ * © 2017 MyFonts Inc
+*/
+
+
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/34238a");
+@import url("//hello.myfonts.net/count/342388");
+@import url("//hello.myfonts.net/count/34238c");
+
+/* 
+ * Webfont: FuturaNDBook by Neufville Digital
+ * URL: https://www.myfonts.com/fonts/neufville/futura-nd/book/
+ * License: https://www.myfonts.com/viewlicense?type=web&buildid=3416968
+ */
+@font-face {
+  font-family: 'FuturaND';
+  src: url('342388_0_0.woff2') format('woff2'),
+       url('342388_0_0.woff') format('woff'),
+       url('342388_0_0.ttf') format('truetype'),
+       url('342388_0_0.eot');
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+}
+
+/* 
+ * Webfont: FuturaNDBook-Oblique by Neufville Digital
+ * URL: https://www.myfonts.com/fonts/neufville/futura-nd/book-oblique/
+ * License: https://www.myfonts.com/viewlicense?type=web&buildid=3416972
+ */
+@font-face {
+  font-family: 'FuturaND';
+  src: url('34238C_0_0.woff2') format('woff2'),
+       url('34238C_0_0.woff') format('woff'),
+       url('34238C_0_0.ttf') format('truetype'),
+       url('34238C_0_0.eot');
+  font-weight:400;
+  font-style:italic;
+  font-display:swap;
+}
+
+/* 
+ * Webfont: FuturaND-Medium by Neufville Digital
+ * URL: https://www.myfonts.com/fonts/neufville/futura-nd/medium/
+ * License: https://www.myfonts.com/viewlicense?type=web&buildid=3416968
+ */
+@font-face {
+  font-family: 'FuturaND';
+  src: url('342388_1_0.woff2') format('woff2'),
+       url('342388_1_0.woff') format('woff'),
+       url('342388_1_0.ttf') format('truetype'),
+       url('342388_1_0.eot');
+  font-weight:500;
+  font-style:normal;
+  font-display:swap;
+}
+
+/* 
+ * Webfont: FuturaND-MediumOblique by Neufville Digital
+ * URL: https://www.myfonts.com/fonts/neufville/futura-nd/medium-oblique/
+ * License: https://www.myfonts.com/viewlicense?type=web&buildid=3416972
+ */
+@font-face {
+  font-family: 'FuturaND';
+  src: url('34238C_1_0.woff2') format('woff2'),
+       url('34238C_1_0.woff') format('woff'),
+       url('34238C_1_0.ttf') format('truetype'),
+       url('34238C_1_0.eot');
+  font-weight:500;
+  font-style:italic;
+  font-display:swap;
+}
+
+/* 
+ * Webfont: FuturaNDDemibold by Neufville Digital
+ * URL: https://www.myfonts.com/fonts/neufville/futura-nd/demibold/ 
+ * License: https://www.myfonts.com/viewlicense?type=web&buildid=3416970
+ */
+@font-face {
+  font-family: 'FuturaND';
+  src: url('34238A_1_0.woff2') format('woff2'),
+       url('34238A_1_0.woff') format('woff'),
+       url('34238A_1_0.ttf') format('truetype'),
+       url('34238A_1_0.eot');
+  font-weight:700;
+  font-style:normal;
+  font-display:swap;
+}
+
+/* 
+ * Webfont: FuturaND-Bold by Neufville Digital 
+ * URL: https://www.myfonts.com/fonts/neufville/futura-nd/bold/
+ * License: https://www.myfonts.com/viewlicense?type=web&buildid=3416970
+ */
+@font-face {
+  font-family: 'FuturaND';
+  src: url('34238A_0_0.woff2') format('woff2'),
+       url('34238A_0_0.woff') format('woff'),
+       url('34238A_0_0.ttf') format('truetype'),
+       url('34238A_0_0.eot');
+  font-weight:900;
+  font-style:normal;
+  font-display:swap;
+}
+
+/* 
+ * Webfont: FuturaNDDemibold by Neufville Digital !!!!!
+ * URL: https://www.myfonts.com/fonts/neufville/futura-nd/demibold/ 
+ * License: https://www.myfonts.com/viewlicense?type=web&buildid=3416970
+ */
+ @font-face {
+  font-family: 'FuturaNDBook';
+  src: url('34238A_1_0.woff2') format('woff2'),
+       url('34238A_1_0.woff') format('woff'),
+       url('34238A_1_0.ttf') format('truetype'),
+       url('34238A_1_0.eot');
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+}
+
+/* 
+ * Webfont: FuturaND-Bold by Neufville Digital !!!!
+ * URL: https://www.myfonts.com/fonts/neufville/futura-nd/bold/
+ * License: https://www.myfonts.com/viewlicense?type=web&buildid=3416970
+ */
+@font-face {
+  font-family: 'FuturaNDBook';
+  src: url('34238A_0_0.woff2') format('woff2'),
+       url('34238A_0_0.woff') format('woff'),
+       url('34238A_0_0.ttf') format('truetype'),
+       url('34238A_0_0.eot');
+  font-weight:500;
+  font-style:normal;
+  font-display:swap;
+}
+
+@font-face {
+     font-family: 'FuturaNDBook';
+     src: url('FuturaNDBookRegular.ttf') format('truetype');
+     font-weight:300;
+     font-style:normal;
+   }

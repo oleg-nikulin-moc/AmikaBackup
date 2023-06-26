@@ -1,0 +1,76 @@
+<div id="article-comments">
+{% if article.comments_count > 0 %}
+  <div class="head">
+    <h3>COMMENTS ({{ article.comments_count }})</h3>
+  </div>
+{% endif %}
+
+{% paginate article.comments by 5 %}
+
+  {% if comment and comment.created_at %}
+  <p class="note form-success">
+    {% if blog.moderated? %}
+    Thank you for submitting a comment! You will see it posted soon!
+    {% else %}
+    Your comment was posted successfully! Thank you!
+    {% endif %}
+  </p>
+  {% endif %}
+
+  {% if article.comments_count > 0 %}
+    {% for comment in article.comments %}
+    <div id="{{ comment.id }}" class="comment{% if forloop.first %} first{% endif %}{% if forloop.last %} last {% endif %}">
+      {% include 'article_comment' %}
+    </div>
+    <div id="sharing">
+      <i class="fa fa-share"></i><span>Share </span>
+      <ul class="social-meta">
+        <li><a class="facebook-share" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url }}{{ article.url }}&title={{ article.title }}&description=Comment by {{ comment.author }}: {{ comment.content | strip_html }}"><i class="fa fa-facebook"></i></a></li>
+        <li><a class="twitter-share" target="_blank" href="https://twitter.com/share?url={{ shop.url }}{{ article.url }}&title={{ article.title }}&description=Comment by {{ comment.author }}: {{ comment.content | strip_html }}"><i class="fa fa-twitter"></i></a></li>
+        <li><a class="google-share" target="_blank" href="https://plus.google.com/share?url={{ shop.url }}{{ article.url }}&title={{ article.title }}&description=Comment by {{ comment.author }}: {{ comment.content | strip_html }}"><i class="fa fa-google-plus"></i></a></li>
+        <li><a class="pinterest-share" target="_blank" href="//pinterest.com/pin/create/button/?url={{ shop.url }}{{ article.url }}&media={{ article.image.src | img_url: 'master' }}&title={{ article.title }}&description=Comment by {{ comment.author }}: {{ comment.content | strip_html }}"><i class="fa fa-pinterest-p"></i></a></li>
+      </ul>
+    </div>
+    {% endfor %}
+
+  {% include 'pagination' %}
+
+  {% endif %}
+
+  
+  <div class="new-comment">
+
+    <div class="head">
+      <h3 class="border-top">Leave a Comment</h3>
+    </div>
+    
+    <div class="form">
+      {% form 'new_comment', article %}
+
+      {{ form.errors | default_errors }}
+
+      <div class="grid">
+        <div class="grid__item large--one-half">
+          <label for="CommentAuthor" class="hide">Name</label>
+          <input class="input-full{% if form.errors contains 'author' %} error{% endif %}" type="text" name="comment[author]" placeholder="Name" id="CommentAuthor" value="{{ form.author }}" autocapitalize="words">
+        </div>
+        <div class="grid__item large--one-half">
+          <label for="CommentEmail" class="hide">Email</label>
+          <input class="input-full{% if form.errors contains 'email' %} error{% endif %}" type="email" name="comment[email]" placeholder="Email" id="CommentEmail" value="{{ form.email }}" autocorrect="off" autocapitalize="off">
+        </div>
+      </div>
+
+      <label for="CommentBody" class="hide">Message</label>
+      <textarea class="input-full{% if form.errors contains 'body' %} error{% endif %}" name="comment[body]" id="CommentBody" placeholder="Message">{{ form.body }}</textarea>
+
+      <div class="text-center">
+        <input type="submit" class="btn" value="Post Comment">
+      </div>
+
+      {% endform %}
+    </div>
+    
+  </div>
+
+{% endpaginate %}
+</div>

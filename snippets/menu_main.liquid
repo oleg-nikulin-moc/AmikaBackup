@@ -1,0 +1,157 @@
+<ul>
+  {% for link in linklists.main-menu.links %}
+
+  {% assign current = false %}{% if template == 'index' and link.url == '/' %}{% assign current = true %}{% else %}{% if collection.url == link.url %}{% assign current = true %}{% else %}{% if blog.url == link.url %}{% assign current = true %}{% else %}{% if page.url == link.url %}{% assign current = true %}{% else %}{% if page_title == link.title %}{% assign current = true %}{% else %}{% if template == 'list-collections' and link.url == '/collections' %}{% assign current = true %}{% else %}{% if page_title == 'Products' and link.url == '/collections/all' %}{% assign current = true %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+  {% assign list_handle = link.title | handleize %}
+
+  <li class="{% if forloop.first %}first{% elsif forloop.last %}last{%endif%} {% if current %}active{% endif %} animation {% if list_handle == "all" or list_handle == "shop-all" or list_handle == "our-collections" %}mega-dropdown{% endif %}">
+    {% if linklists[list_handle].links != blank %}
+
+    <div class="has-dropdown">
+      <a href="{{ link.url }}" {% if link.url contains "http:" or link.url contains "https:" %}target="_blank"{% endif %} class="top__one--anchor">
+        <span class="nav-label">{{ link.title | escape }}{% comment %}&nbsp;<span class="fa arrow">&#xf107;</span>{% endcomment %}</span>
+      </a>
+
+      {% if list_handle == "all" or list_handle == "shop-all" %}
+      <ul class="hide">
+        <li>
+          <div class="container">
+            <div class="grid grid-uniform">
+              <div class="grid__item four-sixths">
+                <div class="grid desktop__menu">
+
+                  {% for level2_link in linklists[list_handle].links %}
+                  <div class="grid__item one-third desktop__menu-item">
+
+                    <ul>
+                      <li class="{% if forloop.last %}last{%endif%} animation">
+                        {% assign current = false %}{% if template == 'index' and level2_link.url == '/' %}{% assign current = true %}{% else %}{% if collection.url == level2_link.url %}{% assign current = true %}{% else %}{% if blog.url == level2_link.url %}{% assign current = true %}{% else %}{% if page.url == level2_link.url %}{% assign current = true %}{% else %}{% if page_title == level2_link.title %}{% assign current = true %}{% else %}{% if template == 'list-collections' and level2_link.url == '/collections' %}{% assign current = true %}{% else %}{% if page_title == 'Products' and level2_link.url == '/collections/all' %}{% assign current = true %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+                        {% assign level2_handle = level2_link.title | handleize %}
+                        {% if linklists[level2_handle].links != blank %}
+
+                          <a href="{{ level2_link.url }}" class="mega-title" {% if level2_link.url contains "http:" or link.url contains "https:" %}target="_blank"{% endif %}>{{ level2_link.title | escape }}</a>
+                        <ul>
+                            {% for level3_link in linklists[level2_handle].links %}
+                            {% assign current = false %}{% if template == 'index' and level3_link.url == '/' %}{% assign current = true %}{% else %}{% if collection.url == level3_link.url %}{% assign current = true %}{% else %}{% if blog.url == level3_link.url %}{% assign current = true %}{% else %}{% if page.url == level3_link.url %}{% assign current = true %}{% else %}{% if page_title == level3_link.title %}{% assign current = true %}{% else %}{% if template == 'list-collections' and level3_link.url == '/collections' %}{% assign current = true %}{% else %}{% if page_title == 'Products' and level3_link.url == '/collections/all' %}{% assign current = true %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+                            <li class="{% if current %}active{% endif %}">
+                              <a href="{{ level3_link.url }}" {% if level3_link.url contains "http:" or level3_link.url contains "https:" %}target="_blank"{% endif %}>{{ level3_link.title | escape }}</a>
+                            </li>
+                            {% endfor %}
+                          </ul>
+
+                        {% else %}
+
+                          <a href="{{ level2_link.url }}" class="mega-title" {% if level2_link.url contains "http:" or level2_link.url contains "https:" %}target="_blank"{% endif %}>{{ level2_link.title | escape }}</a>
+
+                        {% endif %}
+                      </li>
+                    </ul>
+                  </div>
+                  {% endfor %}
+
+                </div>
+              </div>
+              <div class="grid__item two-sixths">
+                <div class="megadropdown-image">
+                  <a href="{{ settings.megadropdown_image_link }}">
+                    <img src="{{ "megadropdown-image.png" | asset_url }}" class="img-responsive" />
+                    <div class="caption">
+                      <div class="caption-inner">
+                        {{ settings.megadropdown_image_text }}
+                      </div>
+                      <button class="button--primary">
+                        {{ settings.megadropdown_image_button | strip_html }}
+                      </button>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      {% elsif list_handle == "our-collections" %}
+      <ul id="ourcollection_menu" class="hide">
+        <li>
+          <div class="one-whole">
+            {% for level2_link in linklists[list_handle].links %}
+            <div class="grid__item one-tenth">
+              <ul>
+                <a href="{{ level2_link.url }}">
+                  <li class="{% if forloop.last %}last{%endif%} animation">
+                    {% assign collImage = level2_link.title | handle | append: ".jpg" %}
+                    {% assign current = false %}{% if template == 'index' and level2_link.url == '/' %}{% assign current = true %}{% else %}{% if collection.url == level2_link.url %}{% assign current = true %}{% else %}{% if blog.url == level2_link.url %}{% assign current = true %}{% else %}{% if page.url == level2_link.url %}{% assign current = true %}{% else %}{% if page_title == level2_link.title %}{% assign current = true %}{% else %}{% if template == 'list-collections' and level2_link.url == '/collections' %}{% assign current = true %}{% else %}{% if page_title == 'Products' and level2_link.url == '/collections/all' %}{% assign current = true %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+                    {% assign level2_handle = level2_link.title | handleize %}
+
+                    {% if linklists[level2_handle].links != blank %}
+                    <a href="{{ level2_link.url }}" class="mega-title" {% if level2_link.url contains "http:" or link.url contains "https:" %}target="_blank"{% endif %}>{{ level2_link.title | escape }}</a>
+                    <ul>
+                      {% for level3_link in linklists[level2_handle].links %}
+                      {% assign current = false %}{% if template == 'index' and level3_link.url == '/' %}{% assign current = true %}{% else %}{% if collection.url == level3_link.url %}{% assign current = true %}{% else %}{% if blog.url == level3_link.url %}{% assign current = true %}{% else %}{% if page.url == level3_link.url %}{% assign current = true %}{% else %}{% if page_title == level3_link.title %}{% assign current = true %}{% else %}{% if template == 'list-collections' and level3_link.url == '/collections' %}{% assign current = true %}{% else %}{% if page_title == 'Products' and level3_link.url == '/collections/all' %}{% assign current = true %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+                      <li class="{% if current %}active{% endif %}">
+                        <a href="{{ level3_link.url }}" {% if level3_link.url contains "http:" or level3_link.url contains "https:" %}target="_blank"{% endif %}>{{ level3_link.title | escape }}</a>
+                      </li>
+                      {% endfor %}
+                    </ul>
+
+                    {% else %}
+					<img class="desk__prof" src="{{ collImage | asset_url }}" />
+                    <a href="{{ level2_link.url }}" class="mega-title" {% if level2_link.url contains "http:" or level2_link.url contains "https:" %}target="_blank"{% endif %}>{{ level2_link.title | escape }}</a>
+
+                    {% endif %}
+                  </li>
+                </a>
+              </ul>
+            </div>
+            {% endfor %}
+
+          </div>
+        </li>
+      </ul>
+
+      {% else %}
+      <ul class="hide">
+        {% for level2_link in linklists[list_handle].links %}
+        <li class="{% if forloop.last %}last{%endif%} animation">
+          {% assign current = false %}{% if template == 'index' and level2_link.url == '/' %}{% assign current = true %}{% else %}{% if collection.url == level2_link.url %}{% assign current = true %}{% else %}{% if blog.url == level2_link.url %}{% assign current = true %}{% else %}{% if page.url == level2_link.url %}{% assign current = true %}{% else %}{% if page_title == level2_link.title %}{% assign current = true %}{% else %}{% if template == 'list-collections' and level2_link.url == '/collections' %}{% assign current = true %}{% else %}{% if page_title == 'Products' and level2_link.url == '/collections/all' %}{% assign current = true %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+          {% assign level2_handle = level2_link.title | handleize %}
+          {% if linklists[level2_handle].links != blank %}
+          <div class="has-dropdown">
+            <a href="{{ level2_link.url }}" {% if level2_link.url contains "http:" or link.url contains "https:" %}target="_blank"{% endif %}>{{ level2_link.title | escape }} <span class="fa arrow-right">&#xf105;</span></a>
+            <ul class="hide">
+              {% for level3_link in linklists[level2_handle].links %}
+              {% assign current = false %}{% if template == 'index' and level3_link.url == '/' %}{% assign current = true %}{% else %}{% if collection.url == level3_link.url %}{% assign current = true %}{% else %}{% if blog.url == level3_link.url %}{% assign current = true %}{% else %}{% if page.url == level3_link.url %}{% assign current = true %}{% else %}{% if page_title == level3_link.title %}{% assign current = true %}{% else %}{% if template == 'list-collections' and level3_link.url == '/collections' %}{% assign current = true %}{% else %}{% if page_title == 'Products' and level3_link.url == '/collections/all' %}{% assign current = true %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+              <li class="{% if current %}active{% endif %}">
+                <a href="{{ level3_link.url }}" {% if level3_link.url contains "http:" or level3_link.url contains "https:" %}target="_blank"{% endif %}>{{ level3_link.title | escape }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          {% else %}
+          <div>
+            <a href="{{ level2_link.url }}" {% if level2_link.url contains "http:" or level2_link.url contains "https:" %}target="_blank"{% endif %}>{{ level2_link.title | escape }}</a>
+          </div>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+    </div>
+
+    {% else %}
+    <div>
+      <a href="{{ link.url }}" class="animation" {% if link.url contains "http:" or link.url contains "https:" %}target="_blank"{% endif %}>{{ link.title | escape }}</a>
+    </div>
+    {% endif %}
+
+  </li>
+  {% endfor %}
+</ul>
+
+<script>
+ 
+
+</script>

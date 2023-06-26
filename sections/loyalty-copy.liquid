@@ -1,0 +1,48 @@
+<div class="loyalty-copy container">
+  <h2 class="title">{{ section.settings.title }}</h2>
+  <div class="copy-items">
+    {% for block in section.blocks %}
+    <div class="copy-item order-{{forloop.index0}}">
+      <div class="copy-content" >{{ block.settings.copy_block }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Loyalty Copy",
+  "max_blocks": 4,
+  "settings": [
+    {
+        "type": "header",
+        "content": "Add Content block to make grid"
+    },
+    {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+    }
+  ],
+  "blocks": [
+    {
+        "type": "custom",
+        "name": "Copy Block",
+        "settings": [
+          {
+            "type": "html",
+            "id": "copy_block",
+            "label": "Copy Block"
+          }
+        ]
+    }
+  ],
+  "presets": [
+      {
+        "name": "Loyalty Copy",
+        "category": "custom"
+      }
+  ]
+}
+
+{% endschema %}

@@ -1,0 +1,81 @@
+<div class="spacer" id="spacer-{{section.id}}">
+  {% if section.settings.divider == true %}
+  <hr class="spacer__divider">
+  {% endif %}
+  </div>
+  
+  <style>
+  
+  #spacer-{{section.id}}{
+    {%- if section.settings.padding_bottom != blank -%}padding-bottom:{{section.settings.padding_bottom}}px;{%- endif -%}
+    {%- if section.settings.padding_top != blank -%}padding-top:{{section.settings.padding_top }}px;{%- endif -%}
+  }
+  
+  @media(max-width:1024px){
+    #spacer-{{section.id}}{
+      {%- if section.settings.padding_bottom_m != blank -%}padding-bottom:{{section.settings.padding_bottom_m}}px;{%- endif -%}
+      {%- if section.settings.padding_top_m != blank -%}padding-top:{{section.settings.padding_top_m }}px;{%- endif -%}
+    }
+  }
+  
+  </style>
+  
+  
+  {% schema %}
+  {
+    "name":"Spacer",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "divider",
+        "label": "Add divider"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "label": "Padding Top",
+        "min": 0,
+        "max": 150,
+        "step": 10,
+        "unit": "px",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "label": "Padding Bottom",
+        "min": 0,
+        "max": 150,
+        "step": 10,
+        "unit": "px",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "padding_top_m",
+        "label": "Padding Top Mobile",
+        "min": 0,
+        "max": 150,
+        "step": 10,
+        "unit": "px",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom_m",
+        "label": "Padding Bottom Mobile",
+        "min": 0,
+        "max": 150,
+        "step": 10,
+        "unit": "px",
+        "default": 20
+      }      
+    ],
+    "presets": [
+      {
+        "name": "Spacer",
+        "category": "Layout"
+      }
+    ]
+  }
+  {% endschema %}

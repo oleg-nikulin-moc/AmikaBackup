@@ -1,0 +1,115 @@
+{% schema %}
+
+{
+  "name": "Featured Products",
+  "settings": [
+    {
+        "type": "text",
+        "id": "home_featured_products_title",
+        "label": "Title",
+        "default": "Featured Products"
+    },
+    {
+	    "type":    "range",
+    	"min":     0,
+	    "max":     10,
+    	"step":    1,
+	    "default": 5,
+    	"id": "text_size2",
+	    "label": "Text Size",
+    	"info": "Set with vw instead of pixels so that it'll adjust according to the viewport width."
+    },
+    {
+        "type": "collection",
+        "id": "homepage_collection",
+        "label": "Select The Collection"
+    },
+    {
+        "type": "select",
+        "id": "home_featured_products_row",
+        "label": "Items per row",
+        "options": [
+          {
+            "value": "2",
+            "label": "2 items per row"
+          },
+          {
+            "value": "3",
+            "label": "3 items per row"
+          },
+          {
+            "value": "4",
+            "label": "4 items per row"
+          },
+          {
+            "value": "5",
+            "label": "5 items per row"
+          },
+          {
+            "value": "6",
+            "label": "6 items per row"
+          }
+        ]
+    }
+  ],
+  "presets": [
+      {
+        "name": "Featured Products",
+        "category": "Products"
+      }
+  ]
+}
+
+{% endschema %}
+
+
+{% assign col = collections[settings.homepage_collection] %}
+{% if col.products.length > 0%}
+<section class="featured container">
+  <h3><span>{{section.settings.home_featured_products_title}}</span></h3>
+  <div class="product-carousel">
+    {% for prod in col.products limit:10 %}
+      {% if prod.available %}
+          {% include 'product_item', currentProduct: prod, quickview: settings.allow_quick_view, isCarousel: true  %}
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <script>
+    $(function(){
+      	$('.featured .product-carousel').slick({
+          autoplay: false,
+          speed: 1000,
+          pauseOnHover: false,
+          slidesToShow: {{settings.home_featured_products_row}},
+          slidesToScroll: {{settings.home_featured_products_row}},
+          prevArrow: '<i class="lnr lnr-chevron-left left-arrow animation"></i>',
+      	  nextArrow: '<i class="lnr lnr-chevron-right right-arrow animation"></i>',
+          responsive: [
+            {
+            	breakpoint: 584,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 2,
+                }
+            },
+			{
+            	breakpoint: 900,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 3,
+                }
+            }
+          ]
+        });
+    });
+  </script>
+</section>
+{% endif %}
+
+
+
+<style>
+  .template__index .featured h3 {font-size: 32px;}  
+  .template__index .featured h3 {font-size: {{section.settings.text_size2}}vw;}
+</style>

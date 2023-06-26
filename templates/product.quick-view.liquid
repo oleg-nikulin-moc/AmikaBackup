@@ -1,0 +1,37 @@
+{% layout none %}
+<div id="quick-view" class="quick-view">
+  {% include '_product', quickView: true %}
+</div>
+
+<script>
+$(document).ready( function () {
+  if (isPro() || isHMS()){
+    if (isHMS()) {
+      discount = 0.3;
+    }
+    if (dont == false)
+    {
+      adjustPrices('#quick-view');
+    }
+  }
+});
+</script>
+
+
+<style>
+  .quick-view #product-info .price .deal.disc {
+    color: #B9B9B9;
+    margin-right: 0;
+    text-decoration: initial;
+  }
+  .quick-view #product-info .price .deal.disc span {
+    text-decoration: initial;
+    color: #F16573;
+  }
+  .quick-view #product-info .price .retail {
+  	text-decoration: line-through;
+  }
+  .quick-view #product-info .price .retail span {  
+    color: #B9B9B9;
+  }
+</style>

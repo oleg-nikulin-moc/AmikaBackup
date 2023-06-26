@@ -1,0 +1,19 @@
+  <p class="line-item-property__field">
+    <label for="customer-name">Your name</label>
+    <input required class="required" id="customer-name" type="text" name="properties[_customer name]">
+  </p>
+  <p class="line-item-property__field">
+    <label for="customer-email">Your Email</label>
+    <input class="required" id="customer-email" type="email" name="properties[_customer email]">
+  </p>
+  <p class="line-item-property__field">
+    <label for="guest-name">Guest Names seperated by coma</label>
+    <input class="required" id="guest-name" type="text" name="properties[_guest name]">
+  </p>
+  <p class="line-item-property__field">
+    <label for="salon-name">Salon name</label>
+    <input class="required" id="salon-name" type="text" name="properties[_salon name]">
+  </p>
+  {% if currentProduct.available %}
+      <input type="hidden" step="1" name="quantity" id="quantity" value="1" title="Qty" value="1" min="1" max="{{ available }}">
+  {% endif %} 

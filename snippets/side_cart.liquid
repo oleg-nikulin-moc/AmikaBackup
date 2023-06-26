@@ -1,0 +1,628 @@
+<style>.final_sale {display: block;}</style>
+<div class="side-cart">
+  <div class="wrapper">
+    <div class="header clearfix">
+      <div class="center"><h1>your shopping bag ({{ cart.item_count }})</h1></div>
+      <div class="close-container">
+        <a href="#" class="close" onclick="hideSideCart();return false;">
+          <i class="lnr animation lnr-cross"></i>
+        </a>
+      </div>
+    </div>
+
+    {% assign cart_total_price_minus_gift_cards = 0 %}
+    {% for item in cart.items %}
+    {% if item.product.type != 'Gift Card' %}
+    {% assign item_price = item.price | times: item.quantity %}
+    {% assign cart_total_price_minus_gift_cards = cart_total_price_minus_gift_cards | plus: item_price %}
+    {% endif %}
+    {% endfor %}
+
+    {% comment %}
+    {% unless customer.tags contains 'HMS' or customer.tags contains 'Pro' or customer.tags contains 'BrandAmbassadorUS' %}
+    {% assign gift_offer_threshold = settings.gift_offer_threshold | times: 100 %}
+    {% if settings.hide__gift_selector == false and gift_offer_threshold >  cart_total_price_minus_gift_cards %}
+        <p style="text-align: center;font-size: 12px;">
+          {{settings.free_gift_offer_text}}
+        </p>
+    {% endif %}
+
+    {% assign sample_offer_threshold = settings.sample_offer_threshold | times: 100 %}
+    {% if settings.hide__sample_selector == false and sample_offer_threshold >  cart.total_price %}
+        <p style="text-align: center;font-size: 12px;">
+          {{settings.free_sample_offer_text}}
+        </p>
+    {% endif %}
+    {% endunless %}
+    {% endcomment %}
+
+    <div class="wrap">
+
+      {% if cart.items == empty %}
+      <div class="empty">Your cart is empty</div>
+      <a href="/collections/all" class="shop__all--sideCart">Continue Shopping</a>
+      {% else %}
+      {% assign salonExists = false %}
+      {% for item in cart.items %}
+        {% if item.product.tags contains 'salon-merch' %}
+          {% assign salonExists = true %}
+        {% endif %}
+      {% endfor %}
+
+      {% if salonExists == false %}
+      {% if customer.tags contains 'HMS' or customer.tags contains 'Pro' or customer.tags contains 'BrandAmbassadorUS' %}
+      {% else %}
+      <div class="free__shipping--bar">
+        <div class="free-shipping">
+          {% assign excludePrice = 0 %}
+          {% for item in cart.items %}
+          {% if item.product.tags contains 'excludeHMS' or item.product.tags contains 'salon-merch' %}
+          {% assign item_price = item.price | times: item.quantity %}
+          {% assign excludePrice = excludePrice | plus: item_price %}
+          {% endif %}
+          {% endfor %}
+
+          {% assign freeShip = settings.Min-free-shipping-value %}
+          {% assign total_price = cart.total_price | money_without_currency %}
+          {% if excludePrice > 0 %}
+          {% assign excludePrice = excludePrice | money_without_currency %}
+          {% assign total_price = total_price | minus: excludePrice %}
+          {% endif %}
+          {% assign percentageFreeShip = total_price | times: 100  | divided_by: freeShip %}
+          {% assign freeshipaway = freeShip | minus: total_price %}
+          {% if percentageFreeShip < 100 %}
+          <p>You're {{ freeshipaway | times: 100 | money }} away from qualifying for free shipping</p>
+          {% else %}
+          <p class="free-text">You've earned Free Shipping.</p>
+          {% endif %}
+
+
+          <div class="free-shipping-bar"></div>
+        </div>
+      </div>
+      {% endif %}
+      {% else %}
+      <div class="free__shipping--bar">
+        <div class="free-shipping">
+          Salon merch items do not qualify for free shipping
+        </div>
+      </div>
+      {% endif %}
+
+      <div>
+        <form>
+          {% for item in cart.items %}
+          <div class="item">
+            <div class="grid">
+              <div class="grid__item one-third small--two-fifths">
+                <a href="{% if item.price > 0 %}{{ item.product.url }}{% else %}javascript:void(0);{% endif %}">
+                  {% if item.variant.image %}
+                    {% assign variantImg = item.variant.image | img_url: "large" %}
+                  {% else %}
+                    {% assign variantImg = item.product.featured_image | img_url: "large" %}
+                  {% endif %}
+                  <img src="{{ variantImg }}"  alt="{{ item.product.title }}" />
+                </a>
+              </div>
+              <div class="grid__item two-thirds small--three-fifths">
+                <p class="text">
+                  <a href="{% if item.price > 0 %}{{ item.url }}{% else %}javascript:void(0);{% endif %}">
+                    {{ item.product.title| replace_first: '|', '<span>' }}
+                    {% if item.product.title contains '|' %}</span>{% endif %}
+                    {% unless item.variant.title contains 'Default' %}
+                      <span class="variant">{{ item.variant.title }}</span>
+                    {% endunless %}
+                    {% if item.product.tags contains 'final sale' %}
+                      <span class="final-sale">**Final Sale**</span>
+                    {% endif %}
+                  </a>
+                </p>
+                <a class="remove"><span class="lnr lnr-cross animation"></span></a>
+                <div class="grid-full display-table">
+                  <div class="grid__item one-whole quantity clearfix">
+                    {% if item.product.tags contains 'salon-merch' %}
+                      <p class="not__qualified">does not qualify for free shipping</p>
+                    {% endif %}
+                    <div class="wrap">
+                      {% if item.price > 0  or item.variant.id == 1771451940882 %}
+                        <input type="button" aria-label="Cart product remove" value="-" class="minus animation" />
+                        <input readonly type="number" step="1" name="updates[]" value="{{ item.quantity }}" title="Qty" size="4" min="0" max="" class="qty-input" />
+                        <input type="button" aria-label="cart product add" value="+" class="plus animation" />
+                      {% else %}
+                        <div class="hide">
+                          <input type="number" step="1" name="updates[]" value="1" title="Qty" min="0" max="" class="qty-input" />
+                        </div>
+                        <input type="number" aria-label="cart product Quantity field" value="{{ item.quantity }}" title="Qty" disabled />
+                      {% endif %}
+                      <div style="clear: both;"></div>
+                    </div>
+                    {% assign orig =  item.line_price %}
+                    {% assign linex = item.variant.price | times: item.quantity %}
+                    {% assign diff = linex | minus:  orig %}
+                    {% assign notsame = false %}
+                    {% if diff != 0 %}
+                      {% assign notsame = true %}
+                    {% endif %}
+                    {% assign nospecial = false %}
+                    {% if customer.tags contains 'HMS' or customer.tags contains 'Pro' or customer.tags contains 'BrandAmbassadorUS'%}
+                      {% for collection in item.product.collections %}
+                        {% if "excludeHMS" == collection.title %}
+                          {% assign nospecial = true %}
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                    {% comment %}
+                    THis might not be necessary: the item.variant.price | times: itemQuant is to remove any discounts being applied elsewhere,
+                    but elsewhere would be the Script App line item. Who else? IF you don't also change it there, nothing here will actually matter or checkout
+                     <!-- {{ orig }}  {{ linex }}  {{ diff }} {{ notsame }} {{nospecial}} sidecart -->
+                    {% endcomment %}
+                    {% if nospecial %}
+                      <div class="price">
+                        <div class="pri">{{ item.line_price | money | remove: ".00" }}</div>
+                      </div>
+                    {% else %}
+                      <div class="price {% if item.variant.compare_at_price > item.price or customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame %}disc{%endif%}">
+                        {% if item.variant.compare_at_price > item.price or customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame %}
+                          {% assign itemQuant = item.quantity %}
+                          <div class="retail">
+                            {% if customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame %}
+                              <span>{{item.variant.price | times: itemQuant | money | remove: ".00" }}</span>
+                            {% endif %}
+                            {% if item.variant.compare_at_price > item.price %}
+                              <span>{{item.variant.compare_at_price | times: itemQuant | money | remove: ".00" }}</span>
+                            {% endif %}
+                          </div>
+                        {% endif %}
+                        {% if item.price > 0 %}
+                          <div class="pri {% if item.variant.compare_at_price > item.price or customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame %}disc{%endif%}">
+                            {{ item.line_price | money | remove: ".00" }}
+                          </div>
+                        {% else %}
+                          <div class="pri">FREE</div>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </form>
+      </div>
+      {% unless customer.tags contains 'HMS' or customer.tags contains 'Pro' or customer.tags contains 'BrandAmbassadorUS' %}
+        {% if settings.hide__sample_selector == false %}
+
+          {% assign count_sample = 0 %}
+          {% capture sampleIncart %}
+          {%- for item in cart.items -%}
+          {%- for product in collections[settings.collection_sample].products -%}
+            {%- if item.id == product.first_available_variant.id -%}
+            {%- unless item.properties == empty -%}
+              {%- for property in item.properties -%}
+                {%- if property.first == 'offer_type' and property.last == 'sample'-%}
+                  {{- product.id -}},
+                  {%- assign count_sample = count_sample | plus: 1 -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endunless -%}
+          {% endif %}
+          {%- endfor -%}
+          {%- endfor -%}
+          {% endcapture %}
+
+          <div class="sample__top--section sample__section">
+            <div class="heading__section">
+              <p class="heading">{{settings.free_sample_text}}<br> {{count_sample}} of {{settings.sample_offer_items_threshold}} Selected</p>
+              <div class="toggle__icon">
+                <div class="horizontal"></div>
+                <div class="vertical"></div>
+              </div>
+            </div>
+            <p class="sample__maxError">You can add only {{settings.sample_offer_items_threshold}} Sample</p>
+            <div class="sample__data--section">
+              <div class="sample__slider">
+                {% for product in collections[settings.collection_sample].products %}
+                {% assign selected = false %}
+                {% assign line__num = 0 %}
+                {% for item in cart.items %}
+                {% if item.id == product.first_available_variant.id %}
+                  {% unless item.properties == empty %}
+                    {% for property in item.properties %}
+                      {% if property.first == 'offer_type' and property.last == 'sample'%}
+                        {% assign selected = true %}
+                        {% assign line__num =  item.key %}
+                        {% endif %}
+                    {% endfor %}
+                  {% endunless %}
+                {% endif %}
+                {% endfor %}
+                {% if product.first_available_variant %}
+                <div class="free-sample single__sample--section">
+                  <img src="{{ product.featured_image | img_url: '138x128' }}" class="sample__img" />
+                  <p class="sample__copy">{{ product.title }}</p>
+                  <a href="javascript:void(0);" data-id="{{product.first_available_variant.id}}" class=" button--secondary {% if selected %} selected{% endif %}" {% if selected %}data-key="{{line__num}}" {% endif %}>{% if selected %}REMOVE{% else %}SELECT{% endif %}</a>
+                </div>
+                {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endunless %}
+
+      {% unless customer.tags contains 'HMS' or customer.tags contains 'Pro' or customer.tags contains 'BrandAmbassadorUS' %}
+        {% if settings.hide__gift_selector == false %}
+
+        {% assign count_gift = 0 %}
+        {% capture giftIncart %}
+          {%- for item in cart.items -%}
+          {%- for product in collections[settings.collection_gift].products -%}
+            {%- if item.id == product.first_available_variant.id -%}
+            {%- unless item.properties == empty -%}
+              {%- for property in item.properties -%}
+                {%- if property.first == 'offer_type' and property.last == 'gift'-%}
+                  {{- product.id -}},
+                  {%- assign count_gift = count_gift | plus: 1 -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endunless -%}
+          {% endif %}
+          {%- endfor -%}
+          {%- endfor -%}
+        {% endcapture %}
+
+        <div class="sample__top--section gift__section">
+          <div class="heading__section">
+            <p class="heading">{{settings.free_gift_text}}<br> {{count_gift}} of {{settings.gift_offer_items_threshold}} Selected</p>
+            <div class="toggle__icon">
+              <div class="horizontal"></div>
+              <div class="vertical"></div>
+            </div>
+          </div>
+          <p class="gift__maxError">You can add only {{settings.gift_offer_items_threshold}} gift</p>
+          <div class="sample__data--section">
+            <div class="sample__slider">
+              {% for product in collections[settings.collection_gift].products %}
+
+              {% assign selected = false %}
+              {% assign line__num = 0 %}
+                {% for item in cart.items %}
+                {% if item.id == product.first_available_variant.id %}
+                  {% unless item.properties == empty %}
+                    {% for property in item.properties %}
+                      {% if property.first == 'offer_type' and property.last == 'gift'%}
+                        {% assign selected = true %}
+                        {% assign line__num =  item.key %}
+                        {% endif %}
+                    {% endfor %}
+                  {% endunless %}
+                {% endif %}
+                {% endfor %}
+
+                {% if product.first_available_variant %}
+                <div class="free-gift single__sample--section">
+                  <div class="image__wrapper">
+                    <img src="{{ product.featured_image | img_url: '138x128' }}" class="sample__img" />
+                    <span>gift</span>
+                  </div>
+                  <p class="sample__copy">{{ product.title }}</p>
+                  <a href="javascript:void(0);" data-id="{{product.first_available_variant.id}}" class=" button--secondary{% if selected %} selected{% endif %}" {% if selected %}data-key="{{line__num}}" {% endif %} >{% if selected %}REMOVE{% else %}SELECT{% endif %}</a>
+                </div>
+                {% endif %}
+
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      {% endunless %}
+
+    {% comment %}
+    Cart Empty Endif
+    {% endcomment %}
+
+    {% endif %}
+    </div>
+
+    <div class="footer">
+      <div class="total-price subtotal__section">
+        {% if cart.item_count > 0 and cart.total_price != 0 %}
+        <div class="subtotal">
+          <div class="side__cart--totalSection subtotal__data--section">
+            <div class="label">Subtotal</div>
+            <div class="number__data">
+              <p class="saso-cart-original-total">{{ cart.total_price | money | remove: '.00' }}</p>
+              <p class="saso-cart-total"></p>
+            </div>
+          </div>
+          <div class="checkout-button"><a href="/cart" class="animation btn-go-to-cart button--primary button--fullWidth">checkout</a></div>
+
+          <!-- Removal of checkout options on cart page -->
+          {% if additional_checkout_buttons %}
+          <div id="additional-checkout-buttons">
+            {{ content_for_additional_checkout_buttons }}
+          </div>
+          {% endif %}
+          <!-- End Removal of checkout options on cart page -->
+
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  {% comment %}
+  Calculate the percentage of the Shipping bar
+  {% endcomment %}
+  .side-cart .free-shipping-bar {
+    position: relative;
+    height: 12px;
+    background: #E5E8EB;
+    margin-top: 8px;
+  }
+  {% assign total_price = total_price | times: 100 %}
+  {% assign shippingProgress = total_price | divided_by: settings.Min-free-shipping-value | at_most: 100 %}
+  .side-cart .free-shipping-bar:after {
+    width: {{ shippingProgress | round }}%;
+    content: '';
+    position: absolute;
+    background-color: #000000;
+    top: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+</style>
+
+
+  {% comment %}
+  REMOVE DONATION IF CART HAS SAMPLES AND DONATION ONLY
+  {% endcomment %}
+
+  <script>
+    window.sampleProductArray = [];
+    {%- for product in collections[settings.collection_sample].products -%}
+    sampleProductArray.push({{ product.first_available_variant.id }});
+    {%- endfor -%}
+  </script>
+
+{%- assign removeSample = true -%}
+{%- for item in cart.items -%}
+  {%- if item.title contains 'Amika X HairToStay' or item.product.id == 50396397586 -%} 
+  {%- elsif item.price > 0 -%}
+    {%- assign removeSample = false -%}
+  {%- endif -%}
+{%- endfor -%}
+
+  {% if removeSample == true %}
+  <style>
+  .sample__section {
+    display: none!important;
+  }
+ </style>
+  <script>
+    $(document).ready(function(){
+      if(sampleProductArray.length > 0 ){
+
+        $.ajax({
+          type: 'GET',
+          url: '/cart.json',
+          error: function(){console.log('fail');},
+          success: function( cart_data ){
+
+              // get cart data to remove Sample Items
+              let update__sampleItem = {};
+              $.each( cart_data.items , function(key, value) {
+
+                //To remove only Sample Line Items
+                if( !$.isEmptyObject(value.properties) && value.properties.hasOwnProperty('offer_type') && value.properties.offer_type == 'sample' ) {
+                      update__sampleItem[value.key] = 0;
+                }
+              })
+
+              if( !$.isEmptyObject(update__sampleItem) ) {
+                $.ajax({
+                  type: 'POST',
+                  url: '/cart/update.js',
+                  data: {updates:update__sampleItem},
+                  dataType: 'json',
+                  error: function(){console.log('fail');},
+                  success: function(){
+
+                    //Update Ajax Cart
+                    updateCartDesc();
+                  },
+                  cache: false
+                });
+              }
+          },
+          cache: false
+        });
+
+      }
+    });
+  </script>
+  {% endif %}
+
+  {% if customer.tags contains 'HMS' or customer.tags contains 'Pro' or customer.tags contains 'BrandAmbassadorUS' %}
+    <script>
+    $(document).ready(function(){
+        $.ajax({
+          type: 'GET',
+          url: '/cart.json',
+          error: function(){console.log('fail');},
+          success: function( cart_data ){
+
+              // get cart data to remove Sample/Gift Items
+              let update__sampleItem = {};
+              $.each( cart_data.items , function(key, value) {
+
+                //To remove only Sample Line Items
+                if( !$.isEmptyObject(value.properties) && value.properties.hasOwnProperty('offer_type') && (value.properties.offer_type == 'sample' || value.properties.offer_type == 'gift')) {
+                      update__sampleItem[value.key] = 0;
+                }
+              })
+
+              if( !$.isEmptyObject(update__sampleItem) ) {
+                $.ajax({
+                  type: 'POST',
+                  url: '/cart/update.js',
+                  data: {updates:update__sampleItem},
+                  dataType: 'json',
+                  error: function(){console.log('fail');},
+                  success: function(){
+
+                    //Update Ajax Cart
+                    updateCartDesc();
+                  },
+                  cache: false
+                });
+              }
+          },
+          cache: false
+        });
+    });
+  </script>
+  {% endif %}
+
+  {% comment %}
+  Remove Sample option if price is less
+  {% endcomment %}
+
+  {% if cart.item_count > 0 and cart.total_price < sample_offer_threshold and settings.hide__sample_selector == false %}
+  <script>
+    $(document).ready(function(){
+
+      // Remove Section Sample
+      $('.sample__top--section.sample__section').hide().remove();
+
+      if(sampleProductArray.length > 0 ){
+
+        $.ajax({
+          type: 'GET',
+          url: '/cart.json',
+          error: function(){console.log('fail');},
+          success: function( cart_data ){
+
+              // get cart data to remove Sample Items
+              let update__sampleItem = {};
+              $.each( cart_data.items , function(key, value) {
+
+                //To remove only Sample Line Items
+                if( !$.isEmptyObject(value.properties) && value.properties.hasOwnProperty('offer_type') && value.properties.offer_type == 'sample' ) {
+                      update__sampleItem[value.key] = 0;
+                }
+              })
+
+              if( !$.isEmptyObject(update__sampleItem) ) {
+                $.ajax({
+                  type: 'POST',
+                  url: '/cart/update.js',
+                  data: {updates:update__sampleItem},
+                  dataType: 'json',
+                  error: function(){console.log('fail');},
+                  success: function(){
+
+                    //Update Ajax Cart
+                    updateCartDesc();
+                  },
+                  cache: false
+                });
+              }
+          },
+          cache: false
+        });
+
+      }
+    });
+  </script>
+  {% endif %}
+
+  {% comment %}
+    Checking if we have product available to show.
+  {% endcomment %}
+
+  <script>
+    window.giftProductArray = [];
+    {%- for product in collections[settings.collection_gift].products -%}
+      giftProductArray.push({{ product.first_available_variant.id }});
+    {%- endfor -%}
+  </script>
+
+  {% comment %}
+  Remove Gift option if price is less
+  {% endcomment %}
+
+  {% if cart.item_count > 0 and cart_total_price_minus_gift_cards < gift_offer_threshold and settings.hide__gift_selector == false  %}
+  <script>
+    $(document).ready(function(){
+
+      // Remove Section gift
+      $('.sample__top--section.gift__section').hide().remove();
+
+      //Remove gift items from cart
+      if(giftProductArray.length > 0 ){
+
+        $.ajax({
+          type: 'GET',
+          url: '/cart.json',
+          error: function(){console.log('fail');},
+          success: function( cart_data ){
+
+              // get cart data to remove Gift Items
+              let update__giftItem = {};
+
+              $.each( cart_data.items , function(key, value) {
+                //To remove only Gift Line Items
+                if( !$.isEmptyObject(value.properties) && value.properties.hasOwnProperty('offer_type') && value.properties.offer_type == 'gift' ) {
+                  update__giftItem[value.key] = 0;
+                }
+              })
+
+              if( !$.isEmptyObject(update__giftItem) ) {
+                $.ajax({
+                  type: 'POST',
+                  url: '/cart/update.js',
+                  data: {updates:update__giftItem},
+                  dataType: 'json',
+                  error: function(){console.log('fail');},
+                  success: function(){
+
+                    //Update Ajax Cart
+                    updateCartDesc();
+                  },
+                  cache: false
+                });
+              }
+          },
+          cache: false
+        });
+
+      }
+    });
+  </script>
+  {% endif %}
+
+
+  {% comment %}
+  CLEAR CART IF CART HAS ONLY FREE ITEMS
+  {% endcomment %}
+
+  {% if cart.item_count > 0 and cart.total_price == 0 %}
+  <script>
+    $(document).ready(function(){
+      $.ajax({
+        type: 'POST',
+        url: '/cart/clear.js',
+        dataType: 'json',
+        error: function(){console.log('fail');},
+        success: function(){location.reload();},
+        cache: false
+      });
+    });
+  </script>
+  {% endif %}

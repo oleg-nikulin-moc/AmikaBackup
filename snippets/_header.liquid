@@ -1,0 +1,57 @@
+<header id="header" class="header animation {% if settings.header_behavior == "drop-over" and template == "index" %}over-carousel{% endif %}">
+  {% include 'utility_bar' %}
+  <div class="container-fluid">
+    {% if settings.show_social_header %}
+      <div class="top-header clearfix medium--hide small--hide">
+        <div class="social-top">
+          {% include 'social_links' %}
+        </div>
+      </div>
+    {% endif %}
+    <div class="header-wrapper">
+      <div class="clearfix">
+      	<div class="menu-mobile left hide medium-down--show one-fifth">
+          {% include 'menu_mobile' %}
+        </div>
+        <div class="logo left one-fifth medium-down--three-fifths">
+          <a href="/"><img src="{{ "logo.png" | asset_url }}" alt="{{shop.name}}" /></a>
+        </div>
+        <nav class="main-menu left three-fifths medium-down--hide clearfix">
+          {% include 'menu_main' %}
+        </nav>
+        <div class="left one-fifth medium-down--one-fifth">
+          {% include 'top_utils' %}
+        </div>
+      </div>
+      <div class="hide medium-down--show search clearfix">
+        <form action="/search" method="get" class="search-form">
+          <a href="#" onclick="$(this).parent().submit(); return false;">
+<!--               <svg class="img" class="img" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 85.3 85.3"><defs><style>.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:4px;}</style></defs><title>search</title><circle class="cls-1" cx="25.72" cy="164.86" r="32.36" transform="translate(-100.39 -64.03) rotate(-45)"/><line class="cls-1" x1="57.25" y1="57.25" x2="83.3" y2="83.3"/></svg> -->
+
+              <svg class="search-icon" width="19px" height="20px" viewBox="0 0 19 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+                  <desc>Created with Sketch.</desc>
+                  <defs></defs>
+                  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="Mobile-Nav" transform="translate(-340.000000, -83.000000)" stroke="#000000">
+                          <g id="Icon-/-Profile" transform="translate(337.000000, 80.000000)">
+                              <g id="Group" transform="translate(4.000000, 4.000000)">
+                                  <circle id="Oval" stroke-width="1.5" cx="7" cy="7" r="7"></circle>
+                                  <path d="M16.4,17.4 L11.48,12.48" id="Line" stroke-width="1.5" stroke-linecap="square"></path>
+                              </g>
+                          </g>
+                      </g>
+                  </g>
+              </svg>
+          </a>
+          <input type="text" name="q" placeholder="" />
+          <input type="hidden" name="type" value="product" />
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+
+{% if settings.header_behavior == "drop" or settings.header_behavior == "drop-over" %}
+	{% include '_header_drop' %}
+{% endif %}

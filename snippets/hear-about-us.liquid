@@ -1,0 +1,76 @@
+{% assign choices = "My Salon and/or Stylist,
+Friend/Family,
+Facebook,
+Instagram,
+YouTube,
+Google search,
+Twitter,
+Pinterest,
+Birchbox,
+Amazon,
+Amika Styleblow,
+Blog/website,
+Tradeshow,
+Behind the Chair,
+Education Event" %}
+{% assign required = false %}
+
+<div class="form-vertical">
+  <p>
+    <label for="how-did-you-hear-about-us">How did you hear about us?</label>
+    <select id="how-did-you-hear-about-us" name="attributes[how-did-you-hear-about-us]">
+      <option value=""{% if cart.attributes.how-did-you-hear-about-us == "" %} selected{% endif %}>Please make a selection</option>
+      {% assign optionsArray = choices | split: ',' %}
+      {% for o in optionsArray %}
+        {% assign option = o | strip %}
+        <option value="{{ option }}"{% if cart.attributes.how-did-you-hear-about-us == option %} selected{% endif %}>{{ option }}</option>
+      {% endfor %}
+      <option value="Other"{% if cart.attributes.how-did-you-hear-about-us == "Other" %} selected{% endif %}>Other</option>
+    </select>
+  </p>
+  <p style="{% unless cart.attributes.how-did-you-hear-about-us == 'Other' %}display:none;{% endunless %}">
+    <label for="how-did-you-hear-about-us-other">Other:</label>
+    <input id="how-did-you-hear-about-us-other" type="text" name="attributes[how-did-you-hear-about-us-other]" value="{{ cart.attributes.how-did-you-hear-about-us-other }}" />
+  </p>
+</div>
+
+<script>
+  $('[name="checkout"], [name="goto_pp"], [name="goto_gc"]').click(function() {
+    var how = $('#how-did-you-hear-about-us').val();
+    if (how == '') {
+      return;
+    }
+    ga('send', 'event', 'cart-info', 'how-did-you-hear-about-us', how); 
+  });
+  
+jQuery(function($) {
+  $('#how-did-you-hear-about-us').change(function() {
+    if ($('#how-did-you-hear-about-us').val() == 'Other') {
+      $('#how-did-you-hear-about-us-other').parent('p').show();
+    } else {
+      $('#how-did-you-hear-about-us-other').val('').parent('p').hide();
+    }
+  });
+  {% if required %}
+  $('[name="checkout"], [name="goto_pp"], [name="goto_gc"]').click(function() {
+    var validated = true;
+    if ($('#how-did-you-hear-about-us').val() == '') {
+      validated = false;
+    }
+    else if ($('#how-did-you-hear-about-us').val() == 'Other') {
+      if ($('#how-did-you-hear-about-us-other').val() == '') {
+        validated = false;
+        $('#how-did-you-hear-about-us-other').addClass('error');
+      }
+    }
+    if(validated){
+      $(this).submit();
+    }
+    else{
+      alert("Please tell us how you heard about us.");
+      return false;
+    }
+  });
+  {% endif %}
+});
+</script>

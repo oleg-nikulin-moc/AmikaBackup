@@ -1,0 +1,175 @@
+<section data-section-id="{{ section.id }}" data-section-type="safety-data">
+  <div class="safety__data">
+    <div class="banner__section">
+      {% unless section.settings.banner == nil %}
+        <img src="{{ section.settings.banner | img_url: 'master' }}" class="desktop--image" alt="Banner" />
+        <img src="{{ section.settings.banner_mobile | default: section.settings.banner | img_url: 'master' }}" class="mobile--image" alt="Banner" />
+      {% endunless %}
+
+      <div class="banner__title">
+        <h1>{{ section.settings.page_title | default: page.title }}</h1>
+      </div>
+    </div>
+
+    {% capture view_icon %}
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M14.0001 4.375C19.8295 4.59421 24.9691 8.26149 27.0726 13.7025C27.1421 13.8947 27.1421 14.1053 27.0726 14.2975C24.9691 19.7385 19.8295 23.4058 14.0001 23.625C8.17078 23.4058 3.03109 19.7385 0.927616 14.2975C0.858112 14.1053 0.858112 13.8947 0.927616 13.7025C3.03109 8.26149 8.17078 4.59421 14.0001 4.375ZM2.68637 14C4.46262 18.4363 9.36262 21.875 14.0001 21.875C18.6376 21.875 23.5376 18.4363 25.3139 14C23.5376 9.56375 18.6376 6.125 14.0001 6.125C9.36262 6.125 4.46262 9.56375 2.68637 14Z" fill="black"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M8.75 14C8.75 11.1005 11.1005 8.75 14 8.75C16.8995 8.75 19.25 11.1005 19.25 14C19.25 16.8995 16.8995 19.25 14 19.25C11.1005 19.25 8.75 16.8995 8.75 14ZM10.5 14C10.5 15.933 12.067 17.5 14 17.5C14.9283 17.5 15.8185 17.1313 16.4749 16.4749C17.1313 15.8185 17.5 14.9283 17.5 14C17.5 12.067 15.933 10.5 14 10.5C12.067 10.5 10.5 12.067 10.5 14Z" fill="black"/>
+      </svg>
+    {% endcapture %}
+
+    {% capture download_icon %}
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M20.5624 19.25H20.1249V17.5H20.5624C22.7371 17.587 24.5705 15.8946 24.6574 13.72C24.7444 11.5454 23.0521 9.71199 20.8774 9.62501H20.1249L20.0374 8.90751C19.6359 5.86042 17.0384 3.58274 13.9649 3.58274C10.8915 3.58274 8.29398 5.86042 7.89244 8.90751L7.87494 9.62501H7.12244C4.94782 9.71199 3.25545 11.5454 3.34244 13.72C3.42942 15.8946 5.26282 17.587 7.43744 17.5H7.87494V19.25H7.43744C4.53166 19.2316 2.10706 17.0257 1.8148 14.1346C1.52254 11.2435 3.45663 8.59708 6.29994 7.99751C7.07835 4.367 10.2869 1.77345 13.9999 1.77345C17.713 1.77345 20.9215 4.367 21.6999 7.99751C24.5432 8.59708 26.4773 11.2435 26.1851 14.1346C25.8928 17.0257 23.4682 19.2316 20.5624 19.25V19.25Z" fill="black"/>
+        <path d="M14.875 22.8988V12.25H13.125V22.8988L10.8587 20.6412L9.625 21.875L14 26.25L18.375 21.875L17.1413 20.6412L14.875 22.8988Z" fill="black"/>
+      </svg>
+    {% endcapture %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="container xl">
+        <div class="row">
+          <div class="heading__wrapper">
+            <div class="safety__header">
+              <div class="header--item">Product Name</div>
+              <div class="header--item">Product Number</div>
+              <div class="header--item">Sds</div>
+            </div>
+          </div>
+          <div class="data__wrapper">
+            {% for block in section.blocks limit: 10 %}
+              <div class="safety__grid" data-index="{{ forloop.index }}">
+                <div class="grid--item">{{ block.settings.product_name }}</div>
+                <div class="grid--item"><span>Product Number:</span>{{ block.settings.product_number }}</div>
+                <div class="grid--item"><span>Sds:</span>{{ block.settings.product_sds }}</div>
+                <div class="grid--item view--item">
+                  <a href="{{ block.settings.pdf_url }}" type="application/pdf" target="_blank">
+                    {{ view_icon }}
+                  </a>
+                </div>
+                <div class="grid--item download--item">
+                  <a href="{{ block.settings.pdf_url }}" type="application/pdf" download>
+                    {{ download_icon }}
+                  </a>
+                </div>
+              </div>
+            {% endfor  %}
+          </div>
+
+          {% if section.blocks.size > 10 %}
+            <div class="view__all"> 
+              <button type="button" class="btn btn-view-all" data-action="view-all">view all</button>
+            </div>
+            <div class="data__wrapper" data-wrapper="view-all" style="display: none;">
+              {% for block in section.blocks offset: 10 %}
+                <div class="safety__grid" data-index="{{ forloop.index }}">
+                  <div class="grid--item">{{ block.settings.product_name }}</div>
+                  <div class="grid--item"><span>Product Number:</span>{{ block.settings.product_number }}</div>
+                  <div class="grid--item"><span>Sds:</span>{{ block.settings.product_sds }}</div>
+                  <div class="grid--item view--item">
+                    <a href="{{ block.settings.pdf_url }}" type="application/pdf" target="_blank">
+                      {{ view_icon }}
+                    </a>
+                  </div>
+                  <div class="grid--item download--item">
+                    <a href="{{ block.settings.pdf_url }}" type="application/pdf" download>
+                      {{ download_icon }}
+                    </a>
+                  </div>
+                </div>
+              {% endfor  %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+
+<script>
+  $(document).ready(function() {
+    //View All
+    var ViewButton = $('[data-action="view-all"]');
+    if(ViewButton.length) {
+      ViewButton.on('click', function() {
+        $(this).parent().hide();
+        $('[data-wrapper="view-all"]').show();
+      })
+    }
+
+    //Download
+    $('a[download]').on('click', function (e) {
+        e.preventDefault();
+
+        var pdf_url = $(this).attr('href');       
+        if(pdf_url == '') { return; }
+        
+        var request = new XMLHttpRequest();
+    
+        request.open("GET", pdf_url, true);
+        request.responseType = "blob";
+        request.onload = function (event) {
+            var blob = request.response;
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = "Amika_Safety_Data" + new Date() + ".pdf";
+            link.click();
+        };
+        request.send();
+    });
+  })
+</script>
+
+
+{% schema %}
+{
+  "name": "Safety Data",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_mobile",
+      "label": "Image (Mobile)"
+    },
+    {
+      "type": "text",
+      "id": "page_title",
+      "label": "Page Title",
+      "default": "Safety Data Sheet"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product-content",
+      "name": "Product Content",
+      "settings": [
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product Name"
+        },
+        {
+          "type": "text",
+          "id": "product_number",
+          "label": "Product Number"
+        },
+        {
+          "type": "text",
+          "id": "product_sds",
+          "label": "Product SDS"
+        },
+        {
+          "type": "text",
+          "id": "pdf_url",
+          "label": "PDF URL"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

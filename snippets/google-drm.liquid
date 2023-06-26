@@ -1,0 +1,61 @@
+<!-- START Google Gtag for Theme.Liquid -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-191849875-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-191849875-1', { 'send_page_view': false });
+
+{% if template contains 'collection' %}
+// Collection Page
+// {{ collection.all_products.first.variants.first.sku }}
+// {{ collection.all_products.first.id }}
+// {{ collection.all_products.first.variants.first.id }}
+gtag('event', 'view_item_list', {
+ecomm_prodid: [{% for item in collection.all_products %}'{{ item.id }}'{% if forloop.last != true %},{% endif %}{% endfor %}],
+ecomm_pagetype: 'category',
+ecomm_totalvalue: {{ collection.all_products.first.price_min | money_without_currency | remove: "," }}
+});
+
+{% elsif template contains 'product' %}
+// Product Page
+// {{ product.variants.first.sku }}
+// {{ product.id }}
+// {{ product.variants.first.id }}
+gtag('event', 'view_item', {
+ecomm_prodid: ['{{ product.id }}'],
+ecomm_pagetype: 'product',
+ecomm_totalvalue: {{ product.price_min | money_without_currency | remove: "," }}
+});
+
+{% elsif template contains 'cart' %}
+// Cart Page
+// {{ item.variant.sku }}
+// {{ item.id }}
+// {{ item.variant_id }}
+gtag('event', 'begin_checkout', {
+ecomm_prodid: [{% for item in cart.items %}'{{ item.id }}'{% if forloop.last != true %},{% endif %}{% endfor %}],
+ecomm_pagetype: 'cart',
+ecomm_totalvalue: {{ cart.total_price | money_without_currency | remove: "," }}
+});
+
+{% elsif template contains 'search' %}
+// Search Page
+gtag('event', 'view_search_results', {
+ecomm_pagetype: 'searchresults'
+});
+
+{% elsif template contains 'index' %}
+// Home Page
+gtag('event', 'page_view', {
+ecomm_pagetype: 'home'
+});
+
+{% else %}
+// Other Page
+gtag('event', 'page_view', {
+ecomm_pagetype: 'other'
+});
+{% endif %}
+</script>
+<!-- END Google Gtag for Theme.Liquid -->

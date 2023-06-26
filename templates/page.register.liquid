@@ -1,0 +1,55 @@
+<div class="page page-{{page.handle}} container text-center">
+  <h1 class="page-title hide">{{page.title}}</h1>
+  <div class="hide">
+    {{ page.content }}
+  </div>
+  <div class="one-half small--one-whole push--large--one-quarter push--medium--one-quarter">
+    
+    <div id="wufoo-maxvg310acnqsp">
+      Fill out my <a href="https://loveamika.wufoo.com/forms/maxvg310acnqsp">online form</a>.
+    </div>
+    <script type="text/javascript">var maxvg310acnqsp;(function(d, t) {
+  var s = d.createElement(t), options =
+      { 'userName':'loveamika', 'formHash':'maxvg310acnqsp', 'autoResize':true, 'height':'600', 'async':true, 'host':'wufoo.com', 'header':'show', 'ssl':true}
+  ;
+  s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'www.wufoo.com/scripts/embed/form.js';
+  s.onload = s.onreadystatechange = function() {
+    var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+    try
+    { maxvg310acnqsp = new WufooForm();maxvg310acnqsp.initialize(options);maxvg310acnqsp.display(); }
+    catch (e) {}};
+  var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+})(document, 'script');</script>
+    {% comment %}
+    <form class="text-left">
+      <div class="field-container">
+        <input type="text" name="name" id="name" placeholder="" required="required" class="">
+        <label class="animation" for="name">Name</label>
+      </div>
+      <div class="field-container">
+        <input type="email" name="email" id="email" placeholder="" required="required" class="">
+        <label class="animation" for="email">Email</label>
+      </div>
+      <div class="field-container">
+        <input type="text" name="phonenumber" id="phonenumber" placeholder="" required="required" class="">
+        <label class="animation" for="phonenumber">Phone Number</label>
+      </div>
+      <div class="field-container">
+        <input type="text" name="tooltype" id="tooltype" placeholder="" required="required" autocomplete="off" class="">
+        <label class="animation" for="tooltype">Tool Type</label>
+      </div>
+      <div class="field-container">
+        <input type="file" name="receipt" id="receipt">
+        <label class="animation" for="receipt" ng-if="!filename">Select Files (max 5mb)</label>
+      </div>
+      <div class="field-container">
+        <input type="text" name="ordernumber" id="ordernumber" placeholder="" autocomplete="off" class="">
+        <label class="animation" for="ordernumber">Order Number</label>
+      </div>
+      <div class="field-container text-center">
+        <button type="submit" class="btn">send</button>
+      </div>
+    </form>
+    {% endcomment %}
+  </div>
+</div>

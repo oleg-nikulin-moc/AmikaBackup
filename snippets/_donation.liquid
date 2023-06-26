@@ -1,0 +1,337 @@
+{% if product.handle contains 'test' %}
+<meta name="robots" content="noindex">
+{% endif %}
+
+{% assign currentProduct = product %}
+{% assign isSample = false %}
+{% for col in currentProduct.collections %}
+  {% if col.handle contains 'samples' %}
+	{% assign isSample = true %}
+  {% endif %}
+{% endfor %}
+{% unless isSample %}
+<script>
+    $(function(){
+    	var product = {{ currentProduct | json }};
+      	var productJs = ProductJs(product);
+      
+        if(window.location.hash.indexOf('search') >= 0) {
+        	$('.collection-nav .return_search').removeClass('hide');
+      	}
+      
+      dataLayer.push({
+        'event': 'ecommerce_event',
+        'eventCategory': 'ecommerce',
+        'eventAction': 'view',
+        'ecommerce': {
+            'currencyCode': 'USD',
+            'view' : {
+              'products': [{sku: '{{product.selected_or_first_available_variant.sku}}',
+                            name: '{{product.title}}',
+                            price: {{product.selected_or_first_available_variant.price}}/100,
+                            collection: '{{ collection.handle }}'
+                           }]
+            }
+        }
+      });
+    });
+</script>
+
+<div id="product-wrap" class="container" itemscope itemtype="http://schema.org/Product">
+  <div id="product-item-{{ currentProduct.id }}" class="clearfix">
+    <div class="product-col-left">
+      {% if quickView != true %}
+      <div class="product-top">
+        <div class="wrap clearfix">
+          {% include 'breadcrumb' %}
+        </div>
+      </div>
+      {% endif %}
+      {% include '_product_gallery' %}
+    </div>
+    
+    <div id="product-info" class="clearfix">
+      <form action="/cart/add" method="post" class="variants add-to-cart-form" id="product-actions" enctype="multipart/form-data">
+        <h1 class="title" itemprop="name">{{ currentProduct.title | replace_first: '|', '<span>' }}
+          {% if product.tags contains 'final sale' %}
+	          <p class="final-sale">**Final Sale**</p>
+          {% endif %}        
+        </h1>
+        <div class="yotpo bottomLine"
+             data-product-id="{{ product.id }}">
+        </div>
+      
+        <span class="validation-msg hide"></span>
+        <div class="large--table medium--table">
+          <div class="large--table-cell medium--table-cell" style="vertical-align:top!important;">
+            {% include '_product_variants' %}
+            {% include '_product_quantity' %}
+          </div>
+          <div class="large--table-cell medium--table-cell second-column">
+            {% include '_product_price' %}
+            {% include '_product_buttons' %}
+            {% include 'iwish_v2' with 'iwishproduct' %}
+          </div>
+        </div>
+        {% include 'iStock-notify-me' %}
+        <input type="hidden" class="all-product-status" value="{{ productStatus }}" />
+        <input type="hidden" class="product-status" value="{{ productStatus }}" />
+      </form>
+      
+      <div class="description description-top small--hide">
+        {{ currentProduct.description }}
+      </div>
+      <div class="description description-first hide small--show"></div>
+      {% include 'social_sharing' %}  
+      <div class="description description-tabs"></div>
+
+      
+      
+	
+      
+      <script>
+        $(function(){
+          $('#product-wrap .video .overlay').click(function(){
+            if($(this).find('.button').is(':visible')) {
+              $('#product-wrap video').get(0).play();
+              $(this).find('.button').hide();
+            } else {
+              $('#product-wrap video').get(0).pause();
+              $(this).find('.button').show();
+            }
+          });
+        });
+      </script>    
+      
+      {% if currentProduct.metafields.youtube.url and currentProduct.metafields.youtube.url != "" %}
+      <div class="embed-container">
+		  {{ currentProduct.metafields.youtube.url }}
+      </div>      
+      {% endif %}
+      
+      {% if currentProduct.metafields.youtube1.url and currentProduct.metafields.youtube1.url != "" %}
+      <div class="embed-container">
+		  {{ currentProduct.metafields.youtube1.url }}
+      </div>      
+      {% endif %}
+      
+      {% if currentProduct.metafields.youtube2.url and currentProduct.metafields.youtube2.url != "" %}
+      <div class="embed-container">
+		  {{ currentProduct.metafields.youtube2.url }}
+      </div>      
+      {% endif %}      
+      
+      {% if currentProduct.metafields.youtube3.url and currentProduct.metafields.youtube3.url != "" %}
+      <div class="embed-container">
+		  {{ currentProduct.metafields.youtube3.url }}
+      </div>      
+      {% endif %}           
+        
+  
+       {% if currentProduct.metafields.video.url and currentProduct.metafields.video.url != "" %}
+      <div class="video">
+        <div class="video-wrapper">
+          <div class="overlay">
+            <div class="table">
+              <div class="table-cell">
+                <div class="button"></div>
+              </div>
+            </div>
+          </div>
+          <video poster="{{ "poster.jpg" | asset_url }}">
+            <source src="{{ currentProduct.metafields.video.url }}"  type="video/mp4">
+          </video>
+        </div>
+      </div>
+      {% endif%}
+      {% if currentProduct.metafields.video1.url and currentProduct.metafields.video1.url != "" %}
+      <div class="video">
+        <div class="video-wrapper">
+          <div class="overlay">
+            <div class="table">
+              <div class="table-cell">
+                <div class="button"></div>
+              </div>
+            </div>
+          </div>
+          <video poster="{{ "poster.jpg" | asset_url }}">
+            <source src="{{ currentProduct.metafields.video1.url }}" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      {% endif%}
+      {% if currentProduct.metafields.video2.url and currentProduct.metafields.video2.url != "" %}
+      <div class="video">
+        <div class="video-wrapper">
+          <div class="overlay">
+            <div class="table">
+              <div class="table-cell">
+                <div class="button"></div>
+              </div>
+            </div>
+          </div>
+          <video poster="{{ "poster.jpg" | asset_url }}">
+            <source src="{{ currentProduct.metafields.video2.url }}" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      {% endif%}
+      {% if currentProduct.metafields.video3.url and currentProduct.metafields.video3.url != "" %}
+      <div class="video">
+        <div class="video-wrapper">
+          <div class="overlay">
+            <div class="table">
+              <div class="table-cell">
+                <div class="button"></div>
+              </div>
+            </div>
+          </div>
+          <video poster="{{ "poster.jpg" | asset_url }}">
+            <source src="{{ currentProduct.metafields.video3.url }}" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      {% endif%}  
+    
+    
+      
+      
+      
+      
+      
+      
+      {% comment %}   
+        {% assign showVideo = false %}
+        {% for col in product.collections %}
+          {% if col.handle contains "armory-collection" %}
+            {% assign showVideo = true %}
+          {% endif %}
+        {% endfor %}
+        {% if showVideo == true %}
+        <div class="video">
+          <div class="video-wrapper">
+            <div class="overlay">
+              <div class="table">
+                <div class="table-cell">
+                  <div class="button"></div>
+                </div>
+              </div>
+            </div>
+            <video poster="{{ "poster.jpg" | asset_url }}">
+              <source src="https://api.imago.io/api/play_redirect?uuid=bb5c6244-d43b-e164-2823-445d1ba909fd&amp;codec=mp4&amp;size=1080p" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        {% endif %}  
+      {% endcomment %}        
+
+      
+
+    </div><!-- /#product-information -->
+  </div><!-- /#product -->
+
+</div><!-- /#product-wrap -->
+
+{% if settings.show_related_products %}
+  {% if quickView != true %}
+      {% comment %}{% include 'related_products' %}{% endcomment %}
+      {% include 'related_products_app' %}
+  {% endif %}
+{% endif %}
+
+{% if settings.show_recently_viewed and quickView != true %}
+	{{ 'jquery.products.js' | asset_url | script_tag }}
+    <script>
+        $(function(){
+            Shopify.Products.recordRecentlyViewed();
+        });
+    </script>
+	{% include 'recently_viewed' %}
+{% endif %}
+
+<script>
+  $(document).ready(function(){
+    $('.description-top')
+    .contents()
+    .filter(function() {
+      return this.nodeType === 3 && $.trim(this.nodeValue) !== '';
+    })
+    .wrap('<p/>');
+
+    $('.description-top h2').each(function(){
+      $(this).html('<a href="javascript:void(0);" class="animation">' + $(this).html() + '</a>');
+      $(this).nextUntil("h2").wrapAll('<div class="tab-content hide" />');
+      $(this).nextUntil("h2").andSelf().wrapAll('<div class="tab-container" />').parent().appendTo(".description-tabs");
+    });
+    $('.description-first').append($('.description-top p').clone());
+    $(document).on("click", '.description-tabs h2 a', function(event){
+      event.preventDefault();
+      if($(this).parent().hasClass('tab-open')){
+        $(this).parent().removeClass('tab-open');
+        $(this).closest('.tab-container').find('.tab-content').slideUp();
+      }else{
+        $('.tab-container h2').removeClass('tab-open');
+        $('.tab-content').slideUp();
+
+        $(this).parent().addClass('tab-open');
+        $(this).closest('.tab-container').find('.tab-content').slideDown();
+      }
+    });
+  });
+</script>
+
+<div class="container">  
+  <div class="yotpo yotpo-main-widget" data-product-id="{{ product.id }}" data-name="{{ product.title | escape }}" data-url="{{ shop.url }}{{ product.url }}" data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}" data-description="{{ product.description | escape }}"></div>
+  <div class="yotpo yotpo-slider" data-product-id="{{ product.id }}" data-auto-slide="0" data-source="all" data-title="1" data-title-text="#hairrebellion" data-title-color="#56575f" data-title-alignment="center" data-title-font-size="22" data-title-mobile-font-size="18" data-hover-color="#ffffff" data-hover-opacity="0.8" data-hover-icon="true"></div>
+
+  <!-- Yotpo IG Product Association Slider -->
+<!--   <div class="yotpo yotpo-slider" 
+data-product-id="{{ product.id }}"
+data-auto-slide="1"
+data-source="all"
+data-title="0"
+data-hover-color="#ffffff"
+data-hover-opacity="0.8"
+data-hover-icon="true"
+></div> -->
+  
+  </div>
+
+
+
+
+
+
+
+
+{% else %}
+<div class="container">
+  <p>Product not available</p>
+</div>
+{% endunless %}
+
+
+<style>
+  .embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    {% if currentProduct.metafields.video.url and currentProduct.metafields.video.url != "" %}
+    margin-bottom: 1rem;
+    {% endif%}
+  }
+  
+  .embed-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  #product-info .video video {
+    padding-top: 25px;
+  }
+</style>

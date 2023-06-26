@@ -1,0 +1,153 @@
+{% if collection.image %}
+<img src="{{ collection.image | img_url: 'master' }}" class="img-responsive {% comment %}desktop-only{% endcomment %}">
+{% comment %} <img src="{{ collection.metafields.c_f.collection_mobile_banner | img_size: 'master' }}" class="mobile-only img-responsive">{% endcomment %}
+<div class="coll-copy">
+  <span class="coll__title">{{collection.title}}</span>
+  <span class="coll__desc">{{ collection.description }}</span>
+</div>
+{% else %}
+<span>{{collection.title}}</span>
+{% endif %}
+
+<style>
+  .coll-copy {
+    position: absolute;
+    top: 50%;
+    {% if section.settings.banner_text_position == 'right' %}
+    right: 5%;
+    transform: translateY(-50%);
+    {% elsif section.settings.banner_text_position == 'center' %}
+    left: 50%;
+    transform: translate(-50%, -50%);
+    {% else %}
+    left: 5%;
+    transform: translateY(-50%);
+    {% endif %}
+    text-align: left;
+    max-width: 40%;
+     color: #000000;
+  }
+  @media (max-width: 600px){
+   .coll-copy {
+     max-width: 50%;
+   }
+  }
+  .coll-copy .page {
+    margin: 0;
+  }
+  .coll-copy .page p {
+    line-height: 15px;
+    color: #fff;
+  }
+  .coll-copy span.coll__title {
+    font-size: calc( {{ section.settings.heading-fontSize-min}}px + ({{section.settings.heading-fontSize-max}} - {{section.settings.heading-fontSize-min}}) * ((100vw - 300px) / (1600 - 300)));
+  }
+  .coll-copy span.coll__desc {
+   font-size: calc( {{ section.settings.subheading-fontSize-min}}px + ({{section.settings.subheading-fontSize-max}} - {{section.settings.subheading-fontSize-min}}) * ((100vw - 300px) / (1600 - 300)));
+   font-weight: 100;
+   line-height: 1.5;
+  }
+  /* @media (max-width: 600px){
+    .coll-copy span.coll__desc {
+      line-height: 20px;
+    }
+    .coll-copy span.coll__title {
+      line-height: 26px;
+    }
+  }
+  @media (max-width: 380px){
+    .coll-copy span.coll__desc {
+      line-height: 16px;
+    } */
+/*   @media (max-width: 1024px){
+    .coll-copy span.coll__desc {
+      font-size: 20px;
+    }
+  }
+  @media (max-width: 600px){
+    .coll-copy span.coll__desc {
+      font-size: 14px;
+      line-height: 20px;
+    }
+    .coll-copy span.coll__title {
+      font-size: 26px;
+      line-height: 26px;
+    }
+  }
+  @media (max-width: 380px){
+    .coll-copy span.coll__desc {
+      font-size: 12px;
+      line-height: 16px;
+    }
+    .coll-copy span.coll__title {
+      font-size: 18px;
+      line-height: 18px;
+    }
+  } */
+</style>
+
+
+{% schema %}
+  {
+    "name": "Collection Banner",
+    "settings": [
+     {
+       "type": "select",
+       "id": "banner_text_position",
+       "options": [
+          { "value": "left", "label": "Left"},
+          { "value": "center", "label": "Center"},
+          { "value": "right", "label": "Right"}
+       ],
+       "default":   "right",
+       "label": "Banner Text Position"
+    },
+    {
+        "type": "range",
+        "id": "heading-fontSize-min",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Collection Title Font Min Size",
+        "default": 12
+    },
+    {
+        "type": "range",
+        "id": "heading-fontSize-max",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Collection Title Font Max Size",
+        "default": 40
+     },
+     {
+        "type": "range",
+        "id": "subheading-fontSize-min",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Collection Description Font Min Size",
+        "default": 8
+    },
+    {
+        "type": "range",
+        "id": "subheading-fontSize-max",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Collection Description Font Max Size",
+        "default": 24
+     }
+   ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

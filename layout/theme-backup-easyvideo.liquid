@@ -1,0 +1,236 @@
+{% comment %}
+	Last Edited May 26, 2017
+	[New Carousel, Fancybox was replaced by Tingle for modals and Photoswipe for galleries - May 26]
+{% endcomment %}
+<!doctype html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="UTF-8">
+	<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+	<link rel="canonical" href="{{ canonical_url }}" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<link rel="shortcut icon" type="image/png" href="{{ 'favicon.png' | asset_url }}">
+	{% if page_description %}
+		<meta name="description" content="{{ page_description }}" />
+	{% endif %}
+    <meta name="google-site-verification" content="PMMAUFgue0Fyc5McuRPkZl0M6ptYwcme6z5WU9msiT4" />
+	{% if template == 'index' %}
+		<title>{{ page_title }}</title>
+	{% elsif template == '404' %}
+		<title>{{ shop.name }} | Page Not Found</title>
+    {% elsif template == "search" %}
+      {% assign terms = search.terms | strip | split: "OR" %}
+      {% assign term = terms.first | remove:"title:" %}
+      <title>{{ shop.name }} | search: {{ term | strip | escape}}</title>
+	{% else %}
+		<title>{{ shop.name }} | {{ page_title }}</title>
+	{% endif %}
+  
+  <!-- Trafficguard express script -->
+  <script>
+    var tgshopdomain = "amika-1.myshopify.com"; 
+  </script>
+  <script src="https://d3bt4yq3k408c5.cloudfront.net/trafficguard.js" async></script>
+  <!-- End Trafficguard express script -->
+
+    {% include 'header_fonts' %}
+
+	{{ 'style.scss.css' | asset_url | stylesheet_tag }}
+	{{ 'style-small.scss.css' | asset_url | stylesheet_tag }}
+    {{ 'slick.css' | asset_url | stylesheet_tag }}
+  	{{ 'helpers.css' | asset_url | stylesheet_tag }}
+    
+  	{{ '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' | script_tag }}
+    {{ 'simplistic.js' | asset_url | script_tag }}
+  	{{ 'slick.min.js' | asset_url | script_tag }}
+  	{{ 'cookie.js' | asset_url | script_tag }}
+  	{{ 'linked-options.js' | asset_url | script_tag }}
+  	{{ 'option_selection.js' | shopify_asset_url | script_tag }}
+  	{{ 'ProductJs.js' | asset_url | script_tag }}
+  	{{ 'api.jquery.js' | shopify_asset_url | script_tag }}
+  	{{ 'jquery.zoom.min.js' | asset_url | script_tag }}
+	{{ 'hoverintent.jquery.js' | asset_url | script_tag }}
+  	{{ 'jquery.scrollTo.min.js' | asset_url | script_tag }}
+  	{{ 'jquery-ui.min.js' | asset_url | script_tag }}
+  	{{ 'jquery.ui.touch-punch.min.js' | asset_url | script_tag }}
+  	{{ 'tingle.min.js' | asset_url | script_tag }}
+  	{{ 'resizesensor.js' | asset_url | script_tag }}
+  	{{ 'jquery.sticky-sidebar.min.js' | asset_url | script_tag }}
+    
+    {{ 'jquery.fancybox.min.js' | asset_url | script_tag }}
+    {{ 'jquery.fancybox.min.css' | asset_url | stylesheet_tag }}
+
+    {{ 'animate.css' | asset_url | stylesheet_tag }}
+  	{{ 'tingle.min.css' | asset_url | stylesheet_tag }}
+	{{ 'rs-style.scss.css' | asset_url | stylesheet_tag }}  
+    
+  
+
+  	{{ content_for_header }}
+
+  	{% if template contains 'customers' %}
+		{{ "shopify_common.js" | shopify_asset_url | script_tag }}
+		{{ "customer_area.js"  | shopify_asset_url | script_tag }}
+	{% endif %}
+
+  	{% include 'fb_open_graph' %}
+    {% include 'tracking_codes' %}
+  
+    {% if settings.grid_product_image_behavior == "thumbs_swatches" %}
+      {% if template == 'index' and settings.home_show_featured_products %}
+        {% include 'thumbs_swatches_js' %}
+      {% elsif template == 'product' and settings.show_related_products %}
+        {% include 'thumbs_swatches_js' %}
+      {% elsif template == 'search' or template == 'collection' %}
+        {% include 'thumbs_swatches_js' %}
+      {% endif %}
+    {% endif %}
+  
+  
+  <script type="text/javascript">
+  setTimeout(function()
+  {var a=document.createElement("script"); var b=document.getElementsByTagName("script")[0]; a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0067/6615.js?"+Math.floor(new Date().getTime()/3600000); a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}
+  , 1);
+  </script>
+<!--   <script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0075/5779.js" async="async"></script> -->
+  
+  {% if product.metafields.inventory.ShappifyHidden == "true" %} <meta name="robots" content="noindex"> {% endif %}
+  
+  
+  <script type="text/javascript">(function e()
+  {var e=document.createElement("script");e.type="text/javascript",e.async=true,e.src="//staticw2.yotpo.com/Efn8vfFS1JpoXkmKLYBrVMB3kiGJNoyERi1IJMDc/widget.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}
+  )();</script>
+  
+  
+  <script>var cartJson = {{ cart | json }}</script>
+	{{ 'rs-script.js' | asset_url | script_tag }}
+{% include 'sca.freegifts' %}
+  
+  <!-- Meta robots no index -->
+     
+  {% if template contains 'product' %}
+    {% if product.handle contains 'test' %}
+		<meta name="robots" content="noindex">
+    {% endif %}
+  {% elsif template contains 'collection' %}
+ 	{% if collection.handle contains 'image-test-collection' %}
+		<meta name="robots" content="noindex">
+  	{% endif %}
+  {% else %}
+  {% endif %}   
+   
+  <!-- END - Meta robots no index -->
+  
+  
+
+  
+
+  {% render 'shogun-head' %}
+  <script src="https://cdn-widgetsrepository.yotpo.com/v1/loader/7AnL4oPIjyC6VX59C9s2XA" async></script>
+</head>
+
+<body class="{% if customer %}customer-logged-in {% endif %}template{{ template | split: '.' | first | camelize }} template-{{ template | replace: '.', '-'| replace: '/', '-'}}">
+  
+  {% comment %}This code below is to prevent the multiple free products in the cart
+  It does this on every page?! It else's the entire body, but not the header?
+  And it forces a page reload, removing 1 item at a time?
+  {% endcomment %}
+  {% assign free_gifts = 0 %}
+  {% assign gift_position = 0 %}
+  {% assign fixGiftQuantityIndex = 0 %}
+  {%comment%}
+  {% for item in cart.items %}
+    {% if item.product.price == 0 %}
+      {% assign gift_position = forloop.index %}
+      {% assign free_gifts = free_gifts | plus:1 %}
+      {% if item.quantity > 3 %} NOT 2?
+          {% assign fixGiftQuantityIndex = forloop.index %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+  {% endcomment %}
+  {% for item in cart.items %}
+  {%  if item.product.price == 0 %}
+  {%   for product in collections['samples'].products %}
+  {%    if item.id == product.first_available_variant.id %}
+      {% assign gift_id = item.id %}
+      {% assign free_gifts = free_gifts | plus:1 %}
+  {%    endif %}
+  {%   endfor %}
+      {% if item.quantity > 3 %}
+          {% assign fixGiftQuantityId = item.id %}
+      {% endif %}
+  {%  endif %}
+  {% endfor %}
+  {% if free_gifts > 3 %}
+  <script>
+  location = '/cart/change?id={{ gift_id }}&quantity=0';
+  </script>
+  {% elsif fixGiftQuantityIndex > 0 %}
+  <script>
+  location = '/cart/change?id={{ fixGiftQuantityId }}&quantity=1';
+  </script>
+  {% else %}
+  
+  <div id="page">  
+    {% include '_header' %}
+
+    <div class="content-wrapper clearfix">
+      {{ content_for_layout }}
+    </div>
+    {% include '_footer' %}
+ 
+    <div id="loading-overlay"><div class="loader"></div></div>
+
+    <div class="scrollup">
+      <a href="#" onclick="$(document).scrollTo('0px', 1000);return false;">
+        <i class="fa fa-angle-up"></i>
+      </a>
+    </div>
+    {% if settings.allow_side_cart %}
+      {% include 'side_cart' %}
+    {% endif %}
+    {% if settings.enable_promotion_popup %}
+    	{%if collection.title == 'Flash Sale'%}
+    	{% else %}
+    	  {% include 'promotion_popup' %}
+    	{% endif %}
+    {% endif %}
+  </div>
+
+  {% if template == 'index' and settings.show_instagram_feed %}
+  	{% include 'photoswipe' %}
+  {% else %}
+  	{% if template == 'index' or template == 'product' or template contains 'collection' %}
+  		{% include 'photoswipe' %}
+  	{% endif %}
+  {% endif %}
+
+  {% include 'iwish_v2' with 'iwishfooter' %}
+<script data-cfasync="false" >
+  window.saso_config = {
+    product_title_max_length: 40,
+    crosssell_never_show_popup: false,
+    show_upsell_only_in: "product, cart",
+    hide_shown_upsells_for: 15, //minutes
+    hide_closed_notifications_for: 10, //minutes
+    upsell_variant_choose_option: "please select",
+    upsell_variant_choose_message: "Please select an option",
+    translate_percent_off: '% Off'
+  }
+</script>
+  {% include 'special-offers' %}
+  {% endif %}
+  {{ 'ajaxify.js' | asset_url | script_tag }}
+  
+  <!-- CRITEO START-->
+  {% include 'criteo-tracking' %}
+  <!-- CRITEO END-->
+  {% if customer %}
+  	<input type="hidden" id="ct" value="{{ customer.tags }}" />
+  {% endif %}
+</body>
+</html>

@@ -1,0 +1,15 @@
+{% if customer %}
+<div class="swell-cart-placeholder" data-swell-cart-points>Calculating Loyalty Points...</div>
+{% else %}
+<div class="swell-cart-placeholder">
+  <a href="/pages/rewards" target="_blank">Sign up or login</a> to start earning loyalty points.
+</div>
+{% endif %}
+
+<style>
+  .swell-cart-placeholder{
+    font-size: 12px;
+    font-family: Founders Grotesk Mono,helvetica,sans-serif;
+    text-transform: uppercase;
+  }
+</style>

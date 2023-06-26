@@ -1,0 +1,54 @@
+<section class="instagram container">
+  {{ 'instafeed.js' | asset_url | script_tag }}
+
+  <h2><a href="{{ settings.instagram_link }}">{{settings.instagram_title}}</a></h2>
+
+  {% assign url = '{{image}}' %}
+  {% assign caption = '{{caption}}' %}
+  {% assign link = '{{link}}' %}
+  {% assign likes = '{{likes}}' %}
+  {% assign comments = '{{comments}}' %}
+  <div id="instagram-card">
+    <div id="instafeed" class="clearfix"></div>
+    <script type="text/javascript">
+      $(function(){
+      	var userFeed = new Instafeed({
+          get: 'user',
+          userId: {{ settings.instagram_user_id }},
+          accessToken: '{{ settings.instagram_access_token }}',
+          template: '<div class="module"><a class="intagramImage" href="{{url}}" title="{{caption}}" rel="ig"><div class="image"><img class="instagram-image ease-animation" src="{{url}}" alt="{{caption}}" /><div class="magnify ease-animation"><span class="lnr lnr-magnifier ease-animation"></span></div></div></a><a href="{{link}}" target="_blank" ><div class="data ease-animation"><span style="margin-right: 10px;"><i class="fa fa-heart-o"></i>{{likes}}</span><span><i class="fa fa-comment-o"></i>{{comments}}</span></div></a></div>',
+          after: function(){
+              $('.intagramImage').photoSwipe();
+
+              $('#instafeed').slick({
+                  autoplay: true,
+                  speed: 1000,
+                  slidesToShow: {{settings.instagram_items_row}},
+                  slidesToScroll: {{settings.instagram_items_row}},
+                  prevArrow: false, //'<i class="lnr lnr-chevron-left left-arrow animation"></i>',
+                  nextArrow: false, //'<i class="lnr lnr-chevron-right right-arrow animation"></i>',
+                  responsive: [
+                    {
+                      breakpoint: 900,
+                      settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 4
+                      }
+                    },
+                    {
+                      breakpoint: 584,
+                      settings: {
+                        centerMode: true,
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                      }
+                    }
+                  ]
+              });
+          }
+        });
+        userFeed.run();
+      });
+    </script>
+  </div>
+</section>

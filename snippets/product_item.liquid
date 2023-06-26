@@ -1,0 +1,244 @@
+{% include 'bold-product' with currentProduct, hide_action: 'skip' %}
+
+{% assign showSecondImage = true %}
+
+{% assign variantToShow = false %}
+{% if term != "" %}
+  {% for variant in currentProduct.variants %}
+	{% assign tags = variant.metafields["tags"].values | split:"," %}
+	{% for tag in tags %}
+      {% assign cleanTag = tag | strip %}
+      {% if cleanTag == term %}
+		{% assign variantToShow = variant %}
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+{% endif %}
+
+
+{% assign link_tag = "" %}
+{% assign product_tags = "" %}
+{% for tag in product.tags %}
+{% if tag contains  'buy_at_sephora__' %}
+{% assign product_tags = tag | split:'__' %}
+{% assign link_tag = product_tags[1] %}
+{% endif %}
+{% endfor %}
+
+<div class="product-item-old product-item animation {% unless isCarousel %}grid__item large--{{settings.grid_items_per_row}} medium--{{ settings.grid_items_per_row_medium }} small--{{ settings.grid_items_per_row_small }}{% endunless %} {% if link_tag != blank  %} external__product {% endif %} " id="grid-item-{{ currentProduct.id }}">
+  <form action="/cart/add" method="post" class="variants add-to-cart-form {% if currentProduct.tags contains 'final sale' %}final_sale{% endif %}" id="product-actions-{{ currentProduct.id }}" enctype="multipart/form-data" data-matchbox-click="{{ currentProduct.id }} {% for variant in currentProduct.variants %}{{variant.id}} {% endfor %}">
+    <div class="image-wrapper {% if currentProduct.available == false and currentProduct.tags contains 'coming-soon' %}coming-soon-plp {% endif %}" style="position: relative;" handle="{{ product.handle }}" data-matchbox-item="{{ currentProduct.id }} {% for variant in currentProduct.variants %}{{variant.id}} {% endfor %}">
+      {% if product.tags contains 'travel-award-2019' %}
+        <img class="people__travel_icon" src="{{'People_Travel_Award.png'| asset_url }}">
+      {% endif %}
+      {% if product.tags contains 'beauty-seal' %}
+      <img class="people__travel_icon" src="{{'BestofBeauty_2019.png'| asset_url }}">
+      {% endif %}
+      {% if quickview and currentProduct.available == false %}
+      {% assign product = currentProduct %}
+      
+      {% unless currentProduct.tags contains 'coming-soon'%}
+       <a href="{% if variantToShow %}{{ variantToShow.url | within: collection }}{% else %}{{ currentProduct.url | within: collection }}{% endif %}{% if fromSearch %}#search{% endif %}">
+      </a>
+      {% endunless %}
+
+      {% include 'klaviyo_bis_form' show_popup: false  %}  
+      {% endif %}
+      
+      {% comment %}
+      {%if currentProduct.tags contains 'coming-soon'%}
+      <a class="noHover" href="{% if variantToShow %}{{ variantToShow.url | within: collection }}{% else %}{{ currentProduct.url | within: collection }}{% endif %}{% if fromSearch %}#search{% endif %}">
+        <div class="coming_soon_container">
+          <div class="coming-text">
+          <p>coming soon!</p>
+          <small>get notified</small>
+          </div>
+        </div>
+      </a>
+      {% endif %}
+      {% endcomment %}
+
+        {% if settings.grid_product_image_behavior == "thumbs_swatches" %}
+          {% include 'product_item_img_swatches' %}
+        {% elsif settings.grid_product_image_behavior == "alternate_image" %}
+          {% include 'product_item_img_alternate' %}
+        {% endif %}
+
+
+      {% comment %}
+      Previous Code for Quick View
+
+      {% if quickview %}
+        {%unless currentProduct.tags contains 'coming-soon'%}
+        <div class="layer quick-view-btn ease-animation" data-url="{% if variantToShow %}{{ variantToShow.url | within: collection }}{% else %}{{ currentProduct.url | within: collection }}{% endif %}">
+          <div>quick shop</div>
+        </div>
+        {% endunless%}
+      {% endif %}
+      {% endcomment %}
+
+      {% comment %}
+
+          Quick Buy
+          -- Offer Quick buy on hover and allow to click
+          -- On click of quick buy show one varient
+          -- If product has one variant add directly to cart
+          -- If product have more than one option open the quickbuy option
+          -- If the product has one option you can selet from the variant and add to the cart
+
+
+      {% endcomment %}
+	  {% include 'iwish_v2' with 'iwishCollection' %}
+      {% if currentProduct.tags contains 'coming-soon'%}
+        <div class="rs__badge_wrapper">
+          <p class="rs__badge_content" > coming soon! </p>
+        </div>
+      {% elsif currentProduct.tags contains 'bestseller' %}
+      	<div class="rs__badge_wrapper">
+          <p class="rs__badge_content" > best seller! </p>
+        </div>
+      {% endif %}
+
+      <!-- <div class="rs__badge_wrapper">
+          <p class="rs__badge_content" > best seller! </p>
+        </div> -->
+ 	  {%unless currentProduct.tags contains 'gift-BFCM' or currentProduct.tags contains 'sample' %}
+      {% if quickview and currentProduct.available == false %}
+        <div class="quickbuy__rs">
+          <div class="layer out__of_stock ease-animation" handle="{{ currentProduct.handle }}" >
+            <p>notify me</p>
+          </div>
+        </div>
+      {% endif %}
+        {% if quickview and currentProduct.available %}
+          {% if currentProduct.has_only_default_variant %}
+           <div class="quickbuy__rs">
+              <div class="layer single__product__add ease-animation" data-variant="{{ currentProduct.first_available_variant.id }}" data-matchbox-addToCart="{{ currentProduct.id }} {% for variant in currentProduct.variants %}{{variant.id}} {% endfor %}">
+                <p>quick add</p>
+              </div>
+              <div class="layer added__to_cart ease-animation">
+                <p>added to cart</p>
+              </div>
+            </div>
+          {% elsif currentProduct.options.size == 1 %}
+            <div class="quickbuy__rs">
+              <div class="layer quickbuy__btn ease-animation" >
+                <p> quick add </p>
+              </div>
+              <div class="layer quickbuy__options ease-animation">
+                <div><p>choose a {{ currentProduct.options | first | downcase }}</p></div>
+                {% for variant in currentProduct.variants %}
+                {% assign offerLiquid = "" %}
+
+                {% if product.tags contains 'liter' %}
+                {%if variant.title contains '1 l / 33.8 fl oz' or variant.title contains '1000ml / 33.8 oz'%} 
+                {% assign offerLiquid = 'offerLiquid offerLiquid1' %}
+                {% elsif variant.title contains '2 for 1 litre' %}
+                          {% assign offerLiquid = 'offerLiquid offerLiquid2' %}
+                {% endif %}
+                {% endif %}
+
+                {% if variant.available %}
+                <div class="quickbuy__item {{offerLiquid}}" data-variant="{{ variant.id }}" data-matchbox-addToCart="{{ currentProduct.id }} {% for variant in currentProduct.variants %}{{variant.id}} {% endfor %}">
+                  <div class="rs__variant_title" > {{ variant.title }} </div>
+                  <div class="rs__variant_price" > {{ variant.price | money }} </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+              </div>
+              <div class="layer added__to_cart ease-animation">
+                <p>added to cart</p>
+              </div>
+            </div>
+          {% else %}
+           <div class="layer quick-view-btn ease-animation" data-url="{% if variantToShow %}{{ variantToShow.url | within: collection }}{% else %}{{ currentProduct.url | within: collection }}{% endif %}">
+              <div>quick shop</div>
+            </div>
+          {% endif %}
+        {% endif %}
+      {% endunless %}
+
+    </div>
+
+    {% if settings.grid_product_image_behavior == "thumbs_swatches" %}
+      {% include 'thumbs_swatches' %}
+    {% endif %}
+
+    <div class="info plp-info ">
+      <input type="hidden" value="{{coming_soon}}">
+      <a {%unless currentProduct.tags contains 'coming-soon'%} href="{% if variantToShow %}{{ variantToShow.url | within: collection }}{% else %}{{ currentProduct.url | within: collection }}{% endif %}{% if fromSearch %}#search{% endif %}{% endunless %}">
+        <div class="title animation {{ currentProduct.tags }}">{{ currentProduct.title | replace_first: '|', '<span>' }}{% if currentProduct.tags contains 'final sale' %}<p class="final-sale">**Final Sale**</p>{% endif %}</div>
+      </a>
+      <div class="price clearfix">
+
+
+        {% if currentProduct.price_min == currentProduct.price_max %}
+        <div class="nihar deal">
+          {% if currentProduct.price_min < currentProduct.compare_at_price_min %}
+          {% unless currentProduct.handle == 'polished-perfection-straightening-brush' %}
+          <div class="retail">
+            <span>{{ currentProduct.compare_at_price | money | remove: '.00' | remove: ' ' }}</span>
+          </div>
+          {% endunless %}
+          {% endif %}
+
+          {% if currentProduct.price_min < currentProduct.compare_at_price_min %}<div class="deal disc">{% endif %}
+            <span class="red-price" style="{% if currentProduct.handle == 'polished-perfection-straightening-brush' %}color:#F16573; {%endif%}">{{ currentProduct.price_min | money | remove: '.00' }}</span>
+          {% if currentProduct.price_min < currentProduct.compare_at_price_min %}</div>{% endif %}
+        </div>
+
+        {% elsif currentProduct.price_min < currentProduct.compare_at_price_min %}
+          <div class="retail">
+            <span class="red-price">{{ currentProduct.compare_at_price_min | money | remove: '.00' }} - {{ currentProduct.compare_at_price_max | money | remove: '.00' }}</span>
+          </div>
+          <div class="deal disc">
+            <span class="red-price">{{ currentProduct.price_min | money | remove: '.00' }} - {{ currentProduct.price_max | money | remove: '.00' }}</span>
+          </div>
+        {% else %}
+          <div class="hugh deal">
+            {% if customer.tags contains 'Pro' or customer.tags contains 'HMS'%}
+            <span class="red-price">{{ currentProduct.price_min | money | remove: '.00' }} - {{ currentProduct.price_max | money | remove: '.00' }}</span>
+            {% else %}
+            {{ currentProduct.price_min | money | remove: '.00' }} - {{ currentProduct.price_max | money | remove: '.00' }}
+            {% endif%}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+   {% comment %}
+    Old Quick View
+
+      {% if quickview %}
+      <div class="layer quick-view-btn quick-view-btn-small ease-animation"  data-url="{% if variantToShow %}{{ variantToShow.url | within: collection }}{% else %}{{ currentProduct.url | within: collection }}{% endif %}">
+        <div>quick shop</div>
+      </div>
+      {% endif %}
+
+    {% endcomment %}
+
+
+      {% if quickview and currentProduct.available == false  %}
+        <a onclick="openKlaviyoBisPopup(this); return false;" class="layer quick-view-btn-small ease-animation rs__mobile_quickbuy" handle="{{ currentProduct.handle }}">
+          <div>notify me</div>
+        </a>
+      {% endif %}
+    
+      {% if quickview and currentProduct.available %}
+          {% if currentProduct.has_only_default_variant %}
+            <div class="layer quick-view-btn-small ease-animation rs__mobile_quickbuy rs__mobile_single_option single__product__add" data-variant="{{ currentProduct.first_available_variant.id }}" >
+              <div data-matchbox-addToCart="{{ currentProduct.id }} {% for variant in currentProduct.variants %}{{variant.id}} {% endfor %}">quick add</div>
+            </div>
+          {% elsif currentProduct.options.size == 1 %}
+            <div class="layer quick-view-btn-small ease-animation rs__mobile_quickbuy rs__mobile_options">
+              <div data-matchbox-addToCart="{{ currentProduct.id }} {% for variant in currentProduct.variants %}{{variant.id}} {% endfor %}">quick add</div>
+            </div>
+          {% else %}
+            <div class="layer quick-view-btn quick-view-btn-small ease-animation"  data-url="{% if variantToShow %}{{ variantToShow.url | within: collection }}{% else %}{{ currentProduct.url | within: collection }}{% endif %}">
+              <div>quick shop</div>
+            </div>
+          {% endif %}
+      {%endif %}
+
+  </form>
+</div>

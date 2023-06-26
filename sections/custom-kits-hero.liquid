@@ -1,0 +1,50 @@
+<div class="custom-kits-plp">
+  <div class="bundle__header_wrapper" style="min-height: 480px;">
+    <picture class="bundle__header_img-wrapper">
+      <source media="(max-width: 749px)" srcset="{{ section.settings.banner_image_mobile | img_url: 'x960' }}"></source>
+      <img class="bundle__header_img" src="{{ section.settings.banner_image | img_url: 'x960' }}">
+    </picture>
+    <div class="bundle__header_content">
+      <h2 class="bundle__header_title ">{{ section.settings.title }}</h2>
+      <div class="desc__sub">{{ section.settings.description }}</div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Custom Kits Hero Banner",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Hero Banner Settings"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner_image",
+        "label": "Desktop Banner Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner_image_mobile",
+        "label": "Mobile Banner Image"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "textarea",
+        "id": "description",
+        "label": "Description"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Custom Kits Hero Banner",
+        "category": "hero-banner"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,20 @@
+{% comment %}
+
+  2020.12.04 Update
+  Keep banners below category pages and remove Automat chat inside. 
+  Automat SDK, which installed on theme.liquid, inject existing banner and inject CTA button and chat inside.
+  The reason, not inject whole banner through SDK, is showing banner through shopify is faster to load, better for UX.
+
+  To add Banner chat to Collection pages, include the exact title of the page in
+  the array below, separted from the others by a double pipe ( || )
+
+  PLEASE NOTE: Arrays must be initialized by splitting a string, so the spaces and the pipes
+  are important.
+
+  Refer to https://shopify.github.io/liquid/basics/types/#initializing-arrays
+
+{% endcomment %}
+{% assign banner_chat_pages = "shop all || shampoos + conditioners" | split: " || " %}
+{% if banner_chat_pages contains collection.title %}
+  {% assign show_automat_banner = true %}
+{% endif%}

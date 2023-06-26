@@ -1,0 +1,281 @@
+<div id="collection" class="container clearfix">
+  <div class="grid tab-margin-left-15">
+    <div class="grid__item one-sixth small--hide sid-wrp sidebarToggle left_side_collection_filter">
+      <div class="stickySidebar">
+        <div class="sidebar__inner">
+          <div class="sidebar-collection text-left">
+            <ul class="filter__menu">
+            <li><b>Location </b></li>
+            {% for tag in collection.all_tags %}
+              {% if tag contains 'location-' %}
+                {% assign tagName = tag | remove: 'location-' %}
+                {% if current_tags contains tag %}
+                    <li class="tag__active">
+                      {{ tagName | link_to_remove_tag: tag }}
+                    </li>
+                  {% else %}
+                    <li>
+                      {{ tagName | link_to_add_tag: tag }}
+                    </li>
+                  {% endif %}
+              {% endif %}
+            {% endfor %}
+            </ul>
+            <ul class="filter__menu">
+              <li><b>Class </b></li>
+            {% for tag in collection.all_tags %}
+              {% if tag contains 'class-' %}
+                {% assign tagName = tag | remove: 'class-' %}
+                {% if current_tags contains tag %}
+                    <li class="tag__active">
+                      {{ tagName | link_to_remove_tag: tag }}
+                    </li>
+                  {% else %}
+                    <li>
+                      {{ tagName | link_to_add_tag: tag }}
+                    </li>
+                  {% endif %}
+              {% endif %}
+            {% endfor %}
+            </ul>
+            <ul class="filter__menu">
+              <li><b>Date </b></li>
+            {% for tag in collection.all_tags %}
+              {% if tag contains 'date-' %}
+                {% assign tagName = tag | remove: 'date-' %}
+                {% if current_tags contains tag %}
+                    <li class="tag__active">
+                      {{ tagName | link_to_remove_tag: tag }}
+                    </li>
+                  {% else %}
+                    <li>
+                      {{ tagName | link_to_add_tag: tag }}
+                    </li>
+                  {% endif %}
+              {% endif %}
+            {% endfor %}
+            </ul>
+          </div>
+    	</div>
+      </div>
+    </div>
+    <style>
+      .tag__active a {
+        border-bottom: 2px solid rgba(0,0,0,0.5);
+      }
+      .filter__menu {
+        overflow: hidden;
+        margin-bottom: 10px;
+      }
+    </style>
+    <div class="animation grid__item width-full-tab five-sixths medium--one-whole small--one-whole collectionToggle">
+      <div class="grid-uniform">
+        {% paginate collection.products by 24 %}
+        {% if collection.products.size > 0 %}
+        <div id="MainContent">
+          <div class="grid-uniform margin-left-10">
+            <div class="EndlessClick artistry_events_wrapper">
+              {% for product in collection.products %}
+                <div class="grid__item large--one-half medium--one-third small--one-whole flex__container">
+                  <div class="product-item  grid__item one-half medium--one-third small--one-whole flex__item" style="padding-left: 0px">
+                    <div class="image-wrapper" style="position: relative;">
+                      <a href="{{ product.url }}">
+                        <div class="image show-second-image" id="image-{{ product.id }}">
+                          <div class="img animation" style="background-image: url({{product.images[0] | img_url: 'large'}})"></div>
+                            <div class="img second-img animation" style="background-image: url({{product.images[1] | img_url: 'large'}});"></div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="product-item  grid__item one-half medium--one-third small--one-whole flex__item">
+                    <div class="info plp-info">
+                      <input type="hidden" value="false">
+                      <a href="{{ product.url }}">
+                        <div class="animation"><b>{{ product.title }}</b></div>
+                      </a>
+                      {% assign event = product.metafields.event %}
+
+                      {% if event.date %}
+                      <b> Date: </b> {{ event.date }} <br>
+                      {% endif %}
+
+                      {% if event.time %}
+                      <b> Time: </b> {{event.time }} <br>
+                      {% endif %}
+
+                      {% if event.location %}
+                      <b> Location: </b> {{event.location }}
+                      {% endif %}
+                      <p>{{product.description | strip_html | truncate: 100 }}</p>
+                      <div class=" clearfix">
+                        {% if product.template_suffix != 'ticket'%}
+                        	{% include '_product_price' %}
+                        <div class="deal price_v2">
+                            <span class="red-price">{{ product.price | money_without_trailing_zeros }}</span>
+                        </div>
+                        {% endif %}
+                      </div>
+                      {% if event.buy_url%}
+                      <a href="{{ event.buy_url }}" class="btn event__btn btn__black">EVENT LINK</a>
+                      {% endif %}
+                      <a href="{{ product.url }}" class="btn event__btn">EVENT DETAILS</a>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+              {% if paginate.next %}
+              <div class="grid__item one-whole view-all clearfix">
+                <a href="{{ paginate.next.url }}" class="btn btn-view-all">View All</a>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          {% comment %}{% include 'pagination' %}{% endcomment %}
+        </div>
+        {% else %}
+          <div id="no-products"><i class="fa fa-tag"></i><br />No products found in this collection</div>
+        {% endif %}
+        {% endpaginate %}
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+
+    ajaxify({linkParent:".view-all"});
+
+    if(!isMobile.any) {
+      stickySidebar();
+    }
+    $(".sidebar-group .opener").on("click", function(event){
+      event.preventDefault();
+      if($(this).hasClass('opened')){
+        $(this).removeClass('opened')
+      }else{
+        $(this).addClass('opened')
+      }
+
+      $(this).closest('li').find('ul').slideToggle();
+    });
+    $('.sidebar-group li.selected').parent().closest('li').find('a.opener').click();
+  });
+  function stickySidebar(){
+    $('.stickySidebar').stickySidebar({
+    containerSelector: '#collection'
+    ,topSpacing: $("#header").height() + $('.collection-top').innerHeight() + 50
+      ,bottomSpacing: 50
+	});
+    /*.stickyBlock({
+      'top': $("#header").height() + $('.collection-top').innerHeight() + 50,
+      'start': {'offset': ($("#header").height() + $('.collection-top').innerHeight() + 50) * -1},
+      'end': {
+        'element': $('#footer'),
+        'offset': 20
+      }
+    });*/
+  }
+
+
+  dataLayer.push({
+    'event': 'ecommerce_event',
+    'eventCategory': 'ecommerce',
+    'eventAction': 'view',
+    'ecommerce': {
+      'currencyCode': 'USD',
+      'view' : {
+        'collection': '{{ collection.title }}'
+      }
+    }
+  });
+</script>
+<script>
+  $(document).ready(function () {
+      $('.btn__black').magnificPopup({
+        items: {
+            src: '<div class="white-popup">Redirecting out of Love Amika</div>',
+            type: 'inline'
+        },
+        callbacks: {
+            elementParse: function(item) {
+              item.src = '<div class="white-popup">Redirecting out of Love Amika to '+ this.st.el.attr('href') +'</div>'
+            },
+            open: function() {
+              var redirect__to = this.st.el.attr('href')
+              setTimeout(function(){ window.location = redirect__to }, 1000);
+            }
+        }
+      });
+  })
+</script>
+<style>
+  .product-item .price_v2 {
+    margin-top: 20px;
+    font-size: 22px;
+    font-weight: normal;
+    color: #000000;
+  }
+
+  .product-item .image .img {
+    background-size: cover;
+  }
+
+  a.btn.event__btn {
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    margin-top: 10px;
+  }
+
+  a.btn__black {
+    background: #000;
+    color: #fff;
+  }
+
+  .flex__container {
+    display: flex;
+    align-items: center;
+  }
+
+  .flex__item {
+    flex: 1;
+    text-align: left;
+  }
+
+  .white-popup {
+    position: relative;
+    background: #FFF;
+    padding: 20px;
+    width:auto;
+    max-width: 500px;
+    margin: 20px auto;
+  }
+
+  .tag__main_selector  {
+    text-align: center;
+    display: none;
+  }
+
+  .clc__active {
+    color: #fd569a;
+    font-weight: 500;
+  }
+
+  .collection__tag_link {
+    font-weight: 500;
+    margin: 0 10px;
+  }
+
+
+
+  @media only screen and (max-width: 600px) {
+    #collection .grid {
+      margin: 0 auto;
+    }
+
+    .flex__container {
+        display: block;
+        padding: 10px;
+    }
+  }
+</style>

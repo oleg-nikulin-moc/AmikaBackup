@@ -1,0 +1,175 @@
+{% if currentProduct.images.size > 1 and settings.grid_product_image_behavior == "alternate_image" %}
+  {% assign showSecondImage = true %}
+{% else %}
+  {% assign showSecondImage = false %}
+{% endif %}
+
+{%unless product.tags contains 'coming-soon'%}
+<a href="{% if variantToShow %}{{ variantToShow.url | within: collection }}{% else %}{{ currentProduct.url | within: collection }}{% endif %}{% if fromSearch %}#search{% endif %}">
+{% endunless %}
+  <div class="image {% if showSecondImage %}show-second-image{% endif %}" id="image-{{ currentProduct.id }}">
+    
+    {% if collection.handle == 'travel' or collection.handle == 'travel-2' %}  
+          {% assign main_img_pos = '' %}
+          {% assign hover_img_pos = '' %}
+          {% for tag in currentProduct.tags %}
+            {% if tag contains 'main_image' %}
+              {% assign tag_split = tag | split: '_' %}
+              {% assign main_img_pos = tag_split | last %}
+            {% endif %}
+            {% if tag contains 'hover_image' %}
+              {% assign tagHov_split = tag | split: '_' %}
+              {% assign hover_img_pos = tagHov_split | last %}
+            {% endif %}
+          {% endfor %}
+            <div class="img animation" style="background-image: url({% if showSecondImage %}
+                  {% if variantToShow %}
+                         {{ variantToShow.image.src | product_img_url: '800x800' }}
+                  {% else %}
+                  {% if main_img_pos != blank %}
+                        {% assign main_img_pos = main_img_pos | times: 1 | minus: 1 %}
+                        {{ currentProduct.images[main_img_pos] | img_url: '800x800' }}
+                  {% else %}
+                        {{ currentProduct.images[1] | img_url: '800x800' }}
+                  {% endif %}
+                  {% endif %}
+                {% else %}
+                {{ currentProduct.featured_image | product_img_url: '800x800' }}
+            	{% endif %});">
+          </div>
+            {% if showSecondImage %}
+            <!--       <div class="img second-img animation" style="background-image: url({{ currentProduct.images.last | img_url: '800x800' }});"></div> -->
+            <div class="img second-img animation" style="background-image: url({% if hover_img_pos != blank %}
+                      {% assign hover_img_pos = hover_img_pos | times: 1 | minus: 1 %}
+                      {{ currentProduct.images[hover_img_pos] | img_url: '800x800' }}
+                  {% else %}
+                      {{ currentProduct.featured_image | product_img_url: '800x800' }}{% endif %});"></div>
+                  {% endif %}
+    {% else %}
+            <div class="img animation" style="background-image: url({% if variantToShow %}{{ variantToShow.image.src | product_img_url: '800x800' }}{% else %}{{ currentProduct.featured_image | product_img_url: '800x800' }}{% endif %});"></div>
+            {% if showSecondImage %}
+            <!--       <div class="img second-img animation" style="background-image: url({{ currentProduct.images.last | img_url: '800x800' }});"></div> -->
+            <div class="img second-img animation" style="background-image: url({{ currentProduct.images[1] | img_url: '800x800' }});"></div>
+            {% endif %}
+    {% endif %}
+    
+    
+    
+    {% comment %}
+    <div class="img animation" style="background-image: url({% if variantToShow %}{{ variantToShow.image.src | product_img_url: '800x800' }}{% else %}{{ currentProduct.featured_image | product_img_url: '800x800' }}{% endif %});"></div>
+    {% if showSecondImage %}
+    <!--       <div class="img second-img animation" style="background-image: url({{ currentProduct.images.last | img_url: '800x800' }});"></div> -->
+    <div class="img second-img animation" style="background-image: url({{ currentProduct.images[1] | img_url: '800x800' }});"></div>
+    {% endif %}
+    {% endcomment %}
+    
+    {% if currentProduct.available and currentProduct.price_min < currentProduct.compare_at_price_min %}
+      <div class="sale animation"><div>sale</div></div>
+    {% endif %}
+
+    {% unless product.tags contains 'coming-soon' %}
+    {% if coming_soon == true %}
+    	{% unless currentProduct.available %}
+      	<div class="coming-soon animation"><div>coming<br />soon</div></div>
+    	{% endunless %}
+    {% else %}
+
+    {% comment %}
+      {% if currentProduct.available %}
+        <span class="badges nihar">
+        {% for tag in product.tags %}
+        {% if tag == 'badge_color-safe' %}
+        <span class="title-icon"><img src="{{ 'badge_color-safe.png' | asset_img_url: '175x'  }}" title='loveamica'></span>
+        {% endif %}
+        {% if tag == 'badge_cruelty' %}
+        <span class="title-icon"><img src="{{ 'badge_cruelty.png' | asset_img_url: '175x'  }}" title='loveamica'></span>
+        {% endif %}
+        {% if tag == 'badge_gluten' %}
+        <span class="title-icon"><img src="{{ 'badge_gluten.png' | asset_img_url: '175x'  }}" title='new'></span>
+        {% endif %}
+        {% if tag == 'badge_heat' %}
+        <span class="title-icon"><img src="{{ 'badge_heat.png' | asset_img_url: '175x'  }}" title='loveamica'></span>
+        {% endif %}
+        {% if tag == 'badge_mineral' %}
+        <span class="title-icon"><img src="{{ 'badge_mineral.png' | asset_img_url: '175x'  }}" title='loveamica'></span>
+        {% endif %}
+        {% if tag == 'badge_gmo' %}
+        <span class="title-icon"><img src="{{ 'badge_non-gmo.png' | asset_img_url: '175x'  }}" title='new'></span>
+        {% endif %}
+        {% if tag == 'badge_paraben' %}
+        <span class="title-icon"><img src="{{ 'badge_paraben.png' | asset_img_url: '175x'  }}" title='loveamica'></span>
+        {% endif %}
+        {% if tag == 'badge_sulfate' %}
+        <span class="title-icon"><img src="{{ 'badge_sulfate.png' | asset_img_url: '175x'  }}" title='loveamica'></span>
+        {% endif %}
+        {% if tag == 'vegan' %}
+        <span class="title-icon"><img src="{{ 'badge_vegan.png' | asset_img_url: '175x'  }}" title='stylist picks'></span>
+        {% endif %}
+        {% endfor %}
+        </span>
+      {% else %}
+        <div class="sold-out animation cake"><div>sold<br />out</div></div>
+      {% endif %}
+   {% endcomment %}
+
+      {% comment %}
+      {% unless currentProduct.available %}
+        <div class="sold-out animation cake"><div>sold<br />out</div></div>
+      {% endunless %}
+      {% endcomment %}
+
+    {% endif %}
+    {% endunless %}
+  </div>
+{%unless product.tags contains 'coming-soon'%}
+</a>
+{% endunless %}
+
+       
+    {% if collection.handle == 'liters' or collection.handle == 'liters' %}  
+          {% assign main_img_pos = '' %}
+          {% assign hover_img_pos = '' %}
+          {% for tag in currentProduct.tags %}
+            {% if tag contains 'liter_image' %}
+              {% assign tag_split = tag | split: '_' %}
+              {% assign main_img_pos = tag_split | last %}
+            {% endif %}
+            {% if tag contains 'hover_image' %}
+              {% assign tagHov_split = tag | split: '_' %}
+              {% assign hover_img_pos = tagHov_split | last %}
+            {% endif %}
+          {% endfor %}
+
+
+
+            <div class="img animation" style="background-image: url({% if showSecondImage %}
+                  {% if variantToShow %}
+                         {{ variantToShow.image.src | product_img_url: '800x800' }}
+                  {% else %}
+                  {% if main_img_pos != blank %}
+                        {% assign main_img_pos = main_img_pos | times: 1 | minus: 1 %}
+                        {{ currentProduct.images[main_img_pos] | img_url: '800x800' }}
+                  {% else %}
+                        {{ currentProduct.images[1] | img_url: '800x800' }}
+                  {% endif %}
+                  {% endif %}
+                {% else %}
+                {{ currentProduct.featured_image | product_img_url: '800x800' }}
+            	{% endif %});">
+          </div>
+            {% if showSecondImage %}
+            <!--       <div class="img second-img animation" style="background-image: url({{ currentProduct.images.last | img_url: '800x800' }});"></div> -->
+            <div class="img second-img animation" style="background-image: url({% if hover_img_pos != blank %}
+                      {% assign hover_img_pos = hover_img_pos | times: 1 | minus: 1 %}
+                      {{ currentProduct.images[hover_img_pos] | img_url: '800x800' }}
+                  {% else %}
+                      {{ currentProduct.featured_image | product_img_url: '800x800' }}{% endif %});"></div>
+                  {% endif %}
+    {% else %}
+            <div class="img animation" style="background-image: url({% if variantToShow %}{{ variantToShow.image.src | product_img_url: '800x800' }}{% else %}{{ currentProduct.featured_image | product_img_url: '800x800' }}{% endif %});"></div>
+            {% if showSecondImage %}
+            <!--       <div class="img second-img animation" style="background-image: url({{ currentProduct.images.last | img_url: '800x800' }});"></div> -->
+            <div class="img second-img animation" style="background-image: url({{ currentProduct.images[1] | img_url: '800x800' }});"></div>
+            {% endif %}
+    {% endif %}
+    

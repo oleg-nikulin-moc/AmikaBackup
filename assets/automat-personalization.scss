@@ -1,0 +1,259 @@
+/* ====== MATCHBOX AUTOMAT ====== */
+
+.product-item { overflow: visible } // necessary for Match bar
+.slick-list.draggable { overflow-y: visible } // necessary for Match bar on home page
+
+.matchbox.matchbox--override {
+  background-color: #f9d35f;
+  border-radius: 25px;
+  border-bottom-right-radius: 0;
+  color: black;
+  text-transform: lowercase;
+  max-width: 40%;
+  padding: 1em;
+  line-height: 1.2em;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 500;
+  font-size: 55%;
+  margin: 0 0 0 .65em;
+  z-index: 1;
+}
+
+.matchbox__inner-text.matchbox__inner-text--override {
+  text-align: left;
+  
+  .matchbox__text.matchbox__text--override:first-of-type:not(:only-of-type) {
+    line-height: 1.65em;
+  }
+}
+ 
+.matchbox__star.matchbox__star--override {
+  fill: white;
+  stroke: black;
+  stroke-width: 2px;
+  width: 1.8em;
+  height: 1.8em;
+  margin: auto 0.5em; 
+}
+
+.matchbox__notification-bg.matchbox__notification-bg--override {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition: backdrop-filter .3s ease, -webkit-backdrop-filter .3s ease;
+  
+  &.adding, &.removing {
+    -webkit-backdrop-filter: blur(0px);
+    backdrop-filter: blur(0px);
+  }
+}
+
+.matchbox__notification.matchbox__notification--override {
+  background-color: transparent;
+  background-image: url(//s3.amazonaws.com/bot-brain.com/Sephora+France/Flower.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  color: black;
+  height: 375px;
+  width: 375px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 0;
+  text-transform: lowercase;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+
+  &:before {
+    content: '';
+    background-image: url(https://s3.us-east-1.amazonaws.com/bot-brain.com/Sephora%20France/skull-min.gif);
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-bottom: 1em;
+  }
+
+  .matchbox.matchbox--override {
+    max-width: none;
+  }
+  
+  .matchbox-parent {
+    margin-top: 3rem;
+  }
+}
+
+.matchbox__notification-content.matchbox__notification-content--override {
+  padding: 0 25% 15px;
+}
+
+.matchbox__notification-x.matchbox__notification-x--override {
+    color: white;
+    top: 56px;
+    right: 56px;
+    background: black;
+    padding: .2em 0 0;
+    font-size: 12px;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+}
+
+.matchbox-parent {
+    position: relative;
+}
+
+.matchbox__score-container.matchbox__score-container--override {
+  top: 0px;
+  font-size: .75rem;
+  font-weight: bold;
+  line-height: 1.1em;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: .75em .5em 0;
+  box-sizing: border-box;
+  pointer-events: none;
+  text-transform: lowercase;
+  z-index: 1;
+  
+  & ~ a.iWishAddColl,
+  & ~ img {
+    top: 40px !important;
+  }
+}
+
+.matchbox__score-bar-front.matchbox__score-bar-front--override {
+    border-radius: 20px;
+    background: #f9d35f;
+}
+
+.matchbox__score-bar-back.matchbox__score-bar-back--override {
+    border-radius: 20px;
+}
+
+
+/* product page */
+.right.ten-twelfths.small--one-whole.main__image_container.matchbox-parent {
+  .matchbox.matchbox--override {
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 30%;
+    z-index: 9;
+    
+    @media (min-width: 1370px), (max-width: 1025px) and (min-width: 836px) {
+      margin-left: calc((100% - 600px) / 2 + .65em);
+    }
+    
+    @media (max-width: 584px) {
+      margin-left: calc(10px + .65em);
+    }
+  
+    .matchbox__text.matchbox__text--override,
+    .matchbox__attribute.matchbox__attribute--override {
+      font-size: 1.2em;
+    }
+  }
+  
+  .matchbox__score-container.matchbox__score-container--override {
+    max-width: 600px;
+    margin: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    @media (max-width: 584px) {
+      padding: 9px calc(10px + .65em) 0;
+    }
+  }
+}
+/* end product page */
+
+@media (max-width: 1100px) {
+  .matchbox__star.matchbox__star--override {
+    display: none;
+  }
+     
+  .matchbox__inner-text.matchbox__inner-text--override {
+    margin-left: .25em;
+  }
+   
+  .matchbox__attribute.matchbox__attribute--override,
+  .matchbox__text.matchbox__text--override {
+    font-size: 10px;
+    line-height: 1.2em;
+  }
+  
+  /* product page */
+  .right.ten-twelfths.small--one-whole.main__image_container.matchbox-parent {
+    .matchbox.matchbox--override {
+      max-width: 35%;
+
+      .matchbox__star.matchbox__star--override {
+        display: block;
+      }  
+    }
+  }
+  /* end product page */
+}
+
+/* product page */
+@media (max-width: 1024px) {
+  .right.ten-twelfths.small--one-whole.main__image_container.matchbox-parent .matchbox.matchbox--override {
+    max-width: 30%;
+        
+    .matchbox__star.matchbox__star--override {
+      display: static;
+    }
+
+    .matchbox__attribute.matchbox__attribute--override,
+    .matchbox__text.matchbox__text--override {
+      line-height: 1.25em;
+    }
+  }
+}
+/* end product page */
+
+@media (max-width: 768px) {
+  .matchbox.matchbox--override {
+    max-width: 60%;
+    padding: .5rem;
+    font-size: 10px;
+    top: .65em;
+    transform: translateY(0%);
+    font-weight: 500;
+  }
+     
+  .matchbox__notification.matchbox__notification--override {
+    .matchbox-parent {
+      max-width: 120px;
+      margin: auto;
+    }
+  }  
+
+
+  /* product page */
+
+  .right.ten-twelfths.small--one-whole.main__image_container.matchbox-parent {
+    .matchbox.matchbox--override {
+      top: .65em;
+      transform: translateY(0);
+      max-width: 40%;
+ 
+      .matchbox__star.matchbox__star--override {
+        width: 2em;
+        height: 2em;
+        margin: auto 1em auto 0;
+      }
+    }
+  }
+    /* end product page */
+
+  .right.ten-twelfths.small--one-whole.main__image_container.matchbox-parent .matchbox__score-container.matchbox__score-container--override ~ .matchbox.matchbox--override,
+  .matchbox__score-container.matchbox__score-container--override ~ .matchbox.matchbox--override {
+    top: 40px;
+  }
+}
+/* ====== END MATCHBOX AUTOMAT ====== */

@@ -1,0 +1,271 @@
+<div class="container">
+  
+  {% comment %} TYPOGRAPHY {% endcomment %}
+  <div class="style__guide">
+    <div class="style__heading text-center">
+      <h1>TYPOGRAPHY</h1>
+    </div>
+
+    <h1 class="h1">This is an H1 Title</h1>
+    <h2 class="h2">This is an H2 Title</h2>
+    <h3 class="h3">This is an H3 Title</h3>
+
+    <p>This is a paragraph</p>
+  </div>
+
+  {% comment %} COLORS {% endcomment %}
+  <div class="style__guide">
+    <div class="style__heading text-center">
+      <h1>COLORS</h1>
+    </div>
+
+    <div class="grid">
+      <div class="grid__item one-quarter medium-down--one-whole text-center">
+        <div class="color__box" style="background: #FF6B26;"></div>
+        <h3>#FF6B26</h3>
+      </div>
+      <div class="grid__item one-quarter medium-down--one-whole text-center">
+        <div class="color__box" style="background: #FF5EDB;"></div>
+        <h3>#FF5EDB</h3>
+      </div>
+      <div class="grid__item one-quarter medium-down--one-whole text-center">
+        <div class="color__box white" style="background: #FEFAF0;"></div>
+        <h3>#FEFAF0</h3>
+      </div>
+      <div class="grid__item one-quarter medium-down--one-whole text-center">
+        <div class="color__box" style="background: #000000;"></div>
+        <h3>#000000</h3>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} BUTTONS {% endcomment %}
+  <div class="style__guide">
+    <div class="style__heading text-center">
+      <h1>BUTTONS</h1>
+    </div>
+
+    <div class="grid">
+      <div class="grid__item one-quarter medium-down--one-whole">
+        <h3 class="h6">Button (Primary)</h3>
+
+        <button type="button" class="button button--primary">Default</button>
+        <button type="button" class="button button--inverse">Hover</button>
+        <button type="button" class="button button--pressed">Pressed</button>
+        <button type="button" class="button button--primary" disabled>Disabled</button>
+      </div>
+      <div class="grid__item one-quarter medium-down--one-whole">
+        <h3 class="h6">Button (Inverse)</h3>
+
+        <button type="button" class="button button--inverse">Default</button>
+        <button type="button" class="button button--primary">Hover</button>
+        <button type="button" class="button button--pressed">Pressed</button>
+        <button type="button" class="button button--inverse" disabled>Disabled</button>
+      </div>
+      <div class="grid__item one-quarter medium-down--one-whole">
+        <h3 class="h6">Button (Sizes)</h3>
+
+        <button type="button" class="button button--primary button--full">Button Full</button>
+        <button type="button" class="button button--primary">Button</button>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} FORM ELEMENTS {% endcomment %}
+  <div class="style__guide">
+    <div class="style__heading text-center">
+      <h1>FORM ELEMENTS</h1>
+    </div>
+
+    <div class="grid">
+      <div class="grid__item one-fifth medium-down--one-whole">
+        <div class="input__group">
+          <label>Text Box</label>
+          <input type="text" placeholder="placeholder here" />
+        </div>
+      </div>
+      <div class="grid__item one-fifth medium-down--one-whole">
+        <div class="input__group">
+          <label>Select Box</label>
+          <select>
+            <option>Please select an option</option>
+            <option>Option 1</option>
+            <option>Option 2</option>
+            <option>Option 3</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid__item one-fifth medium-down--one-whole">
+        <div class="input__group">
+          <label>Textarea</label>
+          <textarea rows="5"></textarea>
+        </div>
+      </div>
+      <div class="grid__item one-fifth medium-down--one-whole">
+        <div class="radio__group">
+          <label class="radio__label">Radio Label
+            <input type="radio" name="radio-group" id="radio-label" value="radio label" />
+            <span class="radio__checkmark"></span>
+          </label>
+        </div>
+        <div class="radio__group">
+          <label class="radio__label">Radio Checked
+            <input type="radio" name="radio-group" id="radio-checked" value="radio checked" checked />
+            <span class="radio__checkmark"></span>
+          </label>
+        </div>
+        <div class="radio__group">	
+          <label class="radio__label">Radio Disabled
+            <input type="radio" name="radio-group" id="radio-disabled" value="radio disabled" disabled />
+            <span class="radio__checkmark"></span>
+          </label>
+        </div>
+      </div>
+      <div class="grid__item one-fifth medium-down--one-whole">
+        <div class="checkbox__group">
+          <label class="checkbox__label">Checkbox Label
+            <input type="checkbox" name="checkbox-group" id="checkbox-label" value="checkbox label" />
+            <span class="checkbox__checkmark"></span>
+          </label>
+        </div>
+        <div class="checkbox__group">
+          <label class="checkbox__label">Checkbox Checked
+            <input type="checkbox" name="checkbox-group" id="checkbox-checked" value="checkbox checked" checked />
+            <span class="checkbox__checkmark"></span>
+          </label>
+        </div>
+        <div class="checkbox__group">	
+          <label class="checkbox__label">Checkbox Disabled
+            <input type="checkbox" name="checkbox-group" id="checkbox-disabled" value="checkbox disabled" disabled />
+            <span class="checkbox__checkmark"></span>
+          </label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  {% comment %} PRODUCT GRID {% endcomment %}
+  <div class="style__guide">
+    <div class="style__heading text-center">
+      <h1>PRODUCT GRID</h1>
+    </div>
+
+    <div class="slider__wrapper">
+    <div class="js-product-slider">
+      <div>
+        <div class="product__grid">
+          <a class="product__grid--image" href="#">
+            <div class="product__grid--placeholder"></div>
+          </a>
+          <div class="product__grid--info">
+            <a href="#">
+              <div class="product__grid--title">perk up</div>
+              <div class="product__grid--subtitle">dry shampoo</div>
+            </a>
+            <div class="product__grid--meta">the closest thing to washing your hair without water</div>
+            <div class="product__grid--price">$12 - $25</div>
+
+            <div class="product__grid--action">
+              <button type="button" class="button button--inverse">QUICK ADD</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="product__grid">
+          <a class="product__grid--image" href="#">
+            <div class="product__grid--placeholder"></div>
+          </a>
+          <div class="product__grid--info">
+            <a href="#">
+              <div class="product__grid--title">perk up</div>
+              <div class="product__grid--subtitle">dry shampoo</div>
+            </a>
+            <div class="product__grid--meta">the closest thing to washing your hair without water</div>
+            <div class="product__grid--price">$12 - $25</div>
+
+            <div class="product__grid--action">
+              <button type="button" class="button button--inverse">QUICK ADD</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="product__grid">
+          <a class="product__grid--image" href="#">
+            <div class="product__grid--placeholder"></div>
+          </a>
+          <div class="product__grid--info">
+            <a href="#">
+              <div class="product__grid--title">perk up</div>
+              <div class="product__grid--subtitle">dry shampoo</div>
+            </a>
+            <div class="product__grid--meta">the closest thing to washing your hair without water</div>
+            <div class="product__grid--price">$12 - $25</div>
+
+            <div class="product__grid--action">
+              <button type="button" class="button button--inverse">QUICK ADD</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="product__grid">
+          <a class="product__grid--image" href="#">
+            <div class="product__grid--placeholder"></div>
+          </a>
+          <div class="product__grid--info">
+            <a href="#">
+              <div class="product__grid--title">perk up</div>
+              <div class="product__grid--subtitle">dry shampoo</div>
+            </a>
+            <div class="product__grid--meta">the closest thing to washing your hair without water</div>
+            <div class="product__grid--price">$12 - $25</div>
+
+            <div class="product__grid--action">
+              <button type="button" class="button button--inverse">QUICK ADD</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+  $(function() {
+    var ProductSlider = $('.js-product-slider');
+
+    ProductSlider.slick({
+      dots: false,
+      arrows: true,
+      infinite: true,
+      slidesToShow: 3,
+      responsive: [
+        {
+          breakpoint: 949,
+          settings: {
+            arrows: false,
+            slidesToShow: 2,
+            slidesToScroll: 2
+          }
+        },
+        {
+          breakpoint: 749,
+          settings: {
+            arrows: false,
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ]
+    })
+  })
+</script>

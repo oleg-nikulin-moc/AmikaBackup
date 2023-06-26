@@ -1,0 +1,162 @@
+<!-- Promotion Popup -->
+<div class="hide">
+  <div id="promotion-pop-up">
+    <div id="promotion-pop-up-wrapper">
+      <div class="wrap">
+        {% if settings.promo_popup_title != "" %}<h1>{{settings.promo_popup_title}}</h1>{% endif %}
+        {% if settings.promo_popup_promo != "" %}<p class="p-bigger">{{settings.promo_popup_promo}}</p>{% endif %}
+        <p>{{settings.promo_popup_text}}</p>
+        <!-- Old Rare Form -->
+        
+        {% comment %}
+	    <form method="post" id="klavemailpopup">
+          <div class="grid">
+            <div class="grid__item one-whole">
+              <input type="email" placeholder="enter your email" id="email-input" name="email" class="required email email-input" />
+            </div>
+          </div>
+          <input type='submit' class="btn prefix animation" value="Major Hair Upgrade" name="subscribe" id="email-submit" />
+        </form>
+        {% endcomment %}
+        
+        <form id="klavemailpopup" class="klaviyo_gdpr_embed_LIST_ID" action="//manage.kmail-lists.com/subscriptions/subscribe" data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe"
+              method="GET" 
+              target="_blank" 
+              novalidate="novalidate">
+          
+          <input type="hidden" name="g" value="YaXJeH">
+          <input type="hidden" name="$fields" value="$consent">
+
+          <div class="grid">
+            <div class="grid__item one-whole">
+              <input type="email"
+                 name="email"
+                 class="required email email-input"
+                 id="ContactFormEmail"
+                 placeholder="enter your email"
+                 value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                 spellcheck="false"
+                 autocomplete="off"
+                 autocapitalize="off">
+            </div>
+          </div>
+          
+          <input type="submit" class="Notify_me prefix animation" value="Major Hair Upgrade" name="subscribe" id="email-submit" />
+        </form>
+        
+        {% comment %}
+        {% include 'dotmailer-footer-form' %}
+        {% endcomment %}
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Promotion Popup SUCCESS -->
+<div class="hide">
+  <div id="promotion-pop-up-success">
+    <div id="promotion-pop-up-success-wrapper">
+      <div class="wrap">
+        <h1>{{settings.promo_popup_success}}</h1>
+        <p>{{settings.promo_popup_promo_code}}</p>
+        {% comment %}
+        <p class="p-bigger">{{settings.promo_popup_promo_code}}</p>
+        <p>Almost finished... To complete the subscription process, please click the link in the email we just sent you.</p>
+        {% endcomment %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>		
+<script type="text/javascript">		
+  KlaviyoSubscribe.attachToForms('#klavemailpopup', {	
+    success: function ($form) {
+      console.log("Successfully added!!");
+      modal = new tingle.modal({
+        closeMethods: ['overlay', 'button', 'escape'],
+        closeLabel: "",
+        cssClass: ['promotion-popup']
+      });
+      modal.setContent($('#promotion-pop-up-success'));
+      modal.open();
+    },
+    error: function ($form) {
+      console.log("Error occoured!!");
+    },
+    extra_properties: {		
+      $source: '$embed',		
+      $method_type: "Klaviyo Form",		
+      $method_id: 'embed',		
+      $consent_version: 'Embed default text',
+    }		
+  });		
+</script>
+
+<script>
+  function tingleRemove(){
+//     $('.tingle-modal.promotion-popup.tingle-modal--visible, ').remove()
+  $('.tingle-modal.promotion-popup.tingle-modal--visible, .tingle-modal.quick-view.tingle-modal--visible, .tingle-modal.free-gift-popup.tingle-modal--visible').remove()
+    document.documentElement.classList.remove("tingle-enabled")
+  };
+  
+  // Refersion function for checking the URL for 'rfsn'
+  function refersion_getQS(e){
+		e=e.replace(/[\[]/,"\\[").replace(/[\]]/,"\\]");
+		var t=new RegExp("[\\?&]"+e+"=([^&#]*)"),n=t.exec(location.search);
+		return n==null?"":decodeURIComponent(n[1].replace(/\+/g," "))
+	};
+  
+  
+  $(document).ready(function(){
+    setTimeout(function(){
+      $('.tingle-modal__close').remove();
+      $('.tingle-modal-box').prepend('<button class="tingle-modal__close" onclick="tingleRemove();"><span class="tingle-modal__closeIcon">×</span><span class="tingle-modal__closeLabel"> </span></button>')
+    }, 2050);
+  });
+  
+  $(function(){
+  	$('#promotion-pop-up form').submit(function(e){
+    	e.preventDefault();
+      	e.stopImmediatePropagation();
+
+      	$(this).find('.error').removeClass('error');
+      
+      	var error = false;
+      	$(this).find('.required').each(function(){
+          if($(this).val()=="") {
+          	error = true;
+            $(this).addClass('error');
+          }
+        });
+      	if(!error) {
+          if(!validateEmail($(this).find('.email').val())) {
+            error = true;
+          	$(this).find('.email').addClass('error');
+          }
+        }
+
+      	if(!error) {
+      		var form = $(this);
+            $.ajax({
+                url: (form.attr('data-ajax-submit')||form.attr('action')),
+                data: form.serialize(),
+                type: 'POST'
+            }).done(function(){
+              	modal = new tingle.modal({
+                    closeMethods: ['overlay', 'button', 'escape'],
+                    closeLabel: "",
+                    cssClass: ['promotion-popup'],
+                  onClose: function() {
+                    document.documentElement.classList.remove("tingle-enabled")
+                    //is running before the modal opens on Safari Mobile. hashtagunsmileyface
+                  }
+                });
+                modal.setContent($('#promotion-pop-up-success'));
+                modal.open();
+            });
+      	}
+    });
+  });  
+</script>

@@ -1,0 +1,31 @@
+<!-- Meta robots -->
+
+<meta name="robots" content="noindex">
+
+<!-- End Meta robots -->   
+
+<div id="collections-listing" class="container">
+  <div class="grid">
+    {% for collection in collections %}
+    {% unless collection.handle == "all" or collection.handle contains "featured" %}
+    <div class="grid__item one-third small--one-whole">
+      {% assign collection = collections[settings.featured_collection1] %}
+      <a href="{{ collection.url }}">
+        <div class="bg_img" style="{% if collection.image != blank %}background-image: url('{{ collection.image.src | img_url: 'large' }}'){% else %}background-image: url('{{ collection.products.first.featured_image | product_img_url: 'large' }}'){% endif %}">
+          <div class="layer animation">
+            <div class="table">
+              <div class="table-cell">
+                <h3>{{ collection.title }}</h3>
+                <p class="num">
+                  {{ collection.all_products_count }} {{ collection.all_products_count | pluralize: 'item', 'items' }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+    {% endunless %}
+    {% endfor %}
+  </div>
+</div>

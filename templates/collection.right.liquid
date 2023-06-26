@@ -1,0 +1,195 @@
+<!-- Meta robots -->
+
+{% if collection.handle == 'flash-sale' or collection.handle == 'discounts-haircare-only' or collection.handle == 'discounts' or collection.handle == 'haircare' or collection.handle == 'image-test-collection' or collection.handle == 'bogo-september' or collection.handle == 'samples' %}
+<meta name="robots" content="noindex">
+{% endif %}
+
+<!-- End Meta robots -->   
+
+{% unless collection.handle contains 'samples' %}
+
+  {% include 'automat_chat_variables' %}
+  {% unless show_automat_banner %}
+  <div class="collection-banner container text-center" {% comment %}{% if collection.image %}style="background-image:url({{ collection.image | img_url: 'master' }});"{% endif %}{% endcomment %} >
+    <div class="table">
+      <div class="table-cell">
+        {% section 'collectionBanner-right' %}
+        {% comment %}
+        <!--       <div class="gus">{% if collection.image %}{{ collection.image | img_url: 'medium' }}{% endif %}</div> -->
+        {% if collection.image %}
+        <img src="{{ collection.image | img_url: 'master' }}" class="img-responsive {% comment %}desktop-only{% endcomment %}">
+        {% comment %} <img src="{{ collection.metafields.c_f.collection_mobile_banner | img_size: 'master' }}" class="mobile-only img-responsive">{% endcomment %}
+        <div class="coll-copy">
+          <span class="coll__title">{{collection.title}}</span>
+          <span class="coll__desc">{{ collection.description }}</span>
+        </div>
+        {% else %}
+        <span>{{collection.title}}</span>
+        {% endif %}
+        {% endcomment %}
+      </div>
+    </div>
+  </div>
+  {% else %}
+    {% include "automat_banner" %}
+  {% endunless %}
+
+<div class="collection-top container animation">
+  <div class="wrap clearfix">
+    {% include 'breadcrumb' %}
+
+    <div class="hide medium--show small--show mobile-filters">
+      <div class="grid">
+        <div class="grid__item one-half">
+          
+          {% include '_collection_menu_mobile' %}
+          
+          {%comment%}
+          <select id="filter-collections">
+            <option value="{{col.url}}">Collections</option>
+            {% for col in collections %}
+            <option value="{{col.url}}">{{col.title}}</option>
+            {% endfor %}
+          </select>
+          {%endcomment%}   
+          
+        </div>
+        <div class="grid__item one-half">
+          
+          {% include 'filter-menu-mobile' %}
+          
+          {%comment%}
+          <select id="filter-tags">
+            <option value="{{collection.url}}">I Need</option>
+            {% for tag in collection.all_tags %}
+            <option value="{{collection.url}}/{{tag | handleize}}">{{tag}}</option>
+            {% endfor %}
+          </select>
+          {%endcomment%}
+          
+        </div>
+      </div>
+
+    </div>
+
+
+    <div id="dd" class="wrapper-dropdown" tabindex="1">
+    	<span class="sort_label">Sort By</span>
+        <ul id="sort-by" class="dropdown">
+            <li data-sort="manual">featured</li>
+            <li data-sort="price-ascending">price: low to high</li>
+            <li data-sort="price-descending">price: high to low</li>
+            <li data-sort="title-ascending">name: a-z</li>
+            <li data-sort="title-descending">name: z-a</li>
+            <li data-sort="best-selling">best-selling</li>
+        </ul>
+    </div>
+
+    <script>
+
+  	$(function() {
+  		var dd = new DropDown( $('#dd') );
+  		$(document).click(function() {
+  			// all dropdowns
+  			$('.wrapper-dropdown').removeClass('active');
+  		});
+  	});
+
+    function DropDown(el) {
+        this.dd = el;
+        this.placeholder = this.dd.children('span');
+        this.opts = this.dd.find('ul.dropdown > li');
+        this.val = '';
+        this.index = -1;
+        this.initEvents();
+    }
+    DropDown.prototype = {
+        initEvents : function() {
+            var obj = this;
+
+            obj.dd.on('click', function(event){
+                $(this).toggleClass('active');
+                return false;
+            });
+
+            obj.opts.on('click',function(){
+                var opt = $(this);
+                obj.val = opt.text();
+                obj.index = opt.index();
+                obj.placeholder.text('Sort By: ' + obj.val);
+            });
+        },
+        getValue : function() {
+            return this.val;
+        },
+        getIndex : function() {
+            return this.index;
+        }
+    }
+
+
+      Shopify.queryParams = {};
+      if (location.search.length) {
+        for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+          aKeyValue = aCouples[i].split('=');
+          if (aKeyValue.length > 1) {
+            Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+          }
+        }
+      }
+      //sort-by is not a select list any more. [aliens meme]
+      $('#sort-by li').on('click',function(){
+        Shopify.queryParams.sort_by = jQuery(this).data('sort');
+        location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20');
+      });
+      
+      $('#filter-tags').bind('change', function() {
+        var pathname = location.pathname,
+            parts = pathname.split("/"),
+            loc = $(this).val().replace(/[\W_]/g, '-').replace('---', '-');
+
+        if (parts.length >= 4){
+          location.href = '/'+parts[1]+'/'+parts[3]+'/' + loc;
+        } else {
+          location.href = pathname + '/' + loc;
+        }
+      });
+      
+      
+      setTimeout(function(){
+        //setting mobile select dropdown to selected option
+        var option = $("#filter-collections").find('.selected');
+        option.insertBefore('#filter-collections option:first-of-type');
+        $('#filter-collections').prop('selectedIndex',0);      
+      }, 300);            
+      
+
+      $('#filter-collections').bind('change', function() {
+        // location.href = jQuery(this).val().replace(/ |\+-|\//g, '-');
+        var loc = jQuery(this).val().replace(/[\W_]/g, '-').replace('---', '-'),
+            url = window.location.href,
+        	main = url.substring(34);
+
+        url = url.replace(main, loc);
+        location.href = url;
+      });      
+      
+//       jQuery('#filter-tags').bind('change', function() {
+//         location.href = jQuery(this).val()
+//       });
+//       jQuery('#filter-collections').bind('change', function() {
+//         location.href = jQuery(this).val()
+//       });
+      
+    </script>
+  </div>
+</div>
+
+{% comment %}<p class="col-desc container">{{collection.description}}</p>{% endcomment %}
+
+{% include '_collection' %}
+{% else %}
+<div class="container">
+  <p>Collection not available</p>
+</div>
+{% endunless %}

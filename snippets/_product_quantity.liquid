@@ -1,0 +1,10 @@
+{% if currentProduct.available %}
+<div class="quantity">
+  <label>Quantity</label>
+  <div class="wrap clearfix">
+    <input type="button" value="&ndash;" class="minus animation">
+    <input type="number" step="1" name="quantity" id="quantity" value="1" title="Qty" size="4" min="1" max="{{ available }}">
+    <input type="button" value="+" class="plus animation">
+  </div>
+</div>
+{% endif %}

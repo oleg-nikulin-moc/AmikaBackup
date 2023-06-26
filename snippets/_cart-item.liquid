@@ -1,0 +1,172 @@
+<style>.final_sale {display: block;}</style>
+
+{% include 'bold-cart-item' with item %}
+<tr class="item {{ item.product.handle }}">
+  <td class="image two-twelfths medium--one-third small--one-third text-center">
+    {% if item.variant.image %}
+    {% assign variantImg = item.variant.image | img_url: "compact" %}
+    {% else %}
+    {% assign variantImg = item.product.featured_image | img_url: "compact" %}
+    {% endif %}
+    <img src="{{ variantImg }}"  alt="{{ item.product.title }}" />
+  </td>
+  <td>
+    <table>
+      
+      
+      {% comment %}
+      <tr class="item-line item-first-line"> 
+        <td class="title animation three-twelfths small--hide medium--hide">
+          <span class="line-header">Description</span>
+        </td>
+        <td class="unit-price small--hide two-twelfths small--hide medium--hide">
+          <span class="line-header">Price</span>
+        </td>
+        <td class="qtty two-twelfths small--hide medium--hide">
+          <span class="line-header">Quantity</span>
+        </td>
+        <td class="total-price two-twelfths small--hide medium--hide">
+          <span class="line-header">Total</span>
+        </td>
+        <td class="remove one-twelfth small--hide medium--hide">
+        </td>
+      </tr>
+      {% endcomment %}
+
+      <tr class="item-line item-second-line">
+        <td class="title animation two-twelfths medium--one-whole small--one-whole">
+          <a href="{% if item.price > 0 %}{{ item.url }}{% else %}javascript:void(0);{% endif %}">
+            <p class="text">
+              {{ item.product.title| replace_first: '|', '<span>' }}
+              {% if item.product.tags contains 'final sale' %}<span class="final-sale">**Final Sale**</span>{% endif %}
+            </p>
+          </a>
+          {% unless item.variant.title contains 'Default' %}
+          <p>{{ item.variant.title }}</p>
+          {% endunless %}
+          {% for p in item.properties %}
+          {% unless p.first contains "swell" or p.first contains "offer_type"%}
+          {% unless p.last == blank %}
+          <p>
+            {{ p.first }}:
+            {% if p.last contains '/uploads/' %}
+            <a href="{% if item.price > 0 %}{{ p.last }}{% else %}javascript:void(0);{% endif %}">{{ p.last | split: '/' | last }}</a>
+            {% else %}
+            {{ p.last }}
+            {% endif %}
+          </p>
+          {% endunless %}
+          {% endunless %}
+          {% endfor %}
+
+          {% if item.product.tags contains 'salon-merch' %}
+            <p class="not__qualified">does not qualify for free shipping</p>
+          {% endif %}
+          
+          {% if item.product.tags contains 'final sale'  %}
+            <p class="not__qualified">cannnot be combined with any other promotion</p>
+          {% endif %}
+        </td>
+        <td class="unit-price small--hide medium--hide two-twelfths medium--one-whole small--one-whole" data-price="{{item.price}}">          
+                    {% assign orig =  item.line_price %}
+                    {% assign linex = item.variant.price | times: item.quantity %}
+                    {% assign diff = linex | minus:  orig %}
+                    {% assign notsame = false %}
+                    {% if diff != 0 %}
+                    {% assign notsame = true %}
+                    {% endif %}
+{% assign nospecial = false %}
+{% for collection in item.product.collections %}
+  {% if "excludeHMS" == collection.title %}
+    {% assign nospecial = true %}
+  {% endif %}
+{% endfor %}
+                   <!-- {{ orig }}  {{ linex }}  {{ diff }} {{ notsame }} {{nospecial}} cartitem -->          
+          {% if nospecial %}
+          {% else %}
+          {% if item.variant.compare_at_price > item.price or customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame%}
+          <div class="retail">
+            {% if customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame%}
+              {% if item.line_price == 0 %}
+              {% else%}
+              <span>{{item.variant.price | money | remove: ".00" }}</span>
+              {% endif %}
+            {% endif %}
+            
+            {% if item.variant.compare_at_price > item.price %}
+              {% if item.line_price == 0 %}
+              {% else%}
+            	<span>{{item.variant.compare_at_price | money | remove: ".00" }}</span>
+	          {% endif %}
+            {% endif %}
+          </div>
+          {% endif %}
+          {% endif %}
+          
+          {% if item.price > 0 %}
+          <div class="deal {% if item.variant.compare_at_price > item.price or  customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame%}disc{%endif%}">
+            <span>{{ item.price | money | remove: ".00" }}</span>
+          </div>
+          {% else %}
+            {% if item.product.type == 'Custom Bundle' %}
+              {{ item.original_price | money_without_trailing_zeros }}
+            {% else %}
+              FREE
+            {% endif %}
+          {% endif %}
+          
+          
+          
+        </td>
+        <td class="qtty two-twelfths medium--one-half small--one-half">
+          <div class="wrap clearfix">
+            {% if item.price > 0 or item.variant.id == 1771451940882%} 
+            <input type="button" value="&ndash;" class="minus animation">
+            <input readonly type="number" step="1" id="updates_{{ item.id }}" name="updates[]" value="{{ item.quantity }}" title="Qty" size="4" min="1" max="{{ available }}" class="text quantity replace">
+            <input type="button" value="+" class="plus animation">
+            {% else %}
+            <div class="hide"><input type="number" step="1" id="updates_{{ item.id }}" name="updates[]" value="{{ item.quantity }}" title="Qty" size="4" min="1" max="{{ available }}" class="text quantity replace"></div>
+            <input type="number" step="1" value="{{ item.quantity }}" title="Qty" size="4" min="1" class="text quantity replace" disabled>
+            {% endif %}
+          </div>
+        </td>
+        <td class="total-price two-twelfths medium--one-half small--one-half">
+          {% if item.variant.compare_at_price > item.price or customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame%}
+          <div class="retail desktop">
+            {% if item.line_price == 0 %}
+            {% else%}
+            <span>{{ item.line_price | money | remove: ".00" }}</span>                        
+            {%endif%}
+          </div>
+          {% endif %}          
+          
+          {% if item.variant.compare_at_price > item.price or customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame%}
+          <div class="retail mobile">
+            {% if customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame%}<span>{{item.variant.price | times: item.quantity | money | remove: ".00" }}</span>{% endif %}
+            {% if item.variant.compare_at_price > item.price %}<span>{{item.variant.compare_at_price | money | remove: ".00" }}</span>{% endif %}
+          </div>
+          {% endif %}           
+          
+          {% if item.price > 0 %}
+          <div class="deal {% if item.variant.compare_at_price > item.price or customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame%}disc mobile{%endif%}">
+            <span>{{ item.line_price | money | remove: ".00" }}</span>
+          </div>          
+          {% else %}
+            {% if item.product.type == 'Custom Bundle' %}
+              {{ item.original_line_price | money_without_trailing_zeros }}
+            {% else %}
+              FREE
+            {% endif %}
+          {% endif %}
+          
+                   
+          
+          
+        </td>
+        <td class="remove one-twelfth medium--one-whole small--one-whole text-right">
+          <a class="remove-from-cart animation" href="/cart/change?line={{ forloop.index }}&quantity=0"><i class="icon ion-close"></i></a>
+        </td>
+      </tr>      
+    </table>
+  </td>
+</tr>

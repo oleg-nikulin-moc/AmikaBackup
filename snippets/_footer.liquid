@@ -1,0 +1,176 @@
+<footer id="footer">
+
+
+
+  <div class="flex footer-top">
+    
+      {% if template != 'customers/login' %}
+      <div class="mailing-list flex-1" id="join-us">
+        <div class="page__form-wrapper">
+
+          <form id="klavemail" class="klaviyo_gdpr_embed_LIST_ID">
+                
+            <input type="hidden" name="g" value="YaXJeH">
+
+            <div class="wrapper">
+              <input type="text"
+                    name="email"
+                    class="required email email-input"
+                    id="SubscribeFormEmail"
+                    placeholder="hair mail plz"
+                    value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                    spellcheck="false"
+                    autocomplete="off"
+                    autocapitalize="off"
+                    novalidate="novalidate"
+                    >
+
+              <input type="image" class='form-subscribe' name="subscribe" src="https://cdn.shopify.com/s/files/1/2117/1151/files/arrow-lg-2.svg?v=1616525769" class="Notify_me fa animation" id="email-submit" />
+            </div>
+
+            <div class="klaviyo_messages">
+                <div id="footer-email-error" class='form-msg' style="display:none;">
+                  <strong>error message:</strong> enter a valid email address
+                </div>
+                <div id="footer-email-success" class='form-msg' style="display:none;">
+                  <strong>thank you! <span>see you soon</span></strong>
+                </div>
+            </div>
+            </div>
+          </form>
+
+
+
+      </div>
+      {% endif %}
+
+      {% if settings.add_social_links %}
+        {% include 'social_links' %}
+      {% endif %}
+  </div>
+
+
+
+  <ul class="links">
+    {% for link in linklists.footer.links %}
+      <li class="{% if forloop.first %}first{% elsif forloop.last %}last{%endif%} animation toggle-footer-submenu">
+        <a href="{{ link.url }}" class="xanimation" {% if link.url contains "http:" or link.url contains "https:" %}target="_blank"{% endif %}>{{ link.title | escape }}</a>
+
+
+        {% if link.links != blank %}
+          <ul class="child">
+            {% for child_link in link.links %}  
+            <li><a href= "{{ child_link.url }}">{{ child_link.title }}</a></li>
+            {% endfor %}
+          </ul> 
+        {% endif %} 
+        </li>
+
+
+
+      </li>
+    {% endfor %}
+  </ul>
+  
+  
+  <div class="flex subfoot">
+
+    <div class="logo-footer mobile-hide">
+      {% include 'amika-svg' %}
+    </div>
+  
+
+    <div class="flex-1 mobile-hide text-right">
+      and if you still don't know where to go checkout our <a href="/apps/sitemap">sitemap</a>
+    </div>
+
+    <div class="copy flex-1">
+      © {{ 'now' | date: "%Y" }} amika. all rights reserved. 
+      <span class="legal-links">
+        <a href="/pages/terms#privacy-policy">privacy policy</a> & <a href="/pages/terms">terms of use</a>
+      </span><span class="desktop-hide">
+      and if you still don't know where to go checkout our <a href="/apps/sitemap">sitemap</a> 
+      </span>
+    </div>
+
+  </div>  
+
+  <div class="logo-footer desktop-hide">
+    {% include 'amika-svg' %}
+  </div>
+  
+  <script type="text/javascript">
+  {% if template != 'customers/login' %}
+
+  $("#klavemail .form-subscribe").on('click' ,function() {
+
+    let email = $("#SubscribeFormEmail").val();
+    let emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    
+    if ( !email || !email.length || !emailRegex.test(email) ) {
+      
+      $("#footer-email-success").hide();
+      $("#footer-email-error").show();
+
+    } else {
+
+      var data = $("#klavemail").serialize();
+      $.ajax({
+        url: "https://manage.kmail-lists.com/ajax/subscriptions/subscribe",
+        method: 'POST', 
+        data: data,
+        success: function(data) {
+          console.log('success!:', data),
+          $("#footer-email-error").hide();
+          $("#footer-email-success").show();
+        },
+        error: function(jqxhr, textStatus, errorThrown) {
+          console.log({jqxhr})
+          console.log({textStatus})
+          console.log({errorThrown})
+        }
+
+      })
+    }
+  });
+
+  {% endif %}
+
+
+
+    /* spinning gift card*/
+var img = "http://cdn.shopify.com/s/files/1/2117/1151/t/391/assets/giftcard.svg?v=17387787217830611238"
+var spins = 0;
+//$("img").click(spin);
+
+spin($(".footer__giftcard"));
+$(".footer__giftcard").on('click', function(){
+     window.location = "/products/gift-card";    
+});
+function spin(target){
+  target.css({"animation":"footer-spinning-giftcard--start 1s linear"});
+  setTimeout(function(){
+    target.css({"animation":"footer-spinning-giftcard--end 1s linear"});
+    target.attr("src",img)
+  },1000);
+  
+  setTimeout(function(){
+    spin(target);
+  },2000);
+}
+
+//
+
+$('.toggle-footer-submenu').on('click', function (event) {
+    // event.preventDefault(); // using css to kill # link
+    let v=false; 
+    if ($(this).hasClass('open')) v=true;
+    $('.toggle-footer-submenu').removeClass('open');
+    if (!v) $(this).addClass('open')
+});
+
+
+
+  </script>
+
+</footer>

@@ -1,0 +1,135 @@
+ <div
+    id="blog"
+    class="section__index"
+    data-section-id="{{ section.id }}">
+    <img id='logo-blog' src='{{ 'amika-thestrand.svg' | asset_url }}' alt='The Strand' />
+
+    <div id="hp-blog-grid" class='slick-see-next grid'>
+
+    {% for block in section.blocks %}
+        {%- assign a = articles[block.settings.post] -%}
+        {%- assign tag = a.tags | last | split: "tag_" | last | upcase | replace: "_", " "  -%}
+
+        <div class="grid__item one-third small--one-whole pdp-blog">
+            <a href="{{ a.url }}" title="{{ a.title | escape }}">
+                <img src="{{ a.image.src | img_url: '500x' }}" alt="{{ a.image.alt }}" />
+            </a>
+            {%- unless tag == blank -%}
+                <h5 class="blog-tag">{{ tag }}</h5>
+            {%- endunless -%}
+            {%- if a.title.size > 0 -%}
+                <a class="blog-title" href="{{ a.url }}">{{ a.title | escape }}</a>
+            {%- endif -%}
+        </div> 
+    {% endfor %}
+    </div>
+</div>
+
+<style>
+    #blog[data-section-id="{{ section.id }}"].section__index  {
+        {% comment %}
+            Default margin-top on sections w/ class .section__index is 50px.
+            Default margin-bottom on sections w/ class .section__index is 0.
+            Don't need to set if the same value as default.
+        {% endcomment %}
+
+        {%- if section.settings.margin_top_mobile != blank and section.settings.margin_top_mobile != '0' -%}
+            margin-top: {{ section.settings.margin_top_mobile }}px;
+        {%- endif -%}
+        
+        {%- if section.settings.margin_bottom_mobile != blank and section.settings.margin_bottom_mobile != '50' -%}
+            margin-bottom: {{ section.settings.margin_bottom_mobile }}px;
+        {%- endif -%}
+    }
+
+    @media screen and (min-width: 1024px) {
+        #blog[data-section-id="{{ section.id }}"].section__index  {
+            {%- if section.settings.margin_top_mobile != section.settings.margin_top -%}
+            margin-top: {{ section.settings.margin_top }}px;
+            {%- endif -%}
+            {%- if section.settings.margin_bottom_mobile != section.settings.margin_bottom -%}
+            margin-bottom: {{ section.settings.margin_bottom }}px;
+            {%- endif -%}
+        }
+    }
+</style>
+
+<script>
+$(function() {
+
+    if ( $(document).width() < 767 ) {
+        
+        $('#hp-blog-grid').css('display', 'block').slick({
+            autoplay: false,
+            speed: 1000,
+            slidesToShow: 1,
+            pauseOnHover: false,
+            slidesToScroll: 1,
+            arrows: false,
+         
+        });
+        
+
+    }
+});
+
+</script>
+
+{% schema %}
+  {
+    "name": "HP Blog",
+    "settings": [
+        {
+            "type": "text",
+            "id": "margin_top_mobile",
+            "label": "Mobile Section Margin Top",
+            "info": "Enter number only. Default 0. Units in px.",
+            "default": "0"
+        },
+        {
+            "type": "text",
+            "id": "margin_bottom_mobile",
+            "label": "Mobile Section Margin Bottom",
+            "info": "Enter number only. Default 50. Units in px.",
+            "default": "50"
+        },
+        {
+            "type": "text",
+            "id": "margin_top",
+            "label": "Desktop Section Margin Top",
+            "info": "Enter number only. Default 0. Units in px.",
+            "default": "0"
+        },
+        {
+            "type": "text",
+            "id": "margin_bottom",
+            "label": "Desktop Section Margin Bottom",
+            "info": "Enter number only. Default 50. Units in px.",
+            "default": "50"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "Posts",
+            "name": "Blog Posts",
+            "limit": 3,
+            "settings": [
+                    {
+                    "type": "article",
+                    "id": "post",
+                    "label": "Blog Post"
+                }
+            ]
+        }
+
+    ],
+    "presets": [
+        {
+            "name": "Blog",
+            "category": "Blog"
+        }
+    ]
+  }
+{% endschema %}
+
+

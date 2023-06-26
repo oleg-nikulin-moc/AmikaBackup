@@ -1,0 +1,127 @@
+<div class="page page-{{page.handle}} text-center">
+  <div class="img-container img-top">
+    <img src="{{ "amika_misc-group_still-life.png" | asset_img_url: "master" }}" class="img-responsive"/>
+  </div>
+  <div class="container">
+    <h1 class="page-title">{{page.title}}</h1>
+    <div class="one-half small--one-whole push--large--one-quarter push--medium--one-quarter">
+      {{ page.content }}
+    </div>
+  </div>
+</div>
+
+
+  <div id="contact-form-page" class="page container">
+  <div class="contact-top">
+    <div class="large--table medium--table">
+      <div class="large--table-cell medium--table-cell">
+        <div class="contact-text">
+          <p>{{ page.content }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-content text-left">
+    <div class="grid">
+      <div class="grid__item one-quarter medium--one-half small--one-whole">
+        <h2>TerraCycle® x amika</h2>
+        <p class="bolder">we've partnered with <a href="https://www.terracycle.com/en-US/" target="0">TerraCycle®</a> to create a free recycling program for all our packaging</p>
+        <div class="table">
+          <div class="table-row">
+            <div class="table-cell">
+              <span></span>
+            </div>
+            <div class="table-cell">
+              <strong></strong>
+            </div>
+          </div>
+ <div class="table-row">
+            <div class="table-cell">
+              <span></span>
+            </div>
+            <div class="table-cell">
+              <span class="bolder underlined"></span>
+            </div>
+          </div>
+          {% comment %}
+          <div class="table-row">
+            <div class="table-cell">
+              <span></span>
+            </div>
+            <div class="table-cell">
+              <span class="bolder underlined"></span>
+            </div>
+          </div>
+          {% endcomment %}
+        </div>
+      </div>
+      <div class="grid__item one-quarter medium--one-half small--one-whole">
+        <h2>it's free</h2>
+        <p>
+          recycle from home by joining the program and downloading a free shipping label
+          <a href="" target_"blank">print your free shipping label</a>
+        </p>
+        <p>
+          or search the map for a local recycling solution
+          <a href="" target_"blank">see dropoffs near you</a>
+        </p>
+        <p>
+
+      </div>
+      <div class="grid__item one-quarter medium--one-half small--one-whole">
+        <h2>how it works</h2>
+        <p>
+          join
+        </p>
+        <p>
+          collect
+        </p>
+        <p>
+          print label
+        </p>
+        <p>ship
+        </p>
+      </div>
+      <div class="grid__item one-quarter medium--one-half small--one-whole">
+        <h2>got questions?</h2>
+        <p>
+          email us <br>
+          <a href="mailto:info@loveamika.com">info@loveamika.com</a>
+        </p>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="page page-{{page.handle}} container text-center">
+  {% section 'terracyclefaq' %}
+</div>
+
+    
+    
+        <div class="faq_wrapper">
+          <div class="faq_container">
+            <h2>{{section.settings.box_section_header}}</h2>
+            <div class="faq_content_container">
+              <ul>
+
+                {% for block in section.blocks %}
+                <li>
+                  <h4 class="faq_content_title">{{block.settings.faq_content_heading}}</h4>
+                  <div class="faq_content_text">
+                    {{block.settings.faq_content_paragraph}}
+                  </div>
+                </li>
+                {% endfor %}
+
+              </ul>
+            </div>
+          </div>
+        </div>
+    
+<script>
+  $(".faq_content_title").on('click', function(){
+    $(this).toggleClass("active");
+    $(this).next().toggleClass("active");
+  })
+</script>
+    

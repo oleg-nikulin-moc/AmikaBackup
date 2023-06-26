@@ -1,0 +1,65 @@
+<script>
+  var SwellCounter = {  
+    selectors: {
+      placeholder: '[data-swell-cart-points]'
+    },
+    checkForSwell: function(){
+      if( !window.swellAPI || typeof window.swellAPI != 'object'){ 
+        console.error('Swell is not activated'); 
+        return false;
+      }
+      return true;
+    },
+    getPointsPerDollar: function(){
+      if(!this.checkForSwell()){ return false; }
+      let _activeCampaigns = window.swellAPI.getActiveCampaigns();
+      let _pointsPerPurchase = _activeCampaigns.filter(function(_campaign){
+        return _campaign.title == 'points per purchase';
+      })
+      return _pointsPerPurchase[0].rewardPoints;
+    },
+    calculateCartPoints: function(_cartTotal){
+      if(!this.checkForSwell()){ return false; }
+      if(!_cartTotal || typeof _cartTotal != 'number'){ console.error('Invalid cart total'); return false; } 
+      let _customer = window.swellAPI.getCustomerDetails();
+      let _pointMultiplier = 0; 
+      if(_customer.vipTier){
+        _pointMultiplier = _customer.vipTier.pointsMultiplier
+      }
+      let _pointsPerDollar = this.getPointsPerDollar() * _pointMultiplier;
+      let _pointTotal = Math.floor(_cartTotal * _pointsPerDollar);
+      return _pointTotal;
+    },
+    populateCartPointPlaceholders: function(_pointCount){
+      let _pointString = `<a href="/pages/rewards" target="_blank">Start earning rewards after placing your first order.</a>`;
+      if(_pointCount > 0){
+        _pointString = `You'll earn ${_pointCount} loyalty points on this purchase.`;
+      }
+      let _placeholders = document.querySelectorAll(this.selectors.placeholder); 
+      _placeholders.forEach(function(_placeholder, _index){
+        _placeholder.innerHTML = _pointString;
+      })
+    },
+    init: function(_callback, _attempts){
+      if(window.swellAPI && typeof window.swellAPI == 'object') {
+        setTimeout(function() {
+          _callback();
+        }, 1000);
+        return;
+      }
+      if(_attempts <= 0) return;
+      let _self = this;
+      setTimeout(function() {
+        _self.init(_callback, _attempts - 1);
+      }, 500);
+    }
+  }  
+
+  // Initialization for this particular theme
+  $(document).ready(function(){
+    SwellCounter.init( function(){
+      let _cartPoints = SwellCounter.calculateCartPoints({{ cart_total }});              
+      SwellCounter.populateCartPointPlaceholders(_cartPoints);
+    }, 20);
+  });
+  </script>

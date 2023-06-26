@@ -1,0 +1,112 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style>
+   @media (max-width:768px) {
+     .text-content {
+       font-size:60px;
+       margin:0 auto;
+     }
+    .page-title {
+      font-size:60px;
+      margin:0 auto;
+      margin-bottom:16px;
+      background: mistyrose;
+   }
+         
+   .btn {
+      margin:0 auto;
+      margin-top:16px;
+      margin-bottom:50px; 
+    }
+      
+   .embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .embed-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+ 
+     }  
+   @media (min-width:1068px) {
+     
+   .text-content .page-title {
+     text-align: center;
+     margin:0 auto;
+     width:800px; 
+   }
+      
+   .btn {
+      margin:0 auto;
+      margin-top:16px;
+      margin-bottom:50px; 
+    }
+      
+   .embed-container {
+    margin:0 auto;
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .embed-container iframe {
+    margin:0 auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+ 
+   }
+  </style>
+  <link href="./ired.css" rel="stylesheet">
+      
+
+  </head>
+   <body>
+    <div class="page page-{{page.handle}} container text-center">
+    <div class="img-container img-top">
+     <img src="{{"AMIKA_FEB3696_.GIF.gif" | asset_url}}" class="img-responsive"/>
+    </div>
+     <h1 class="page-title">iRed polished perfection straightening brush</h1>
+    <div class="one-half small--one-whole push--large--one-quarter push--medium--one-quarter">
+    <div class=text-content>
+      <p>the power of a straightener with the ease of a hair brush—featuring an ion generating projector and upgraded with iRed technology for smoother, shinier hair.</p>
+      <p>iRed beam technology speeds heat deeper to preserve moisture for instantly smooth hair—with less damage. Negative ion projector emits millions of negative ions that lock in moisture to deliver shiny, smooth results. Ceramic base and cool-tip bristles guarantee safe, easy styling.</p>
+    </div>
+        <div class="content-available text-center">
+   {% if currentProduct.sku == 'AM32.15633' or currentProduct.handle == 'polished-perfection-span-straightening-brush-2-0' %}
+    <a href="https://www.sephora.com/product/ired-polished-perfection-straightening-brush-P441833" target="_blank" class="btn animation">
+      buy at sephora
+    </a>
+  {% else %}
+    {% if event.buy_url %}
+    <!-- <a href="{{ event.buy_url }}" class="btn event__btn btn__black">buy at saloncentric.com</a> -->
+    <a href="{{ event.buy_url }}" class="btn event__btn btn__black">buy here</a>
+    {% else %}
+    <input type="submit" name="add" id="add-to-cart-button" class="btn animation" value="add to bag" />
+    {% endif %}
+  {% endif %}
+</div>
+<div class="content-soldout text-center red-message hide">
+  This product is SOLD OUT.
+</div>
+  <div class="embed-container">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/CrJ-4hKGYGc?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
+     </div>
+     
+
+  </body>
+</html>

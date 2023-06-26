@@ -1,0 +1,90 @@
+<meta name="robots" content="noindex">
+<div class="page page-{{page.handle}} container text-center">
+  <h1 class="page-title">{{page.title}}</h1>
+  <div class="animation grid__item one-whole small--one-whole">
+    {{ page.content }}
+    {% assign product = all_products["nihar-test-product"]%}
+    <div>
+      <h2>Filter</h2>
+      <ul>
+        {% for tag in collections[taxes-all-products].tags %}
+          <li>{{ tag | link_to_tag: tag }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="grid-uniform">
+      {% for i in (1..6) %}
+        <div class="grid__item large--one-half medium--one-third small--one-whole flex__container">
+          <div class="product-item  grid__item one-half medium--one-third small--one-whole flex__item" style="padding-left: 0px">
+            <div class="image-wrapper" style="position: relative;">	
+              <a href="{{ product.url }}">
+                <div class="image show-second-image" id="image-{{ product.id }}">
+                  <div class="img animation" style="background-image: url({{product.images[0] | img_url: 'large'}})"></div>
+                    <div class="img second-img animation" style="background-image: url({{product.images[1] | img_url: 'large'}});"></div>        
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="product-item  grid__item one-half medium--one-third small--one-whole flex__item">
+            <div class="info plp-info">
+              <input type="hidden" value="false">
+              <a href="{{ product.url }}">
+                <div class="animation"><b>{{ product.title }}</b></div>
+              </a>
+              {% assign event = product.metafields.event %}
+              
+              {% if event.date %}
+              <b> Date: </b> {{ event.date }} <br>
+              {% endif %}
+              
+              {% if event.duration %}
+              <b> Time: </b> {{event.duration }} <br>
+              {% endif %}
+              
+              {% if event.location %}
+              <b> Location: </b> {{event.location }}
+              {% endif %}
+              <p>{{product.description | strip_html | truncate: 100 }}</p>
+              <div class="price clearfix">
+                <div class="deal">
+                    <span class="red-price">{{ product.price | money_without_trailing_zeros }}</span>
+                </div>
+              </div>
+              <a href="{{ product.url }}" class="btn event__btn">EVENT DETAILS</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+  	</div>
+  </div>
+</div>
+
+<style>
+  .product-item .image .img {
+    background-size: cover;
+  }
+  
+  a.btn.event__btn {
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    margin-top: 20px;
+  }
+  
+  .flex__container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .flex__item {
+    flex: 1;
+    text-align: left;
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .flex__container { 
+        display: block;
+        padding: 10px;
+    }
+  }
+</style>

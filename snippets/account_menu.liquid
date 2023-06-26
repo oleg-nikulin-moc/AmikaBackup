@@ -1,0 +1,17 @@
+<div class="my-account-menu animation">
+  <h1 class="small--hide hide"><a href="/account">Index</a></h1><h1 class="hide small--show"><a href="/account">My Account</a></h1>
+  <ul>
+    <a href="/account"><li class="animation">MY ACCOUNT</li></a>
+    <a href="/account" class="hide"><li class="animation">ACCOUNT INFORMATION</li></a>
+    <a href="/account/addresses" class="hide"><li class="animation">ADDRESS BOOK</li></a>
+    {% if template == "customers/account" %}
+    <a href="#customer_orders" class="scroll"><li class="animation">MY ORDERS</li></a>
+    {% else %}
+    <a href="/account#customer_orders" class="scroll"><li class="animation">MY ORDERS</li></a>
+    {% endif %}
+    <a href="" class="hide"><li class="animation">PRIVACY POLICY</li></a>
+    <a href="" class="hide"><li class="animation">TERMS OF USE</li></a> 
+    <a href="/apps/iwish"><li class="animation">MY WISHLIST</li></a>
+  </ul>
+  <div class="action-bottom smaller logout"><a href="/account/logout"><div class="button--secondary">logout</div></a></div>
+</div>

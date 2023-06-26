@@ -1,0 +1,102 @@
+<div class="page page-{{page.handle}} container text-center">
+  <h1 class="page-title">{{page.title | downcase }}</h1>
+  <div class="one-half small--one-whole push--large--one-quarter push--medium--one-quarter">
+    <p>please note: <strong>some orders</strong> are experience delays. please know we're processing your order. for more infomation on your order, please email <a href="mailto:info@loveamika.com">info@loveamika.com</a><br/><br/>to check the status of your order:</p>
+
+    <form action="https://loveamikaod.roswellstudios.com/searchorders" id="order_status">
+      <div>
+        <label for="order_email">please enter the email used to place your order</label>
+        <input type="email" name="email" id="order_email">
+      </div>
+      <div class="order__number_wrapper">
+        <label for="order_number">please enter the order number (without the #) to view status </label>
+        <input type="text" name="order_number" id="order_number">
+      </div>
+      
+      <p class="err_msg error_support" style="display: none;">order status not found, please email us at info@loveamika.com</p>
+      <p class="err_msg error_email" style="display: none;">email missing</p>
+      <p class="err_msg error_orderNumber" style="display: none;">order number missing</p>
+      <p class="err_msg error_mismatch" style="display: none;">incorrect email or order number contact support</p>
+      <div class="submit__button" >
+        <input type="submit" class="btn" value="submit">
+      </div>
+    </form>
+  </div> 
+  
+<script>
+  $('#order_status').on('submit', function (e) {
+    e.preventDefault();
+    $('.err_msg').fadeOut();
+    $('#loading-overlay').show();
+    
+    if($('#order_email').val() == "" ) {
+      $('.err_msg.error_email').fadeIn();
+      setTimeout(function(){ $('.err_msg').fadeOut()}, 5000);
+      $('#loading-overlay').hide();
+      return
+    } else {
+      $('.err_msg').fadeOut();
+    }
+
+    if($('#order_number').val() == "" ) {
+      $('.err_msg.error_orderNumber').fadeIn();
+      setTimeout(function(){ $('.err_msg').fadeOut()}, 5000);
+      $('#loading-overlay').hide();
+      return
+    } else {
+      $('.err_msg').fadeOut();
+    }
+
+    let order_email = $('#order_email').val().toLowerCase();
+    let order_number = $('#order_number').val();
+
+    let form_data = {
+      email: order_email,
+      order_number: order_number
+    }
+
+    $.ajax({
+      type: 'get',
+      dataType: 'json',
+      url: 'https://loveamikaod.roswellstudios.com/searchorders',
+      data: form_data,
+      success: function (data) {
+        if(data && data.order_status_url ) {
+          window.location= data.order_status_url;
+          $('.err_msg').fadeOut();
+        } else {
+          console.log(data);
+          if(data && data.msg == 'mismatch') {
+            $('.err_msg.error_mismatch').fadeIn();
+          } else {
+            $('.err_msg.error_support').fadeIn();
+          }
+          $('#loading-overlay').hide();
+          setTimeout(function(){ $('.err_msg').fadeOut(); }, 5000);
+        }
+      }
+    });
+
+  });
+</script>
+
+<style>
+  .submit__button {
+    margin-top: 20px;
+  }
+  
+  .order__number_wrapper {
+    margin-top: 2em;
+  }
+  
+  #order_number,
+  #order_email {
+    text-align: center;
+  }
+  
+  .err_msg {
+    color: red;
+    margin: 30px auto;
+  }
+</style>
+

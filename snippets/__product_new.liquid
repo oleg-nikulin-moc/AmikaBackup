@@ -1,0 +1,612 @@
+{{ 'product-reviews.scss.css' | asset_url | stylesheet_tag }}
+{% if product.handle contains 'test' %}
+<meta name="robots" content="noindex">
+{% endif %}
+
+{% if product.handle contains 'liter-pump-set-of-2' %}
+<meta name="robots" content="noindex">
+{% endif %}
+
+{% assign currentProduct = product %}
+{% assign isSample = false %}
+{% for col in currentProduct.collections %}
+  {% if col.handle contains 'samples' %}
+	{% assign isSample = true %}
+  {% endif %}
+{% endfor %}
+{% unless isSample %}
+<script>
+    $(function(){
+    	var product = {{ currentProduct | json }};
+      	var productJs = ProductJs(product);
+
+        if(window.location.hash.indexOf('search') >= 0) {
+        	$('.collection-nav .return_search').removeClass('hide');
+      	}
+
+      dataLayer.push({
+        'event': 'ecommerce_event',
+        'eventCategory': 'ecommerce',
+        'eventAction': 'view',
+        'ecommerce': {
+            'currencyCode': 'USD',
+            'view' : {
+              'products': [{sku: '{{product.selected_or_first_available_variant.sku}}',
+                            name: '{{product.title}}',
+                            price: {{product.selected_or_first_available_variant.price}}/100,
+                            collection: '{{ collection.handle }}'
+                           }]
+            }
+        }
+      });
+    });
+</script>
+
+<div id="product-wrap" class="container product__redesign" itemscope itemtype="http://schema.org/Product">
+<meta itemprop="url" content="{{ shop.url }}{{ product.selected_or_first_available_variant.url }}" />
+<meta itemprop="image" content="https:{{ product.selected_or_first_available_variant.image.src | product_img_url: 'grande' }}" />
+  <div id="product-item-{{ currentProduct.id }}" class="clearfix {% if product.template_suffix == 'ticket' %}ticket{% endif %}" >
+    <div class="product-col-left">
+      {% if quickView != true %}
+      <div class="product-top">
+        <div class="wrap clearfix">
+          {% include 'breadcrumb' %}
+        </div>
+      </div>
+      {% endif %}
+      {% include '_product_gallery' %}
+    </div>
+
+    <div id="product-info" class="clearfix">
+      <form action="/cart/add" method="post" class="variants add-to-cart-form" id="product-actions" enctype="multipart/form-data">
+        <h1 class="title" itemprop="name">{{ currentProduct.title | replace_first: '|', '<span>' }}
+          {% if product.tags contains 'final sale' %}
+	          <p class="final-sale">**Final Sale**</p>
+          {% endif %}
+        </h1>
+
+        <div class="yotpo bottomLine"
+             data-product-id="{{ product.id }}">
+        </div>
+
+        {% unless product.template_suffix != 'ticket'%}
+
+          <div class="description description-top small--hide">
+            {% assign event = currentProduct.metafields.event %}
+
+            {% if event.date %}
+            <p><b> Date: </b> {{ event.date }}</p>
+            {% endif %}
+
+            {% if event.time %}
+            <p><b> Time: </b> {{ event.time }}</p>
+            {% endif %}
+
+            {% if event.location %}
+            <p><b> Location: </b> {{ event.location }}</p>
+            {% endif %}
+
+            {% if event.buy_url %}
+            <p><b> Event Link: <a href="{{ event.buy_url }}"> {{ event.buy_url }}</a></b></p>
+            {% endif %}
+            {{ currentProduct.description }}
+
+            {% if event.featuredartist %}</p>
+            <p><b> Featured artist: </b> {{ event.featuredartist }}
+            {% endif %}
+
+            {% if event.instagram %}
+            <p><b> Follow: </b> <a href="https://www.instagram.com/{{event.instagram}}/">@{{event.instagram }}</a></p>
+            {% endif %}
+
+            {% if event.type_of_class %}
+            <p><b> Type of class: </b> {{ event.type_of_class }}</p>
+            {% endif %}
+
+            {% if event.what_to_bring %}
+            <p><b> What to bring: </b> {{ event.what_to_bring }}</p>
+            {% endif %}
+
+            {% if event.call_to_purchase %}
+            <b> Call to purchase: </b> <a href="tel:{{event.call_to_purchase}}">{{ event.call_to_purchase }}</a>
+            {% endif %}
+
+          </div>
+      	{% endunless %}
+
+        <span class="validation-msg hide"></span>
+        <div class="large--table medium--table">
+          <div class="large--table-cell medium--table-cell" style="{% if product.template_suffix == 'ticket'%} vertical-align:bottom!important; {% else %} vertical-align:top!important; {% endif %}">
+
+            {% if product.template_suffix == 'ticket'%}
+              <div class="tickets-desktop-only">
+              {% include 'social_sharing' %}
+              </div>
+            {% else %}
+              {% include '_product_variants' %}
+              {% include '_product_quantity' %}
+            {% endif %}
+
+          </div>
+          <div class="large--table-cell medium--table-cell second-column">
+
+            {% if product.template_suffix != 'ticket'%}
+            	{% include '_product_price' %}
+            {% endif %}
+
+            {% unless event.call_to_purchase %}
+              {% include '_product_buttons' %} 
+            {% endunless %}
+
+            {% if product.template_suffix != 'ticket'%}
+              {% include 'iwish_v2' with 'iwishproduct' %}
+            {% endif %}
+
+          </div>
+        </div>
+
+        <input type="hidden" class="all-product-status" value="{{ productStatus }}" />
+        <input type="hidden" class="product-status" value="{{ productStatus }}" />
+      </form>
+
+      {% comment %} Kind + Clean AND Orange Badges Section {% endcomment %}
+      {% include '_product_kind-clean' %}  
+      {% comment %} Details Marquee {% endcomment %}
+      {% include 'marquee_text' , text_to_scroll: product.metafields.marquee_text.details %}
+      {% comment %} Details Section {% endcomment %}
+      {% include '_product_details' %} 
+      {% comment %} Testimonials Marquee {% endcomment %}
+      {% include 'marquee_text' , text_to_scroll: product.metafields.marquee_text.testimonials %}
+      {% comment %} Testimonials Section {% endcomment %}
+      {% include '_product_testimonials' %}
+      {% comment %} Press Badges Section {% endcomment %}  
+      {% include 'product_badges' %}
+      {% comment %} Video Marquee 
+      {% include 'marquee_text' , text_to_scroll: product.metafields.marquee_text.video %}
+      {% endcomment %}
+
+      {% include 'donation' %}
+
+      <script>
+        $(function(){
+          $('#product-wrap .video .overlay').click(function(){
+            if($(this).find('.button').is(':visible')) {
+              $('#product-wrap video').get(0).play();
+              $(this).find('.button').hide();
+            } else {
+              $('#product-wrap video').get(0).pause();
+              $(this).find('.button').show();
+            }
+          });
+
+
+          {% if product.tags contains 'liter' %}
+          $('#add-to-cart-button').on('click', function(){
+            let prodsel = $('.select-variant option:selected').text();
+            if (prodsel === '1 l / 33.8 fl oz'
+               || prodsel === '1000ml / 33.8 oz'
+               || prodsel === '2 for 1 litre' ) {
+              setTimeout(function(){
+                //open dialog
+                //-find dialog. There's some cloud thing
+
+                hideSideCart();
+                modal = new tingle.modal({
+                  closeMethods: ['overlay', 'button', 'escape'],
+                  closeLabel: "",
+                  cssClass: ['promotion-popup']
+                });
+                modal.setContent(
+                  '<div id="promotion-pop-up-success">\
+                  	<div id="promotion-pop-up-success-wrapper">\
+                      <div class="wrap">\
+                      <h1>Do you need a new set of pumps for your liter?</h1>\
+                      <p><button id=pumpok>Yes, I need pumps</button></p>\
+                      <p><button id=pumpno>No, I\'ll reuse mine <i class="fa fa-recycle" aria-hidden="true"></i></button></p>\
+                      </div>\
+                    </div>\
+                  </div>');
+                modal.open();
+                $('#pumpok').on('click', function(){
+                  modal.close();
+                  //add id:193236500498 to cart
+                  $.ajax({
+                    type: 'POST',
+                    url: '/cart/add.js',
+                    data: {id:(prodsel === '1 l / 33.8 fl oz'?'1771444273170':'1771444273170'),quantity:1},
+                    dataType: 'json',
+
+                    error: addToCartFail,
+                    success: addToCartSuccess
+                  });
+                });
+                $('#pumpno').on('click', function(){
+                  modal.close();
+                });
+              }, 750);
+            }
+          });
+        {% endif %}
+
+
+		{% if product.tags contains 'FlashLiter' %}
+          $('#add-to-cart-button').on('click', function(){
+            let prodsel = $('.select-variant option:selected').text();
+            if (prodsel === '1 l / 33.8 fl oz'
+               || prodsel === '1000ml / 33.8 oz'
+               || prodsel === '2 for 1 litre' ) {
+              setTimeout(function(){
+                //open dialog
+                //-find dialog. There's some cloud thing
+
+                hideSideCart();
+                modal = new tingle.modal({
+                  closeMethods: ['overlay', 'button', 'escape'],
+                  closeLabel: "",
+                  cssClass: ['promotion-popup']
+                });
+                modal.setContent(
+                  '<div id="promotion-pop-up-success">\
+                  	<div id="promotion-pop-up-success-wrapper">\
+                      <div class="wrap">\
+                      <h1>Do you need a new set of pumps for your liter?</h1>\
+                      <p><button id=pumpok>Yes, I need pumps</button></p>\
+                      <p><button id=pumpno>No, I\'ll reuse mine <i class="fa fa-recycle" aria-hidden="true"></i></button></p>\
+                      </div>\
+                    </div>\
+                  </div>');
+                modal.open();
+                $('#pumpok').on('click', function(){
+                  modal.close();
+                  //add id:193236500498 to cart
+                  $.ajax({
+                    type: 'POST',
+                    url: '/cart/add.js',
+                    data: {id:(prodsel === '1 l / 33.8 fl oz'?'1771444273170':'1771444273170'),quantity:1},
+                    dataType: 'json',
+
+                    error: addToCartFail,
+                    success: addToCartSuccess
+                  });
+                });
+                $('#pumpno').on('click', function(){
+                  modal.close();
+                });
+              }, 750);
+            }
+          });
+        {% endif %}
+
+
+        });
+      </script>
+
+      {% comment %}
+      {% if currentProduct.metafields.youtube.url and currentProduct.metafields.youtube.url != "" %}
+      <div class="embed-container">
+		  {{ currentProduct.metafields.youtube.url }}
+      </div>
+      {% endif %}
+
+      {% if currentProduct.metafields.youtube1.url and currentProduct.metafields.youtube1.url != "" %}
+      <div class="embed-container">
+		  {{ currentProduct.metafields.youtube1.url }}
+      </div>
+      {% endif %}
+
+      {% if currentProduct.metafields.youtube2.url and currentProduct.metafields.youtube2.url != "" %}
+      <div class="embed-container">
+		  {{ currentProduct.metafields.youtube2.url }}
+      </div>
+      {% endif %}
+
+      {% if currentProduct.metafields.youtube3.url and currentProduct.metafields.youtube3.url != "" %}
+      <div class="embed-container">
+		  {{ currentProduct.metafields.youtube3.url }}
+      </div>
+      {% endif %}
+      {% endcomment %}
+
+      {% comment %}
+      {% if currentProduct.metafields.video.url and currentProduct.metafields.video.url != "" %}
+      <div class="video">
+        <div class="video-wrapper">
+          <div class="overlay">
+            <div class="table">
+              <div class="table-cell">
+                <div class="button"></div>
+              </div>
+            </div>
+          </div>
+          <video poster="{{ "poster.jpg" | asset_url }}">
+            <source src="{{ currentProduct.metafields.video.url }}"  type="video/mp4">
+          </video>
+        </div>
+      </div>
+      {% endif%}
+      {% if currentProduct.metafields.video1.url and currentProduct.metafields.video1.url != "" %}
+      <div class="video">
+        <div class="video-wrapper">
+          <div class="overlay">
+            <div class="table">
+              <div class="table-cell">
+                <div class="button"></div>
+              </div>
+            </div>
+          </div>
+          <video poster="{{ "poster.jpg" | asset_url }}">
+            <source src="{{ currentProduct.metafields.video1.url }}" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      {% endif%}
+      {% if currentProduct.metafields.video2.url and currentProduct.metafields.video2.url != "" %}
+      <div class="video">
+        <div class="video-wrapper">
+          <div class="overlay">
+            <div class="table">
+              <div class="table-cell">
+                <div class="button"></div>
+              </div>
+            </div>
+          </div>
+          <video poster="{{ "poster.jpg" | asset_url }}">
+            <source src="{{ currentProduct.metafields.video2.url }}" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      {% endif%}
+      {% if currentProduct.metafields.video3.url and currentProduct.metafields.video3.url != "" %}
+      <div class="video">
+        <div class="video-wrapper">
+          <div class="overlay">
+            <div class="table">
+              <div class="table-cell">
+                <div class="button"></div>
+              </div>
+            </div>
+          </div>
+          <video poster="{{ "poster.jpg" | asset_url }}">
+            <source src="{{ currentProduct.metafields.video3.url }}" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      {% endif%}
+      {% endcomment %}
+    </div><!-- /#product-information -->
+  </div><!-- /#product -->
+
+  {% include 'marquee_text' , text_to_scroll: product.metafields.marquee_text.review , marquee__full: true%}
+
+{% if product.metafields.yotpo.reviews_count and product.metafields.yotpo.reviews_count != "0" %}
+    <div class="yotpoRating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+        <span itemprop="itemReviewed">{{ product.title }}</span>
+        has a rating of <span itemprop="ratingValue">{{ product.metafields.yotpo.reviews_average }}</span> stars
+        based on <span itemprop="ratingCount">{{ product.metafields.yotpo.reviews_count }}</span> reviews.
+            </div>
+        {% endif %}
+</div><!-- /#product-wrap -->
+
+{% if product.metafields.youtube.videos %}
+  {% include 'marquee_text' , text_to_scroll: product.metafields.marquee_text.video %}
+  {% include 'product_videos' %}
+{% endif %}
+
+
+{% comment %} Related Products Marquee 
+{% include 'marquee_text' , text_to_scroll: product.metafields.marquee_text.related_products %}
+
+{% if settings.show_related_products %}
+  {% if quickView != true %}
+      {% include 'related_products_app' %}
+  {% endif %}
+{% endif %}
+{% endcomment %}
+
+{% if product.metafields.recommended_products.handles %}
+  {% include 'recommended_products' %}
+{% endif %}
+{% if settings.show_recently_viewed and quickView != true %}
+	{{ 'jquery.products.js' | asset_url | script_tag }}
+    <script>
+        $(function(){
+            Shopify.Products.recordRecentlyViewed();
+        });
+    </script>
+	{% include 'recently_viewed' %}
+{% endif %}
+
+<script>
+  $(document).ready(function(){
+    $('.description-top')
+    .contents()
+    .filter(function() {
+      return this.nodeType === 3 && $.trim(this.nodeValue) !== '';
+    })
+    .wrap('<p/>');
+
+    $('.description-top h2').each(function(index){
+      $(this).html('<a href="javascript:void(0);" class="animation">' + $(this).html() + '</a>');
+      $(this).nextUntil("h2").wrapAll('<div class="tab-content hide" />');
+      $(this).nextUntil("h2").andSelf().wrapAll('<div class="tab-container" />').parent().appendTo(".description-tabs");
+
+      if($(this).text().toLowerCase() == "how to"){
+        {% if currentProduct.metafields.youtube.url and currentProduct.metafields.youtube.url != "" %}
+           $(this).addClass('tab-open');
+           ($(this).parent()).find('.tab-content.hide').css("display",'block');
+        {% endif %}
+      }
+
+    });
+
+    $('.description-first').append($('.description-top p').clone());
+
+
+    
+    /* NEW PDP: detail tabs accordion */
+    $(document).on("click", '.accordion h2 a', function(event){
+      event.preventDefault();
+      alert('hi')
+      if($(this).parent().hasClass('accordion-open')){
+        $(this).parent().removeClass('accordion-open');
+        $(this).closest('.accordion-container').find('.accordion-content').slideUp();
+      }else{
+        $('.accordion-container h2').removeClass('accordion-open');
+        $('.accordion-content').addClass('hide').slideUp();
+
+        $(this).parent().addClass('accordion-open');
+        $(this).closest('.accordion-container').find('.accordion-content').removeClass('hide').slideDown();
+      }
+    });
+
+    /* NEW PDP: detail TABS */
+    $(document).on("click", 'h2.tab a', function(event){
+        event.preventDefault();
+        console.log('hi')
+        var t = $(this).attr('id');
+        $(this).parents('.tabs').find('h2.tab').removeClass('tab-open');
+        $(this).parents('.tabs').find('.tab-content').hide();
+        
+        $(this).parent().addClass('tab-open');
+        // $(this).parent().next().show('fast');
+        $('#'+ t + 'c').fadeIn('slow');
+    });
+
+    /* NEW PDP: sticky tabs */
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      var h = $('#header').outerHeight();
+      $('.tab-nav').css('top',(h-1) +'px')
+    }
+
+  });
+</script>
+
+{% comment %} Blog Marquee {% endcomment %}
+{% comment %}{% include 'marquee_text' , text_to_scroll: product.metafields.marquee_text.blog %}{% endcomment %}
+{% comment %} Product Blog Section {% endcomment %}
+{% comment %}{% include '_product_blog' %}{% endcomment %}
+{% comment %} Reviews Marquee {% endcomment %}
+{% include 'marquee_text' , text_to_scroll: product.metafields.marquee_text.reviews %}
+{% comment %} Reviews Section {% endcomment %}
+{% include '_product_reviews' %}
+
+<div class="container">
+
+  <!-- Yotpo IG Product Association Slider -->
+<!--   <div class="yotpo yotpo-slider"
+data-product-id="{{ product.id }}"
+data-auto-slide="1"
+data-source="all"
+data-title="0"
+data-hover-color="#ffffff"
+data-hover-opacity="0.8"
+data-hover-icon="true"
+></div> -->
+
+  </div>
+
+
+
+
+
+
+
+
+{% else %}
+<div class="container">
+  <p>Product not available</p>
+</div>
+{% endunless %}
+
+
+{% if product.vendor == "zestard-easy-donation" %}
+<style>
+  #product-actions .yotpo,
+  #product-actions .large--table.medium--table,
+  .description, #sharing, .related-products, .yotpo-main-widget {display: none !important;}
+  #product-actions {padding-bottom: 0 !important;}
+  #product-actions h1 {margin-bottom: 0 !important;}
+
+  .main-menu .has-dropdown.active:after {display: none;}
+  .main-menu .has-dropdown.active {background: initial;}
+</style>
+{% endif %}
+
+<style>
+  .embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    {% if currentProduct.metafields.video.url and currentProduct.metafields.video.url != "" %}
+    margin-bottom: 1rem;
+    {% endif%}
+  }
+
+  .embed-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  #product-info .video video {
+    padding-top: 25px;
+  }
+
+  @media(min-width: 768px){
+    .tickets-mobile-only {display: none;}
+  }
+  @media(max-width: 767px){
+    .tickets-desktop-only {display: none;}
+  }
+    #donate-popup .popup .donate-close {
+        top: 2px;
+        right: 8px;
+    }
+</style>
+
+<!-- Klaviyo Tracking Script -->
+<script text="text/javascript">
+  var _learnq = _learnq || [];
+
+  var item = {
+    Name: {{ product.title|json }},
+    ProductID: {{ product.id|json }},
+    Categories: {{ product.collections|map:'title'|json }},
+    ImageURL: "https:{{ product.featured_image.src|img_url:'grande' }}",
+    URL: "{{ shop.secure_url }}{{ product.url }}",
+    Brand: {{ product.vendor|json }},
+    Price: {{ product.price|money|json }},
+    CompareAtPrice: {{ product.compare_at_price_max|money|json }}
+  };
+
+  _learnq.push(['track', 'Viewed Product', item]);
+  _learnq.push(['trackViewedItem', {
+    Title: item.Name,
+    ItemId: item.ProductID,
+    Categories: item.Categories,
+    ImageUrl: item.ImageURL,
+    Url: item.URL,
+    Metadata: {
+      Brand: item.Brand,
+      Price: item.Price,
+      CompareAtPrice: item.CompareAtPrice
+    }
+  }]);
+</script>
+<!-- End Klaviyo Tracking Script -->
+
+<!-- Klaviyo Add to Cart Script -->
+<script type="text/javascript">
+	var _learnq = _learnq || [];
+	document.getElementById("add-to-cart-button").addEventListener('click',function (){
+ 		_learnq.push(['track', 'Added to Cart', item]);
+	});
+</script>
+<!-- End Klaviyo Add to Cart Script -->
+
+
+

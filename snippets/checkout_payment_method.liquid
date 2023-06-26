@@ -1,0 +1,145 @@
+{% comment %}
+Custom Payment Method Logic
+- Purchases only allowed via gift card(s) and discount(s)
+- If a purchase total exceeds the amount of the gift card(s) used by $10 or less, the 
+  balance can be paid with a credit card or other approved payment method. Loveamikapro.com 
+  does not allow account holders to spend more than $10 above the gift card balance
+{% endcomment %}
+
+<script>
+
+const paymentMethodCustom = (function () {
+  
+  // private members
+
+  const selectors = {
+    paymentMethodContainer: '.section--payment-method .section__content',
+    paymentMethod: 'div[data-payment-subform]',
+    paymentMethodPlaceholder: '#payment-placeholder',
+    orderSummary: '#order-summary',
+    totalPrice: '.payment-due__price',
+    submitButtons: '#continue_button' // There are two!
+  }
+
+  const dataAttrs = { 
+    totalPrice: 'checkoutPaymentDueTarget' 
+  }
+
+  // private methods
+
+  // Returns total price (in cents) remaining on order
+  function getTotalPrice(totalPriceNode) {
+    const totalPrice = parseInt(totalPriceNode.dataset[dataAttrs.totalPrice], 10);
+    return totalPrice;  
+  }
+
+  // When other payment methods are hidden, show placeholder payment option with explanation text
+  function renderPaymentMethodPlaceholder() {
+    // Ensure placeholder doesn't already exist
+    const paymentMethodPlaceholderNode = document.querySelector(selectors.paymentMethodPlaceholder);
+    if (paymentMethodPlaceholderNode) {
+      return;
+    }
+    // Insert placeholder HTML into payment method container
+    const paymentMethodContainerNode = document.querySelector(selectors.paymentMethodContainer);
+    if (paymentMethodContainerNode) {
+      paymentMethodContainerNode.insertAdjacentHTML('afterbegin', "\
+        <div id='payment-placeholder'>\
+          <div class='content-box'>\
+            <div class='content-box__row'>\
+              <p style='color: #f18f00; font-weight: bold;'>\
+                Purchases only allowed via gift card*. Please enter gift card code.\
+              </p>\
+              <br>\
+              <p>\
+                *If a purchase total exceeds the amount of the gift card(s) used by $10 or less, the \
+                balance can be paid with a credit card or other approved payment method. Loveamikapro.com \
+                does not allow account holders to spend more than $10 above the gift card balance\
+              </p>\
+            </div>\
+          </div>\
+        </div>\
+      ");
+    }
+  }
+
+  function disableButtons(buttonNodes) {
+    buttonNodes.forEach(function(button) { 
+      button.classList.add('btn--disabled');
+      button.disabled = true;
+    });
+  }
+
+  function enableButtons(buttonNodes) {
+    buttonNodes.forEach(function(button) { 
+      button.classList.remove('btn--disabled');
+      button.disabled = false;
+    });
+  }
+
+  // public methods 
+
+  // Hide or show payment methods depending on total price remaining
+  function togglePaymentMethods() {
+    // Select all necessary nodes (do it each time because DOM might have re-written)
+    const totalPriceNode = document.querySelector(selectors.totalPrice);
+    const paymentMethodNode = document.querySelector(selectors.paymentMethod);
+    const submitButtonNodes = document.querySelectorAll(selectors.submitButtons);
+    
+    renderPaymentMethodPlaceholder();
+    const paymentMethodPlaceholderNode = document.querySelector(selectors.paymentMethodPlaceholder);
+
+    if (!totalPriceNode || !paymentMethodNode || !paymentMethodPlaceholderNode || !submitButtonNodes.length) {
+      console.warn('Payment Method Custom: Nodes not found!', { 
+        totalPriceNode, paymentMethodNode, paymentMethodPlaceholderNode, submitButtonNodes 
+      });
+      return;
+    }
+
+    // Compare total price with threshold to determine if we show/hide payment methods
+    const TOTAL_PRICE_THRESHOLD = 1000; // in cents
+    const totalPrice = getTotalPrice(totalPriceNode);
+
+    if (totalPrice > TOTAL_PRICE_THRESHOLD) {
+      paymentMethodNode.classList.add("hide");
+      paymentMethodPlaceholderNode.classList.remove("hide");
+      disableButtons(submitButtonNodes);
+    }
+    else if (totalPrice <= TOTAL_PRICE_THRESHOLD) {
+      paymentMethodNode.classList.remove("hide");
+      paymentMethodPlaceholderNode.classList.add("hide"); 
+      enableButtons(submitButtonNodes);
+    }
+  }
+
+  // Initialize mutation observer to re-run logic when page changes
+  // TODO: callback fires 2-3 times per interaction. Might be able to limit it to one.
+  function initMutationObserver() {
+    const observerCallback = function () {
+      requestAnimationFrame(togglePaymentMethods);
+    };
+    const observer = new MutationObserver(observerCallback);
+    // Watch for total price changes on order summary node
+    const orderSummaryNode = document.querySelector(selectors.orderSummary);
+    if (!orderSummaryNode) {
+      console.warn(`Payment Method Custom: Can't attach mutation observer, missing ${selectors.orderSummary}`);
+      return;
+    }
+    const observerConfig = { childList: true, subtree: true, attributes: true };
+    observer.observe(orderSummaryNode, observerConfig);
+  }
+
+  return {
+    togglePaymentMethods: togglePaymentMethods,
+    initMutationObserver: initMutationObserver
+  }
+
+})();
+
+window.addEventListener('DOMContentLoaded', function() {
+  if (Shopify.Checkout.step == 'payment_method') {
+    paymentMethodCustom.togglePaymentMethods();
+    paymentMethodCustom.initMutationObserver();
+  }
+})
+</script>

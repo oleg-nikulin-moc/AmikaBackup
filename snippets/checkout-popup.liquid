@@ -1,0 +1,147 @@
+{% if checkout.shipping_address.province_code == 'CA' and page_title contains 'Shipping' %}
+
+{% assign tag_present = false %}
+	{% for line_item in checkout.line_items %}
+
+      {% unless line_item.gift_card %}
+        {% if line_item.product.tags contains 'prop65'%}
+            {% assign tag_present = true %}
+        {% endif %}
+      {%endunless%}
+
+  {%endfor%}
+  {% if tag_present %}
+
+{{ 'tingle.min.js' | asset_url | script_tag }}
+{{ 'tingle.min.css' | asset_url | stylesheet_tag }}
+<!-- Promotion Popup -->
+<!-- Below tag is for loaading the background image without any flickering -->
+{% comment %}
+<div class="popup_prd_page">
+  <img src='{{"promotion_bg.png" | asset_url}}' style='display: none;'>
+  <div class="hide">
+    <div id="promotion-pop-up">
+      <div class="outer_close_btn" onclick="modal.close();" >×</div>
+      <div id="promotion-pop-up-wrapper">
+        <div class="wrap">
+          <a href="https://www.p65warnings.ca.gov/" class="learn__more_btn" target="_blank">
+            <img src="{{"amika_warning.png" | asset_img_url: 'master'}}" class='warning_img '>
+          </a>
+          <a href="#close" onclick="modal.close();" class="close_btn">Close</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endcomment %}
+<div class="popup_prd_page">
+  <img src='{{"promotion_bg.png" | asset_url}}' style='display: none;'>
+  <div class="hide">
+    <div id="promotion-pop-up">
+      <div class="outer_close_btn" onclick="modal.close();" >×</div>
+      <div id="promotion-pop-up-wrapper">
+        <div class="wrap">
+          <a href="https://www.p65warnings.ca.gov/" class="learn__more_btn" target="_blank">
+          <img src="{{"amika_warning.png" | asset_img_url: 'master'}}" class='warning_img '>
+          </a>
+          <a href="#close" onclick="modal.close();" class="close_btn">Close</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  function tingleRemove(){
+//     $('.tingle-modal.promotion-popup.tingle-modal--visible, ').remove()
+    $('.tingle-modal.promotion-popup.tingle-modal--visible, .tingle-modal.quick-view.tingle-modal--visible').remove()
+  };
+
+//   $(document).ready(function(){
+//     setTimeout(function(){
+//       $('.tingle-modal__close').remove();
+//       $('.tingle-modal-box').prepend('<button class="tingle-modal__close" onclick="tingleRemove();"><span class="tingle-modal__closeIcon">×</span><span class="tingle-modal__closeLabel"> </span></button>')
+//     }, 2050);
+//   });
+
+  $(window).on("load",function(){
+    modal = new tingle.modal({
+      closeMethods: ['overlay', 'button', 'escape'],
+      closeLabel: "",
+      cssClass: ['promotion-popup']
+    });
+    modal.setContent($('#promotion-pop-up'));
+    modal.open();
+  })
+</script>
+
+<style>
+
+{% if settings.promo_popup_image %}
+.tingle-modal-box{background-color:transparent!important;}
+#promotion-pop-up-wrapper {background-image: url({{"promotion_bg.png" | asset_url}}); background-repeat: no-repeat; background-position: center; background-size: contain;}
+#promotion-pop-up-success-wrapper {background-image: url({{"promotion_bg.png" | asset_url}}); background-repeat: no-repeat; background-position: center; background-size: contain;}
+{% endif %}
+#promotion-pop-up-wrapper {text-align:center; width:500px; max-width:100%; padding:120px 80px; background-color: {{settings.promo_popup_bg_color}}; }
+{% if settings.promo_popup_bg_overlay != "" %}/*#promotion-pop-up-wrapper:before {content: ""; position: absolute; left: 0; top: 0; height: 100%; width: 100%; background: rgba({{settings.promo_popup_bg_overlay}});}*/{% endif %}
+#promotion-pop-up-wrapper .wrap {position: relative; z-index: 5;}
+#promotion-pop-up-wrapper h1 {font-size: 26px; color: {{ settings.promo_popup_text_color}}; margin: 0 auto 35px auto; font-weight: 700; line-height: 1em; padding: 0; border: none;}
+#promotion-pop-up-wrapper p{color:{{ settings.promo_popup_text_color}};font-size:14px;margin-bottom:30px; font-family:FuturaND; line-height: 23px;}
+#promotion-pop-up-wrapper p.p-bigger{font-weight:700;font-size:22px;color:{{ settings.promo_popup_color}};line-height:1em;padding:5px 0;border-bottom:1px solid {{ settings.promo_popup_color}};border-top:1px solid {{ settings.promo_popup_color}};}
+#promotion-pop-up-wrapper form {margin-top:30px;}
+#promotion-pop-up-wrapper .grid__item {margin-bottom: 20px;}
+#promotion-pop-up-wrapper .grid__item input {padding: 10px 20px; color: {{ settings.promo_popup_text_color}}; border-bottom: 2px solid {{ settings.promo_popup_text_color}};text-align:center;font-size:14px;}
+#promotion-pop-up-wrapper .grid__item input::-webkit-input-placeholder {color: {{settings.promo_popup_text_color}};}
+#promotion-pop-up-wrapper .grid__item input:-moz-placeholder {color: {{ settings.promo_popup_text_color}};}
+#promotion-pop-up-wrapper .grid__item input::-moz-placeholder {color: {{settings.promo_popup_text_color}};}
+#promotion-pop-up-wrapper .grid__item input:-ms-input-placeholder {color: {{settings.promo_popup_text_color}};}
+#promotion-pop-up-wrapper input[type="submit"] {background:#fff;color:{{ settings.promo_popup_text_color}}; margin-top: 15px;font-size:14px;width:100%;border-width:2px;padding:15px 5px;border: 2px solid black;border-radius: 0px;}
+  .warning_img{
+  	background: white;
+  }
+  @media (min-width: 1000px){
+	.wrap {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 768px){
+
+   #promotion-pop-up-wrapper {
+      background-image: none;
+      padding: 70px 49px;
+   }
+
+    #promotion-pop-up-wrapper    .wrap{
+      background-color: white;
+      padding: 10px;
+      border-radius: 15px;
+    }
+  }
+
+  .close_btn {
+    display: block;
+    color: #000000;
+    margin-top: 10px;
+    text-decoration: none;
+    text-align: center;
+		border: 1px solid #222;
+    max-width: 200px;
+    margin: .5rem auto;
+    padding: 5px 10px;
+  }
+  .outer_close_btn {
+    color: white;
+    font-size: 50px;
+    font-family: monospace;
+    text-align: right;
+    cursor: pointer;
+  }
+
+  .tingle-modal__close {
+    display: none;
+  }
+</style>
+{%endif%}
+{%endif%}
