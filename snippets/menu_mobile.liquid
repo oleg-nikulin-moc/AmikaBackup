@@ -1,8 +1,7 @@
 {{ 'mmenu.css' | asset_url | stylesheet_tag }}
 {{ 'jquery.mmenu.min.all.js' | asset_url | script_tag }}
 
-
-<a href="#menu-mobile" id="menu-mobile-button">
+<a href="#menu-mobile" class="ac-nav-left__menu-btn" id="menu-mobile-button">
 <!--   <i class="fa fa-bars"></i> -->
   <svg class="bars-icon" width="18px" height="16px" viewBox="0 0 18 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
@@ -21,6 +20,27 @@
       </g>
   </svg>
 </a>
+<div class="ac-nav-left__item ac-nav__item--brandpoints" data-brandbox-icon>
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <g clip-path="url(#clip0_154_3020)">
+            <path d="M16.6668 10V18.3333H3.3335V10" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M18.3332 5.83301H1.6665V9.99967H18.3332V5.83301Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10 18.333V5.83301" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9.99984 5.83366H6.24984C5.6973 5.83366 5.1674 5.61417 4.7767 5.22346C4.386 4.83276 4.1665 4.30286 4.1665 3.75033C4.1665 3.19779 4.386 2.66789 4.7767 2.27719C5.1674 1.88649 5.6973 1.66699 6.24984 1.66699C9.1665 1.66699 9.99984 5.83366 9.99984 5.83366Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10 5.83366H13.75C14.3025 5.83366 14.8324 5.61417 15.2231 5.22346C15.6138 4.83276 15.8333 4.30286 15.8333 3.75033C15.8333 3.19779 15.6138 2.66789 15.2231 2.27719C14.8324 1.88649 14.3025 1.66699 13.75 1.66699C10.8333 1.66699 10 5.83366 10 5.83366Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle class="ac-icon__circle" cx="16" cy="4" r="4" fill="#FF6B26"/>
+        </g>
+        <defs>
+            <clipPath id="clip0_154_3020">
+                <rect width="20" height="20" fill="white"/>
+            </clipPath>
+        </defs>
+    </svg>
+    <div class="ac-brandpoints">
+        <p class="ac-brandpoints__text">a brand box has been added to your rewards order!</p>
+    </div>
+
+</div>
 
 <div id="menu-mobile" class="mm-menu mm-offcanvas test_class">
   
@@ -150,7 +170,6 @@
 
     {% for first_link in linklists.mobile-menu-2.links %}
       {% assign first_handle = first_link.title | handleize %}
-    	
       <li class="">
         {% if linklists[first_handle].links != blank %}
         
@@ -202,10 +221,11 @@
               "content": [
                 "<marquee scrollamount='4' loop='infinite' class='mmenu-announcement_bar'>"+ promobar_text +"</marquee>",
                 "close",
-                "<a href='#' class='mm-search'><svg class='search-icon' width='19px' height='20px' viewBox='0 0 19 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><desc>Created with Sketch.</desc><defs></defs><g id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'><g id='Mobile-Nav' transform='translate(-340.000000, -83.000000)' stroke='#000000'><g id='Icon-/-Profile' transform='translate(337.000000, 80.000000)'><g id='Group' transform='translate(4.000000, 4.000000)'><circle id='Oval' stroke-width='1.5' cx='7' cy='7' r='7'></circle><path d='M16.4,17.4 L11.48,12.48' id='Line' stroke-width='1.5' stroke-linecap='square'></path></g></g></g></g></svg></a>",
+                // "<a href='#' class='mm-search'><svg class='search-icon' width='19px' height='20px' viewBox='0 0 19 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><desc>Created with Sketch.</desc><defs></defs><g id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'><g id='Mobile-Nav' transform='translate(-340.000000, -83.000000)' stroke='#000000'><g id='Icon-/-Profile' transform='translate(337.000000, 80.000000)'><g id='Group' transform='translate(4.000000, 4.000000)'><circle id='Oval' stroke-width='1.5' cx='7' cy='7' r='7'></circle><path d='M16.4,17.4 L11.48,12.48' id='Line' stroke-width='1.5' stroke-linecap='square'></path></g></g></g></g></svg></a>",
+                "<a href='#' class='mm-brendbox ac-nav__item--brandpoints' data-brandbox-icon><svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'><g clip-path='url(#clip0_154_3020)'><path d='M16.6668 10V18.3333H3.3335V10' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'></path><path d='M18.3332 5.83301H1.6665V9.99967H18.3332V5.83301Z' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'></path><path d='M10 18.333V5.83301' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'></path><path d='M9.99984 5.83366H6.24984C5.6973 5.83366 5.1674 5.61417 4.7767 5.22346C4.386 4.83276 4.1665 4.30286 4.1665 3.75033C4.1665 3.19779 4.386 2.66789 4.7767 2.27719C5.1674 1.88649 5.6973 1.66699 6.24984 1.66699C9.1665 1.66699 9.99984 5.83366 9.99984 5.83366Z' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'></path><path d='M10 5.83366H13.75C14.3025 5.83366 14.8324 5.61417 15.2231 5.22346C15.6138 4.83276 15.8333 4.30286 15.8333 3.75033C15.8333 3.19779 15.6138 2.66789 15.2231 2.27719C14.8324 1.88649 14.3025 1.66699 13.75 1.66699C10.8333 1.66699 10 5.83366 10 5.83366Z' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'></path><circle class='ac-icon__circle' cx='16' cy='4' r='4' fill='#FF6B26'></circle></g><defs><clipPath id='clip0_154_3020'><rect width='20' height='20' fill='white'></rect></clipPath></defs></svg></a>",
                 "<a href='/' class='mm-logo'><img src='{{ "logo.png" | asset_url }}'></a>",
-                '<a href="/account" class="my-account animation"><svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.5776 5.23159C13.5776 7.98719 11.3438 10.221 8.58823 10.221C5.83263 10.221 3.59863 7.98719 3.59863 5.23159C3.59863 2.47599 5.83263 0.242188 8.58823 0.242188C11.3438 0.242188 13.5776 2.47599 13.5776 5.23159Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M0 15.2097C1.7386 12.2797 4.9338 10.3157 8.588 10.3157C12.242 10.3157 15.4374 12.2797 17.176 15.2097" fill="black"/></svg></a>',
-                '<a href="/cart" class="my-cart"><svg width="21" height="17" viewBox="0 0 21 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M21 6.72729C21 12.2501 16.2991 16.7273 10.4999 16.7273C4.7009 16.7273 0 12.2501 0 6.72729H21Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.5 1.42393C7.70093 1.42393 5.42394 3.70109 5.42394 6.49989C5.42394 9.29891 7.70093 11.5761 10.5 11.5761C13.2991 11.5761 15.5761 9.29891 15.5761 6.49989C15.5761 3.70109 13.2991 1.42393 10.5 1.42393ZM10.5 12C7.46734 12 5 9.5325 5 6.49989C5 3.46729 7.46734 1 10.5 1C13.5327 1 16 3.46729 16 6.49989C16 9.5325 13.5327 12 10.5 12Z" fill="black"/><path d="M10.5 1.04893C7.49382 1.04893 5.04894 3.49399 5.04894 6.49989H5.79894C5.79894 3.90819 7.90804 1.79893 10.5 1.79893V1.04893ZM5.04894 6.49989C5.04894 9.506 7.49381 11.9511 10.5 11.9511V11.2011C7.90805 11.2011 5.79894 9.09182 5.79894 6.49989H5.04894ZM10.5 11.9511C13.5062 11.9511 15.9511 9.506 15.9511 6.49989H15.2011C15.2011 9.09182 13.092 11.2011 10.5 11.2011V11.9511ZM15.9511 6.49989C15.9511 3.49399 13.5062 1.04893 10.5 1.04893V1.79893C13.092 1.79893 15.2011 3.90819 15.2011 6.49989H15.9511ZM10.5 11.625C7.67446 11.625 5.375 9.3254 5.375 6.49989H4.625C4.625 9.73959 7.26022 12.375 10.5 12.375V11.625ZM5.375 6.49989C5.375 3.6744 7.67444 1.375 10.5 1.375V0.625C7.26024 0.625 4.625 3.26018 4.625 6.49989H5.375ZM10.5 1.375C13.3256 1.375 15.625 3.6744 15.625 6.49989H16.375C16.375 3.26018 13.7398 0.625 10.5 0.625V1.375ZM15.625 6.49989C15.625 9.3254 13.3255 11.625 10.5 11.625V12.375C13.7398 12.375 16.375 9.73959 16.375 6.49989H15.625Z" fill="black"/></svg>'+cartCountFragment+'</a>'
+                '<a href="/cart" class="my-cart"><svg width="21" height="17" viewBox="0 0 21 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M21 6.72729C21 12.2501 16.2991 16.7273 10.4999 16.7273C4.7009 16.7273 0 12.2501 0 6.72729H21Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.5 1.42393C7.70093 1.42393 5.42394 3.70109 5.42394 6.49989C5.42394 9.29891 7.70093 11.5761 10.5 11.5761C13.2991 11.5761 15.5761 9.29891 15.5761 6.49989C15.5761 3.70109 13.2991 1.42393 10.5 1.42393ZM10.5 12C7.46734 12 5 9.5325 5 6.49989C5 3.46729 7.46734 1 10.5 1C13.5327 1 16 3.46729 16 6.49989C16 9.5325 13.5327 12 10.5 12Z" fill="black"/><path d="M10.5 1.04893C7.49382 1.04893 5.04894 3.49399 5.04894 6.49989H5.79894C5.79894 3.90819 7.90804 1.79893 10.5 1.79893V1.04893ZM5.04894 6.49989C5.04894 9.506 7.49381 11.9511 10.5 11.9511V11.2011C7.90805 11.2011 5.79894 9.09182 5.79894 6.49989H5.04894ZM10.5 11.9511C13.5062 11.9511 15.9511 9.506 15.9511 6.49989H15.2011C15.2011 9.09182 13.092 11.2011 10.5 11.2011V11.9511ZM15.9511 6.49989C15.9511 3.49399 13.5062 1.04893 10.5 1.04893V1.79893C13.092 1.79893 15.2011 3.90819 15.2011 6.49989H15.9511ZM10.5 11.625C7.67446 11.625 5.375 9.3254 5.375 6.49989H4.625C4.625 9.73959 7.26022 12.375 10.5 12.375V11.625ZM5.375 6.49989C5.375 3.6744 7.67444 1.375 10.5 1.375V0.625C7.26024 0.625 4.625 3.26018 4.625 6.49989H5.375ZM10.5 1.375C13.3256 1.375 15.625 3.6744 15.625 6.49989H16.375C16.375 3.26018 13.7398 0.625 10.5 0.625V1.375ZM15.625 6.49989C15.625 9.3254 13.3255 11.625 10.5 11.625V12.375C13.7398 12.375 16.375 9.73959 16.375 6.49989H15.625Z" fill="black"/></svg>'+cartCountFragment+'</a>',
+                '<a href="/account" class="my-account animation"><svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.5776 5.23159C13.5776 7.98719 11.3438 10.221 8.58823 10.221C5.83263 10.221 3.59863 7.98719 3.59863 5.23159C3.59863 2.47599 5.83263 0.242188 8.58823 0.242188C11.3438 0.242188 13.5776 2.47599 13.5776 5.23159Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M0 15.2097C1.7386 12.2797 4.9338 10.3157 8.588 10.3157C12.242 10.3157 15.4374 12.2797 17.176 15.2097" fill="black"/></svg></a>'
               ]
             },
             {

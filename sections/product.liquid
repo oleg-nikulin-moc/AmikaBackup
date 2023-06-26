@@ -117,37 +117,41 @@
             {% endif %}
             </div>
             <div class="f6-12 medium--f12-12 small--f4-12">
-              {% assign is_discounted = false %}
-              {% if product.compare_at_price_max > product.price_max or product.compare_at_price_min > product.price_min %}{% assign is_discounted = true %}{% endif %}
-              <div class="price {% if is_discounted %}price-discounted{% endif %}">
-                <div class="price-discounted__compare-at">
-                  <span class="product-price">
-                    {{ product.compare_at_price_min | money_without_trailing_zeros }}
-                  </span>
-                  {% unless product.has_only_default_variant or product.compare_at_price_max == product.compare_at_price_min %}
-                  <span>&ndash;</span>
-                  <span class="product-price">
-                    {{ product.compare_at_price_max | money_without_trailing_zeros }}
-                  </span>
-                  {% endunless %}
+              <style>.price { display: none; }</style>
+              {% if customer %}
+
+                {% assign is_discounted = false %}
+                {% if product.compare_at_price_max > product.price_max or product.compare_at_price_min > product.price_min %}{% assign is_discounted = true %}{% endif %}
+                <div class="price {% if is_discounted %}price-discounted{% endif %}">
+                  <div class="price-discounted__compare-at">
+                    <span class="product-price">
+                      {{ product.compare_at_price_min | money_without_trailing_zeros }}
+                    </span>
+                    {% unless product.has_only_default_variant or product.compare_at_price_max == product.compare_at_price_min %}
+                    <span>&ndash;</span>
+                    <span class="product-price">
+                      {{ product.compare_at_price_max | money_without_trailing_zeros }}
+                    </span>
+                    {% endunless %}
+                  </div>
+                  <div class="price-discounted__discount">
+                    <span class="product-price">
+                      {{ product.price_min | money_without_trailing_zeros }}
+                    </span>
+                    {% unless product.has_only_default_variant or product.price_max == product.price_min %}
+                    <span>&ndash;</span>
+                    <span class="product-price">
+                      {{ product.price_max | money_without_trailing_zeros }}
+                    </span>
+                    {% endunless %}
+                  </div>
                 </div>
-                <div class="price-discounted__discount">
-                  <span class="product-price">
-                    {{ product.price_min | money_without_trailing_zeros }}
-                  </span>
-                  {% unless product.has_only_default_variant or product.price_max == product.price_min %}
-                  <span>&ndash;</span>
-                  <span class="product-price">
-                    {{ product.price_max | money_without_trailing_zeros }}
-                  </span>
-                  {% endunless %}
-                </div>
-              </div>
+              {% endif %}
             </div>
           </div>
 
-          {% if section.settings.show_local_wishlist %}
-            <span class="rs_wishlist iWishAdd" data-product="{{ product.id }}" data-pTitle="{{ product.title | escape }}">
+          {% if section.settings.show_local_wishlist and customer %}
+            <span class="rs_wishlist iWishAdd 2" data-product="{{ product.id }}" data-pTitle="{{ product.title | escape }}">
               <svg class="icon"><use xlink:href="#icon-wishlist"></use></svg>
             </span>
           {% endif %}
@@ -164,12 +168,14 @@
         </div>
         {% endcomment %}
 
-        <form action="/cart/add" method="post" enctype="multipart/form-data" class="variants add-to-cart-form {% if product.has_only_default_variant %}single__option{% endif %}" id="product-actions">
+        <form {% unless customer %}disabled{% endunless %} action="/cart/add" method="post" enctype="multipart/form-data" class="variants add-to-cart-form {% unless customer %}is-disabled{% endunless %} {% if product.has_only_default_variant %}single__option{% endif %}" id="product-actions">
           {% unless product.has_only_default_variant %}
             <div id="rs-filtervariant" class="js">
               <div class="hidden-selectors"></div>
               {% include 'product-filter' %}
-              <div class="afterpay">{% include 'afterpay__product__page' %}</div>
+              {% if customer %}
+                <div class="afterpay">{% include 'afterpay__product__page' %}</div>
+              {% endif %}
             </div>
           {% else %}
             <div id="rs-filtervariant" class="js"> 
@@ -186,7 +192,9 @@
                 </div>
               </div>
             </div>
+          {% if customer %}
             <div class="afterpay">{% include 'afterpay__product__page' %}</div>
+          {% endif %}
           {% endunless %}
 
           <select name="id" class="no-js product-select">
@@ -208,11 +216,10 @@
                 <label for="Quantity">quantity:</label>
                 <input type="number" id="Quantity" name="quantity" value="1" min="1">
               </div>
-
-              <button
+              <button hidden
                 type="submit"
                 name="add"
-                class="add-to-cart cta button--primary"
+                class="add-to-cart cta button--primary {% unless customer %}is-disabled{% endunless %}"
                 id="add-to-cart-button"
                 {% unless current_variant.available %}disabled="disabled"{% endunless %}>
                   {% if current_variant.available %}
@@ -222,9 +229,16 @@
                     {% comment %} {{ 'products.product.sold_out' | t }} {% endcomment %}
                     notify me when available
                   {% endif %}
-                  <span class="price">{{ product.selected_variant.price | money_without_trailing_zeros }}</span>
+                  {% if customer %}
+                    <span class="price flex">{{ product.selected_variant.price | money_without_trailing_zeros }}</span>
+                  {% endif %}
               </button>
-
+              {% unless customer %}
+                <a role="button"
+                   href="/account/login"
+                   class="ac-product-login cta button--primary"
+                   id="loginBtn">login</a>
+              {% endunless %}
               <a href="#" onclick="openKlaviyoPDPBisPopup(this); return false;" class="cta bis-trigger notify__me button--primary" handle="{{ product.handle }}" style="display:none;">notify me when available</a>
 
               
@@ -234,12 +248,14 @@
           <div id="atc-fixed" class="atc-container fixed">
             <div class="img-holder"><img /></div>
             <div class="flex atc-btns">
-              <button
+
+              <button hidden
                 type="submit"
                 name="add"
                 class="add-to-cart cta button--primary"
                 id="fixed-add-to-cart-button"
                 onclick="event.preventDefault();"
+                {% unless customer %}disabled="disabled"{% endunless %}
                 {% unless current_variant.available %}disabled="disabled"{% endunless %}>
                   {% if current_variant.available %}
                     {% comment %} {{ 'products.product.add_to_cart' | t }} {% endcomment %}
@@ -248,8 +264,18 @@
                     {% comment %} {{ 'products.product.sold_out' | t }} {% endcomment %}
                     notify me when available
                   {% endif %}
-                  <span class="price">{{ product.selected_variant.price | money_without_trailing_zeros }}</span>
+                {% if customer %}
+                  <span class="price fixed">{{ product.selected_variant.price | money_without_trailing_zeros }}</span>
+                {% endif %}
               </button>
+              {% unless customer %}
+                           <a
+                      role="button"
+                      href="/account/login"
+                      class="ac-product-login cta button--primary"
+                      id="loginBtn"
+                      >login</a>
+              {% endunless %}
               <a href="#" onclick="openKlaviyoPDPBisPopup(this); return false;" class="cta bis-trigger notify__me button--primary" handle="{{ product.handle }}" style="display:none;">notify me when available</a>
             </div>
           </div>

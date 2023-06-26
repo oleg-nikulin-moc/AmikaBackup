@@ -1,10 +1,43 @@
+<style>
+.grid__item.four-sixths {
+  width: 100%;
+}
+.ac-mega-menu__img {
+  display: none;
+}
+/*.main-menu .has-dropdown.has-dropdown ul {*/
+/*  -webkit-transition: .5s ease-out;*/
+/*  -moz-transition: .5s ease-out;*/
+/*  transition: .5s ease-out;*/
+/*  max-height: 500px;*/
+/*}*/
+.main-menu .has-dropdown.has-dropdown ul .one-third li.animation li {
+  width: calc(50% - 8px);
+}
+.grid__item.one-third {
+  width: 20%!important;
+}
+.grid__item.one-third:nth-child(2) {
+  width: 40%!important;
+}
+.grid__item.one-third.grid__item.one-third:nth-child(2) ul {
+  display: flex !important;
+  flex-wrap: wrap;
+}
+.grid__item.one-third.grid__item.one-third:nth-child(2) ul li {
+  margin-right: 0!important;
+}
+.main-menu li.mega-dropdown .has-dropdown li .desktop__menu-item {
+  flex: initial;
+}
+</style>
 <ul>
-  {% for link in linklists.main-menu.links %}
+  {% for link in linklists.main-menu-1.links %}
 
   {% assign current = false %}{% if template == 'index' and link.url == '/' %}{% assign current = true %}{% else %}{% if collection.url == link.url %}{% assign current = true %}{% else %}{% if blog.url == link.url %}{% assign current = true %}{% else %}{% if page.url == link.url %}{% assign current = true %}{% else %}{% if page_title == link.title %}{% assign current = true %}{% else %}{% if template == 'list-collections' and link.url == '/collections' %}{% assign current = true %}{% else %}{% if page_title == 'Products' and link.url == '/collections/all' %}{% assign current = true %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
   {% assign list_handle = link.title | handleize %}
 
-  <li class="{% if forloop.first %}first{% elsif forloop.last %}last{%endif%} {% if current %}active{% endif %} animation {% if list_handle == "all" or list_handle == "shop-all" or list_handle == "our-collections" %}mega-dropdown{% endif %}">
+  <li class="{% if forloop.first %}first{% elsif forloop.last %}last{%endif%} {% if current %}active{% endif %} animation {% if list_handle == "browse-products" or list_handle == "all" or list_handle == "shop-all" or list_handle == "our-collections" %}mega-dropdown{% endif %}">
     {% if linklists[list_handle].links != blank %}
 
     <div class="has-dropdown">
@@ -12,7 +45,7 @@
         <span class="nav-label">{{ link.title | escape }}{% comment %}&nbsp;<span class="fa arrow">&#xf107;</span>{% endcomment %}</span>
       </a>
 
-      {% if list_handle == "all" or list_handle == "shop-all" %}
+      {% if list_handle == "all" or list_handle == "shop-all"  or list_handle == "browse-products" %}
       <ul class="hide">
         <li>
           <div class="container">
@@ -51,7 +84,7 @@
 
                 </div>
               </div>
-              <div class="grid__item two-sixths">
+              <div class="grid__item two-sixths ac-mega-menu__img" hidden>
                 <div class="megadropdown-image">
                   <a href="{{ settings.megadropdown_image_link }}">
                     <img src="{{ "megadropdown-image.png" | asset_url }}" class="img-responsive" />

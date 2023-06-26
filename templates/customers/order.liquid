@@ -1,113 +1,365 @@
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const orderButtons = document.querySelectorAll('[data-order-info-btn]');
+    const orderInfo = document.querySelector('[data-order-info-block]');
+    const orderHeader = document.querySelector('[data-order-header]');
+    const orderHeaderInfo = document.querySelector('[data-order-header-info]');
+    const orderBlock =  document.querySelector('[data-order]');
+    if (orderButtons) {
+      orderButtons.forEach(orderButton => {
+        orderButton.addEventListener('click', () => {
+          orderHeader.classList.toggle('hidden');
+          orderHeaderInfo.classList.toggle('hidden');
+          orderBlock.classList.toggle('ac-order__mobile');
+          orderInfo.classList.toggle('ac-order--right--hidden');
+          orderInfo.classList.toggle('fade-in');
+        });
+      })
+    }
+  });
+</script>
+<style>
+  .account * {
+    box-sizing: border-box;
+  }
+  .ac-order.my-account-content {
+    background-color: transparent;
+    margin-left: 0;
+    border: none;
+    width: 80%;
+    padding: 0;
+  }
+  .ac-order__container .ac-account__sidebar {
+    width: 20%;
+  }
+  .ac-order__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  .ac-order__header a {
+    display: inline-flex;
+  }
+  .ac-icon--order {
+    width: 32px;
+    height: 36px;
+    margin-right: 16px;
+  }
+  .ac-order__title.ac-order__title {
+    font-weight: 500;
+    font-size: 28px;
+    color: #000000;
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    line-height: 36px;
+    float: none!important;
+    margin-right: auto;
+  }
+  .ac-order__box {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    padding: 64px;
+  }
+  .ac-image-box {
+    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 163px;
+    height: 163px;
+  }
+  #order_address {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .ac-order--left {
+    margin-left: 0;
+    width: 70%;
+  }
+  .ac-order__list {
+    padding: 0 55px 0 24px;
+    list-style: none;
+  }
+  .ac-order__item {
+    min-height: 180px;
+    padding: 24px 0;
+  }
+
+  .ac-order__item:not(:last-of-type) {
+    border-bottom: 1px solid #FF6B26;
+  }
+  .ac-order__product-link {
+    display: flex;
+    height: 100%;
+  }
+  .ac-order-product-info__title,
+  .ac-order-product-price__total,
+  .ac-order-product-price__item {
+    text-transform: lowercase;
+    font-family: 'Futura ND';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #000000;
+    margin-bottom: 4px;
+  }
+  .ac-order__product-info {
+    text-align: left;
+    margin-right: 20px;
+  }
+  .ac-order-product-info__description,
+  .ac-order-product-info__description p {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    color: #000000;
+  }
+  .ac-order-product__price {
+    margin-left: auto;
+    text-align: right;
+  }
+  .ac-order-product-price__item {
+    white-space: nowrap;
+    color: #FF6B26;
+  }
+  .ac-order--right {
+    width: 30%;
+    padding-left: 55px;
+    border-left: 1px solid #FF6B26;
+    max-width: 309px;
+  }
+  .ac-order-status.ac-order-status {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    margin-bottom: 24px;
+  }
+  .ac-order-status--paid {
+    color: #00C980;
+  }
+  .ac-order-shipping__title.ac-order-shipping__title {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 24px;
+    color: #000000;
+    margin-bottom: 24px;
+  }
+  .ac-order-placed__date.ac-order-placed__date {
+    margin-bottom: 40px;
+  }
+ .ac-order-placed__date.ac-order-placed__date,
+ .ac-order-shipping__info.ac-order-shipping__info {
+   font-weight: 400;
+   font-size: 16px;
+   line-height: 20px;
+   color: #000000;
+  }
+ .ac-order-shipping__info.ac-order-shipping__info {
+   margin-bottom: 20px;
+ }
+ .ac-btn__order-info {
+    display: none;
+ }
+
+  @media screen and (max-width: 767.98px) {
+    .ac-btn__order-info {
+      display: block;
+      text-decoration: underline;
+    }
+    .ac-order__title.ac-order__title {
+      font-size: 24px;
+      line-height: 36px;
+    }
+    .ac-order--right--hidden {
+      display: none;
+    }
+    .ac-order--right {
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      max-width: 100%;
+      border-left: 0;
+      text-align: left  ;
+    }
+    .ac-order--left {
+      width: 100%;
+    }
+    .ac-order__list {
+      padding: 0;
+    }
+    .ac-order__box {
+      padding: 24px;
+    }
+    .ac-image-box {
+      max-width: 103px;
+      height: 103px;
+    }
+    .ac-order-product-info__title.ac-order-product-info__title {
+      font-size: 14px;
+      text-align: left;
+      margin-bottom: 4px;
+    }
+    .ac-order__item {
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+    .ac-order-product__price {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .ac-order-product-price__total--mobile {
+      word-break: break-word;
+      max-width: 60px;
+    }
+    .ac-order-product__price p {
+      font-size: 14px;
+      line-height: 20px;
+      margin-bottom: 4px;
+    }
+    .ac-order__item {
+      min-height: 135px;
+    }
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .ac-order__title-info {
+      display: none;
+    }
+    .ac-order__title-name {
+      display: inline;
+    }
+    .ac-order-status {
+      display: none;
+    }
+    .ac-order-status.ac-order-status-header {
+      display: block;
+      margin-bottom: 0;
+    }
+    .ac-btn.ac-btn__order-info {
+      padding-right: 0;
+      min-width: auto;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+</style>
+
 <div class="clearfix my-account account">
 
-  <div class="container clearfix">
+  <div class="container clearfix ac-order__container">
 
     {% include 'account_menu' %}
-
-    <div class="my-account-content"> 
-      <div class="page-header clearfix">
-        <h1 class="clearfix" style="position: relative;">
-          <span>Order Details</span>
-        </h1>
-      </div><!-- /.page-header -->
-
-      {% if order.cancelled %}
+    <div class="my-account-content ac-order" data-order>
+      <div class="ac-order__header" data-order-header>
+        <a href="/account#orders">
+          <svg class="ac-icon--order" role="presentation" width="34" height="38">
+            <use href="#orderIcon">
+          </svg>
+        </a>
+        <h1 class="ac-order__title" style="position: relative;">order {{ order.name }}</h1>
+        <button class="ac-btn ac-btn__order-info" type="button" id="myButton" data-order-info-btn>order info</button>
+      </div>
+      <div class="ac-order__header hidden" data-order-header-info>
+        <a role="button" data-order-info-btn>
+          <svg class="ac-icon--order" role="presentation" width="34" height="38">
+            <use href="#orderIcon">
+          </svg>
+        </a>
+        <h1 class="ac-order__title" style="position: relative;">order info</h1>
+        <p class="ac-order-status ac-order-status-header ac-order-status--{{ order.financial_status }}">{{ order.financial_status }}</p>
+      </div>
+    {% if order.cancelled %}
       <div id="order_cancelled" class="flash notice">
         <h5 id="order_cancelled_title">Order Cancelled <span class="note">on {{ order.cancelled_at | date: "%B %d, %Y %I:%M%p" }}</span></h5>
         {% unless order.cancel_reason == "other" %}<span class="note">Reason: {{ order.cancel_reason }}</span>{% endunless %}
       </div>
-      {% endif %}
-
-      <div class="note order_date">Placed on {{ order.created_at | date: "%B %d, %Y %I:%M%p" }}</div>
-
-      <div id="order_address" class="group">
-        <div id="order_payment">
-          <h2 class="order_section_title">Billing Address</h2>
-          <p class="order-status"><span class="note">Payment Status:</span> <span class="status status_{{ order.financial_status }}">{{ order.financial_status }}</span></p>
-          <div class="address note">
-            <p>{{ order.billing_address.name }}</p>
-            <p>{{ order.billing_address.company }}</p>
-            <p>{{ order.billing_address.street }}</p>
-            <p>{{ order.billing_address.city }}, {{ order.billing_address.province }}</p>
-            <p>{{ order.billing_address.country }} {{ order.billing_address.zip }}</p>
-            <p>{{ order.billing_address.phone }}</p>
-          </div>
+    {% endif %}
+      <div class="ac-order__box">
+        <div class="ac-order--left">
+            <ul class="ac-order__list">
+            {% for line_item in order.line_items %}
+              <li id="{{ line_item.id }}" class="ac-order__item {% cycle 'odd', 'even' %}">
+                <a class="ac-order__product-link" role="button" href="{{ line_item.product.url }}">
+                  <div class="ac-image-box">
+                    <img class="ac-image--fluid" style="max-width: 163px;" src="{{ line_item.image | img_url: 'master' }}" alt="{{ line_item.title }}">
+                  </div>
+                  <div class="ac-order__product-info">
+                    <h2 class="ac-order-product-info__title">{{ line_item.title }}</h2>
+                    <div class="ac-order-product-info__description">{{ line_item.product.description }}</div>
+                    {% unless line_item.product.has_only_default_variant %}
+                      {% for option in line_item.variant.options %}
+                          <p class="ac-order-product-info__variant">{{ option }}</p>
+                      {% endfor %}
+                    {% endunless %}
+                    {% comment %}
+                      {% if line_item.fulfillment %}
+                        <div class="note">
+                          Fulfilled {{ line_item.fulfillment.created_at | date: "%b %d" }}
+                          {% if line_item.fulfillment.tracking_number %}
+                            <a href="{{ line_item.fulfillment.tracking_url }}">{{ line_item.fulfillment.tracking_company }} #{{ line_item.fulfillment.tracking_number}}</a>
+                          {% endif %}
+                        </div>
+                      {% endif %}
+                    {% endcomment %}
+                  </div>
+                  <div class="ac-order-product__price">
+                    <p class="ac-order-product-price__total ac-order-product-price__total--mobile">{{ line_item.quantity | times: line_item.price | money }}</p>
+                    <p class="ac-order-product-price__item">{{ line_item.price | money }} x {{ line_item.quantity }}</p>
+                  </div>
+                </a>
+              </li>
+            {% endfor %}
+              <li class="ac-order__item--total" style="text-align: right">
+                <p class="ac-order-product-price__total">Total: {{ order.total_price | money }}</p>
+              </li>
+            </ul>
         </div>
-        {% if order.shipping_address %}
-        <div id="order_shipping">
-          <h2 class="order_section_title">Shipping Address</h2>
-          <p class="order-status"><span class="note">Fulfillment Status:</span> <span class="status status_{{ order.fulfillment_status }}">{{ order.fulfillment_status }}</span></p>
-          <div class="address note">
-            <p>{{ order.shipping_address.name }}</p>
-            <p>{{ order.shipping_address.company }}</p>
-            <p>{{ order.shipping_address.street }}</p>
-            <p>{{ order.shipping_address.city }}, {{ order.shipping_address.province }}</p>
-            <p>{{ order.shipping_address.country }} {{ order.shipping_address.zip }}</p>
-            <p>{{ order.shipping_address.phone }}</p>
-          </div>
-        </div>
-        {% endif %}
-      </div>
 
-      <table id="order_details">
-        <thead>
-          <tr class="head">
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for line_item in order.line_items %}
-          <tr id="{{ line_item.id }}" class="{% cycle 'odd', 'even' %}">
-            <td class="product">
-              {{ line_item.title | link_to: line_item.product.url }} 
-              {% if line_item.fulfillment %}
-              <div class="note">
-                Fulfilled {{ line_item.fulfillment.created_at | date: "%b %d" }}
-                {% if line_item.fulfillment.tracking_number %}
-                <a href="{{ line_item.fulfillment.tracking_url }}">{{ line_item.fulfillment.tracking_company }} #{{ line_item.fulfillment.tracking_number}}</a>
-                {% endif %}
-              </div>
+        <div class="ac-order--right ac-order--right--hidden" data-order-info-block>
+          <p class="ac-order-status ac-order-status--{{ order.financial_status }}">{{ order.financial_status }}</p>
+          <h3 class="ac-order-shipping__title">order placed</h3>
+          <p class="ac-order-placed__date">{{ order.created_at | date: "%B %d, %Y %I:%M%p" }}</p>
+          <div id="order_address" class="ac-order-shipping">
+            <h3 class="ac-order-shipping__title">shipping information</h3>
+            <p class="ac-order-shipping__info">{{ order.shipping_address.street }}</p>
+            <p class="ac-order-shipping__info">{{ order.shipping_address.city }}</p>
+            <p class="ac-order-shipping__info">{{ order.shipping_address.province }}</p>
+            <p class="ac-order-shipping__info">{{ order.shipping_address.zip }}</p>
+            <p class="ac-order-shipping__info">{{ order.shipping_address.country }}</p>
+          </div>
+            {% comment %}
+              {% if order.shipping_address %}
+                <div id="order_shipping" class="ac-order-shipping">
+                  <h2 class="order_section_title">billing address</h2>
+                  <p class="order-status"><span class="note">Fulfillment Status:</span> <span class="status status_{{ order.fulfillment_status }}">{{ order.fulfillment_status }}</span></p>
+                  <p>{{ order.billing_address.street }}</p>
+                  <p>{{ order.billing_address.city }}</p>
+                  <p>{{ order.billing_address.province }}</p>
+                  <p>{{ order.billing_address.zip }}</p>
+                  <p>{{ order.billing_address.country }}</p>
+                  <p>{{ order.billing_address.name }}</p>
+                  <p>{{ order.billing_address.company }}</p>
+                  <p>{{ order.billing_address.phone }}</p>
+                </div>
               {% endif %}
-            </td>
-            <td class="money">{{ line_item.price | money }}</td>
-            <td class="quantity">{{ line_item.quantity }}</td>
-            <td class="total">{{ line_item.quantity | times: line_item.price | money }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>  
-        <tfoot>
-          <tr class="order_summary note">
-            <td class="label" colspan="3">Subtotal:</td>
-            <td class="total">{{ order.subtotal_price | money }}</td>
-          </tr>   
-
-          {% for shipping_method in order.shipping_methods %}
-          <tr class="order_summary note">
-            <td class="label" colspan="3">Shipping ({{ shipping_method.title }}):</td>
-            <td class="total">{{ shipping_method.price | money }}</td>
-          </tr>
-          {% endfor %}
-
-          {% for tax_line in order.tax_lines %}
-          <tr class="order_summary note">
-            <td class="label" colspan="3">Tax ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%):</td>
-            <td class="total">{{ tax_line.price | money }}</td>
-          </tr>
-          {% endfor %}    
-
-          <tr class="order_summary order_total">
-            <td class="label total money" colspan="3">Total:</td>
-            <td class="total money">{{ order.total_price | money }} {{ order.currency }}</td>
-          </tr>   
-        </tfoot>  
-      </table>
-
+            {% endcomment %}
+          </div>
+        </div>
     </div>
-
-
-  </div>
-
+  </div><!-- /.page-header -->
 </div><!-- /.content -->

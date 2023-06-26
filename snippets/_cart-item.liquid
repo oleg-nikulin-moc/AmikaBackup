@@ -1,7 +1,7 @@
-<style>.final_sale {display: block;}</style>
+<style>.final_sale {display: block;}</style>
 
 {% include 'bold-cart-item' with item %}
-<tr class="item {{ item.product.handle }}">
+<tr class="item {{ item.product.handle }}" data-product-id="{{ item.variant.id }}">
   <td class="image two-twelfths medium--one-third small--one-third text-center">
     {% if item.variant.image %}
     {% assign variantImg = item.variant.image | img_url: "compact" %}
@@ -42,7 +42,7 @@
             </p>
           </a>
           {% unless item.variant.title contains 'Default' %}
-          <p>{{ item.variant.title }}</p>
+          <p class="ac-text--truncate">{{ item.variant.title }}</p>
           {% endunless %}
           {% for p in item.properties %}
           {% unless p.first contains "swell" or p.first contains "offer_type"%}

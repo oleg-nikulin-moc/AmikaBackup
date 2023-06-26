@@ -1,55 +1,61 @@
 <div id="customer-accounts"  class="register-login account clearfix">
 
   <div class="container clearfix">
-
-    {% render 'customer-login-form' %}
-
-
-
-    <!-- Create Customer -->
-
-    <div id="customer-register" class="register-login" >
-      <h1>Create Account</h1>
-      {% render "customer-fields", form_id: "9YtJ7k" %}
-      <form id="email_signup" style="display:none!important;" class="klaviyo_styling klaviyo_gdpr_embed_RdedFT" action="//manage.kmail-lists.com/subscriptions/subscribe" data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe" method="GET" target="_blank" novalidate="novalidate">
-        <input type="hidden" name="g" value="RdedFT">
-        <input type="hidden" name="$fields" value="dob_day,dob_month,dob_year,account_hair_type,account_hair_concern">
-        <input type="hidden" name="$list_fields" value="dob_day,dob_month,dob_year,account_hair_type,account_hair_concern">
-        <div class="klaviyo_field_group">
-          <label for="k_id_email">Newsletter Sign Up</label>
-          <input class="" type="email" value="" name="email" id="k_id_email" placeholder="Your email" />
-          <div class="klaviyo_field_group klaviyo_form_actions">
-            <input type="text" id="klaviyo_form_dob_month" name="dob_month" pattern= "([1-9]|0[1-9]|1[012])" placeholder="mm" class="bdate-data bdate-month">
-            <input type="text" id="klaviyo_form_dob_day" name="dob_day" pattern= "([1-9]|0[1-9]|1[0-9]|2[0-9]|3[01])" placeholder="dd" class="bdate-data bdate-day">
-            <input type="text" id="klaviyo_form_dob_year" name="dob_year" pattern= "[0-9]{4}" placeholder="yyyy" class="bdate-data bdate-year">
-            <input type="text" id="klaviyo_form_account_hair_type" name="account_hair_type" class="bdate-data bdate-year">
-            <input type="text" id="klaviyo_form_account_hair_concern" name="account_hair_concern" class="bdate-data bdate-year">
-          </div>
-        </div>
-        <div class="klaviyo_messages">
-          <div class="success_message" style="display:none;"></div>
-          <div class="error_message" style="display:none;"></div>
-        </div>
-        <div class="klaviyo_form_actions">
-          <button type="submit" class="klaviyo_submit_button">Subscribe</button> </div>
-      </form>
-      <script type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>
-      <script type="text/javascript">
-        KlaviyoSubscribe.attachToForms('#email_signup', {
-          hide_form_on_success: true,
-          extra_properties: {
-            $source: '$embed',
-            $method_type: "Klaviyo Form",
-            $method_id: 'embed',
-            $consent_version: 'Embed default text'
-          }
-        });
-      </script>
+    <style>
+      .ac-login-wrap .register-login {
+        margin: 0 auto;
+        float: none!important;
+      }
+      </style>
+    <div class="ac-login-wrap">
+    {% render 'customer-login-form'%}
     </div>
+    <!-- Create Customer -->
+    <!-- End Create Customer -->
+    {% comment %}
+        <div id="customer-register" class="register-login tets" >
+          <h1>Create Account</h1>
+          {% render "customer-fields", form_id: "9YtJ7k" %}
+          <form id="email_signup" style="display:none!important;" class="klaviyo_styling klaviyo_gdpr_embed_RdedFT" action="//manage.kmail-lists.com/subscriptions/subscribe" data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe" method="GET" target="_blank" novalidate="novalidate">
+            <input type="hidden" name="g" value="RdedFT">
+            <input type="hidden" name="$fields" value="dob_day,dob_month,dob_year,account_hair_type,account_hair_concern">
+            <input type="hidden" name="$list_fields" value="dob_day,dob_month,dob_year,account_hair_type,account_hair_concern">
+            <div class="klaviyo_field_group">
+              <label for="k_id_email">Newsletter Sign Up</label>
+              <input class="" type="email" value="" name="email" id="k_id_email" placeholder="Your email" />
+              <div class="klaviyo_field_group klaviyo_form_actions">
+                <input type="text" id="klaviyo_form_dob_month" name="dob_month" pattern= "([1-9]|0[1-9]|1[012])" placeholder="mm" class="bdate-data bdate-month">
+                <input type="text" id="klaviyo_form_dob_day" name="dob_day" pattern= "([1-9]|0[1-9]|1[0-9]|2[0-9]|3[01])" placeholder="dd" class="bdate-data bdate-day">
+                <input type="text" id="klaviyo_form_dob_year" name="dob_year" pattern= "[0-9]{4}" placeholder="yyyy" class="bdate-data bdate-year">
+                <input type="text" id="klaviyo_form_account_hair_type" name="account_hair_type" class="bdate-data bdate-year">
+                <input type="text" id="klaviyo_form_account_hair_concern" name="account_hair_concern" class="bdate-data bdate-year">
+              </div>
+            </div>
+            <div class="klaviyo_messages">
+              <div class="success_message" style="display:none;"></div>
+              <div class="error_message" style="display:none;"></div>
+            </div>
+            <div class="klaviyo_form_actions">
+              <button type="submit" class="klaviyo_submit_button">Subscribe</button> </div>
+          </form>
+          <script type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>
+          <script type="text/javascript">
+            KlaviyoSubscribe.attachToForms('#email_signup', {
+              hide_form_on_success: true,
+              extra_properties: {
+                $source: '$embed',
+                $method_type: "Klaviyo Form",
+                $method_id: 'embed',
+                $consent_version: 'Embed default text'
+              }
+            });
+          </script>
+        </div>
+        {% endcomment %}
     
   </div>
 </div>
-
+{% comment %}
 <script type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>
 <script type="text/javascript">
   function attachKlav() {
@@ -66,3 +72,4 @@
 
   attachKlav();
 </script>
+{% endcomment %}

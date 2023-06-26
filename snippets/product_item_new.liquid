@@ -26,7 +26,7 @@
 {% endfor %}
 
 <div class="product-item product-item-new animation {% unless isCarousel %}grid__item large--{{settings.grid_items_per_row}} medium--{{ settings.grid_items_per_row_medium }} small--{{ settings.grid_items_per_row_small }}{% endunless %} {% if link_tag != blank  %} external__product {% endif %} " id="grid-item-{{ currentProduct.id }}">
-  <form action="/cart/add" method="post" class="variants add-to-cart-form {% if currentProduct.tags contains 'final sale' %}final_sale{% endif %}" id="product-actions-{{ currentProduct.id }}" enctype="multipart/form-data" data-matchbox-click="{{ currentProduct.id }} {% for variant in currentProduct.variants %}{{variant.id}} {% endfor %}">
+  <form disabled action="/cart/add" method="post" class="variants add-to-cart-form {% if currentProduct.tags contains 'final sale' %}final_sale{% endif %}" id="product-actions-{{ currentProduct.id }}" enctype="multipart/form-data" data-matchbox-click="{{ currentProduct.id }} {% for variant in currentProduct.variants %}{{variant.id}} {% endfor %}">
     <div class="image-wrapper {% if currentProduct.available == false and currentProduct.tags contains 'coming-soon' %}coming-soon-plp {% endif %}" style="position: relative;" handle="{{ currentProduct.handle }}" data-matchbox-item="{{ currentProduct.id }} {% for variant in currentProduct.variants %}{{variant.id}} {% endfor %}">
       {% if currentProduct.tags contains 'travel-award-2019' %}
         <img class="people__travel_icon" src="{{'People_Travel_Award.png'| asset_url }}">
@@ -68,46 +68,45 @@
       </a>
       <div class="price-desc-options">
         <p class="subtitle">{{currentProdTitleSubtitle}}</p>
+          {% if customer %}
+              {% if currentProduct.price_min == currentProduct.price_max %}
+              <div class="price clearfix">
+                <span class="nihar deal">
+                  {% if currentProduct.price_min < currentProduct.compare_at_price_min %}
+                  {% unless currentProduct.handle == 'polished-perfection-straightening-brush' %}
+                  <div class="retail">
+                    <span>{{ currentProduct.compare_at_price | money | remove: '.00' | remove: ' ' }}</span>
+                  </div>
+                  {% endunless %}
+                  {% endif %}
 
-        
-          {% if currentProduct.price_min == currentProduct.price_max %}
-          <div class="price clearfix">
-            <span class="nihar deal">
-              {% if currentProduct.price_min < currentProduct.compare_at_price_min %}
-              {% unless currentProduct.handle == 'polished-perfection-straightening-brush' %}
-              <div class="retail">
-                <span>{{ currentProduct.compare_at_price | money | remove: '.00' | remove: ' ' }}</span>
+                  {% if currentProduct.price_min < currentProduct.compare_at_price_min %}<div class="deal disc">{% endif %}
+                    <span class="red-price" style="{% if product.handle == 'polished-perfection-straightening-brush' %}color:#F16573; {%endif%}">{{ currentProduct.price_min | money | remove: '.00' }}</span>
+                  {% if currentProduct.price_min < currentProduct.compare_at_price_min %}</div>{% endif %}
+                </span>
               </div>
-              {% endunless %}
-              {% endif %}
 
-              {% if currentProduct.price_min < currentProduct.compare_at_price_min %}<div class="deal disc">{% endif %}
-                <span class="red-price" style="{% if product.handle == 'polished-perfection-straightening-brush' %}color:#F16573; {%endif%}">{{ currentProduct.price_min | money | remove: '.00' }}</span>
-              {% if currentProduct.price_min < currentProduct.compare_at_price_min %}</div>{% endif %}
-            </span>
-          </div>
-
-          {% elsif currentProduct.price_min < currentProduct.compare_at_price_min %}
-          <p class="price clearfix">
-            <!-- <span class="retail">
-              <span class="red-price">{{ product.compare_at_price_min | money | remove: '.00' }} <span class="endash">-</span> {{ product.compare_at_price_max | money | remove: '.00' }}</span>
-            </span> -->
-            <span class="deal disc">
-              <span class="red-price">{{ currentProduct.price_min | money | remove: '.00' }} <span class="endash">-</span> {{ currentProduct.price_max | money | remove: '.00' }}</span>
-            </span>
-          </p>
-          {% else %}
-          <p class="price clearfix">
-            <span class="hugh deal">
-              {% if customer.tags contains 'Pro' or customer.tags contains 'HMS'%}
-              <span class="red-price">{{ currentProduct.price_min | money | remove: '.00' }} <span class="endash">-</span> {{ currentProduct.price_max | money | remove: '.00' }}</span>
+              {% elsif currentProduct.price_min < currentProduct.compare_at_price_min %}
+              <p class="price clearfix">
+                <!-- <span class="retail">
+                  <span class="red-price">{{ product.compare_at_price_min | money | remove: '.00' }} <span class="endash">-</span> {{ product.compare_at_price_max | money | remove: '.00' }}</span>
+                </span> -->
+                <span class="deal disc">
+                  <span class="red-price">{{ currentProduct.price_min | money | remove: '.00' }} <span class="endash">-</span> {{ currentProduct.price_max | money | remove: '.00' }}</span>
+                </span>
+              </p>
               {% else %}
-              {{ currentProduct.price_min | money | remove: '.00' }} - {{ currentProduct.price_max | money | remove: '.00' }}
-              {% endif%}
-            </span>
-          </p>
+              <p class="price clearfix">
+                <span class="hugh deal">
+                  {% if customer.tags contains 'Pro' or customer.tags contains 'HMS'%}
+                  <span class="red-price">{{ currentProduct.price_min | money | remove: '.00' }} <span class="endash">-</span> {{ currentProduct.price_max | money | remove: '.00' }}</span>
+                  {% else %}
+                  {{ currentProduct.price_min | money | remove: '.00' }} - {{ currentProduct.price_max | money | remove: '.00' }}
+                  {% endif%}
+                </span>
+              </p>
+              {% endif %}
           {% endif %}
-
           {% if quickview and currentProduct.available %}
           {% if currentProduct.has_only_default_variant != true and currentProduct.options.size == 1 %}
             <div class="layer quickbuy__options ease-animation">
@@ -130,8 +129,11 @@
                     <label class="{% if forloop.index == 1 %}selected{% endif %}">
                       <!-- id="option1-{{variant.id}}" -->
                       <input name="option1" type="radio" data-variant="{{ variant.id }}" data-price_string="{{variant.price | money_without_trailing_zeros }}" data-matchbox-addToCart="{{ currentProduct.id }} {% for variant in currentProduct.variants %}{{variant.id}} {% endfor %}" {% if forloop.first%}checked{% endif %}/>
-                      <span class="rs__variant_title" > {{ variant.title }} </span> - 
+                      <span class="rs__variant_title" > {{ variant.title }} </span>
+                       {% if customer %}
+                           -
                       <span class="rs__variant_price" > {{ variant.price | money }} </span>
+                        {% endif %}
                     </label>
                   </div>
                   {% endif %}
@@ -143,7 +145,7 @@
 
       </div>
     </div>
-
+    {% if customer %}
     {%comment%} out of stock instead of quickbuy {%endcomment%}
         {% if quickview and currentProduct.available == false  %}
             <div class="quickbuy__rs">
@@ -159,7 +161,7 @@
       {% endif %}
 
       {%comment%} quickbuy buttons  {%endcomment%}
-    
+
       {% if quickview and currentProduct.available %}
           {% if currentProduct.has_only_default_variant %}
 
@@ -196,7 +198,7 @@
             </div>
             <!-- endmobile -->
           {% endif %}
-      {%endif %}
-
+      {% endif %}
+    {% endif %}
   </form>
 </div>

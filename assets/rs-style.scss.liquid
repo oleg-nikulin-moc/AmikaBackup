@@ -480,7 +480,7 @@ span.final-sale {
     top: 10px;
   }
 }
-.tingle-modal-box .tingle-modal__close { @media(max-width: 585px){display: block;}}
+.tingle-modal-box .tingle-modal__close { @media(max-width: 585px){display: none;}}
 .tingle-modal--visible .tingle-modal-box {
   @media(max-width: 585px){
     width: 100%;
@@ -6460,12 +6460,11 @@ END About Us 2020
       #forgot_password {
         text-transform: lowercase;
       }
-      input[type="text"], input[type="email"], input[type="password"], select {
+      input[type="text"]:not.ac-form__field, input[type="email"]:not.ac-form__field, input[type="password"]:not.ac-form__field, select:not.ac-form__field {
         border: 1px solid black;
         border-radius: 5px;
         padding: 13px 15px 12px;
         height: 47px;
-
         background-color: transparent !important;
         box-shadow: none !important;
       }

@@ -1,1 +1,203 @@
-{"sections":{"163821327640101c8f":{"type":"grid_block","blocks":{"e6f48b10-6d67-4105-afc1-09ae2a99cdde":{"type":"grid_block","settings":{"image":"shopify:\/\/shop_images\/amika_032421_pro-social-toolkit_hair-brush-shield-supernova_still-life_0006_1080x1080_1_2x_1.jpg","title_size":"h1","title":"friends with benefits","subtitle":"custom salon rewards beta*","subtext":"you’ve been chosen for our exclusive pilot loyalty program! friends with benefits custom salon rewards beta* is our newest way of saying thank you for being such a loving and loyal customer.","btn_text":"","btn_link":"","bg_color":"#fefaf0","grid_inverse":false}},"3657d06e-3e3d-426c-af2a-b39147adf5a4":{"type":"grid_block","settings":{"image":"shopify:\/\/shop_images\/amika_210528_pro-social-toolkit_july-august_still-life_salon-backbar_3694_1080x1080_1_2x_1.jpg","title_size":"h3","title":"earn free full-size products, tools, and retailing support — all salons are welcome no matter the size!","subtitle":"","subtext":"shop for custom rewards every month using your gift card allowance.​","btn_text":"","btn_link":"","bg_color":"#ff5edb","grid_inverse":true}}},"block_order":["e6f48b10-6d67-4105-afc1-09ae2a99cdde","3657d06e-3e3d-426c-af2a-b39147adf5a4"],"settings":{"full_width":true}},"16385602258df6a720":{"type":"spacer","settings":{"divider":false,"padding_top":100,"padding_bottom":0,"padding_top_m":60,"padding_bottom_m":0}},"163822069966e4412d":{"type":"loyalty-copy","blocks":{"6a97c7b9-2619-43e9-a5bc-a96e7a11aa32":{"type":"custom","settings":{"copy_block":"<h3>how to earn?<\/h3>\n<p>your total monthly amika purchases determine your qualifying level. purchase at least $500 in amika products from your distributor per month to qualify.<\/p>"}},"d8f138be-5f1e-4fa8-accc-6451221b9656":{"type":"custom","settings":{"copy_block":"<h3>are you an independent stylist?<\/h3>\n<p>single-operators can qualify for custom rewards by purchasing at least $750 in amika products from your distributor over a 3-month period.**\n<\/p>\n<p>at the beginning of each month, amika will email you a pre-loaded digital gift card with your rewards allowance earned based on the prior month’s purchases.*** each gift card is valid for 60 days.<\/p>"}},"077f7d26-ad26-4a88-a29d-28302a99ef89":{"type":"custom","settings":{"copy_block":"<h3 class=\"copy-content__example\">example<\/h3>\n<p>total purchases from distributor in april = $1000​<\/p>\n<p>rewards total received from amika in may = $170 (17%)<\/p>"}},"58337417-526b-4028-a4aa-0b07ab7ce213":{"type":"custom","settings":{"copy_block":"<h3 class=\"label\">disclaimer<\/h3>\n<p style=\"font-size: 14px;\">\n<span class=\"label\">*<\/span>this is a limited-time, exclusive pilot program available only to salons serviced by goldwell of ny.purchases through any other distributor will not count toward fwb: custom salon rewards. the program launches april 1st 2021 and is subject to change or cancellation at any time.<\/p>\n<p style=\"font-size: 14px;\">​\n<span class=\"label\">**<\/span>fiscal quarters january-march, april-june, july-september, or october-december.<\/p>\n<p style=\"font-size: 14px;\">\n<span class=\"label\">***<\/span>for independent stylists, quarterly rewards will be issued via gift card during the first month following quarter close.​​<\/p>"}}},"block_order":["6a97c7b9-2619-43e9-a5bc-a96e7a11aa32","d8f138be-5f1e-4fa8-accc-6451221b9656","077f7d26-ad26-4a88-a29d-28302a99ef89","58337417-526b-4028-a4aa-0b07ab7ce213"],"settings":{"title":"let’s take this relationship to the next level"}},"1638560214b6462e7c":{"type":"spacer","settings":{"divider":false,"padding_top":30,"padding_bottom":0,"padding_top_m":10,"padding_bottom_m":0}},"16385600985cefdb63":{"type":"loyalty-chart","settings":{}},"1638560107beaaa3a7":{"type":"spacer","settings":{"divider":false,"padding_top":120,"padding_bottom":0,"padding_top_m":50,"padding_bottom_m":0}},"faq":{"type":"faq","blocks":{"6c814c73-b736-46d3-8db7-8f413a1526df":{"type":"question","settings":{"question":"do rewards expire?","answer":"<p>yes, e-gift cards expire 60 days after they are issued.<\/p>"}},"a9f070d3-4f2f-49ee-8424-bccb3b729d0c":{"type":"question","settings":{"question":"do my purchases with another distributor count?​","answer":"<p>this is a limited-time, exclusive pilot program available only to salons serviced by goldwell of ny. purchases through any other distributor will not count.<\/p>"}},"47b3827d-9096-419e-874b-e5a90308defc":{"type":"question","settings":{"question":"can I order all my amika direct?​","answer":"<p>no, the custom salon rewards portal does not allow cash payments of more than $10. regular product orders must go through your professional distributor.<\/p>"}},"441cf2af-1928-4e39-acde-16d87b74d4f3":{"type":"question","settings":{"question":"I am an independent stylist and I purchase more than $500 per month. can I receive monthly rewards?","answer":"<p>absolutely! please communicate to your salon consultant that you would prefer to be recognized as a salon for monthly rewards. if you participate in the monthly program, however, you are not able to revert to quarterly should you miss the monthly qualification minimums.<\/p>"}},"c01999c2-1740-4641-bd74-edb54b63fc6b":{"type":"question","settings":{"question":"how can I check my monthly purchase total?","answer":"<p>contact your distributor sales consultant to request an update on your monthly purchase total.<\/p>"}},"f87b87d6-e476-4bc7-88c6-1d68e7747a21":{"type":"question","settings":{"question":"how do I spend my rewards?","answer":"<p>spending your rewards is as simple as shopping the site, filling your cart, and checking out – at checkout, you will be prompted to enter your e-gift card code(s) as rewards tender. the custom salon rewards portal does not allow cash payments of more than $10 and your cart may need to be adjusted to comply with this threshold.<\/p>"}},"3a571671-5af9-47b2-9b70-f19661191174":{"type":"question","settings":{"question":"I’m also an amika salon affiliate – do my monthly sales count towards friends with benefits: custom salon rewards? ​","answer":"<p>at this time, friends with benefits: custom salon rewards only accounts for purchases through your distributor.<\/p>"}}},"block_order":["6c814c73-b736-46d3-8db7-8f413a1526df","a9f070d3-4f2f-49ee-8424-bccb3b729d0c","47b3827d-9096-419e-874b-e5a90308defc","441cf2af-1928-4e39-acde-16d87b74d4f3","c01999c2-1740-4641-bd74-edb54b63fc6b","f87b87d6-e476-4bc7-88c6-1d68e7747a21","3a571671-5af9-47b2-9b70-f19661191174"],"settings":{"title":"FAQ"}},"16385598172cee93bd":{"type":"spacer","settings":{"divider":false,"padding_top":100,"padding_bottom":0,"padding_top_m":50,"padding_bottom_m":0}}},"order":["163821327640101c8f","16385602258df6a720","163822069966e4412d","1638560214b6462e7c","16385600985cefdb63","1638560107beaaa3a7","faq","16385598172cee93bd"]}
+{
+  "sections": {
+    "163821327640101c8f": {
+      "type": "grid_block",
+      "blocks": {
+        "e6f48b10-6d67-4105-afc1-09ae2a99cdde": {
+          "type": "grid_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/amika_032421_pro-social-toolkit_hair-brush-shield-supernova_still-life_0006_1080x1080_1_2x_1.jpg",
+            "title_size": "h1",
+            "title": "friends with benefits",
+            "subtitle": "custom salon rewards beta*",
+            "subtext": "you’ve been chosen for our exclusive pilot loyalty program! friends with benefits custom salon rewards beta* is our newest way of saying thank you for being such a loving and loyal customer.",
+            "btn_text": "",
+            "btn_link": "",
+            "bg_color": "#fefaf0",
+            "grid_inverse": false
+          }
+        },
+        "3657d06e-3e3d-426c-af2a-b39147adf5a4": {
+          "type": "grid_block",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/amika_210528_pro-social-toolkit_july-august_still-life_salon-backbar_3694_1080x1080_1_2x_1.jpg",
+            "title_size": "h3",
+            "title": "earn free full-size products, tools, and retailing support — all salons are welcome no matter the size!",
+            "subtitle": "",
+            "subtext": "shop for custom rewards every month using your gift card allowance.​",
+            "btn_text": "",
+            "btn_link": "",
+            "bg_color": "#ff5edb",
+            "grid_inverse": true
+          }
+        }
+      },
+      "block_order": [
+        "e6f48b10-6d67-4105-afc1-09ae2a99cdde",
+        "3657d06e-3e3d-426c-af2a-b39147adf5a4"
+      ],
+      "settings": {
+        "full_width": true
+      }
+    },
+    "16385602258df6a720": {
+      "type": "spacer",
+      "settings": {
+        "divider": false,
+        "padding_top": 100,
+        "padding_bottom": 0,
+        "padding_top_m": 60,
+        "padding_bottom_m": 0
+      }
+    },
+    "163822069966e4412d": {
+      "type": "loyalty-copy",
+      "blocks": {
+        "6a97c7b9-2619-43e9-a5bc-a96e7a11aa32": {
+          "type": "custom",
+          "settings": {
+            "copy_block": "<h3>how to earn?<\/h3>\n<p>your total monthly amika purchases determine your qualifying level. purchase at least $500 in amika products from your distributor per month to qualify.<\/p>"
+          }
+        },
+        "d8f138be-5f1e-4fa8-accc-6451221b9656": {
+          "type": "custom",
+          "settings": {
+            "copy_block": "<h3>are you an independent stylist?<\/h3>\n<p>single-operators can qualify for custom rewards by purchasing at least $750 in amika products from your distributor over a 3-month period.**\n<\/p>\n<p>at the beginning of each month, amika will email you a pre-loaded digital gift card with your rewards allowance earned based on the prior month’s purchases.*** each gift card is valid for 60 days.<\/p>"
+          }
+        },
+        "077f7d26-ad26-4a88-a29d-28302a99ef89": {
+          "type": "custom",
+          "settings": {
+            "copy_block": "<h3 class=\"copy-content__example\">example<\/h3>\n<p>total purchases from distributor in april = $1000​<\/p>\n<p>rewards total received from amika in may = $170 (17%)<\/p>"
+          }
+        },
+        "58337417-526b-4028-a4aa-0b07ab7ce213": {
+          "type": "custom",
+          "settings": {
+            "copy_block": "<h3 class=\"label\">disclaimer<\/h3>\n<p style=\"font-size: 14px;\">\n<span class=\"label\">*<\/span>this is a limited-time, exclusive pilot program available only to salons serviced by goldwell of ny.purchases through any other distributor will not count toward fwb: custom salon rewards. the program launches april 1st 2021 and is subject to change or cancellation at any time.<\/p>\n<p style=\"font-size: 14px;\">​\n<span class=\"label\">**<\/span>fiscal quarters january-march, april-june, july-september, or october-december.<\/p>\n<p style=\"font-size: 14px;\">\n<span class=\"label\">***<\/span>for independent stylists, quarterly rewards will be issued via gift card during the first month following quarter close.​​<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "6a97c7b9-2619-43e9-a5bc-a96e7a11aa32",
+        "d8f138be-5f1e-4fa8-accc-6451221b9656",
+        "077f7d26-ad26-4a88-a29d-28302a99ef89",
+        "58337417-526b-4028-a4aa-0b07ab7ce213"
+      ],
+      "settings": {
+        "title": "let’s take this relationship to the next level"
+      }
+    },
+    "1638560214b6462e7c": {
+      "type": "spacer",
+      "settings": {
+        "divider": false,
+        "padding_top": 30,
+        "padding_bottom": 0,
+        "padding_top_m": 10,
+        "padding_bottom_m": 0
+      }
+    },
+    "16385600985cefdb63": {
+      "type": "loyalty-chart",
+      "settings": {
+      }
+    },
+    "1638560107beaaa3a7": {
+      "type": "spacer",
+      "settings": {
+        "divider": false,
+        "padding_top": 120,
+        "padding_bottom": 0,
+        "padding_top_m": 50,
+        "padding_bottom_m": 0
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "6c814c73-b736-46d3-8db7-8f413a1526df": {
+          "type": "question",
+          "settings": {
+            "question": "do rewards expire?",
+            "answer": "<p>yes, e-gift cards expire 60 days after they are issued.<\/p>"
+          }
+        },
+        "a9f070d3-4f2f-49ee-8424-bccb3b729d0c": {
+          "type": "question",
+          "settings": {
+            "question": "do my purchases with another distributor count?​",
+            "answer": "<p>this is a limited-time, exclusive pilot program available only to salons serviced by goldwell of ny. purchases through any other distributor will not count.<\/p>"
+          }
+        },
+        "47b3827d-9096-419e-874b-e5a90308defc": {
+          "type": "question",
+          "settings": {
+            "question": "can I order all my amika direct?​",
+            "answer": "<p>no, the custom salon rewards portal does not allow cash payments of more than $10. regular product orders must go through your professional distributor.<\/p>"
+          }
+        },
+        "441cf2af-1928-4e39-acde-16d87b74d4f3": {
+          "type": "question",
+          "settings": {
+            "question": "I am an independent stylist and I purchase more than $500 per month. can I receive monthly rewards?",
+            "answer": "<p>absolutely! please communicate to your salon consultant that you would prefer to be recognized as a salon for monthly rewards. if you participate in the monthly program, however, you are not able to revert to quarterly should you miss the monthly qualification minimums.<\/p>"
+          }
+        },
+        "c01999c2-1740-4641-bd74-edb54b63fc6b": {
+          "type": "question",
+          "settings": {
+            "question": "how can I check my monthly purchase total?",
+            "answer": "<p>contact your distributor sales consultant to request an update on your monthly purchase total.<\/p>"
+          }
+        },
+        "f87b87d6-e476-4bc7-88c6-1d68e7747a21": {
+          "type": "question",
+          "settings": {
+            "question": "how do I spend my rewards?",
+            "answer": "<p>spending your rewards is as simple as shopping the site, filling your cart, and checking out – at checkout, you will be prompted to enter your e-gift card code(s) as rewards tender. the custom salon rewards portal does not allow cash payments of more than $10 and your cart may need to be adjusted to comply with this threshold.<\/p>"
+          }
+        },
+        "3a571671-5af9-47b2-9b70-f19661191174": {
+          "type": "question",
+          "settings": {
+            "question": "I’m also an amika salon affiliate – do my monthly sales count towards friends with benefits: custom salon rewards? ​",
+            "answer": "<p>at this time, friends with benefits: custom salon rewards only accounts for purchases through your distributor.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "6c814c73-b736-46d3-8db7-8f413a1526df",
+        "a9f070d3-4f2f-49ee-8424-bccb3b729d0c",
+        "47b3827d-9096-419e-874b-e5a90308defc",
+        "441cf2af-1928-4e39-acde-16d87b74d4f3",
+        "c01999c2-1740-4641-bd74-edb54b63fc6b",
+        "f87b87d6-e476-4bc7-88c6-1d68e7747a21",
+        "3a571671-5af9-47b2-9b70-f19661191174"
+      ],
+      "settings": {
+        "title": "FAQ"
+      }
+    },
+    "16385598172cee93bd": {
+      "type": "spacer",
+      "settings": {
+        "divider": false,
+        "padding_top": 100,
+        "padding_bottom": 0,
+        "padding_top_m": 50,
+        "padding_bottom_m": 0
+      }
+    }
+  },
+  "order": [
+    "163821327640101c8f",
+    "16385602258df6a720",
+    "163822069966e4412d",
+    "1638560214b6462e7c",
+    "16385600985cefdb63",
+    "1638560107beaaa3a7",
+    "faq",
+    "16385598172cee93bd"
+  ]
+}

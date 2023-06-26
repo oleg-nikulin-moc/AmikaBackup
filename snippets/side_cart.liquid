@@ -1,8 +1,28 @@
-<style>.final_sale {display: block;}</style>
+<style>
+  .final_sale {display: block;}
+
+  /* Prepack */
+  .grid[class^="prepack"]  .quantity > .wrap,
+  .grid[class^="prepack"]  .remove {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .grid[class^="prepack"] a {
+    pointer-events: none;
+  }
+
+  .quantity .wrap {
+    display: inline-flex!important;
+  }
+  .quantity input.plus {
+    top: initial!important;
+  }
+</style>
 <div class="side-cart">
   <div class="wrapper">
     <div class="header clearfix">
-      <div class="center"><h1>your shopping bag ({{ cart.item_count }})</h1></div>
+      <div class="center"><h1>your rewards order ({{ cart.item_count }})</h1></div>
       <div class="close-container">
         <a href="#" class="close" onclick="hideSideCart();return false;">
           <i class="lnr animation lnr-cross"></i>
@@ -52,7 +72,7 @@
       {% if salonExists == false %}
       {% if customer.tags contains 'HMS' or customer.tags contains 'Pro' or customer.tags contains 'BrandAmbassadorUS' %}
       {% else %}
-      <div class="free__shipping--bar">
+      <div class="free__shipping--bar" style="display: none;">
         <div class="free-shipping">
           {% assign excludePrice = 0 %}
           {% for item in cart.items %}
@@ -93,7 +113,7 @@
         <form>
           {% for item in cart.items %}
           <div class="item">
-            <div class="grid">
+            <div class="{{ item.product.handle }} grid" data-product-id="{{ item.variant.id }}">
               <div class="grid__item one-third small--two-fifths">
                 <a href="{% if item.price > 0 %}{{ item.product.url }}{% else %}javascript:void(0);{% endif %}">
                   {% if item.variant.image %}
@@ -126,13 +146,13 @@
                     <div class="wrap">
                       {% if item.price > 0  or item.variant.id == 1771451940882 %}
                         <input type="button" aria-label="Cart product remove" value="-" class="minus animation" />
-                        <input readonly type="number" step="1" name="updates[]" value="{{ item.quantity }}" title="Qty" size="4" min="0" max="" class="qty-input" />
+                        <input readonly type="number" step="1" name="updates[]" value="{{ item.quantity }}" title="Qty" size="1" min="0" max="6" class="qty-input" />
                         <input type="button" aria-label="cart product add" value="+" class="plus animation" />
                       {% else %}
                         <div class="hide">
-                          <input type="number" step="1" name="updates[]" value="1" title="Qty" min="0" max="" class="qty-input" />
+                          <input type="number" step="1" name="updates[]" value="1" title="Qty" size="1" min="0" max="6" class="qty-input" />
                         </div>
-                        <input type="number" aria-label="cart product Quantity field" value="{{ item.quantity }}" title="Qty" disabled />
+                        <input type="number" aria-label="cart product Quantity field" value="{{ item.quantity }}" size="1" min="0" max="6" title="Qty" disabled />
                       {% endif %}
                       <div style="clear: both;"></div>
                     </div>
@@ -330,19 +350,23 @@
         {% if cart.item_count > 0 and cart.total_price != 0 %}
         <div class="subtotal">
           <div class="side__cart--totalSection subtotal__data--section">
-            <div class="label">Subtotal</div>
+            <div class="label">order total</div>
             <div class="number__data">
               <p class="saso-cart-original-total">{{ cart.total_price | money | remove: '.00' }}</p>
               <p class="saso-cart-total"></p>
             </div>
           </div>
-          <div class="checkout-button"><a href="/cart" class="animation btn-go-to-cart button--primary button--fullWidth">checkout</a></div>
+          <div class="checkout-button">
+            <a href="/cart" class="animation btn-go-to-cart button--primary button--fullWidth">submit order</a>
+          </div>
 
           <!-- Removal of checkout options on cart page -->
           {% if additional_checkout_buttons %}
           <div id="additional-checkout-buttons">
             {{ content_for_additional_checkout_buttons }}
           </div>
+          {% else %}
+            <p style="font-weight: 400; font-size: 14px; line-height: 24px; color: #000; text-transform: lowercase;">rewards orders are limited to one per month</p>
           {% endif %}
           <!-- End Removal of checkout options on cart page -->
 

@@ -1,1 +1,95 @@
-{"sections":{"1637094189fe4753bd":{"type":"custom-kits-hero","settings":{"banner_image":"shopify:\/\/shop_images\/marketingKitBanner.png","banner_image_mobile":"shopify:\/\/shop_images\/marketingKitBannerMobile.png","title":"welcome to the amika salon resource center","description":"your guide to all things amika salon marketing, ranging from product knowledge to promotional and merchandising support."}},"1637097890be7d2ace":{"type":"custom-kits-grid","blocks":{"a79043b8-15cd-46e7-ba67-b1e7e8b605c6":{"type":"product-item","settings":{"image":"shopify:\/\/shop_images\/amika_210528_pro-social-toolkit_july-august_still-life_salon-backbar_3694_1080x1080_1_2x_1_1.jpg","title":"new launch kits","description":"","button_url":"","button":"view"}},"5bf8255e-9634-4743-b2f6-304f675167f9":{"type":"product-item","settings":{"image":"shopify:\/\/shop_images\/amika_210528_pro-social-toolkit_july-august_still-life_salon-backbar_3694_1080x1080_1_2x_1_1.jpg","title":"marketing materials","description":"","button_url":"","button":"view"}},"7efe28ec-86ea-4d2b-afc7-cb0cdd871956":{"type":"product-item","settings":{"image":"shopify:\/\/shop_images\/amika_210528_pro-social-toolkit_july-august_still-life_salon-backbar_3694_1080x1080_1_2x_1_1.jpg","title":"image + video library","description":"","button_url":"","button":"view"}},"543a8421-d516-4bb1-9d53-b16334e10eeb":{"type":"product-item","settings":{"image":"shopify:\/\/shop_images\/amika_210528_pro-social-toolkit_july-august_still-life_salon-backbar_3694_1080x1080_1_2x_1_1.jpg","title":"business tools","description":"","button_url":"","button":"BEGIN"}},"202c8752-5928-47bb-b42e-4a726d63c632":{"type":"product-item","settings":{"image":"shopify:\/\/shop_images\/amika_210528_pro-social-toolkit_july-august_still-life_salon-backbar_3694_1080x1080_1_2x_1_1.jpg","title":"product info","description":"","button_url":"","button":"BEGIN"}},"83e8c7e8-1f70-4ed9-80c5-683137a1ee1b":{"type":"product-item","settings":{"image":"shopify:\/\/shop_images\/amika_210528_pro-social-toolkit_july-august_still-life_salon-backbar_3694_1080x1080_1_2x_1_1.jpg","title":"SDS","description":"","button_url":"","button":"BEGIN"}}},"block_order":["a79043b8-15cd-46e7-ba67-b1e7e8b605c6","5bf8255e-9634-4743-b2f6-304f675167f9","7efe28ec-86ea-4d2b-afc7-cb0cdd871956","543a8421-d516-4bb1-9d53-b16334e10eeb","202c8752-5928-47bb-b42e-4a726d63c632","83e8c7e8-1f70-4ed9-80c5-683137a1ee1b"],"settings":{"description":"click a folder\nbelow to start browsing, then download anything you like!","subdescription":"<p>can't find what you need? drop us a note at <\/p><p><a href=\"mailto:info@loveamikapro.com\" target=\"_blank\" title=\"Email us at info@loveamikapro.com\">info@loveamikapro.com<\/a><\/p>","headup_subdescription":"<p>your use of the materials contained herein is subject to the end user license agreement detailed in the <a href=\"\/pages\/terms-of-use-privacy\" target=\"_blank\" title=\"terms of use + privacy\">terms + conditions<\/a><\/p>"}}},"order":["1637094189fe4753bd","1637097890be7d2ace"]}
+{
+  "sections": {
+    "1637094189fe4753bd": {
+      "type": "custom-kits-hero",
+      "settings": {
+        "banner_image": "shopify:\/\/shop_images\/marketingKitBanner.png",
+        "banner_image_mobile": "shopify:\/\/shop_images\/marketingKitBannerMobile.png",
+        "title": "welcome to the amika salon resource center",
+        "description": "your guide to all things amika salon marketing, ranging from product knowledge to promotional and merchandising support."
+      }
+    },
+    "1637097890be7d2ace": {
+      "type": "custom-kits-grid",
+      "blocks": {
+        "a79043b8-15cd-46e7-ba67-b1e7e8b605c6": {
+          "type": "product-item",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/amika_210528_pro-social-toolkit_july-august_still-life_salon-backbar_3694_1080x1080_1_2x_1_1.jpg",
+            "title": "new launch kits",
+            "description": "",
+            "button_url": "",
+            "button": "view"
+          }
+        },
+        "5bf8255e-9634-4743-b2f6-304f675167f9": {
+          "type": "product-item",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/amika_210528_pro-social-toolkit_july-august_still-life_salon-backbar_3694_1080x1080_1_2x_1_1.jpg",
+            "title": "marketing materials",
+            "description": "",
+            "button_url": "",
+            "button": "view"
+          }
+        },
+        "7efe28ec-86ea-4d2b-afc7-cb0cdd871956": {
+          "type": "product-item",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/amika_210528_pro-social-toolkit_july-august_still-life_salon-backbar_3694_1080x1080_1_2x_1_1.jpg",
+            "title": "image + video library",
+            "description": "",
+            "button_url": "",
+            "button": "view"
+          }
+        },
+        "543a8421-d516-4bb1-9d53-b16334e10eeb": {
+          "type": "product-item",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/amika_210528_pro-social-toolkit_july-august_still-life_salon-backbar_3694_1080x1080_1_2x_1_1.jpg",
+            "title": "business tools",
+            "description": "",
+            "button_url": "",
+            "button": "BEGIN"
+          }
+        },
+        "202c8752-5928-47bb-b42e-4a726d63c632": {
+          "type": "product-item",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/amika_210528_pro-social-toolkit_july-august_still-life_salon-backbar_3694_1080x1080_1_2x_1_1.jpg",
+            "title": "product info",
+            "description": "",
+            "button_url": "",
+            "button": "BEGIN"
+          }
+        },
+        "83e8c7e8-1f70-4ed9-80c5-683137a1ee1b": {
+          "type": "product-item",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/amika_210528_pro-social-toolkit_july-august_still-life_salon-backbar_3694_1080x1080_1_2x_1_1.jpg",
+            "title": "SDS",
+            "description": "",
+            "button_url": "",
+            "button": "BEGIN"
+          }
+        }
+      },
+      "block_order": [
+        "a79043b8-15cd-46e7-ba67-b1e7e8b605c6",
+        "5bf8255e-9634-4743-b2f6-304f675167f9",
+        "7efe28ec-86ea-4d2b-afc7-cb0cdd871956",
+        "543a8421-d516-4bb1-9d53-b16334e10eeb",
+        "202c8752-5928-47bb-b42e-4a726d63c632",
+        "83e8c7e8-1f70-4ed9-80c5-683137a1ee1b"
+      ],
+      "settings": {
+        "description": "click a folder\nbelow to start browsing, then download anything you like!",
+        "subdescription": "<p>can't find what you need? drop us a note at <\/p><p><a href=\"mailto:info@loveamikapro.com\" target=\"_blank\" title=\"Email us at info@loveamikapro.com\">info@loveamikapro.com<\/a><\/p>",
+        "headup_subdescription": "<p>your use of the materials contained herein is subject to the end user license agreement detailed in the <a href=\"\/pages\/terms-of-use-privacy\" target=\"_blank\" title=\"terms of use + privacy\">terms + conditions<\/a><\/p>"
+      }
+    }
+  },
+  "order": [
+    "1637094189fe4753bd",
+    "1637097890be7d2ace"
+  ]
+}
