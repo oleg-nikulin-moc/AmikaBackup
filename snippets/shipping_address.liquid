@@ -1,0 +1,63 @@
+{% if salon %}
+    <div id="salon_name_wrap" class="clearfix form-row register-form__fieldset">
+        <label for="salon_name" class="ac-form__label login">Salon Name*</label>
+        <input type="text" name="salonName" id="salon_name" pattern="/^[A-Za-z ]{2,50}$/" placeholder="Salon Name" required class="large ac-form__field" size="30" />
+        <span id="salonNameError" class="ac-text--error"></span>
+    </div>
+    <div id="salon_name_wrap-empty" class="clearfix form-row register-form__fieldset"></div>
+{% else %}
+    <div id="first_name-wrap" class="clearfix form-row register-form__fieldset">
+        <label for="firstName" class="ac-form__label login">First Name*</label>
+        <input type="text" placeholder="First Name" name="first_name" id="firstName" class="large ac-form__field" size="30" required />
+        <span id="firstNameError" class="ac-text--error"></span>
+    </div>
+    <div id="last_name-wrap" class="clearfix form-row register-form__fieldset">
+        <label for="last_name" class="ac-form__label login">Last Name*</label>
+        <input type="text" placeholder="Last Name" name="last_name" id="last_name" class="large ac-form__field{% if form.errors contains 'last_name' %} error{% endif %}" size="30" required/>
+        <span id="lastNameError" class="ac-text--error"></span>
+    </div>
+{% endif %}
+<div id="salon-adress_wrap_1" class="clearfix form-row register-form__fieldset">
+    <label for="salon_address" class="ac-form__label login">Salon address line 1*</label>
+    <input type="text" name="salon_address" id="salon_address" required placeholder="Salon address line 1" class="large ac-form__field{% if form.errors contains 'password' %} error{% endif %}" size="30"/>
+    <span id="salonAddressError" class="ac-text--error"></span>
+</div>
+
+{% if salon %}
+    <div id="salon-adress_wrap_2" class="clearfix form-row register-form__fieldset">
+        <label for="salonAddress2" class="ac-form__label login">Salon address line 2</label>
+        <input type="text" name="salonAddress2" id="salonAddress2" placeholder="Salon address line 2" class="large ac-form__field password{% if form.errors contains '' %} error{% endif %}" size="30"/>
+        <span id="salonAddress2Error" class="ac-text--error"></span>
+    </div>
+{% else %}
+    <div id="salon_name_wrap-empty" class="clearfix form-row register-form__fieldset"></div>
+{% endif %}
+<div id="city_wrap" class="clearfix form-row register-form__fieldset">
+    <label for="city" class="ac-form__label login">City*</label>
+    <input type="text" name="city" id="city" placeholder="city" required class="large ac-form__field {% if form.errors contains 'password' %} error{% endif %}" size="30" />
+    <span id="cityError" class="ac-text--error"></span>
+</div>
+
+<div id="state_wrap" class="clearfix form-row register-form__fieldset">
+    <label for="province" class="ac-form__label login">State/province*</label>
+    <select name="province"  placeholder="province" required id="state" class="ac-form__selector form-control">
+        <option value="">Select State</option>
+    </select>
+    <span id="provinceError" class="ac-text--error"></span>
+</div>
+<div id="zip_wrap" class="clearfix form-row register-form__fieldset">
+    <label for="zip" class="ac-form__label login">zip/postal code*</label>
+    <input type="text"  id="zip" placeholder="zip/postal code" required name="zip" class="large ac-form__field{% if form.errors contains 'zip' %} error{% endif %}" size="30"/>
+    <span id="zipError" class="ac-text--error"></span>
+</div>
+<div id="country_wrap" class="clearfix form-row register-form__fieldset">
+    <label for="country" class="ac-form__label login">Country*</label>
+    {% comment %}{#% render 'country_selector'%}{% endcomment %}
+
+    <select id="country" name="country" class="ac-form__selector form-control">
+        <option value="usa">USA</option>
+        {% comment %}<option value="">Select Country</option>{% endcomment %}
+        {% comment %}<option value="canada">Canada</option>{% endcomment %}
+    </select>
+    <span id="countryError" class="ac-text--error"></span>
+</div>

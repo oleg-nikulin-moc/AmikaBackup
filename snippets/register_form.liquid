@@ -1,0 +1,147 @@
+{% render 'spinner' %}
+
+<div id="customer-register" style="display: none;" class="" >
+      <div class="ac-form-title__wrap">
+        <h1 class="ac-form-title">Create Account</h1>
+        <p class="ac-from__step">step <span class="js-step">1</span> of 3 </p>
+      </div>
+    {% comment %}
+    {% form 'create_customer' %}
+        {{ form.errors | default_errors }}
+        {% endform %}
+        {% endcomment %}
+    <form id="create_customer">
+      <div id="step-first" class="tab">
+        <div id="first_name-wrap" class="clearfix form-row register-form__fieldset">
+          <label for="firstName" class="ac-form__label login">First Name*</label>
+          <input type="text" placeholder="First Name" name="first_name" id="firstName" class="large ac-form__field" size="30" required />
+          <span id="firstNameError" class="ac-text--error"></span>
+        </div>
+  
+        <div id="last_name-wrap" class="clearfix form-row register-form__fieldset">
+          <label for="last_name" class="ac-form__label login">Last Name*</label>
+          <input type="text" placeholder="Last Name" name="last_name" id="last_name" class="large ac-form__field{% if form.errors contains 'last_name' %} error{% endif %}" size="30" required/>
+            <span id="lastNameError" class="ac-text--error"></span>
+        </div>
+
+        <div id="password-wrap" class="clearfix form-row register-form__fieldset">
+          <label for="password" class="ac-form__label login">Password*</label>
+          <input type="password" name="password" id="password" pattern="^[a-zA-Z0-9]{8,50}$" class="large ac-form__field password{% if form.errors contains 'password' %} error{% endif %}" size="30" required />
+          <span id="passwordError" class="ac-text--error"></span>
+        </div>
+
+        <div id="confirm-password-wrap" class="clearfix form-row register-form__fieldset">
+          <label for="confirmPassword" class="ac-form__label login">Confirm Password*</label>
+          <input type="password" name="confirmPassword" id="confirmPassword" class="large ac-form__field password{% if form.errors contains 'confirm-password' %} error{% endif %}" size="30" required />
+          <span id="confirmPasswordError" class="ac-text--error"></span>
+        </div>
+
+        <div id="email-wrap" class="clearfix form-row register-form__fieldset">
+          <label for="emailMain" class="ac-form__label login ac-text--truncate">Email* <span class="ac-form__note">identical to account email with primary distributor</span></label>
+          <input type="email"  name="email" id="emailMain" placeholder="Email Address" class="large ac-form__field{% if form.errors contains 'email' %} error{% endif %}" size="30" required/>
+          <span id="emailError" class="ac-text--error"></span>
+        </div>
+
+        <div id="phone-wrap" class="clearfix form-row register-form__fieldset">
+          <label for="phone" class="ac-form__label login">Mobile Number*</label>
+          <input type="text" id="phone" name="phone" title="Please provide the phone number without the country code." placeholder="(XXX)XXXXXXX" class="large ac-form__field ac-form_feild"/>
+          <span id="phoneError" class="ac-text--error"></span>
+        </div>
+      </div>
+      <div id="step-second" class="tab">
+          {% render 'shipping_address', salon: true %}
+      </div>
+
+      <div id="step-third" class="tab">
+          {% comment %}    {% endcomment %}
+        <p class="ac-form-distributor__description">salons can only earn rewards based on the purchase totals reported by their designated primary distributor as purchase totals cannot be combined. once submitted, this field is unable to be modified.</p>
+         <div id="distributor_wrap" class="clearfix form-row register-form__fieldset ac-offset-right--sm">
+            <label for="distributorName" class="ac-form__label login ac-text--truncate">primary distributor name*</label>
+            <select id="distributorName" name="distributorName" class="ac-form__selector form-control" required>
+                <option value="armstrongMcCall">Armstrong McCall</option>
+                <option value="beautyCraft">Beauty Craft</option>
+                <option value="goldwellOfNY">Goldwell of NY</option>
+                <option value="Hairlines">Hairlines</option>
+                <option value="MAKABeautySystems">MAKA Beauty Systems</option>
+                <option value="manocoBlue">Manoco Blue</option>
+                <option value="paramountBeauty">Paramount Beauty</option>
+                <option value="prestigeSalonProducts">Prestige Salon Products</option>
+                <option value="salonCentric">SalonCentric</option>
+                <option value="salonServices">Salon Services</option>
+                <option value="salonServicesPro">Salon Services Pro</option>
+                <option value="stateBeauty/RDAProMart">State Beauty/RDA Pro mart</option>
+                <option value="trubeautyConcepts">Trubeauty Concepts</option>
+                <option value="cosmoProf">CosmoProf</option>
+            </select>
+            <span id="distributorNameError" class="ac-text--error"></span>
+            <!-- <input type="text" value="" name="customer[distributor]" required placeholder="primary distributor name" id="distributor" class="large ac-form__field {% if form.errors contains 'distributor' %} error{% endif %}" size="30" />-->
+        </div>
+          <div id="distributor_wrap" class="clearfix form-row register-form__fieldset ac-offset-right--none">
+              <label for="account_number" class="ac-form__label login ac-text--truncate">account number*</label>
+              <input type="text" id="account_number" name="account_number" title="Check if the value consists of only digits and has a length between 3 and 50 characters" placeholder="account number" class="large ac-form__field ac-form_feild" required />
+              <span id="accountNumberError" class="ac-text--error"></span>
+              <!-- <input type="text" value="" name="customer[distributor]" required placeholder="primary distributor name" id="distributor" class="large ac-form__field {% if form.errors contains 'distributor' %} error{% endif %}" size="30" />-->
+          </div>
+
+        <p class="ac-form-distributor__description--small">Amika is excited to make Loyalty Rewards accessible to Suites! we define suites as the sole operators + service providers for the salon and we verify through submission of a business license for the establishment:</p>
+        <div id="distributor_wrap" class="clearfix form-row register-form__fieldset ac-offset-right--sm">
+          <label for="isSuit" class="ac-form__label login ac-text--truncate">are you a Suite?* <span class="ac-form__note ac-form__note--sm">(select yes or no)</span></label>
+          <select id="isSuit" name="isSuit" class="ac-form__selector form-control" onchange="toggleDivVisibility()" required data-upload-image>
+              <option value="false">no</option>
+              <option value="true">yes</option>
+          </select>
+          <span id="isSuitError" class="ac-text--error"></span>
+          <!--<input type="text" value="" name="customer[distributor]" required placeholder="primary distributor name" id="distributor-salon" class="large ac-form__field {% if form.errors contains 'distributor' %} error{% endif %}" size="30" />-->
+        </div>
+
+        <div class="clearfix form-row register-form__fieldset ac-block__right--none" style="display: none;" data-upload-image-block>
+          <label for="distributor" class="ac-form__label login ac-text--truncate">upload image of your business license*</label>
+          <div class="ac-upload__field" data-upload-file>
+            <input type="file" id="file-input" accept="image/jpeg, image/jpg, application/pdf, image/png" onchange="imagePreview()">
+            <label for="file-input" style="display: flex;" сlass="ac-upload__wrap">
+                <span class="ac-upload-field__input ac-text--truncate"><span>Choose file </span><i>(cosmetology license not accepted)</i></span>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 4.16666V15.8333" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4.16602 10H15.8327" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </label>
+          </div>
+          <div class="ac-upload__preview" style="display: none;" data-remove-img>
+            <div>
+              <div class="ac-upload-preview__image-wrap" data-upload-image-wrap>
+                <img class="ac-upload-preview__image " id="preview"/>
+              </div>
+              <span class="ac-upload-preview__text ac-text--truncate" data-upload-text></span>
+            </div>
+            <button class="ac-remove__btn" type="button" onclick="removePreview()">remove</button>
+          </div>
+        </div>
+        <hr class="ac-divider">
+       <div class="ac-form-checkbox__wrap">
+          <label class="ac-form__checkbox ac-form__checkbox--small control checkbox">
+            <input id="subscribe" type="checkbox" name="customer[subscribe]" value="">
+            <span class="ac-form__control-indicator"></span>
+            <span class="ac-form__checkbox__text" id="">subscribe to get the latest updates from amika pro <span class="ac-form-checkbox__note">(optional)</span>
+          </label>
+          <label class="ac-form__checkbox ac-form__checkbox--small control checkbox">
+            <input id="terms" type="checkbox" name="customer[terms]" value="" data-terms-field>
+            <span class="ac-form__control-indicator"></span>
+            <span class="ac-form__checkbox__text" id="">I agree to the program terms + conditions* <br><span class="ac-form-checkbox__note">Please read our terms here: <a href="https://loveamikapro.com/pages/terms-of-use-privacy" target="_blank" class="">terms and conditions</a></span>
+          </label>
+        </div>
+
+      </div>
+        <div style="overflow:auto;">
+          <div style="float:right;" class="ac-submit__wrap">
+            <button class="ac-form__btn ac-form__btn--solid ac-form__btn--offset" type="button" id="cancelBtn" onclick="hideRecoverPasswordForm(); return false;">Cancel</button>
+            <button class="ac-form__btn ac-form__btn--solid ac-form__btn--offset" type="button" id="prevBtn" onclick="nextPrev(-1)">back to step 1</button>
+            <button class="ac-form__btn ac-form__btn--black" type="button" id="nextBtn" onclick="nextPrev(1)">move to step 2</button>
+            <button class="ac-form__btn ac-form__btn--black" type="button" id="submitBtn" style="display: none;" onclick="submitForm(event);" disabled>Submit</button>
+              {% comment %} onclick="submitForm(event); return false;"{% endcomment %}
+
+            <!-- onclick="submit(); return false" -->
+          </div>
+      </div>
+        {% comment %}<input type="hidden" id="register_return_to" name="return_to" value="" />{% endcomment %}
+        </form>
+    </div>

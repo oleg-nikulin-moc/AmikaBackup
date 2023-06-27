@@ -1,0 +1,638 @@
+<script type="text/javascript">
+    function validateForm() {
+        const tabs = document.getElementsByClassName("tab");
+        const requiredFields = tabs[currentTab].querySelectorAll("[required]");
+        const passwordInput = document.getElementById("password");
+        const confirmPasswordInput = document.getElementById("confirmPassword");
+        const confirmPasswordError = document.getElementById("confirmPasswordError");
+        const passwordError = document.getElementById("passwordError");
+        let valid = true;
+
+        const termsCheckbox = document.querySelector("[data-terms-field]");
+        const submitButton = document.getElementById("submitBtn");
+        const nextButton = document.getElementById("nextBtn");
+        const salonName = document.getElementById("salon_name");
+        const salonNameError = document.getElementById("salonNameError");
+        const phoneNumberInput = document.getElementById('phone');
+        const phoneNumberError = document.getElementById('phoneError');
+        let phoneNumber = phoneNumberInput.value.trim();
+
+        const accountNumberFields = tabs[currentTab].querySelector('#account_number');
+        const accountNumberInput = document.querySelector('#account_number');
+        const accountNumberError = document.getElementById('accountNumberError');
+        let accountNumber = accountNumberInput.value.trim();
+
+        const emailInput = document.getElementById("emailMain");
+        const emailError = document.getElementById("emailError");
+        let emailValue = emailInput.value;
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        const zipCodes = tabs[currentTab].querySelector("#zip");
+        const zipInput = document.getElementById("zip");
+        const zipError = document.getElementById("zipError");
+        let zipValue = emailInput.value;
+
+        const passwordPattern = /^[a-zA-Z0-9]{8,50}$/;
+        const textFieldPattern = /^[A-Za-z ]{2,50}$/
+
+        termsCheckbox.addEventListener('change', function () {
+            if (termsCheckbox.checked && valid) {
+                submitButton.disabled = false; // Enable the "Submit" button
+                // nextButton.disabled = false; // Enable the "Next" button
+            } else {
+                submitButton.disabled = true; // Disable the "Submit" button
+                // nextButton.disabled = true; // Disable the "Next" button
+            }
+        });
+
+        function validateZipCode(zipCode) {
+            const zipPatternUSA = '/^\(\d{3}\)\s\d{3}-\d{4}$/';
+            const zipPatternCanada =  '/^(\+?1\s?)?(\()?(\d{3})(?(2)\))[-.\s]?(\d{3})[-.\s]?(\d{4})$/';
+
+            return zipPatternUSA.test(zipCode) || zipPatternCanada.test(zipCode);
+        }
+
+        function validateAccountNumber(accountNumber) {
+            const patternNumber = '/^\d{3,50}$/';
+            return patternNumber.test(accountNumber);
+        }
+
+        function checkFormValidity() {
+            valid = true;
+
+            requiredFields.forEach(function (field) {
+                if (field.value === "") {
+                    field.classList.add("invalid");
+                    valid = false;
+                    field.nextElementSibling.textContent = "Empty value";
+                } else if( field.value.length < 2) {
+                    field.classList.add("invalid");
+                    valid = false;
+                    field.nextElementSibling.textContent = "Text must be at least 2 characters";
+                }else {
+                    field.classList.remove("invalid");
+                    field.nextElementSibling.textContent = "";
+                }
+            });
+
+            // Phone validation
+            if (phoneNumber !== '' && !validatePhoneNumber(phoneNumber) ) {
+                phoneNumberError.style.display = 'block';
+                phoneNumberError.textContent = "Incorrect phone number";
+                phoneNumberInput.classList.add('invalid');
+                valid = false;
+            } else {
+                phoneNumberError.style.display = 'none';
+                phoneNumberError.textContent = "";
+                phoneNumberInput.classList.remove('invalid');
+            }
+
+            if (!emailPattern.test(emailValue)) {
+                emailError.textContent = "Invalid email format";
+                emailError.style.display = 'block';
+                emailInput.classList.add("invalid");
+                valid = false;
+            } else {
+                emailError.textContent = "";
+                emailError.style.display = 'none';
+                emailInput.classList.remove("invalid");
+            }
+
+            // Password validation
+            if (!passwordPattern.test(passwordInput.value)) {
+                passwordError.textContent = "Password must be at least 8 characters";
+                valid = false;
+            } else if (passwordInput.value !== confirmPasswordInput.value) {
+                confirmPasswordError.textContent = "Passwords do not match";
+                valid = false;
+            } else {
+                passwordError.textContent = "";
+                confirmPasswordError.textContent = "";
+            }
+
+            // Zip Code validation
+            if (zipCodes === !null) {
+
+                if (!validateZipCode(zipValue)) {
+                    zipError.textContent = "Invalid zip code format";
+                    zipError.style.display = 'block';
+                    zipInput.classList.add("invalid");
+                    valid = false;
+                } else {
+                    zipError.textContent = "";
+                    zipError.style.display = 'none';
+                    zipInput.classList.remove("invalid");
+                }
+            }
+
+            // Accountnumber validation
+            if (accountNumberFields  === !null) {
+                if (!validateAccountNumber(accountNumber)) {
+                    accountNumberError.style.display = 'block';
+                    accountNumberError.textContent = "Incorrect phone number";
+                    accountNumberInput.classList.add('invalid');
+                    valid = false;
+                } else {
+                    accountNumberError.style.display = 'none';
+                    accountNumberError.textContent = "";
+                    accountNumberInput.classList.remove('invalid');
+                }
+            }
+
+
+            // if (valid) {
+            //     nextButton.disabled = false; // Enable the "Next" button
+            // } else {
+            //     nextButton.disabled = true; // Disable the "Next" button
+            // }
+        }
+
+        // requiredFields.forEach(function (field) {
+        //     field.addEventListener('input', checkFormValidity);
+        // });
+        //
+        // emailInput.addEventListener('input', checkFormValidity);
+        // phoneNumberInput.addEventListener('input', checkFormValidity);
+        // passwordInput.addEventListener('input', checkFormValidity);
+        // confirmPasswordInput.addEventListener('input', checkFormValidity);
+        // termsCheckbox.addEventListener('change', checkFormValidity);
+        // zipInput.addEventListener('change', checkFormValidity);
+        function handleInputChange(event) {
+            const target = event.target;
+            const targetId = target.getAttribute("id");
+
+            if (targetId === "email") {
+                emailValue = target.value;
+            } else if (targetId === "phone") {
+                phoneNumber = target.value;
+            } else if (targetId === "account_number") {
+                accountNumber = target.value;
+            } else if (targetId === "zip") {
+                zipValue = target.value;
+            }
+
+            checkFormValidity();
+        }
+
+        requiredFields.forEach(function (field) {
+            field.addEventListener('input', handleInputChange);
+        });
+
+        emailInput.addEventListener('input', handleInputChange);
+        phoneNumberInput.addEventListener('input', handleInputChange);
+        accountNumberInput.addEventListener('input', handleInputChange);
+        passwordInput.addEventListener('input', handleInputChange);
+        confirmPasswordInput.addEventListener('input', handleInputChange);
+        termsCheckbox.addEventListener('change', checkFormValidity);
+        zipInput.addEventListener('change', checkFormValidity);
+
+        checkFormValidity();
+        return valid;
+    }
+
+    function validatePhoneNumber(phoneNumber) {
+        const phonePattern = /^\d{10}$/;
+
+        return phonePattern.test(phoneNumber);
+    }
+
+    // Upload function
+    function imagePreview() {
+        const fileField = document.getElementById("file-input");
+        const labelText = document.querySelector("[data-upload-text]");
+        const labelRemove = document.querySelector("[data-remove-img]");
+        const uploadWrap = document.querySelector("[data-upload-file]");
+        const uploadImageWrap = document.querySelector("[ data-upload-image-wrap]");
+        const labelDefault = labelText.textContent;
+        const preview = document.getElementById("preview");
+
+        // on file change
+        // file.addEventListener("change", (event) => {
+        const file = fileField.files[0];
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'application/pdf', 'image/png'];
+
+        // Перевірити, чи вибраний файл і його розмір не перевищує 5 МБ
+        if (file && file.size > 5 * 1024 * 1024) {
+            alert('Розмір файлу перевищує максимально допустимий розмір (5 МБ). Будь ласка, виберіть файл меншого розміру.');
+            // Очистити значення елемента вводу файлу (необов'язково)
+            fileField.value = '';
+        }
+        if (allowedTypes.includes(file.type)) {
+            const fileName = fileField.value.split("\\").pop();
+            if (fileName) {
+                labelText.textContent = fileName;
+                labelRemove.style.display = "flex";
+                preview.style.display = "block";
+
+                if (file.type === "application/pdf") {
+                    uploadImageWrap.style.display = "none";
+                    uploadWrap.style.display = "none";
+                } else {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        preview.setAttribute("src", e.target.result);
+                        uploadWrap.style.display = "none";
+                        uploadImageWrap.style.display = "block";
+                    };
+                    reader.readAsDataURL(file);
+                }
+            } else {
+                labelText.textContent = labelDefault;
+                labelRemove.style.display = "none";
+                preview.style.display = "none";
+                uploadWrap.style.display = "block";
+            }
+        }
+        // });
+    }
+
+    // Remove file
+    function removePreview() {
+        const fileField = document.getElementById("file-input");
+        const file = fileField.files[0];
+        const labelText = document.querySelector("[data-upload-text]");
+        const labelRemove = document.querySelector("[data-remove-img]");
+        const uploadWrap = document.querySelector("[data-upload-file]");
+        const preview = document.getElementById("preview");
+        const labelDefault = labelText.textContent;
+
+        file.value = "";
+        labelText.textContent = labelDefault;
+        labelRemove.style.display = "none";
+        preview.style.display = "none";
+        uploadWrap.style.display = "block";
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+
+    // Отримання посилань на елементи форми
+    const countrySelect = document.getElementById('country');
+    const stateSelect = document.getElementById('state');
+    const citySelect = document.getElementById('city');
+    const zipField = document.getElementById('zip');
+    const statesData = {
+        usa: [
+            'Select State',
+            'Alabama',
+            'Alaska',
+            'Arizona',
+            'Arkansas',
+            'California',
+            'Colorado',
+            'Connecticut',
+            'Delaware',
+            'Florida',
+            'Georgia',
+            'Hawaii',
+            'Idaho',
+            'Illinois',
+            'Indiana',
+            'Iowa',
+            'Kansas',
+            'Kentucky',
+            'Louisiana',
+            'Maine',
+            'Maryland',
+            'Massachusetts',
+            'Michigan',
+            'Minnesota',
+            'Mississippi',
+            'Missouri',
+            'Montana',
+            'Nebraska',
+            'Nevada',
+            'New Hampshire',
+            'New Jersey',
+            'New Mexico',
+            'New York',
+            'North Carolina',
+            'North Dakota',
+            'Ohio',
+            'Oklahoma',
+            'Oregon',
+            'Pennsylvania',
+            'Rhode Island',
+            'South Carolina',
+            'South Dakota',
+            'Tennessee',
+            'Texas',
+            'Utah',
+            'Vermont',
+            'Virginia',
+            'Washington',
+            'West Virginia',
+            'Wisconsin',
+            'Wyoming'
+        ],
+        canada: [
+            'Select State',
+            'Alberta',
+            'British Columbia',
+            'Manitoba',
+            'New Brunswick',
+            'Newfoundland and Labrador',
+            'Northwest Territories',
+            'Nova Scotia',
+            'Nunavut',
+            'Ontario',
+            'Prince Edward Island',
+            'Quebec',
+            'Saskatchewan',
+            'Yukon'
+        ]
+    };
+
+    // stateSelect.disabled = true;
+    citySelect.disabled = true;
+    zipField.disabled = true;
+
+    function renderStates(country) {
+        stateSelect.innerHTML = ''; //очищаємо список штатів перед додаванням нових елементів
+
+        if (country in statesData) {
+            for (let i = 0; i < statesData[country].length; i++) {
+                let option = document.createElement('option');
+                option.value = statesData[country][i];
+                option.text = statesData[country][i];
+                stateSelect.appendChild(option);
+            }
+            stateSelect.disabled = false;
+        } else {
+            stateSelect.disabled = true;
+        }
+    }
+
+    // countrySelect.addEventListener('change', function() {
+    //     renderStates(this.value);
+    // });
+
+    renderStates('usa');
+
+    stateSelect.addEventListener('change', () => {
+        citySelect.disabled = false;
+        zipField.disabled = false;
+    });
+})
+
+    // Show or hide the image upload value
+
+    function toggleDivVisibility() {
+        const selectBox = document.querySelectorAll('[data-upload-image]')[0];
+        const uoploadBlock = document.querySelectorAll('[data-upload-image-block]')[0];
+        const selectedValue = selectBox.value;
+
+        if (selectedValue === 'true') {
+            uoploadBlock.style.display = 'block';
+        } else {
+            uoploadBlock.style.display = 'none';
+        }
+    }
+
+    function showSpinner() {
+        const spinner = document.querySelector('[data-spinner-wrap]');
+        const popups = document.querySelectorAll('.tingle-modal-box');
+        popups.forEach(popup => popup.style.overflow = 'hidden');
+        spinner.style.display = 'block';
+    }
+
+    function hideSpinner() {
+        const spinner = document.querySelector('[data-spinner-wrap]');
+        const popups = document.querySelectorAll('.tingle-modal-box');
+        popups.forEach(popup => popup.style.overflow = 'auto');
+        spinner.style.display = 'none';
+    }
+
+    function formResize(size) {
+        const popups = document.querySelectorAll('.ac-popup');
+        popups.forEach(popup => {
+            if (size === "lg") {
+                popup.classList.add('ac-popup--lg');
+                popup.classList.remove('ac-popup--sm');
+            } else if (size === "sm") {
+                popup.classList.add('ac-popup--sm');
+                popup.classList.remove('ac-popup--lg');
+            } else {
+                popup.classList.add('ac-popup--md');
+                popup.classList.remove('ac-popup--lg');
+                popup.classList.remove('ac-popup--sm');
+            }
+        });
+    }
+
+    // start Auth
+    const secretCode = "32kMURYG2ryEG5n4UEgzeaMpzpKMcoxJBNkvSiA2";
+
+    function generateAuthData(body){
+        return toBase64(JSON.stringify(body));
+    }
+
+    function generateToken(body, secretCode){
+        const salt = generateSecretSalt(body, secretCode);
+        const encodedBody = toBase64(JSON.stringify(body));
+        const ab =   encodedBody + salt;
+        const hash = CryptoJS.SHA256(ab);
+        const encodedHash = CryptoJS.enc.Hex.stringify(hash);
+        return toBase64(encodedHash);
+    }
+
+    function generateSecretSalt(body, secretCode){
+        const email = body.customer.email;
+        return toBase64(email + "/" + secretCode);
+    }
+
+    function toBase64(body) {
+        const base64 = btoa(decodeURIComponent(encodeURIComponent(body)));
+        return base64;
+    }
+    // end Auth
+
+    function submitForm(event) {
+        const form = document.getElementById('create_customer');
+
+        event.preventDefault(); // Stop the default form submission
+        const fileInput = document.getElementById('file-input');
+        const phoneNumber = form.phone.value.trim().replace(/-/g, ''); // and remove dashes
+        let phoneWithCountryCode = "";
+        if (phoneNumber !== "") {
+            phoneWithCountryCode = "+1" + phoneNumber; // If the phone number is not empty, add "+1" .
+        } else {
+            phoneWithCountryCode = phoneNumber; // If the phone number is empty, leave it as is.
+        }
+
+        const formData = {
+            customer: {
+                first_name: form.firstName.value,
+                last_name: form.last_name.value,
+                email: form.email.value,
+                account_number:  form.account_number.value.replace(/-/g, ''),
+                password: form.password.value,
+                password_confirmation: form.confirmPassword.value,
+                phone: phoneWithCountryCode,
+                salon_name: form.salon_name.value,
+                distributor_name: form.distributorName.value,
+                distributor_email: form.email.value,
+                is_suit: form.isSuit.value,
+                addresses: [{
+                    salon_address: form.salon_address.value,
+                    country: form.country.value.toUpperCase(),
+                    state: form.province.value,
+                    city: form.city.value,
+                    zip: form.zip.value
+                }]
+            }
+        };
+
+        const token = generateToken(formData, secretCode);
+        const authData = generateAuthData(formData);
+
+        // const formData = {
+        //     customer :{
+        //         first_name: "Seven",
+        //         last_name: "Teen",
+        //         email:"asівq1вnd@example.com",
+        //         password:"123456789",
+        //         password_confirmation:"123456789",
+        //         phone:"+14142746043",
+        //         salon_name:"Mirror",
+        //         distributor_name:"John Doe",
+        //         is_suit:"false",
+        //         addresses:[{
+        //             salon_address: "123 Oak St",
+        //             country:"Canada",
+        //             state:"ON",
+        //             city:"Ontario",
+        //             zip:"18000"
+        //         }]
+        //     }
+        // }
+        showSpinner();
+        fetch(`https://3m3119r1fj.execute-api.us-east-1.amazonaws.com/development/registration?auth_data=${authData}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': token
+                // mode: 'no-cors',
+
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(response => response.json())
+            .then(response => {
+                if (response.success) {
+                    if (fileInput.files.length > 0) {
+                        const file = fileInput.files[0];
+                        const validateFileName = file.name.replace(/[\/+&\\]/g, '_');
+                        const fileName = btoa(form.email) + '&' + validateFileName;
+                        const uploadUrl = `https://dfx7dgn178.execute-api.us-east-1.amazonaws.com/development/amika-file-upload-stage/${fileName}?auth_data=${authData}`;
+
+                        return fetch(uploadUrl, {
+                            method: 'POST',
+                            'x-api-key': token,
+                            // mode: 'no-cors',
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            },
+                            body: file
+                        })
+                            .then(function(response) {
+                                if (response.status === 200) {
+                                    console.log('Response success');
+                                    window.showSuccessForm();
+                                    hideSpinner();
+                                } else {
+                                    alert('Image not uploaded.'); // Calling a function to display a message about the unloaded image.
+                                }
+                            })
+                            .catch(function(error) {
+                                console.error('Error:', error); // Handling errors during request execution.
+                            });
+                    } else if (response.success){
+                        //  If successful, but image upload is not required, perform the necessary actions.
+                        // ...
+                        console.log('If successful but image loading is not required, perform the necessary actions.');
+                        window.showSuccessForm();
+                        hideSpinner();
+                        return Promise.resolve();
+                    }
+                    else {
+                        console.log('fieldName', response.errors[0].field_name);
+                        console.log('error_message', response.errors[0].error_message);
+                        hideSpinner();
+                        window.hideRecoverPasswordForm();
+                    }
+                    // Success response
+                    hideSpinner();
+                    console.log('Form submitted successfully');
+                } else {
+                    // Error response
+                    console.log('Form submission error:', response.error_message);
+                    hideSpinner();
+
+                    const responseErrors = response.errors
+
+                    console.log('responseErrors', responseErrors)
+
+                    responseErrors.forEach(function(error) {
+                        const fieldId = error.field_name;
+                        const errorMessage = error.error_message;
+                        if (fieldId == 'email') {
+                            window.nextPrev(-2);
+                            const fieldElement = document.getElementById('email');
+                            const errorElement = document.getElementById('emailError');
+                            fieldElement.classList.add("invalid");
+                            errorElement.style.display = "block";
+                            errorElement.textContent = errorMessage;
+                        } else if (fieldId == 'account_number') {
+                            const fieldElement = document.getElementById('account_number');
+                            const errorElement = document.getElementById('accountNumberError');
+                            fieldElement.classList.add("invalid");
+                            errorElement.style.display = "block";
+                            errorElement.textContent = errorMessage;
+                        } else{
+                            window.nextPrev(-2);
+                            const fieldElement = document.getElementById(fieldId);
+                            const errorElement = document.getElementById(`${fieldId}Error`);
+                            fieldElement.classList.add("invalid");
+                            errorElement.style.display = "block";
+                            errorElement.textContent = errorMessage;
+                        }
+                    });
+
+                    // responseErrors.forEach(function (field) {
+                    //     const fieldId =  field.field_name;
+                    //     const errorMessage = field.error_message;
+                    //     const el = document.getElementById(fieldId);
+                    //     console.log('el', el);
+                    //     el.classList.add('invalid');
+                    //     el.nextElementSibling.textContent = errorMessage;
+                    // });
+
+                    // emailField.addEventListener('input', function() {
+                    //     emailField.classList.remove('invalid');
+                    //     emailError.textContent = "";
+                    // });
+                    // emailField.addEventListener('input', window.checkFormValidity);
+                }
+        })
+            // .then(response => {
+            //     if (response && response.ok) {
+            //         console.log('Picture upload success');
+            //         return response.json();
+            //
+            //     } else {
+            //         throw new Error('error on load picture');
+            //     }
+            // })
+            // .then(data => {
+            //     document.getElementById('customer-register').style.display='none';
+            //     console.log('Processing the data returned by the server after uploading an image.');
+            //     // Processing the data returned by the server after uploading an image.
+            //     // ...
+            // })
+            .catch(error => {
+                // Error handling
+                hideSpinner();
+                console.log(error);
+            });
+    }
+</script>

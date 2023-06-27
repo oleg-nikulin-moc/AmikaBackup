@@ -1,0 +1,248 @@
+{% comment %}
+  {% render 'registrationFormJs' %}
+{% endcomment %}
+{% comment %}{% render 'registrationFormCss' %}{% endcomment %}
+
+<button type="button" class="ac-close__btn" data-close-popup-btn>x</button>
+<!-- Customer Account Login -->
+<div id="customer-register-success" style="display: none;" class="" >
+  {% form 'customer_login', class: "ac-form--login"%}
+    {{ form.errors | default_errors }}
+    <div class="ac-block--horizontal" data-login-message>
+      <h2>success!</h2>
+      <p class="ac-field__note">your application has been submitted and no further action is required.</p>
+      <p class="ac-field__note ac-offset__bottom--md">you'll be receiving an email with next steps, to ensure delivery, don't forget to add <a href="mailto:info@loveamikapro.com" style="color: #FF6B26;">info@loveamikapro.com</a> to your address book.</p>
+    </div>
+    <div style="float:right;" class="ac-submit__wrap">
+      <button class="ac-form__btn ac-form__btn--solid ac-form__btn--offset" type="button" id="cancelSuccessBtn" data-close-popup-btn>Back to site</button>
+      <input class="ac-form__btn ac-form__btn--black animation" type="submit" value="Sign In" id="submitSuccessBtn" />
+    </div>
+  {% endform %}
+</div>
+
+<div id="customer-login" class="register-login">
+
+  <h1>pro login</h1>
+
+  <p id="success_pw" style="font-weight: bold;"></p>
+
+  {% form 'customer_login', class: "ac-form--login"%}
+  {{ form.errors | default_errors }}
+
+    <div class="ac-block--horizontal">
+      <p class="ac-offset__bottom--md" style="font-weight: 700;">the amika pro site is strictly for rewards redemption as part of our friends with benefits+ loyalty program. these products are not intended for resale.</p>
+    </div>
+
+  <div id="login_email" class="clearfix form-row">
+    <label for="customer_email" class="login ac-form__label">email*</label>
+    <input type="email" value="" name="customer[email]" placeholder="Email Address" id="customer_email" class="large ac-form__field" size="30" />
+  </div>
+
+  {% if form.password_needed %}
+  <div id="login_password" class="clearfix form-row ac-password__field">
+    <label for="customer_password" class="login ac-form__label">Password*</label>
+    <input type="password" value="" name="customer[password]" placeholder="Password" id="customer_password" class="large ac-form__field password" size="16" />
+  </div>
+  <div class="register_wrap">
+    <div id="forgot_password" class="ac-form__link">
+      <p class="ac-text--fogot">don't have an account?</p>
+    </div>
+    <div id="forgot_password" class="ac-form__link">
+      <a href="#" onclick="showRecoverPasswordForm(); return false">forgot password?</a>
+    </div>
+  </div>
+  {% endif %}
+   <div class="register_wrap">
+      <a href="#" class="ac-form__btn ac-form__btn--solid ac-offset-right--sm" onclick="showRegisterForm(); return false">Register</a>
+      {% comment %}<button " type="submit" id="submit">Sign In</button>{% endcomment %}
+      <input class="ac-form__btn ac-form__btn--black animation" type="submit" id="submitBtnLogin"  value="Sign In" />
+   </div>
+  {% endform %}
+</div>
+
+<!-- Password Recovery -->
+
+<div id="recover-password" class="register-login ac-recover-password__box">
+  <h1>Reset Password</h1>
+  <p class="note ac-field__note">we will send you an email to reset your password</p>
+  {% form 'recover_customer_password', id: 'recover-password-form' %}
+    {{ form.errors | default_errors }}
+    {% if form.posted_successfully? %}
+      <p class="note">You will receive an email with clear instructions</p>
+    {% endif %}
+    {% if form.posted_successfully? %}
+      <p class="note">You will receive an email with clear instructions</p>
+    {% endif %}
+    <div id="recover_email" class="clearfix large_form ac-form__field_form">
+      <label for="email" class="large ac-form__label">Email*</label>
+      <input type="email" value="" size="30" placeholder="Email Address" name="email" id="email" class="large ac-form__field ac-form__field--recover" />
+    </div>
+    <div style="padding:10px 0;" id="resetPasswordMessage"></div>
+    <div class="register_wrap">
+      <div class="action-bottom">
+        <a href="#" class="ac-form__btn ac-form__btn--solid" onclick="hideRecoverPasswordForm(); return false">Cancel</a>
+      </div>
+      <div class="action-bottom">
+        <button class="ac-form__btn ac-form__btn--black animation" type="submit">Submit</button>
+      </div>
+    </div>
+  {% endform %}
+</div>
+
+{% render 'register_form'%}
+    
+<script type="text/javascript">
+$("#resetPassword").on('submit', function(e){
+  e.preventDefault();
+  const $form = $(this);
+  customerAccount.resetPassword($form.find('[name="email"]').val())
+})
+
+const customerAccount = {
+  emailFailed: true, 
+  validateEmail: function(emailAddress){
+      let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      let passed = regex.test(emailAddress);
+      this.emailFailed = passed ? false : true;
+      return passed; 
+  },
+  resetPassword: async function(email){
+    let validEmail = this.validateEmail(email); 
+    if(!validEmail){
+      $('#resetPasswordMessage').html('<span class="error">Please enter a valid email address.</span>') 
+      return;
+    }else{
+      $('#resetPasswordMessage').html('') 
+    }
+  }
+}
+
+
+  if (window.location.hash == '#recover') { showRecoverPasswordForm() }
+  if (window.location.hash == '#register') { showRegisterForm() }
+  function registerFormFirst() {
+    document.getElementById('recover-password').style.display = 'block';
+    document.getElementById('customer-login').style.display='none';
+  }
+  function showRecoverPasswordForm() {
+    document.getElementById('recover-password').style.display = 'block';
+    document.getElementById('customer-login').style.display='none';
+    window.location.hash = '#recover';
+    return false;
+  }
+  function showRegisterForm() {
+    formResize('lg');
+    document.getElementById('customer-register').style.display = 'block';
+    document.getElementById('customer-login').style.display = 'none';
+    document.getElementById('submitBtn').style.display='none';
+    window.location.hash = '#register';
+    return false;
+  }
+
+  function showSuccessForm() {
+    window.formResize('sm');
+    document.getElementById('customer-register-success').style.display = 'block';
+    document.getElementById('customer-register').style.display = 'none';
+    document.getElementById('customer-login').style.display = 'none';
+    document.getElementById('submitBtn').style.display='none';
+    window.location.hash = '';
+    return false;
+  }
+
+  function hideRecoverPasswordForm() {
+    window.formResize('sm');
+    document.getElementById('recover-password').style.display = 'none';
+    document.getElementById('customer-register').style.display='none';
+    document.getElementById('customer-login').style.display = 'block';
+    window.location.hash = '';
+    return false;
+  }
+
+  // Contact tabs
+
+  var currentTab = 0; // Current tab is set to be the first tab (0)
+
+  showTab(currentTab); // Display the current tab
+
+// Helper function to display a tab
+
+// Update buttons and step indicator based on the current tab
+function showActiveButtons(n) {
+  const prevBtn = document.getElementById("prevBtn");
+  const cancelBtn = document.getElementById("cancelBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const submitBtn = document.getElementById('submitBtn');
+
+  if (n === 0) {
+    prevBtn.style.display = "none";
+    submitBtn.style.display = 'none';
+    cancelBtn.style.display = "inline";
+    nextBtn.style.display = 'block';
+    step(n)
+  } else {
+    cancelBtn.style.display = "none";
+    prevBtn.style.display = "inline";
+    prevBtn.innerHTML = `back to step ${n}`;
+    nextBtn.innerHTML = `move to step ${n + 2}`;
+    submitBtn.style.display = 'none';
+    nextBtn.style.display = 'block';
+    step(n);
+  }
+
+  // Update buttons based on the last tab
+  if (n === 2) {
+    nextBtn.style.display = "none";
+    submitBtn.style.display = 'block';
+  } else {
+    nextBtn.innerHTML = `move to step ${n + 2}`;
+  }
+}
+
+function showTab(n) {
+  const tabs = document.getElementsByClassName("tab");
+
+  // Display or hide the tab based on the value of n
+  if (n < 3) {
+    tabs[n].style.display = "flex";
+  } else {
+    tabs[n].style.display = "none";
+  }
+  showActiveButtons(n);
+}
+
+// Change tab step in header
+function step(n){
+  const stepIndicator = document.querySelector('.js-step');
+  stepIndicator.innerHTML = n + 1;
+}
+
+
+function nextPrev(n) {
+  const tabs = document.getElementsByClassName("tab");
+
+  // Validate form
+  if ( n === 1 && !validateForm()) {
+    return false;
+  }
+
+  hideTab(currentTab);
+  currentTab = currentTab + n;
+
+  if (currentTab >= tabs.length) {
+    submitForm();
+    return false;
+  }
+
+  showTab(currentTab);
+}
+
+function hideTab(tabIndex) {
+  const tabs = document.getElementsByClassName("tab");
+  tabs[tabIndex].style.display = "none";
+}
+
+$(window).load(function() {
+  var message = $('.success_pw').html();
+  $('#success_pw').html(message);
+});
+</script>

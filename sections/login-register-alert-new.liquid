@@ -1,0 +1,86 @@
+<div id="login-register-popup-container" style="">
+  {% render 'customer-login-form-new', form_heading: 'pro login' %}
+  {% comment %}
+  <div style="display: none!important;">
+    <div id="customer-register" class="register-login" >
+      <h1>Create Account</h1>
+      {% render "customer-fields", form_id: "9YtJ7k" %}
+    </div>
+    <div class="register-alert-popup-verbiage">
+      <div>Online friends with benefits rewards for salons serviced by goldwell of NY and qualifying jewel accounts</div>
+      <div class='second-verbiage-line'>Contact us at <a href="mailto:info@loveamikapro.com">info@loveamikapro.com</a></div>
+    </div>
+  </div>
+  {% endcomment %}
+</div>
+
+{% unless customer or request.page_type == 'customers/activate_account' or request.page_type == 'customers/reset_password' or request.design_mode%}
+<script>
+  var loginRegisterAlertPopup = new tingle.modal({
+      footer: false,
+      stickyFooter: false,
+      closeMethods: ['escape'],
+      cssClass: ['login-register-alert-popup', 'ac-popup', 'ac-popup--sm'],
+    });
+
+  // set content
+  var content = $('#login-register-popup-container').html();
+  loginRegisterAlertPopup.setContent( content );
+
+  // open modal
+  // $('.my-account.animation').on('click', function (event) {
+  //   event.preventDefault();
+  //   loginRegisterAlertPopup.open();
+  // });
+
+  const myAccountElement = document.querySelector('[data-login-btn]');
+  if (myAccountElement) {
+    myAccountElement.addEventListener('click', (event) => {
+      event.preventDefault();
+      loginRegisterAlertPopup.open();
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    loginRegisterAlertPopup.open();
+  });
+  
+  $('.tingle-modal.login-register-alert-popup').on('click', function (event) {
+
+    var $createAccountNextButton = $(event.target).closest('.cf-next-step');
+
+    if ( $createAccountNextButton.length ) {
+      setTimeout(function () {
+        if (loginRegisterAlertPopup.isOverflow()) {
+          loginRegisterAlertPopup.checkOverflow();
+        }
+      }, 300)
+    }
+  })
+</script>
+{% endunless %}
+<style>
+  .register-alert-popup-verbiage {
+    clear: both;
+    color: gray;
+    text-align: center;
+    margin: 0 0px 10px 0;
+    padding-top: 38px;
+  }
+  .register-alert-popup-verbiage .second-verbiage-line{
+    margin-top: 2px;
+  }
+  .register-alert-popup-verbiage .second-verbiage-line a{
+    cursor: pointer;
+    color: red;
+  }
+  @media(max-width: 749px){
+    .register-alert-popup-verbiage {
+      padding-bottom: 15px;
+      margin: 0 -64px;
+    }
+    .register-alert-popup-verbiage .second-verbiage-line{
+      margin-top: 5px;
+    }
+  }
+</style>

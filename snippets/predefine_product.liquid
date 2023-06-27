@@ -1,0 +1,123 @@
+{% assign loyaltyProgram = customer.metafields.amika_loyalty_program.points.value['points'] %}
+{% assign brandBoxPoints = customer.metafields.amika_loyalty_program.points.value['brandBoxPoints']  %}
+{% assign tier = customer.metafields.amika_loyalty_program.points.value['tier']  %}
+{% assign tiersProducts = shop.metafields.amika_loyalty_program.tiers  %}
+
+
+<script>
+    window.addEventListener("DOMContentLoaded", () => {
+        function updateBrandBoxItem(condition) {
+            const elements = document.querySelectorAll('[data-brandbox-icon]');
+            if (condition) {
+                console.log('added brandbox', element)
+                elements.forEach(element => element.classList.add('is'));
+                // showMsg();
+            } else {
+                elements.forEach(element => element.classList.remove('is'));
+            }
+        }
+
+        function showMsg() {
+            const elements = document.querySelectorAll('.ac-nav__item--brandpoints');
+            if (elements) {
+                elements.forEach(element => {
+                    element.classList.add('open');
+                    setTimeout(function() {
+                        element.classList.remove('open');
+                    }, 10000); // 30000 miliseconds = 10 seconds
+                });
+            }
+        }
+
+        const user = JSON.parse('{{ customer.metafields.amika_loyalty_program.points }}');
+        // const user = JSON.parse('{ "tier":"2","points":"250","brandBoxPoints":"50"}');
+        const products = JSON.parse('{{ tiersProducts }}');
+        const cart = JSON.parse('{{ cart | json }}');
+
+        // Get products from cart
+        const productsInCart = cart.items.map(item => {
+            return {
+                product_id: item.product_id,
+                variant_id: item.variant_id
+                // Add other product properties you need
+            };
+        });
+
+        console.log('productsInCart', productsInCart);
+
+        console.log('products', products);
+        console.log('user', user);
+        console.log('length', products.length > 0)
+        if (products.length > 0) {
+
+            const productIds = products.filter(product => product.id !== '-1').map(product => product.product_id);
+            // console.log('123', window.Shopify.cart.items = window.Shopify.cart.items?.filter(item => productIds.includes(item.product_id)));
+            let productsInCartFilter = productsInCart?.filter(item => productIds.includes(item.product_id));
+            // const variantId = window.Shopify.cart.items?.map(item => item.variant_id) || [];
+            const variantId = productsInCartFilter?.map(item => item.variant_id) || [];
+            console.log('variantId', products);
+            function updateCart(productId, quantity) {
+                const updates = {};
+                if (variantId.length > 1) {
+                    console.log('more then one');
+                    const hideItemId = variantId.filter(item => !productId.includes(item));
+                    const hideElement = document.querySelector(`[data-product-id="${hideItemId[0]}"]`);
+                    console.log('hideItemId', hideItemId[0])
+                    console.log('hideElement', hideElement)
+                    if (hideElement) hideElement.hidden = true;
+
+                    variantId.forEach(id => {
+                        if (id === productId[0]) {
+                            updates[id] = 1; // A value of 1 for productId, which has the same value as the first element of variantId
+                        } else {
+                            updates[id] = 0; // Value 0 for other productId elements
+                        }
+                    });
+                } else {
+                    console.log('one')
+                    productId.forEach(id => {
+                        updates[id] = quantity;
+                    });
+                }
+                console.log('updates', updates);
+
+                jQuery.post(`${window.Shopify.routes.root}cart/update.js`, {
+                    updates: updates
+                });
+            }
+
+            if (user.tier === "-1") {
+                updateCart(variantId, 0);
+                console.log(variantId)
+                console.log('tier -1');
+            } else {
+
+                const { tier, brandBoxPoints } = user;
+                const selectedProduct = products.find(product => product.id == tier);
+                console.log('selectedProduct', selectedProduct)
+
+                if (brandBoxPoints > 0) {
+
+                    if (selectedProduct) {
+                        const { variant_id } = selectedProduct;
+                        const variantIdArray = [];
+                        variantIdArray.push(variant_id);
+
+                        updateCart(variantIdArray, 1);
+                        updateBrandBoxItem(true);
+
+                    } else {
+                        console.log('No product found for the user tier.');
+                    }
+                } else {
+                    updateCart(variantId, 0);
+                    const hideElement = document.querySelector(`[data-product-id="${variantId[0]}"]`);
+                    if (hideElement) hideElement.hidden = true;
+                    console.log('brandBoxPoints is not greater than 0.');
+                }
+            }
+        } else {
+            console.log('No products available.');
+        }
+    });
+</script>
