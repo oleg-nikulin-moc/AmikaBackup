@@ -1,0 +1,230 @@
+<style>
+  .svg-icon {
+    width: 5px;
+    height: 5px;
+    fill: #fff;
+  }
+
+  sup {
+    vertical-align: super;
+    font-size: 10px;
+  }
+
+  .nowrap {
+    white-space: nowrap;
+  }
+
+  .loyalty-rewards {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    background: #FEFAF0;
+  }
+
+  .loyalty-rewards::before {
+     position: relative;
+     content: '';
+     border-radius: 0 999px 999px 0;
+     background-color: #FF6B26;
+     flex: 1 1 34%;
+     left: -6vw;
+     align-self: center;
+     padding-bottom: 55%;
+  }
+
+
+  .loyalty-table {
+    max-width: 800px;
+    margin-right: 13%;
+    flex-basis: 66%;
+  }
+
+  .loyalty-table {
+    font-family: 'Founders Grotesk Mono';
+    letter-spacing: 1px;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    border-collapse: collapse;
+
+  }
+
+  .chart-table {
+    padding: 0;
+  }
+
+  .loyalty-thead {
+    font-family: 'FuturaND';
+    font-size: 12px;
+    line-height: 20px;
+    background-color: #FF6B26;
+    font-weight: 500;
+    color: #fff;
+    min-width: 350px;
+  }
+
+  .first-bg {
+    background-color: #f8c7b4;
+  }
+
+  .second-bg {
+    background-color: #f8e2da;
+  }
+
+  .loyalty-td {
+    padding: 15px 3px;
+    border: 2px solid #fff;
+    font-size: 9px;
+    line-height: 15px;
+  }
+
+  .subscript-copy:first-child {
+    padding-top: 30px;
+  }
+  .subscript-copy {
+    margin-left: 15%;
+  }
+  .subscript-copy:last-child {
+    margin-bottom: 50px;
+  }
+
+  @media(min-width: 750px) {
+
+    .chart-table {
+    padding: 0 30;
+     margin-right: 2%
+    }
+    
+    .loyalty-table {
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    .svg-icon {
+      width: 15px;
+      height: 15px;
+    }
+
+    .loyalty-td {
+      font-size: 20px;
+      line-height: 30px;
+      min-width: 120px;
+      padding: 20px 0;
+
+    }
+  }
+</style>
+
+<div class="loyalty-rewards">
+  <div class="chart-table container">
+    <h2> {{ section.settings.heading }}</h2>
+    <table class="loyalty-table">
+      <thead class="loyalty-thead">
+      <tr>
+        <td class="loyalty-td">tiers<sup>1</sup>
+        <td class="loyalty-td">one
+          <br/>
+          <span class="nowrap">
+          {% include 'heart-full-icon' %}
+          {% include 'heart-icon' %}
+          {% include 'heart-icon' %}
+          {% include 'heart-icon' %}
+          {% include 'heart-icon' %}
+          </span>
+        </td>
+        <td class="loyalty-td">two
+          <br/>
+          <span class="nowrap">
+          {% include 'heart-full-icon' %}
+          {% include 'heart-full-icon' %}
+          {% include 'heart-icon' %}
+          {% include 'heart-icon' %}
+          {% include 'heart-icon' %}
+          </span>
+        </td>
+        <td class="loyalty-td">three
+          <br/>
+          <span class="nowrap">
+          {% include 'heart-full-icon' %}
+          {% include 'heart-full-icon' %}
+          {% include 'heart-full-icon' %}
+          {% include 'heart-icon' %}
+          {% include 'heart-icon' %}
+          </span>
+        </td>
+        <td class="loyalty-td">four
+          <br/>
+          <span class="nowrap">
+          {% include 'heart-full-icon' %}
+          {% include 'heart-full-icon' %}
+          {% include 'heart-full-icon' %}
+          {% include 'heart-full-icon' %}
+          {% include 'heart-icon' %}
+          </span>
+        </td>
+        <td class="loyalty-td">five
+          <br/>
+          <span class="nowrap">
+          {% include 'heart-full-icon' %}
+          {% include 'heart-full-icon' %}
+          {% include 'heart-full-icon' %}
+          {% include 'heart-full-icon' %}
+          {% include 'heart-full-icon' %}
+          </span>
+        </td>
+      </tr>
+      </thead>
+      <tr class="first-bg">
+        <td class="loyalty-td">bimonthly purchase</td>
+        <td class="loyalty-td">$1,000- $1,999</td>
+        <td class="loyalty-td">$2,000- $2,999</td>
+        <td class="loyalty-td">$3,000- $4,499</td>
+        <td class="loyalty-td">$4,500- $6,499</td>
+        <td class="loyalty-td">$6,500+</td>
+      </tr>
+      <tr class="second-bg">
+        <td class="loyalty-td">total return value <span class="nowrap">(in points)</span></td>
+        <td class="loyalty-td">15%</td>
+        <td class="loyalty-td">18%</td>
+        <td class="loyalty-td">22%</td>
+        <td class="loyalty-td">27%</td>
+        <td class="loyalty-td">33%</td>
+      </tr>
+      <tr class="first-bg">
+        <td class="loyalty-td">preselected rewards value<sup>2</sup></td>
+        <td class="loyalty-td" colspan="2">75pts</td>
+        <td class="loyalty-td" colspan="3">175pts</td>
+      </tr>
+      <tr class="second-bg">
+        <td class="loyalty-td">salon's shoppable points</td>
+        <td class="loyalty-td" colspan="5">bimonthly purchase $ <b>x</b> return value % - preselected rewards value = salon's shoppable points </td>
+      </tr>
+    </table>
+  </div>
+</div>
+  
+  <p class="subscript-copy container"><sup>1</sup> TIER LEVELS ARE CALCULATED BIMONTHLY AND CAN FLUCTUATE BASED ON CHANGES IN BIMONTHLY PURCHASES. SUITE TIER MEMBERS CAN
+QUALIFY FOR HIGHER TIERS IF THEY MEET BIMONTHLY PURCHASE THRESHOLDS. TIER ONE – FIVE MEMBERS CANNOT QUALITFY FOR SUITE TIER
+IF THEY DID NOT INITIALLY REGISTER AS A SUITE.</p>
+ <p class="subscript-copy container"><sup>2</sup> PRESELECTED REWARDS WILL BE AUTOMATICALLY ADDED TO CART AND POINTS VALUE WILL BE DEDUCTED FROM BIMONTHLY BALANCE</p>
+
+
+{% schema %}
+{
+  "name": "Loyalty Rewards",
+  "settings": [
+    {
+       "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": " salon tiers overview"
+        }
+  ],
+  "presets": [
+    {
+      "name": "Loyalty Rewards",
+      "category": "custom"
+    }
+  ]
+}
+{% endschema %}

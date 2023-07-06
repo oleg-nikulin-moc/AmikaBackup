@@ -1,8 +1,8 @@
 {% if form_heading == nil %}
-  {% assign form_heading = 'Customer Login' %}
+  {% assign form_heading = 'pro login' %}
 {% endif %}
 {% if container_id == nil %}
-  {% assign container_id = 'customer-login' %}
+  {% assign container_id = 'pro login' %}
 {% endif %}
 <!-- Customer Account Login -->
 
@@ -40,7 +40,7 @@
 
 <div id="recover-password" class="register-login" >
 
-  <h1>Reset Password</h1>
+  <h1>reset password</h1>
 
 
   <p class="note">We will send you an email to reset your password</p>
@@ -76,6 +76,7 @@ $("#resetPassword").on('submit', function(e){
 const customerAccount = {
   emailFailed: true, 
   validateEmail: function(emailAddress){
+      console.log({email: emailAddress})
       let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       let passed = regex.test(emailAddress);
       this.emailFailed = passed ? false : true;
@@ -111,12 +112,14 @@ const customerAccount = {
     });
 
     await results.json().then(response => {
+      console.log(response)
       if(!response.data) return false; 
       if(response.errors && response.errors.length > 0){ 
         $('#resetPasswordMessage').html(`<span class="error">${response.errors[0].message}</span>`) 
       }else{
         $('#resetPasswordMessage').html('<span class="success">Success! Please check your email for further instructions')
       }
+      console.log(response)
     }).catch(error => {
       $('#resetPasswordMessage').html('<span class="error">There was an error when submitting your request.</span>') 
     })

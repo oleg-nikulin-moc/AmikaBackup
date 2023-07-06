@@ -196,11 +196,11 @@ freeGiftHandler = function (calledFromCartPage = false) {
   gcalledFromCartPage = calledFromCartPage;
   //return;   //this is not running for BFCM and is causing the async error so turn off for now--BF
   var codes = [];
-  codes.push({"{{settings.gwp_code_total1total}}":"{{settings.gwp_variant_id1total}}"}); //Tiered Gift With Purchase LA-96
-  codes.push({"{{settings.gwp_code_total2total}}":"{{settings.gwp_variant_id2total}}"});
-  codes.push({"{{settings.gwp_code_total3total}}":"{{settings.gwp_variant_id3total}}"});
-  codes.push({"{{settings.gwp_code_total4total}}":"{{settings.gwp_variant_id4total}}"});
-  codes.push({"{{settings.gwp_code_total5total}}":"{{settings.gwp_variant_id5total}}"});
+  codes.push({"50":""}); //Tiered Gift With Purchase LA-96
+  codes.push({"":""});
+  codes.push({"":""});
+  codes.push({"":""});
+  codes.push({"":""});
   codes = codes.filter(function(obj) {
           if (Object.keys(obj)[0] == '' || obj[Object.keys(obj)[0]] == '')  //exclude empty
             return false;
@@ -208,14 +208,14 @@ freeGiftHandler = function (calledFromCartPage = false) {
       });
 
   var codesBUYTWOGETONE = [];
-  codesBUYTWOGETONE.push("{{settings.gwp_variant_BTGO_id1}}".trim());
-  codesBUYTWOGETONE.push("{{settings.gwp_variant_BTGO_id2}}".trim());
-  codesBUYTWOGETONE.push("{{settings.gwp_variant_BTGO_id3}}".trim());
+  codesBUYTWOGETONE.push("".trim());
+  codesBUYTWOGETONE.push("".trim());
+  codesBUYTWOGETONE.push("".trim());
 console.log(codesBUYTWOGETONE);
   var codesBUYTWOGETONE_Groups = [];
-  codesBUYTWOGETONE_Groups.push("{{settings.gwp_variant_BTGOGroup_id1}}".trim());
-  codesBUYTWOGETONE_Groups.push("{{settings.gwp_variant_BTGOGroup_id2}}".trim());
-  codesBUYTWOGETONE_Groups.push("{{settings.gwp_variant_BTGOGroup_id3}}".trim());
+  codesBUYTWOGETONE_Groups.push("".trim());
+  codesBUYTWOGETONE_Groups.push("".trim());
+  codesBUYTWOGETONE_Groups.push("".trim());
 
   if ((codes.length == 0)
     && (codesBUYTWOGETONE[0].length == 0 || codesBUYTWOGETONE[1].length == 0 || codesBUYTWOGETONE[2].length == 0)
@@ -238,10 +238,10 @@ return;//added this here because the following are overwriting the cart...need t
                                                                          //same except the groups are of 1 product
         BUYTWOGETONE_Groups(codesBUYTWOGETONE_Groups,cart,calledFromCartPage);  //LA-99
 
-        BUYTWOGETTHIRD("{{settings.gwp_variant_id_GWP-B2G1}}",cart,calledFromCartPage);  //LA-108 B2G1 Promotion
-                       console.log("BOGO NO CODE: " + "{{settings.gwp_variant_BOGO_bought}}");
-        BUYONEGETONE("{{settings.gwp_variant_BOGO_bought}}","{{settings.gwp_variant_BOGO_free}}",cart,calledFromCartPage);
-        BUYONEGETONE("{{settings.gwp_variant_BOGO_bought2}}","{{settings.gwp_variant_BOGO_free2}}",cart,calledFromCartPage);
+        BUYTWOGETTHIRD("",cart,calledFromCartPage);  //LA-108 B2G1 Promotion
+                       console.log("BOGO NO CODE: " + "");
+        BUYONEGETONE("","",cart,calledFromCartPage);
+        BUYONEGETONE("","",cart,calledFromCartPage);
 
         freeGiftHandler_CheckWithDiscountCode(calledFromCartPage,cart);  //do the same stuff, but do it with discount codes
   });
@@ -262,22 +262,22 @@ freeGiftHandler_CheckWithDiscountCode = function (calledFromCartPage = false,car
   var codes = [];
   var codes2 = [];
 
-  codes.push({"{{settings.gwp_code_total1_dc}}":"{{settings.gwp_variant_id1_dc}}"}); //Tiered Gift With Purchase LA-96
-  codes.push({"{{settings.gwp_code_total2_dc}}":"{{settings.gwp_variant_id2_dc}}"});
-  codes.push({"{{settings.gwp_code_total3_dc}}":"{{settings.gwp_variant_id3_dc}}"});
-  codes.push({"{{settings.gwp_code_total4_dc}}":"{{settings.gwp_variant_id4_dc}}"});
-  codes.push({"{{settings.gwp_code_total5_dc}}":"{{settings.gwp_variant_id5_dc}}"});
+  codes.push({"35":"14369300545602"}); //Tiered Gift With Purchase LA-96
+  codes.push({"":""});
+  codes.push({"":""});
+  codes.push({"":""});
+  codes.push({"":""});
   codes = codes.filter(function(obj) {
           if (Object.keys(obj)[0] == '' || obj[Object.keys(obj)[0]] == '')  //exclude empty
             return false;
           return true;
       });
 
-  codes2.push({"{{settings.gwp_code_total1_dc2}}":"{{settings.gwp_variant_id1_dc2}}"}); //Tiered Gift With Purchase LA-96
-  codes2.push({"{{settings.gwp_code_total2_dc2}}":"{{settings.gwp_variant_id2_dc2}}"});
-  codes2.push({"{{settings.gwp_code_total3_dc2}}":"{{settings.gwp_variant_id3_dc2}}"});
-  codes2.push({"{{settings.gwp_code_total4_dc2}}":"{{settings.gwp_variant_id4_dc2}}"});
-  codes2.push({"{{settings.gwp_code_total5_dc2}}":"{{settings.gwp_variant_id5_dc2}}"});
+  codes2.push({"":""}); //Tiered Gift With Purchase LA-96
+  codes2.push({"":""});
+  codes2.push({"":""});
+  codes2.push({"":""});
+  codes2.push({"":""});
   codes2 = codes2.filter(function(obj) {
           if (Object.keys(obj)[0] == '' || obj[Object.keys(obj)[0]] == '')  //exclude empty
             return false;
@@ -288,14 +288,14 @@ freeGiftHandler_CheckWithDiscountCode = function (calledFromCartPage = false,car
   console.log(codes2);
 
   var codesBUYTWOGETONE = [];
-  codesBUYTWOGETONE.push("{{settings.gwp_variant_BTGO_id1_dc}}".trim());
-  codesBUYTWOGETONE.push("{{settings.gwp_variant_BTGO_id2_dc}}".trim());
-  codesBUYTWOGETONE.push("{{settings.gwp_variant_BTGO_id3_dc}}".trim());
+  codesBUYTWOGETONE.push("".trim());
+  codesBUYTWOGETONE.push("".trim());
+  codesBUYTWOGETONE.push("".trim());
 
   var codesBUYTWOGETONE_Groups = [];
-  codesBUYTWOGETONE_Groups.push("{{settings.gwp_variant_BTGOGroup_id1_dc}}".trim());
-  codesBUYTWOGETONE_Groups.push("{{settings.gwp_variant_BTGOGroup_id2_dc}}".trim());
-  codesBUYTWOGETONE_Groups.push("{{settings.gwp_variant_BTGOGroup_id3_dc}}".trim());
+  codesBUYTWOGETONE_Groups.push("".trim());
+  codesBUYTWOGETONE_Groups.push("".trim());
+  codesBUYTWOGETONE_Groups.push("".trim());
 
   if ((codes.length == 0) && (codes2.length == 0)
     && (codesBUYTWOGETONE[0].length == 0 || codesBUYTWOGETONE[1].length == 0 || codesBUYTWOGETONE[2].length == 0)
@@ -308,15 +308,15 @@ freeGiftHandler_CheckWithDiscountCode = function (calledFromCartPage = false,car
     //turn off overlay after 5 seconds in case it gets orphaned
   }
 
-        TIERED_BY_TOTAL(codes,cart,calledFromCartPage,"{{settings.gwp_code_code_dc}}");   //LA-96 Tiered GWP-by Cart Total
-        TIERED_BY_TOTAL(codes2,cart,calledFromCartPage,"{{settings.gwp_code_code_dc2}}");   //LA-96 Tiered GWP-by Cart Total
+        TIERED_BY_TOTAL(codes,cart,calledFromCartPage,"PERKFORYOU");   //LA-96 Tiered GWP-by Cart Total
+        TIERED_BY_TOTAL(codes2,cart,calledFromCartPage,"");   //LA-96 Tiered GWP-by Cart Total
         //now do GWP-buy two, get third free
         BUYTWOGETONE_Groups(codesBUYTWOGETONE,cart,calledFromCartPage,1);  //LA-98 should work exactly the same as groups                                                                 //same except the groups are of 1 product
         BUYTWOGETONE_Groups(codesBUYTWOGETONE_Groups,cart,calledFromCartPage,2);  //LA-99
-        BUYONEGETONE("{{settings.gwp_variant_BOGO_bought_dc}}","{{settings.gwp_variant_BOGO_free_dc}}",cart,calledFromCartPage,"{{settings.gwp_code_code_BOGO_dc}}");
-        BUYONEGETONE("{{settings.gwp_variant_BOGO_bought_dc_percent}}","{{settings.gwp_variant_BOGO_free_dc_percent}}",cart,calledFromCartPage,"{{settings.gwp_code_code_BOGO_dc_percent}}","{{settings.gwp_amount_BOGO_free_dc_percent}}",true);
+        BUYONEGETONE("32240472752194","1619151192082",cart,calledFromCartPage,"WIZARD");
+        BUYONEGETONE("","",cart,calledFromCartPage,"","",true);
         CheckReload();
-        //BUYTWOGETTHIRD("{{settings.gwp_variant_id_GWP-B2G1-DiscountCode}}",cart,calledFromCartPage,"{{gwp_codeGWP-B2G1-DiscountCode}}");
+        //BUYTWOGETTHIRD("",cart,calledFromCartPage,"");
 
 }
 
@@ -611,9 +611,9 @@ function BUYTWOGETONE_Groups(codesBUYTWOGETONE_Groups,cart,calledFromCartPage,di
 {
     var thisDC = "";
     if (discount_code == 1)
-      thisDC = "{{settings.gwp_code_code_BTGO_dc}}";
+      thisDC = "";
     else if (discount_code == 2)
-      thisDC = "{{settings.gwp_code_code_BTGOGroup_dc}}";
+      thisDC = "";
     thisDC = thisDC.toLowerCase();
 console.log(thisDC);
     if (discount_code > 0 && thisDC != currentCode && thisDC.trim() != '')
@@ -722,13 +722,13 @@ console.log('made it');
           }
 }
 
-    var codeSimple = "{{settings.gwp_code}}";
+    var codeSimple = "DETOX";
     var currentCode = "";
 /*
     removeGWP = function (cart) {
       var found = false;
       $(cart.items).each(function () {
-        if ($(this)[0].variant_id == {{settings.gwp_variant_id}}) {
+        if ($(this)[0].variant_id == 13537918648386) {
           found = true;
           alterGWP(0);
         }
@@ -740,21 +740,21 @@ console.log('made it');
     addGWP = function (cart) {
       var found = false;
       $(cart.items).each(function () {
-        if ($(this)[0].variant_id == {{settings.gwp_variant_id}})
+        if ($(this)[0].variant_id == 13537918648386)
           found = true;
       });
       if (!found)
         alterGWP(1);
       else {
-        if ($('tr.product[data-variant-id={{settings.gwp_variant_id}}] td.product__price span').length == 0)
+        if ($('tr.product[data-variant-id=13537918648386] td.product__price span').length == 0)
           return;
 
-        var value = $('tr.product[data-variant-id={{settings.gwp_variant_id}}] td.product__price span').html();
+        var value = $('tr.product[data-variant-id=13537918648386] td.product__price span').html();
         if (value == '$0.00' || value.toLowerCase() == 'free' || value.indexOf('strike') > -1)
           return;
 
         value = '<span class="strike">' + value + "</span>  $0.00";
-        $('tr.product[data-variant-id={{settings.gwp_variant_id}}] td.product__price span').html(value);
+        $('tr.product[data-variant-id=13537918648386] td.product__price span').html(value);
       }
     };
 
@@ -782,7 +782,7 @@ console.log('yes2');console.log(found);
         var params = {
           type: 'POST',
           url: '/cart/update.js',
-          data: { updates: { {{settings.gwp_variant_id}} : count } },
+          data: { updates: { 13537918648386 : count } },
           dataType: 'json',
           success: function(cart) {
             if ((typeof callback) === 'function') {

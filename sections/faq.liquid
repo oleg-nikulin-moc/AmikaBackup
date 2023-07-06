@@ -10,10 +10,10 @@
 
       {% comment %} Wrap 'Show More' content in div {% endcomment %}
       {% if forloop.index == 6%}
-      <div class="show-more-container">
+      <div class="show-more-container hidden">
       {% endif %}
 
-      <div class="acc-item clearfix" data-item="{{forloop.index}}">
+      <div class="acc-item clearfix" data-item="{{forloop.index}}" >
         <h2>
           <a href="javascript:void(0);" class="acc-title">{{ block.settings.question }}</a>
           <svg class="acc-toggle" fill="none" height="12" viewBox="0 0 12 12" width="12" xmlns="http://www.w3.org/2000/svg">
@@ -29,7 +29,7 @@
       </div>
 
       {% comment %} Close 'Show More' wrapper {% endcomment %}
-      {% if show_more and forloop.last == true %}
+      {% if show_more and forloop.last == true %}  
       </div>  
       {% endif %}
 
@@ -102,3 +102,9 @@
     ]
   }
 {% endschema %}
+
+<style>
+  .hidden {
+    display: none;
+  }
+</style>

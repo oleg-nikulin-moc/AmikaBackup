@@ -1,3 +1,316 @@
+{% assign tiersProducts = shop.metafields.amika_loyalty_program.tiers  %}
+{% assign loyaltyProgram = customer.metafields.amika_loyalty_program.points.value['points'] %}
+{% assign brandBoxPoints = customer.metafields.amika_loyalty_program.points.value['brandBoxPoints']  %}
+{% assign points = loyaltyProgram | plus: brandBoxPoints %}
+{% assign totalPoints = cart.total_price | remove: '.00' | divided_by: 100 %}
+
+{% assign isGreater = false %}
+{% if totalPoints > points %}
+  {% assign isGreater = true %}
+{% endif %}
+<script>
+  console.log('points', {{ points }})
+  console.log('totalPoints', {{ totalPoints }})
+  console.log('isGreater', {{ isGreater }})
+</script>
+  <style>
+    .is-disabled {
+      pointer-events: none;
+    }
+ .ac-cart__info--mobile {
+    display: none;
+  }
+  .ac-cart__info--btn {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxOCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEuMDgwOTIgNy4zMzgzMkwxNi44NjcyIDcuMzM4MzEiIHN0cm9rZT0iI0ZGNkIyNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik04IDEzLjIyNjNDOCA5Ljg1MDIgNC44NjU5MiA3LjExMzIgMC45OTk5OTkgNy4xMTMyIiBzdHJva2U9IiNGRjZCMjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8cGF0aCBkPSJNNy45OTgwNSAwLjk5OTkxNUM3Ljk5ODA1IDQuMzc2MDQgNC44NjM5NyA3LjExMzA0IDAuOTk4MDQ3IDcuMTEzMDQiIHN0cm9rZT0iI0ZGNkIyNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=);
+    width: 32px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    min-width: 64px!important;
+  }
+  .ac-cart__info--btn--rotate {
+    transform: rotate(180deg);
+  }
+  .ac-cart__info__header {
+    width: 100%;
+  }
+
+  .ac-dropdown__list {
+    display: none;
+    position: absolute;
+    background-color: #FEFAF0;
+    padding: 40px 32px;
+    z-index: 999;
+    top: 75px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    z-index: 999;
+    text-align: left;
+  }
+
+  .ac-dropdown__list.active {
+    display: block;
+  }
+  .ac-cart-info__title {
+    margin-bottom: 8px;
+    color: #000;
+    font-size: 18px;
+    line-height: 24px;
+    text-transform: lowercase;
+  }
+
+  @media screen and (max-width: 767.98px) {
+    .ac-cart__info--mobile {
+      display: flex;
+      width: 100%;
+      margin-bottom: 24px;
+      background-color: white;
+      padding: 24px;
+      box-sizing: border-box;
+
+    }
+    .ac-cart__info__header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #000;
+    }
+    .ac-dropdown__box {
+      background-color: white;
+      padding: 24px;
+    }
+    .ac-offset__bottom--sm {
+      margin-bottom: 24px;
+    }
+    .ac-cart-info__btn--edit.ac-cart-info__btn--edit {
+      color: #FF6B26;
+      font-size: 18px!important;
+      line-height: 24px;
+      min-width: auto;
+      text-transform: lowercase;
+      margin-bottom: 8px;
+      padding: 10px 0 6px 24px;
+      height: auto;
+      margin-top: -8px!important;
+      width: auto;
+    }
+  }
+  .ac-table-cart {
+    display: grid;
+    /*grid-template-columns: repeat(6, 1fr);*/
+  }
+
+  .ac-table-cart__cell {
+    padding: 4px!important;
+    text-align: left;
+  }
+  .ac-table-cart__cell p,
+  .ac-table-cart__cell span {
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+  .ac-table-cart__cell .points{
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .ac-table-cart__cell.qtty .wrap {
+    border-width: 2px!important;
+  }
+/*   ------------------ */
+  #cart-wrap {
+    display: flex;
+    flex-direction: column;
+  }
+  .ac-table-cart__row {
+      display: grid;
+  }
+  .ac-table-cart__row--main table {
+    height: 100%;
+  }
+  .ac-table-cart__cell--product-info {
+    grid-area: cartCellProductInfo;
+  }
+  
+  .ac-table-cart__row--main {
+    grid-template-columns: 163px 1fr;
+    grid-template-areas: "cartCellImage cartCellProductInfo";
+    padding: 16px 0;
+    border-bottom: 1px solid #E5E8EB;
+  }
+  
+  .ac-table-cart__row--product-info {
+    grid-template-columns: minmax(150px, 1fr) 1fr 94px 1fr 44px;
+    grid-template-areas: "cartCellTitle cartCellPrice cartCellQtty cartCellTotal cartCellRemove";
+    height: 100%;
+   align-items: center;
+  }
+/*   -------------- */
+  .ac-table-cart__row--head {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .ac-table-cart__row--head .ac-table-cart__cell {
+    color: #000;
+    font-size: 12px!important;
+    font-weight: 500!important;
+    line-height: 24px;
+    text-transform: uppercase;
+  }
+  .ac-table-cart__cell img {
+    width: 100%;
+    height: auto;
+    padding: 0!important;
+    max-width: 163px!important;
+  }
+  .ac-table-cart__cell--image { grid-area: cartCellImage; }
+  .ac-table-cart__cell--title { grid-area: cartCellTitle; }
+  .ac-table-cart__cell--unit-price { grid-area: cartCellPrice; }
+  .ac-table-cart__cell--qtty { grid-area: cartCellQtty; }
+  .ac-table-cart__cell--total-price { grid-area: cartCellTotal; }
+  .ac-table-cart__cell--remove {
+    grid-area: cartCellRemove;
+    text-align: right;
+  }
+
+  .ac-table-cart__cell--unit-price,
+  .ac-table-cart__cell--total-price {
+    text-align: center;
+    font-weight: 500;
+  }
+  .ac-table-cart__cell--remove {
+    padding: 0;
+  }
+  .ac-table-cart__cell--remove a {
+    display: inline-flex;
+    padding: 8px;
+  }
+  .grid {
+    display: inline-flex;
+  }
+  @media screen and (max-width: 1023.98px) {
+    .grid {
+      flex-direction: column;
+    }
+    #cart-wrap .grid .grid__item {
+      width: 100%!important;
+    }
+  }
+  @media screen and (min-width: 768px) {
+    .grid__item:first-of-type {
+      padding-right: 50px;
+    }
+  }
+  @media screen and (max-width: 767.98px) {
+    .ac-shipping-information,
+    .ac-table-cart__row--head,
+    .ac-table-cart__cell--unit-price {
+      display: none;
+    }
+
+    .ac-table-cart__row--main {
+      grid-template-columns: 100px 1fr;
+    }
+  
+   .ac-table-cart__row--product-info {
+      grid-template-columns: minmax(100px, 2fr)  1fr;
+      grid-template-areas: "cartCellTitle cartCellRemove"
+                           "cartCellTitle cartCellTotal"
+                           "cartCellQtty cartCellQtty";
+     align-items: flex-start;
+    }
+
+    .ac-table-cart__cell--total-price {
+      text-align: right;
+    }
+    .ac-table-cart__cell--total-price .points {
+      padding-right: 4px;
+    }
+
+    .ac-table-cart__cell--total-price span {
+      white-space: nowrap;
+    }
+    .ac-table-cart__cell--total-price br {
+      display: none;
+    }
+
+    .ac-table-cart__cell--qtty .wrap {
+      border-radius: 23px;
+      border: 1px solid #000;;
+      width: 100%;
+      display: flex !important;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ac-table-cart__cell--qtty .minus,
+    .ac-table-cart__cell--qtty .plus {
+      padding: 7px !important;
+      width: 38px !important;
+      height: 38px !important;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #cart-wrap .ac-table-cart__cell--qtty input[type=number] {
+      width: 100%;
+    }
+
+    /* popyp Edit*/
+    .ac-shipping__popup .ac-address-information__wrap {
+      flex-direction: column;
+    }
+
+    .ac-shipping__popup .register-form__fieldset {
+      width: 100% !important;
+      margin-right: 0 !important;
+      margin-bottom: 16px !important;
+    }
+
+    .ac-shipping__popup .tingle-modal-box {
+      padding-left: 32px !important;
+      padding-right: 32px !important;
+    }
+
+    .ac-form__btn {
+      width: 100%;
+    }
+    .register-form__fieldset:last-of-type {
+      margin-bottom: 32px!important;
+    }
+  }
+    </style>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const prepackQuantity = document.querySelector('[class*="prepack"] .qtty .quantity');
+    const prepackQuantityPlus = document.querySelector('[class*="prepack"] .qtty .plus');
+    const prepackQuantityMinus = document.querySelector('[class*="prepack"] .qtty .minus');
+    if (prepackQuantity) {
+      prepackQuantity.disabled = true;
+      prepackQuantityPlus.disabled = true;
+      prepackQuantityMinus.disabled = true;
+    }
+    function checkCart() {
+      const productIds = JSON.parse('{{ tiersProducts }}');
+      const cartProductIds = (window.Shopify.cart && window.Shopify.cart.items) ? window.Shopify.cart.items.map(item => item.product_id) : [];
+      console.log('cartProductIds', cartProductIds);
+      const submitOrderButton = document.querySelector('[data-submit-order]');
+      const hasOtherProductIds = cartProductIds.some(productId => !productIds.find(product => product.product_id === productId));
+    
+      if (submitOrderButton && (cartProductIds.length === 0 || hasOtherProductIds)) {
+        submitOrderButton.disabled = false;
+      } else {
+        submitOrderButton.disabled = true;
+      }
+    }
+    
+    checkCart();
+    const dropdownElement = document.querySelector('[data-dropdown="cart"]');
+    initializeDropdown(dropdownElement);
+  });
+</script>
 <style>
   .main-menu .has-dropdown.active:after {display: none;}
   .main-menu .has-dropdown.active {background: initial;}
@@ -7,10 +320,9 @@
     .template-cart .bottom-btns #preview_container {display: block !important;}
   } */
 </style>
-
 <script data-cfasync="false" type="text/javascript">if (typeof Shopify === "undefined") var Shopify = {}; Shopify.cart = {{ cart | json }};</script>
 
-<!-- Begin Rocket Fuel Conversion Action Tracking Code Version 9 -->
+<!-- Begin Rocket Fuel Conversionпше  Action Tracking Code Version 9 -->
 <script type='text/javascript'>
   (function() {
     var w = window, d = document;
@@ -46,7 +358,6 @@
 </noscript>
 <!-- End Rocket Fuel Conversion Action Tracking Code Version 9 -->
 
-
 <div id="sca-fg-owl-carousel">
   <div id="freegift_cart_container" name="sca.fg.cart" class="sca-fg-cart-container" style="display: none;">
     <div id="freegift_message" class="owl-carousel"></div>
@@ -60,7 +371,33 @@
 </div>
 <div id="sca_fg_cart">
   <div id="cart-wrap" class="container">
-    <h1>your shopping bag</h1>
+    <div class="ac-cart__info--mobile" data-order-header data-dropdown="cart">
+      <div class="ac-cart__info__header">
+        <h2 class="ac-cart-info__title" style="position: relative;">shipping information</h2>
+        <button class="ac-btn ac-cart__info--btn ac-cart__info--btn--rotate" type="button" id="myButton" data-dropdown-toggle></button>
+      </div>
+      <div class="ac-dropdown__list" data-dropdown-menu>
+        <button class="ac-btn ac-cart__info--btn ac-offset__bottom--md" type="button" id="myButton" data-dropdown-toggle data-dropdown-close></button>
+        <div class="ac-dropdown__box">
+          <div class="ac-cart__info__header ac-offset__bottom--sm">
+            <h2 class="ac-cart-info__title" style="position: relative;">shipping information</h2>
+            <button class="ac-form__btn ac-cart-info__btn--edit" id="view_address" type="button" data-edit-address>edit</button>
+          </div>
+          <p class="ac-shipping-information__text ac-offset__bottom--sm">{{ customer.default_address.name }}</p>
+          <p class="ac-shipping-information__text ac-offset__bottom--sm">{{ customer.default_address.address1 }}</p>
+          {% if customer.default_address.address2 != "" %}
+            <p>{{ customer.default_address.address2 }}</p>
+          {% endif %}
+          <p class="ac-shipping-information__text city ac-offset__bottom--sm">{{ customer.default_address.city}}</p>
+          {% if customer.default_address.province != "" %}
+            <p class="ac-shipping-information__text ac-offset__bottom--sm">{{ customer.default_address.province }}</p>
+          {% endif %}
+          <p class="ac-shipping-information__text ac-offset__bottom--sm">{{ customer.default_address.zip}}</p>
+          <p class="ac-shipping-information__text ac-offset__bottom--sm">{{customer.default_address.country}}</p>
+        </div>
+      </div>
+    </div>
+    <h1>your rewards order <span>({{ cart.item_count }})</span></h1>
 
     {% assign cart_total_price_minus_gift_cards = 0 %}
     {% for item in cart.items %}
@@ -122,7 +459,7 @@
                   {% endif %}
                   {% endfor %}
 
-                  {% assign freeShip = settings.Min-free-shipping-value %}
+                  {% assign freeShip = points %}
                   {% assign total_price = cart.total_price | money_without_currency %}
                   {% if excludePrice > 0 %}
                   {% assign excludePrice = excludePrice | money_without_currency %}
@@ -131,11 +468,11 @@
                   {% assign percentageFreeShip = total_price | times: 100  | divided_by: freeShip %}
                   {% assign freeshipaway = freeShip | minus: total_price %}
                   {% if percentageFreeShip < 100 %}
-                  <span>You're {{ freeshipaway | times: 100 | money }} away from qualifying for free shipping</span>
+                  <span>You're {{ freeshipaway | times: 100 | money }} away from the order minimum</span>
                   {% else %}
-                  <span class="free-text">You've earned Free Shipping.</span>
+                  {% comment %}<span class="free-text">You've earned Free Shipping.</span>{% endcomment %}
+                    <span class="free-text" hidden>{{ freeshipaway | times: 100 | money }} in order more that customer has</span>
                   {% endif %}
-                  <div class="free-shipping-bar"></div>
                 </div>
               </div>
           {% endif %}
@@ -278,39 +615,39 @@
         {% endif %}
 
         <form action="/cart" method="post" id="cartform" class="clearfix">
-          <table>
-            <thead class="thead__section small--hide">
-            <tr class="top-labels">
-              <th></th>
-              <th>
                 <table>
-                  <tr class="item-line item-first-line">
-                    <td class="title animation two-twelfths small--hide medium--hide">
-                      <span class="line-header">Description</span>
-                    </td>
-                    <td class="unit-price small--hide two-twelfths small--hide medium--hide">
-                      <span class="line-header">Price</span>
-                    </td>
-                    <td class="qtty two-twelfths small--hide medium--hide">
-                      <span class="line-header">Quantity</span>
-                    </td>
-                    <td class="total-price two-twelfths small--hide medium--hide">
-                      <span class="line-header">Total</span>
-                    </td>
-                    <td class="remove one-twelfth small--hide medium--hide">
-                    </td>
-                  </tr>
-                </table>
-              </th>
-            </tr>
+            <thead class="">
+              <tr class="ac-table-cart__row ac-table-cart__row--head ac-table-cart__row--main">
+                <th class="ac-table-cart__cell ac-table-cart__cell--image"></th>
+                <th class="ac-table-cart__cell ac-table-cart__cell--product-info">
+                  <table>
+                    <tr class="ac-table-cart__row ac-table-cart__row--product-info">
+                      <td class="ac-table-cart__cell ac-table-cart__cell--title">
+                        Description
+                      </td>
+                      <td class="ac-table-cart__cell ac-table-cart__cell--unit-price">
+                        Price
+                      </td>
+                      <td class="ac-table-cart__cell ac-table-cart__cell--qtty qtty">
+                        Quantity
+                      </td>
+                      <td class="ac-table-cart__cell ac-table-cart__cell--total-price">
+                        Total
+                      </td>
+                      <td class="ac-table-cart__cell ac-table-cart__cell--remove">
+                      </td>
+                    </tr>
+                  </table>
+                </th>
+              </tr>
             </thead>
 
             <tbody>
-              {% for item in cart.items %}
-              {% include '_cart-item' %}
-              {% endfor %}
-            </tbody>
-          </table>
+            {% for item in cart.items %}
+              {% include '_cart-item-new' %}
+            {% endfor %}
+  </tbody>
+        </table>
 
 
 
@@ -356,24 +693,7 @@
           {% if salonExists == false %}
             {% if customer.tags contains 'HMS' or customer.tags contains 'Pro' or customer.tags contains 'BrandAmbassadorUS' %}
             {% else %}
-            <div class="free__shipping--bar small--hide">
-              <div class="free-shipping">
-                {% assign freeShip = settings.Min-free-shipping-value %}
-                {% assign total_price = cart.total_price | money_without_currency %}
-                {% if excludePrice > 0 %}
-                {% assign excludePrice = excludePrice | money_without_currency %}
-                {% assign total_price = total_price | minus: excludePrice %}
-                {% endif %}
-                {% assign percentageFreeShip = total_price | times: 100  | divided_by: freeShip %}
-                {% assign freeshipaway = freeShip | minus: total_price %}
-                {% if percentageFreeShip < 100 %}
-                <span>You're {{ freeshipaway | times: 100 | money }} away from qualifying for free shipping</span>
-                {% else %}
-                <span class="free-text">You've earned Free Shipping.</span>
-                {% endif %}
-                <div class="free-shipping-bar"></div>
-              </div>
-            </div>
+                <p class="free-text" style="text-align: left;">current balance: {{ points }} points</p>
             {% endif %}
           {% else %}
             <div class="free__shipping--bar small--hide">
@@ -388,29 +708,31 @@
             {% if cart.item_count > 0 and cart.total_price != 0 %}
             <div class="subtotal">
               <div class="subtotal__data--section">
-                <div class="label">Subtotal</div>
+                <div class="label">order total</div>
                 <div class="number__data">
                   <span class="saso-cart-original-total">{{ cart.total_price | money | remove: '.00' }}</span>
                   <span class="saso-cart-total"></span>
                 </div>
               </div>
               <div class="number"></div>
-
-              <div class="checkout-button"><input type="submit" id="update-cart" class="animation button--primary button--rounded button--fullWidth" name="checkout" value="checkout" /></div>
-
-              <!-- Removal of checkout options on cart page -->
-              {% if additional_checkout_buttons %}
-              <div id="additional-checkout-buttons">
-                {{ content_for_additional_checkout_buttons }}
-              </div>
-              {% endif %}
-              <!-- End Removal of checkout options on cart page -->
-
+              <div class="checkout-button ac-offset__bottom--sm"><button type="button" id="update-cart" class="animation button--primary button--rounded button--fullWidth {%  if isGreater %}is-disabled{% endif %}" data-submit-order {% if percentageFreeShip > 100 or isGreater %} disabled {% endif %}>SUBMIT ORDER</button></div>
+              {% comment %}<div class="checkout-button ac-offset__bottom--sm"><input type="submit" id="update-cart" class="animation button--primary button--rounded button--fullWidth" name="checkout" value="checkout" /></div>{% endcomment %}
+              <p class="">rewards orders are limited to one per month</p>
+              {% comment %}
+                <!-- Removal of checkout options on cart page -->
+                {% if additional_checkout_buttons %}
+                <div id="additional-checkout-buttons">
+                  {{ content_for_additional_checkout_buttons }}
+                </div>
+                {% endif %}
+                <!-- End Removal of checkout options on cart page -->
+              {% endcomment %}
 
             </div>
             {% endif %}
             </form>
           </div>
+          {% include 'cart_shipping_address', loyalty %}
         </div>
       </div>
 
@@ -430,17 +752,20 @@
       background: #E5E8EB;
       margin-top: 8px;
     }
-    {% assign total_price = total_price | times: 100 %}
-    {% assign shippingProgress = total_price | divided_by: settings.Min-free-shipping-value | at_most: 100 %}
-    .free-shipping-bar:after {
-      width: {{ shippingProgress | round }}%;
-      content: '';
-      position: absolute;
-      background-color: #000000;
-      top: 0;
-      bottom: 0;
-      left: 0;
-    }
+
+    {% comment %}
+      {% assign total_price = total_price | times: 100 %}
+      {% assign shippingProgress = total_price | divided_by: loyaltyProgram | at_most: 100 %}
+      .free-shipping-bar:after {
+        width: {{ shippingProgress | round }}%;
+        content: '';
+        position: absolute;
+        background-color: #000000;
+        top: 0;
+        bottom: 0;
+        left: 0;
+      }
+    {% endcomment %}
     .loader__wrapper {padding: 20px 0;}
     .donateLoader {
       border: .2em solid currentcolor;
@@ -491,8 +816,11 @@ REMOVE FREE GIFT IF HMS
 
 {% if customer.tags contains 'HMS' or customer.tags contains 'Pro' or customer.tags contains 'BrandAmbassadorUS' %}
 <script>
+
+
+
 $(document).ready(function(){
-    $.ajax({
+  $.ajax({
       type: 'GET',
       url: '/cart.json',
       error: function(){console.log('fail');},
@@ -518,6 +846,7 @@ $(document).ready(function(){
               success: function(){
 
                 //Update Cart
+                console.log('1')
                 location.reload();
               },
               cache: false
@@ -591,6 +920,7 @@ Find If a normal Product exist other than Sample/Gift Card(Product Id 5039639758
                   success: function(){
 
                     //Update Ajax Cart
+                      console.log('2')
                     location.reload();
                   },
                   cache: false
@@ -644,6 +974,7 @@ Find If a normal Product exist other than Sample/Gift Card(Product Id 5039639758
                   success: function(){
 
                     //Reload Page
+                      console.log('3')
                     location.reload();
                   },
                   cache: false
@@ -710,6 +1041,7 @@ Find If a normal Product exist other than Sample/Gift Card(Product Id 5039639758
                   success: function(){
 
                     //Reload Page
+                      console.log('4')
                     location.reload();
                   },
                   cache: false
@@ -743,8 +1075,9 @@ Find If a normal Product exist other than Sample/Gift Card(Product Id 5039639758
     });
 
     // Prevent click through on donation product
-//     $('td > a[href*="donation"]').on('click', function(e){ e.preventDefault()});
+//     $('td > a[href*="donation"]').on('click', function(e){ e.preventDefault()}
+
   </script>
   {% endif %}
-
+</div>
 </div>

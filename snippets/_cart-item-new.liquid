@@ -1,8 +1,8 @@
 <style>.final_sale {display: block;}</style>
 
 {% include 'bold-cart-item' with item %}
-<tr class="item {{ item.product.handle }}" data-product-id="{{ item.variant.id }}">
-  <td class="image two-twelfths medium--one-third small--one-third text-center">
+<tr class="ac-table-cart__row ac-table-cart__row--main {{ item.product.handle }}" data-product-id="{{ item.variant.id }}">
+  <td class="ac-table-cart__cell ac-table-cart__cell--image">
     {% if item.variant.image %}
     {% assign variantImg = item.variant.image | img_url: "compact" %}
     {% else %}
@@ -33,8 +33,8 @@
       </tr>
       {% endcomment %}
 
-      <tr class="item-line item-second-line">
-        <td class="title animation two-twelfths medium--one-whole small--one-whole">
+      <tr class="ac-table-cart__row ac-table-cart__row--product-info">
+        <td class="ac-table-cart__cell ac-table-cart__cell--title">
           <a href="{% if item.price > 0 %}{{ item.url }}{% else %}javascript:void(0);{% endif %}">
             <p class="text">
               {{ item.product.title| replace_first: '|', '<span>' }}
@@ -67,7 +67,7 @@
             <p class="not__qualified">cannnot be combined with any other promotion</p>
           {% endif %}
         </td>
-        <td class="unit-price small--hide medium--hide two-twelfths medium--one-whole small--one-whole" data-price="{{item.price}}">          
+        <td class="ac-table-cart__cell ac-table-cart__cell--unit-price" data-price="{{item.price}}">          
                     {% assign orig =  item.line_price %}
                     {% assign linex = item.variant.price | times: item.quantity %}
                     {% assign diff = linex | minus:  orig %}
@@ -75,38 +75,36 @@
                     {% if diff != 0 %}
                     {% assign notsame = true %}
                     {% endif %}
-{% assign nospecial = false %}
-{% for collection in item.product.collections %}
-  {% if "excludeHMS" == collection.title %}
-    {% assign nospecial = true %}
-  {% endif %}
-{% endfor %}
+          {% assign nospecial = false %}
+          {% for collection in item.product.collections %}
+            {% if "excludeHMS" == collection.title %}
+              {% assign nospecial = true %}
+            {% endif %}
+          {% endfor %}
                    <!-- {{ orig }}  {{ linex }}  {{ diff }} {{ notsame }} {{nospecial}} cartitem -->          
           {% if nospecial %}
           {% else %}
-          {% if item.variant.compare_at_price > item.price or customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame%}
-          <div class="retail">
-            {% if customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame%}
-              {% if item.line_price == 0 %}
-              {% else%}
-              <span>{{item.variant.price | money | remove: ".00" }}</span>
-              {% endif %}
+            {% if item.variant.compare_at_price > item.price or customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame%}
+              <p class="retail">
+                {% if customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame%}
+                  {% unless item.line_price == 0 %}
+                    <span class="points">{{ item.variant.price | money_without_currency | remove: ".00" }}</span><br><span>points</span>
+                  {% endunless %}
+                {% endif %}
+                
+                {% if item.variant.compare_at_price > item.price %}
+                  {% unless item.line_price == 0 %}
+                    <span class="points">{{ item.variant.compare_at_price | money_without_currency | remove: ".00" }}</span><br><span>points</span>
+    	          {% endunless %}
+                {% endif %}
+              </p>
             {% endif %}
-            
-            {% if item.variant.compare_at_price > item.price %}
-              {% if item.line_price == 0 %}
-              {% else%}
-            	<span>{{item.variant.compare_at_price | money | remove: ".00" }}</span>
-	          {% endif %}
-            {% endif %}
-          </div>
-          {% endif %}
           {% endif %}
           
           {% if item.price > 0 %}
-          <div class="deal {% if item.variant.compare_at_price > item.price or  customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame%}disc{%endif%}">
-            <span>{{ item.price | money | remove: ".00" }}</span>
-          </div>
+            <p class="deal {% if item.variant.compare_at_price > item.price or  customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame%}disc{%endif%}">
+              <span class="points">{{ item.price | money_without_currency | remove: ".00" }}</span><br><span>points</span>
+            </p>
           {% else %}
             {% if item.product.type == 'Custom Bundle' %}
               {{ item.original_price | money_without_trailing_zeros }}
@@ -118,7 +116,7 @@
           
           
         </td>
-        <td class="qtty two-twelfths medium--one-half small--one-half">
+        <td class="ac-table-cart__cell ac-table-cart__cell--qtty qtty">
           <div class="wrap clearfix">
             {% if item.price > 0 or item.variant.id == 1771451940882%} 
             <input type="button" value="&ndash;" class="minus animation">
@@ -130,27 +128,28 @@
             {% endif %}
           </div>
         </td>
-        <td class="total-price two-twelfths medium--one-half small--one-half">
+        <td class="ac-table-cart__cell ac-table-cart__cell--total-price total-price">
           {% if item.variant.compare_at_price > item.price or customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame%}
-          <div class="retail desktop">
-            {% if item.line_price == 0 %}
-            {% else%}
-            <span>{{ item.line_price | money | remove: ".00" }}</span>                        
-            {%endif%}
-          </div>
+          <p class="retail desktop">
+            {% unless item.line_price == 0 %} 
+              <span class="points">{{ item.line_price | money_without_currency | remove: ".00" }}</span><br><span>points</span>
+            {%endunless%}
+          </p>
           {% endif %}          
           
           {% if item.variant.compare_at_price > item.price or customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame%}
-          <div class="retail mobile">
-            {% if customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame%}<span>{{item.variant.price | times: item.quantity | money | remove: ".00" }}</span>{% endif %}
-            {% if item.variant.compare_at_price > item.price %}<span>{{item.variant.compare_at_price | money | remove: ".00" }}</span>{% endif %}
-          </div>
+            <p class="retail mobile">
+              {% if customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame%}<span>{{item.variant.price | times: item.quantity | money | remove: ".00" }}</span>{% endif %}
+                {% if item.variant.compare_at_price > item.price %}
+                  <span class="points">{{ item.line_price | money_without_currency | remove: ".00" }}</span><br><span>points</span>
+                {% endif %}
+            </p>
           {% endif %}           
           
           {% if item.price > 0 %}
-          <div class="deal {% if item.variant.compare_at_price > item.price or customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame%}disc mobile{%endif%}">
-            <span>{{ item.line_price | money | remove: ".00" }}</span>
-          </div>          
+          <p class="deal {% if item.variant.compare_at_price > item.price or customer.tags contains 'Pro' or customer.tags contains 'HMS' or notsame%}disc mobile{%endif%}">
+            <span class="points">{{ item.line_price | money_without_currency | remove: ".00" }}</span><br><span>points</span>
+          </p>          
           {% else %}
             {% if item.product.type == 'Custom Bundle' %}
               {{ item.original_line_price | money_without_trailing_zeros }}
@@ -163,8 +162,12 @@
           
           
         </td>
-        <td class="remove one-twelfth medium--one-whole small--one-whole text-right">
-          <a class="remove-from-cart animation" href="/cart/change?line={{ forloop.index }}&quantity=0"><i class="icon ion-close"></i></a>
+        <td class="ac-table-cart__cell ac-table-cart__cell--remove remove text-right">
+          <a class="remove-from-cart animation" href="/cart/change?line={{ forloop.index }}&quantity=0">
+             <svg class="closer icon" width="20" height="20">
+              <use xlink:href="#closeIcon"></use>
+            </svg>
+          </a>
         </td>
       </tr>      
     </table>

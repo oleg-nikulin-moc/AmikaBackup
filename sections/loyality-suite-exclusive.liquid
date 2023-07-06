@@ -1,0 +1,163 @@
+<style>
+  .svg-icon {
+    width: 5px;
+    height: 5px;
+    fill: #fff;
+  }
+
+  sup {
+    vertical-align: super;
+    font-size: 10px;
+  }
+
+  .nowrap {
+    white-space: nowrap;
+  }
+
+  .loyalty-table2__loyalty-rewards {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    background: #FEFAF0;
+    margin-bottom: 50px;
+    padding: 0;
+    column-gap: 10%;
+  }
+
+  .loyalty-table2__loyalty-rewards::after {
+    position: relative;
+    content: '';
+    border-radius: 999px 0 0 999px;
+    background-color: #ff5edb;
+    flex: 34% 1 1;
+    right: 0;
+    align-self: center;
+    padding-bottom: 43%;
+  }
+
+  .loyalty-table2__chart-table {
+    margin: auto;
+    padding: 0 30px;
+  }
+
+  .loyalty-table2__loyalty-table2 {
+    max-width: 800px;
+    margin-right: 13%;
+    margin-top: 40px;
+    flex-basis: 66%;
+    font-family: 'Founders Grotesk Mono';
+    letter-spacing: 1px;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    border-collapse: collapse;
+    text-align: center;
+  }
+
+  .loyalty-table2__loyalty-thead {
+    font-family: 'FuturaND';
+    font-size: 12px;
+    line-height: 20px;
+    background-color: #ff5edb;
+    font-weight: 500;
+    color: #fff;
+    min-width: 350px;
+  }
+
+  .loyalty-table2__first-bg {
+    background-color: #f8daef;
+  }
+
+  .loyalty-table2__second-bg {
+    background-color: #fab2e8;
+  }
+
+  .loyalty-table2__loyalty-td {
+    padding: 15px 3px;
+    min-width: 60px;
+    border: 2px solid #fff;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+  }
+
+  @media(min-width: 750px) {
+
+    .loyalty-table2__loyalty-rewards {
+      column-gap: 20%;
+    }
+    .loyalty-table2__chart-table {
+      margin-left: 15%;
+    }
+    .loyalty-table2__loyalty-table {
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    .svg-icon {
+      width: 10px;
+      height: 10px;
+    }
+
+    .loyalty-table2__loyalty-td {
+      font-size: 16px;
+      line-height: 20px;
+      min-width: 120px;
+      padding: 20px;
+
+    }
+  }
+</style>
+
+
+<div class="loyalty-table2__loyalty-rewards">
+  
+  <div class="chart-table loyalty-table2__chart-table">
+    <h2> {{ section.settings.heading }}</h2>
+     <p> {{section.settings.content  }}</p>
+    <table class="loyalty-table2__loyalty-table2">
+      <thead class="loyalty-table2__loyalty-thead">
+      <tr>
+        <td class="loyalty-table2__loyalty-td">tier</td>
+        <td class="loyalty-table2__loyalty-td">suite<sup>1</sup></td>
+      </tr>
+      </thead>
+      <tr class="loyalty-table2__first-bg">
+        <td class="loyalty-table2__loyalty-td">bimonthly purchase</td>
+        <td class="loyalty-table2__loyalty-td">$500 -$999</td>
+      </tr>
+      <tr class="loyalty-table2__second-bg">
+        <td class="loyalty-table2__loyalty-td">preselected rewards</td>
+        <td class="loyalty-table2__loyalty-td">2x full-size products</td>
+      </tr>
+    </table>
+
+  </div>
+</div>
+ <p class="subscript-copy container"><sup>1</sup> A SUITE CUSTOMER IS DEFINED AS THE SOLE OPERATOR AND SERVICE PROVIDER FOR THE SALON, WHO ALSO HOLDS THE ESTABLISHMENT LICENSE. SUITE CUSTOMERS WILL BE VERIFIED THROUGH HOLDING A BUSINESS LICENSE FOR THE ESTABLISHMENT.</p>
+
+{% schema %}
+{
+  "name": "Loyalty Rewards-exclusive",
+  "settings": [
+    {
+       "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "suite exclusive"
+        },
+    {
+      "type": "text",
+      "id": "content",
+      "label": "content",
+      "default": "for our small but mighty single operator salons, a sweet (suite) exclusive just for you! make sure to identify as a suite when registering in order to qualify for this tier."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Loyalty Rewards",
+      "category": "custom"
+    }
+  ]
+}
+{% endschema %}

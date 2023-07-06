@@ -10,6 +10,8 @@
 {% elsif iwish_v2 == 'iwishCollection' %}
 	<a class="iWishAddColl iwishcheck" href="#" data-variant="{{ currentProduct.variants.first.id }}" data-product="{{ currentProduct.id }}" data-pTitle="{{ currentProduct.title | escape | replace_first: '|', '<span>' }}"><img src=" {{'heart-shape-silhouette.png' | asset_url }}" ></a>
 {% elsif iwish_v2 == 'iwishfooter' %}
+  
+  <div class = 'tets'></div>
 <script type="text/javascript">
   var iwish_shop = "{{ shop.permanent_domain }}";
   var iwish_pro_template = {% if template contains 'product' %}true{% else %}false{% endif %};

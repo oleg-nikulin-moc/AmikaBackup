@@ -1,7 +1,7 @@
 .yotpo {
     .yotpo-icon-half-star {
         &:before {
-            background: url("//cdn.shopify.com/s/files/1/0550/7884/6672/t/50/assets/orange-half-star.png?v=135294530220059645051678722103");
+            background: url("//cdn.shopify.com/s/files/1/0550/7884/6672/t/10/assets/orange-half-star.png?v=135294530220059645051621580235");
             background-repeat: no-repeat;
             background-position: center center;
             border: none;
@@ -15,7 +15,7 @@
 }
 
 .yotpo .yotpo-icon-star::before {
-    background: url("//cdn.shopify.com/s/files/1/0550/7884/6672/t/50/assets/orange-star.png?v=58362627450082961461678722105");
+    background: url("//cdn.shopify.com/s/files/1/0550/7884/6672/t/10/assets/orange-star.png?v=58362627450082961461621580237");
     background-repeat: no-repeat;
     background-position: center center;
     border: none;
@@ -98,7 +98,7 @@
                         // padding: 15px;
                         // padding: 0;
                         span::after{
-                            background-image: url("//cdn.shopify.com/s/files/1/0550/7884/6672/t/50/assets/orange-squiggle.png?v=140681960096406947911678722104");
+                            background-image: url("//cdn.shopify.com/s/files/1/0550/7884/6672/t/10/assets/orange-squiggle.png?v=140681960096406947911621580235");
                             width: 100%;
                             content: '';
                             display: block;
@@ -126,7 +126,7 @@
               justify-content: center;
 
                 &::before{
-                    background: url("//cdn.shopify.com/s/files/1/0550/7884/6672/t/50/assets/orange-star.png?v=58362627450082961461678722105");
+                    background: url("//cdn.shopify.com/s/files/1/0550/7884/6672/t/10/assets/orange-star.png?v=58362627450082961461621580237");
                     background-repeat: no-repeat;
                     background-position: center center;
                     border: none;
@@ -145,7 +145,7 @@
               align-items: center;
               justify-content: center; 
                 &::before{
-                    background: url("//cdn.shopify.com/s/files/1/0550/7884/6672/t/50/assets/orange-star-outline.png?v=28517081770297498801678722104");
+                    background: url("//cdn.shopify.com/s/files/1/0550/7884/6672/t/10/assets/orange-star-outline.png?v=28517081770297498801621580236");
                     background-repeat: no-repeat;
                     background-position: center center;
                     border: none;
@@ -159,7 +159,7 @@
 
             .yotpo-icon-half-star {
                 &::before {
-                    background: url("//cdn.shopify.com/s/files/1/0550/7884/6672/t/50/assets/orange-half-star.png?v=135294530220059645051678722103");
+                    background: url("//cdn.shopify.com/s/files/1/0550/7884/6672/t/10/assets/orange-half-star.png?v=135294530220059645051621580235");
                     background-repeat: no-repeat;
                     background-position: center center;
                     border: none;
@@ -243,7 +243,7 @@
                     &::before{
                         position: relative;
                         z-index: 10;
-                        background: url("//cdn.shopify.com/s/files/1/0550/7884/6672/t/50/assets/magnifying-glass-v2.png?v=55104671824930127141678722096");
+                        background: url("//cdn.shopify.com/s/files/1/0550/7884/6672/t/10/assets/magnifying-glass-v2.png?v=55104671824930127141621580228");
                         background-size: 100%;
                         background-position: center center;
                         background-repeat: no-repeat;
@@ -528,7 +528,7 @@
                 .yotpo_next{
                     position: relative;
                     &::before{
-                        background-image: url("//cdn.shopify.com/s/files/1/0550/7884/6672/t/50/assets/next-squiggle.png?v=177573553813493088471678722103") !important;
+                        background-image: url("//cdn.shopify.com/s/files/1/0550/7884/6672/t/10/assets/next-squiggle.png?v=177573553813493088471621580234") !important;
                         content: '' !important;
                         height: 90px;
                         width: 70px;
@@ -544,7 +544,7 @@
                 .yotpo_previous{
                     position: relative;
                     &::before{
-                        background-image: url("//cdn.shopify.com/s/files/1/0550/7884/6672/t/50/assets/prev-squiggle.png?v=36674672202559637521678722115") !important;
+                        background-image: url("//cdn.shopify.com/s/files/1/0550/7884/6672/t/10/assets/prev-squiggle.png?v=36674672202559637521621580248") !important;
                         content: '' !important;
                         height: 90px;
                         width: 70px;

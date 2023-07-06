@@ -53,7 +53,7 @@
 
   <ul class="links">
     {% for link in linklists.footer.links %}
-      <li class="{% if forloop.first %}first{% elsif forloop.last %}last{%endif%} animation toggle-footer-submenu">
+      <li class="{% if forloop.first %}first{%endif%} animation toggle-footer-submenu">
         <a href="{{ link.url }}" class="xanimation" {% if link.url contains "http:" or link.url contains "https:" %}target="_blank"{% endif %}>{{ link.title | escape }}</a>
 
 

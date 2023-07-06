@@ -1,15 +1,12 @@
-<div id="customer-accounts"  class="register-login account clearfix">
+<div id="customer-accounts"  class="register-login account clearfix ac-login__page">
 
   <div class="container clearfix">
 
     {% render 'customer-login-form' %}
-
-
-
+    {% comment %}
     <!-- Create Customer -->
-
     <div id="customer-register" class="register-login" >
-      <h1>Create Account</h1>
+      <h1>get notified!</h1>
       {% render "customer-fields", form_id: "9YtJ7k" %}
       <form id="email_signup" style="display:none!important;" class="klaviyo_styling klaviyo_gdpr_embed_RdedFT" action="//manage.kmail-lists.com/subscriptions/subscribe" data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe" method="GET" target="_blank" novalidate="novalidate">
         <input type="hidden" name="g" value="RdedFT">
@@ -46,10 +43,10 @@
         });
       </script>
     </div>
-    
+    {% endcomment %}
   </div>
 </div>
-
+{% comment %}
 <script type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>
 <script type="text/javascript">
   function attachKlav() {
@@ -66,3 +63,4 @@
 
   attachKlav();
 </script>
+{% endcomment %}

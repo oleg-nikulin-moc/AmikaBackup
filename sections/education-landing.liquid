@@ -13,9 +13,10 @@
           </div>
           <div class="button_wrapper">
             <div class="button_content">
-              {% if section.settings.button_one_Text != blank %}<a class='btn' href="{{section.settings.button_one_link}}">{{section.settings.button_one_Text}}</a>{% endif %}
-              {% if section.settings.button_two_Text != blank %}<a class='btn' href="{{section.settings.button_two_link}}">{{section.settings.button_two_Text}}</a>{% endif %}
-              {% if section.settings.button_three_Text != blank %}<a class='btn' href="{{section.settings.button_three_link}}">{{section.settings.button_three_Text}}</a>{% endif %}
+              <a href="{{section.settings.button_one_link}}">{{section.settings.button_one_Text}}</a>
+              <a href="{{section.settings.button_two_link}}">{{section.settings.button_two_Text}}</a>
+              <a href="{{section.settings.button_three_link}}">{{section.settings.button_three_Text}}</a>
+
             </div>
           </div>
         </div>

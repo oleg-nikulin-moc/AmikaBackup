@@ -4,15 +4,15 @@
   {% assign current = false %}{% if template == 'index' and link.url == '/' %}{% assign current = true %}{% else %}{% if collection.url == link.url %}{% assign current = true %}{% else %}{% if blog.url == link.url %}{% assign current = true %}{% else %}{% if page.url == link.url %}{% assign current = true %}{% else %}{% if page_title == link.title %}{% assign current = true %}{% else %}{% if template == 'list-collections' and link.url == '/collections' %}{% assign current = true %}{% else %}{% if page_title == 'Products' and link.url == '/collections/all' %}{% assign current = true %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
   {% assign list_handle = link.title | handleize %}
 
-  <li class="{% if forloop.first %}first{% elsif forloop.last %}last{%endif%} {% if current %}active{% endif %} animation {% if list_handle == "all" or list_handle == "shop-all" or list_handle == "our-collections" %}mega-dropdown{% endif %}">
+  <li class="ac-nav__item--{{ link.title | escape }} {% if forloop.first %}first{% elsif forloop.last %}last{%endif%} {% if current %}active{% endif %} animation {% if list_handle == "browse-products" or list_handle == "all" or list_handle == "shop-all" or list_handle == "our-collections" %}mega-dropdown{% endif %}">
     {% if linklists[list_handle].links != blank %}
 
     <div class="has-dropdown">
       <a href="{{ link.url }}" {% if link.url contains "http:" or link.url contains "https:" %}target="_blank"{% endif %} class="top__one--anchor">
-        <span class="nav-label">{{ link.title | escape }}{% comment %}&nbsp;<span class="fa arrow">&#xf107;</span>{% endcomment %}</span>
+        <span class="nav-label">{{ link.title | escape }}</span>
       </a>
 
-      {% if list_handle == "all" or list_handle == "shop-all" %}
+      {% if list_handle == "all" or list_handle == "shop-all" or list_handle == "browse-products" %}
       <ul class="hide">
         <li>
           <div class="container">
@@ -33,7 +33,7 @@
                         <ul>
                             {% for level3_link in linklists[level2_handle].links %}
                             {% assign current = false %}{% if template == 'index' and level3_link.url == '/' %}{% assign current = true %}{% else %}{% if collection.url == level3_link.url %}{% assign current = true %}{% else %}{% if blog.url == level3_link.url %}{% assign current = true %}{% else %}{% if page.url == level3_link.url %}{% assign current = true %}{% else %}{% if page_title == level3_link.title %}{% assign current = true %}{% else %}{% if template == 'list-collections' and level3_link.url == '/collections' %}{% assign current = true %}{% else %}{% if page_title == 'Products' and level3_link.url == '/collections/all' %}{% assign current = true %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
-                            <li class="{% if current %}active{% endif %}">
+                            <li class="ac-nav__item--{{ level3_link.title | escape }}  {% if current %}active{% endif %}">
                               <a href="{{ level3_link.url }}" {% if level3_link.url contains "http:" or level3_link.url contains "https:" %}target="_blank"{% endif %}>{{ level3_link.title | escape }}</a>
                             </li>
                             {% endfor %}
@@ -51,7 +51,7 @@
 
                 </div>
               </div>
-              <div class="grid__item two-sixths">
+              <div class="grid__item two-sixths ac-mega-menu__img" hidden>
                 <div class="megadropdown-image">
                   <a href="{{ settings.megadropdown_image_link }}">
                     <img src="{{ "megadropdown-image.png" | asset_url }}" class="img-responsive" />

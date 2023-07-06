@@ -14,8 +14,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   	<link rel="shortcut icon" type="image/png" href="{{ 'favicon.png' | asset_url }}">
     <meta name='facebook-domain-verification' content='2yl6dzv09wlqk6y1ucabeu4omsiveg' />
+    <!-- points dev  -->
+    <script src="{{ 'cryptoCore.js' | asset_url }}" async></script>
+    <script src="{{ 'amikaHelper.js' | asset_url }}" async></script>
 
+
+    {% if template == "cart"  %}
+      {% unless customer %}
+         <script> window.location.replace("{{ shop.secure_url }}"); </script>
+      {% endunless %}
+    {% endif %}
 	<script>
+     <!--  points dev end -->
 		var showPageloadPopup = ('{{ settings.enable_promotion_popup }}' === 'true');
   </script>
   <!-- begin Convert Experiences code-->
@@ -219,13 +229,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   {% render 'shogun-head' %}
   <script src="https://cdn-widgetsrepository.yotpo.com/v1/loader/7AnL4oPIjyC6VX59C9s2XA" async></script>
-
+  
   <script>
     document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
     //Define super-globals
     window.theme = {
       strings: {
-        addToCart: 'Add To Bag', // {{ 'products.product.add_to_cart' | t | json }},
+        addToCart: 'Add To Order', // {{ 'products.product.add_to_cart' | t | json }},
         soldOut: 'notify me when available',  // {{ 'products.product.sold_out' | t | json }},
         unavailable: "Please select available options", // {{ 'products.product.unavailable' | t | json }},
         notifyMe: "Notify me when available",
@@ -239,7 +249,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       //JS driven:
       currency: {{ shop.currency | json}},
       currencyDisplay: 'symbol', //or code or name
-      maxQty: 3 // {{ 'settings.maxQty' }} || 9999
+      maxQty: 6 // {{ 'settings.maxQty' }} || 9999
     };
     window.slate = {};
 
@@ -265,6 +275,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		}
   </script>
   {{ 'theme.js' | asset_url | script_tag }}
+  {% if customer %}
+    {% include 'predefine_product' %}
+  {% else %}
+    <script src="{{ 'registrationFormJsMinify.js' | asset_url }}" async></script>
+  {% endif %}
+  {% render 'amikaStyles' %}
+  
 <script id="sg-js-global-vars">
                         sgGlobalVars = {{ shop.metafields['sg-cc']['sg-metafield'] | json }};
                         if(sgGlobalVars) {
@@ -356,16 +373,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       {% endcomment %}
     <script>console.log('template name: {{template.name}}')</script>
     <div class="content-wrapper clearfix">
-      {% if customer or template.name == 'login' or template.name == 'register' or template.suffix == 'terms' or request.page_type == 'customers/activate_account'or request.page_type == 'customers/reset_password' or request.design_mode%}
+      {% if template.name == 'login' or template.name == 'register' or template.suffix == 'terms' or request.page_type == 'customers/activate_account'or request.page_type == 'customers/reset_password' or request.design_mode%}
         {{ content_for_layout }}
       {% elsif template.name == 'index' %}
         {{ content_for_layout }}
         <!-- login alert -->
-        {% section 'login-register-alert' %}
+        {% section 'login-register-alert-new' %}
+        {% comment %}{% section 'login-register-alert' %}{% endcomment %}
+
       {% else %}
-        <script>
-          document.location = window.location.origin;
-        </script>
+        {{ content_for_layout }}
+        {% comment %}<script> document.location = window.location.origin; </script>{% endcomment %}
       {% endif %}
       
     </div>
@@ -400,8 +418,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   		{% include 'photoswipe' %}
   	{% endif %}
   {% endif %}
-
+   <div class='test'>
   {% include 'iwish_v2' with 'iwishfooter' %}
+   </div>
 <script data-cfasync="false" >
   window.saso_config = {
     product_title_max_length: 40,
@@ -513,8 +532,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </script>
     <!--Generic Page Tracking LXRRetailEnd -->    
   {% endunless %}
-
-
 </body>
 </html>
 {% comment %} 

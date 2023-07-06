@@ -22,7 +22,7 @@
 
 @font-face {
   font-family: 'Founders Grotesk Mono';
-  src:url(//cdn.shopify.com/s/files/1/0550/7884/6672/t/50/assets/FoundersGroteskMono-amika.ttf?v=14511505623822109041678722039) format('truetype');
+  src:url(//cdn.shopify.com/s/files/1/0550/7884/6672/t/10/assets/FoundersGroteskMono-amika.ttf?v=14511505623822109041621580175) format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -6460,7 +6460,7 @@ END About Us 2020
       #forgot_password {
         text-transform: lowercase;
       }
-      input[type="text"], input[type="email"], input[type="password"], select {
+      input[type="text"]:not.ac-form__field, input[type="email"]:not.ac-form__field, input[type="password"]:not.ac-form__field, select:not.ac-form__field--select {
         border: 1px solid black;
         border-radius: 5px;
         padding: 13px 15px 12px;

@@ -10,16 +10,16 @@
     {% endif %}
     <div class="header-wrapper">
       <div class="clearfix">
-      	<div class="menu-mobile left hide medium-down--show one-fifth">
+      	<div class="menu-mobile left hide medium-down--show one-fifth ac-navigation__left">
           {% include 'menu_mobile' %}
         </div>
-        <div class="logo left one-fifth medium-down--three-fifths">
+        <div class="logo left one-fifth medium-down--three-fifths ac-navigation__logo">
           <a href="/"><img src="{{ "logo.png" | asset_url }}" alt="{{shop.name}}" /></a>
         </div>
-        <nav class="main-menu left three-fifths medium-down--hide clearfix">
+        <nav class="main-menu left three-fifths medium-down--hide clearfix ac-nav--main">
           {% include 'menu_main' %}
         </nav>
-        <div class="left one-fifth medium-down--one-fifth">
+        <div class="left one-fifth medium-down--one-fifth ac-nav--right">
           {% include 'top_utils' %}
         </div>
       </div>
@@ -55,3 +55,90 @@
 {% if settings.header_behavior == "drop" or settings.header_behavior == "drop-over" %}
 	{% include '_header_drop' %}
 {% endif %}
+
+<div id="customer-logout" class="ac-popup" style="display: none;" class="" >
+    <button type="button" class="ac-close__btn" data-close-popup-btn>x</button>
+    <div class="ac-block--horizontal" data-login-message>
+        <h2>logout</h2>
+        <p class="ac-field__note ac-offset__bottom--md">are you sure you want to logout?</p>
+    </div>
+    <div style="text-align: center;" class="">
+        <a class="ac-form__btn ac-form__btn--black animation" type="button" href="/account/logout">YES, LOGOUT</a>
+        <button class="ac-form__btn" type="button" id="cancelLogoutBtn" data-close-popup-btn>NO</button>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const logoutPopup = new tingle.modal({
+            footer: false,
+            stickyFooter: false,
+            closeMethods: ['escape'],
+            cssClass: ['ac-popup', 'ac-popup__logout', 'ac-popup--sm'],
+            onOpen: function() {
+                console.log('modal open');
+            },
+            onClose: function() {
+                console.log('modal closed');
+                return true;
+            },
+        });
+        function toggleClass(elementSelector, className) {
+            const element = document.querySelector(elementSelector);
+            if (element) {
+                element.classList.toggle(className);
+                console.log('className', className)
+            }
+        }
+        const accountButton = document.querySelector('[data-account-btn]');
+        if (accountButton) {
+            accountButton.addEventListener("click", function () {
+                toggleClass('.ac-nav-right__item--account', 'opened');
+            });
+        }
+        // function formResize(size) {
+        //     const popups = document.querySelectorAll('.ac-popup');
+        //     popups.forEach(popup => {
+        //         if (size === "lg") {
+        //             popup.classList.add('ac-popup--lg');
+        //             popup.classList.remove('ac-popup--sm');
+        //         } else if (size === "sm") {
+        //             popup.classList.add('ac-popup--sm');
+        //             popup.classList.remove('ac-popup--lg');
+        //         } else {
+        //             popup.classList.add('ac-popup--md');
+        //             popup.classList.remove('ac-popup--lg');
+        //             popup.classList.remove('ac-popup--sm');
+        //         }
+        //     });
+        // }
+        //
+        // // set content
+        const content = $('#customer-logout').html();
+        logoutPopup.setContent( content );
+        // open modal
+        const logoutBtns = document.querySelectorAll('[data-logout-btn]');
+        logoutBtns.forEach(logoutBtn => {
+            logoutBtn.addEventListener("click", (event) => {
+                formResize('sm');
+                console.log("logoutBtn", logoutBtn);
+                event.preventDefault();
+                // formResize('lg');
+                logoutPopup.open();
+            });
+        });
+        const closePopups = document.querySelectorAll('[data-close-popup-btn]');
+        closePopups.forEach(element => {
+            element.addEventListener("click", (event) => {
+            console.log(event)
+            event.preventDefault();
+            const elementsToRemove = document.querySelectorAll('.tingle-modal.tingle-modal--visible');
+            elementsToRemove.forEach(element => {
+                element.classList.remove('tingle-modal--visible');
+                document.documentElement.classList.remove("tingle-enabled")
+                })
+            });
+        });
+    });
+</script>

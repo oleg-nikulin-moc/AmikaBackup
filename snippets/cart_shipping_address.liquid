@@ -1,0 +1,471 @@
+{% render 'spinner' %}
+{% assign cartItem = productsArray %}
+{% assign loyaltyPersentage = loyalty %}
+<div class="ac-shipping-information" id="shipping-information">
+    <h3 class="ac-shipping-information__heading">shipping information</h3>
+    <hr class="ac-shipping-information__divider">
+
+    {% if customer.default_address != nil %}
+        <div class="">
+            <p class="ac-shipping-information__text">{{ customer.default_address.name }}</p>
+            <p class="ac-shipping-information__text">{{ customer.default_address.address1 }}</p>
+            {% if customer.default_address.address2 != "" %}
+                <p>{{ customer.default_address.address2 }}</p>
+            {% endif %}
+            <p class="ac-shipping-information__text city">{{ customer.default_address.city}}</p>
+                {% if customer.default_address.province != "" %}
+                    <p class="ac-shipping-information__text">{{ customer.default_address.province }}</p>
+                {% endif %}
+            <p class="ac-shipping-information__text">{{ customer.default_address.zip}}</p>
+            <p class="ac-shipping-information__text country">{{customer.default_address.country}}</p>
+            <button class="ac-form__btn ac-btn__edit" id="view_address" type="button" data-edit-address>EDIT</button>
+        </div>
+    {% endif %}
+</div>
+
+<div class="popup" id="address-information-popup" style="display: none;">
+    <button type="button" class="ac-close__btn" data-close-popup-btn>x</button>
+    <form id="address_information">
+        <div id="address-information-block">
+            <h1 class="address-information__title">edit shipping information</h1>
+            <div class="ac-address-information__wrap">
+                {% render 'shipping_address' %}
+            </div>
+            <div class="ac-submit__wrap">
+                <button class="ac-form__btn ac-form__btn--solid ac-form__btn--offset" type="button" id="cancelBtn1" data-close-popup-btn>Cancel</button>
+                <button class="ac-form__btn ac-form__btn--black" type="button" id="submitBtn1" onclick="showSubmitOrderPopup()">Save</button>
+            </div>
+        </div>
+        <div id="submit-order-block" style="display: none;">
+            <h1 class="address-information__title">submit order</h1>
+            <p class="ac-address-information__text ac-offset__bottom--md">once submitted, orders are unable to be canceled or modified</p>
+            <div class="ac-submit__wrap--vertical">
+                <button class="ac-form__btn ac-form__btn--black ac-block__width--full ac-offset__bottom--xs" type="button" id="submitBtn2" onclick="submitForm()" data-submit-new-order {% if loyalty != true %}disabled{% endif %}>Yes, submit order</button>
+                <button class="ac-form__btn ac-form__btn--solid ac-form__btn--offset ac-block__width--full" type="button" id="cancelBtn" onclick="hideSubmitOrderPopup(); return false;">No, back to order</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<style>
+
+.ac-shipping-information {
+    background-color: white;
+    text-align: left;
+    margin-top: 32px;
+    padding: 40px;
+}
+
+.ac-block__width--full {
+    width: 100%;
+}
+
+.tingle-modal-box__content {
+    padding: 0!important;
+}
+
+.ac-submit__wrap {
+    justify-content: flex-end;
+}
+.ac-shipping-information__text {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.2;
+    color: #000000;
+    margin-bottom: 16px;
+}
+.ac-shipping-information__heading {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+.ac-shipping-information__divider {
+    border-width: 2px;
+    border-color: #000;
+    margin-top: 0;
+    margin-bottom: 24px;
+}
+.address-information__title {
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 40px;
+    text-transform: lowercase;
+    color: #000;
+    margin-bottom: 32px;
+}
+.ac-offset__bottom--md {
+    margin-bottom: 32px;
+}
+.ac-offset__bottom--sm {
+    margin-bottom: 24px;
+}
+.ac-offset__bottom--xs {
+    margin-bottom: 16px;
+}
+.ac-address-information__wrap {
+    display: flex;
+    flex-wrap: wrap;
+}
+.ac-btn__edit.ac-btn__edit {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px!important;
+    line-height: 23px;
+    min-width: auto;
+    text-transform: lowercase;
+    padding: 0;
+    color: #FF6B26;
+    margin-top: 0!important;
+    height: auto;
+}
+
+.title.two-twelfths {
+    max-width: 100px;
+    overflow: hidden;
+}
+.ac-close__btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 16px;
+    z-index: 10000;
+    border: none;
+    background-color: transparent;
+    color: #f0f0f0;
+    font-size: 40px;
+    line-height: 1;
+    cursor: pointer;
+    transition: color .3s ease;
+}
+</style>
+
+<script>
+      const countrySelect = document.getElementById('country');
+      const citySelect = document.getElementById('city');
+      const zipField = document.getElementById('zip');
+      const statesData = {
+          usa: [
+              'Select State',
+              'Alabama',
+              'Alaska',
+              'Arizona',
+              'Arkansas',
+              'California',
+              'Colorado',
+              'Connecticut',
+              'Delaware',
+              'Florida',
+              'Georgia',
+              'Hawaii',
+              'Idaho',
+              'Illinois',
+              'Indiana',
+              'Iowa',
+              'Kansas',
+              'Kentucky',
+              'Louisiana',
+              'Maine',
+              'Maryland',
+              'Massachusetts',
+              'Michigan',
+              'Minnesota',
+              'Mississippi',
+              'Missouri',
+              'Montana',
+              'Nebraska',
+              'Nevada',
+              'New Hampshire',
+              'New Jersey',
+              'New Mexico',
+              'New York',
+              'North Carolina',
+              'North Dakota',
+              'Ohio',
+              'Oklahoma',
+              'Oregon',
+              'Pennsylvania',
+              'Rhode Island',
+              'South Carolina',
+              'South Dakota',
+              'Tennessee',
+              'Texas',
+              'Utah',
+              'Vermont',
+              'Virginia',
+              'Washington',
+              'West Virginia',
+              'Wisconsin',
+              'Wyoming'
+          ],
+          canada: [
+              'Select State',
+              'Alberta',
+              'British Columbia',
+              'Manitoba',
+              'New Brunswick',
+              'Newfoundland and Labrador',
+              'Northwest Territories',
+              'Nova Scotia',
+              'Nunavut',
+              'Ontario',
+              'Prince Edward Island',
+              'Quebec',
+              'Saskatchewan',
+              'Yukon'
+          ]
+      };
+
+      function renderStates(country, stateSelect) {
+            stateSelect.innerHTML = '';
+            if (country in statesData) {
+                for (let i = 0; i < statesData[country].length; i++) {
+                    let option = document.createElement('option');
+                    option.value = statesData[country][i];
+                    option.text = statesData[country][i];
+                    stateSelect.appendChild(option);
+                }
+                stateSelect.disabled = false;
+            } else {
+                stateSelect.disabled = true;
+            }
+      }
+
+      
+      function popupEditLoad() {
+        const form = document.querySelector('.ac-shipping__popup');
+        const stateSelect = form.querySelector('#state');
+        console.log('popupEditLoad')
+        if (citySelect) {
+            citySelect.disabled = true;
+            zipField.disabled = true;
+            // stateSelect.disabled = true;
+        }
+ 
+        renderStates('usa', stateSelect);
+
+        state.addEventListener('change', () => {
+            citySelect.disabled = false;
+            zipField.disabled = false;
+        });
+        
+    }
+
+    const addressEdit = new tingle.modal({
+        footer: false,
+        stickyFooter: false,
+        closeMethods: ['escape'],
+        cssClass: ['ac-popup',  'ac-popup--lg','ac-shipping__popup'],
+    });
+    const submitOrder = document.querySelector("[data-submit-order]");
+    const submitNewOrder = document.querySelector("[data-submit-new-order]")
+
+    const newCartItems = cartJson.items.map(function(item) {
+        return {
+            title: item.title,
+            product_id: item.product_id,
+            variant_id: item.variant_id,
+            price: item.price / 100,
+            quantity: item.quantity,
+            sku: item.sku
+        };
+    });
+    const formData = {
+        order: {
+            customer: {
+                id: '{{ customer.id }}',
+                email: '{{ customer.email }}'
+            },
+            line_items: newCartItems,
+            shipping_address: {
+                address1: '{{ customer.default_address.address1 }}',
+                country: '{{ customer.default_address.country }}',
+                province: '{{ customer.default_address.province }}',
+                city: '{{ customer.default_address.city }}',
+                zip: '{{ customer.default_address.zip }}',
+                first_name: '{{ customer.first_name }}',
+                last_name: '{{ customer.last_name }}',
+                phone: '{{ customer.phone }}'
+            }
+        }
+    }
+
+    // set content
+    const content = $('#address-information-popup').html();
+    addressEdit.setContent( content );
+
+
+    // open modal
+   const editShippingAddressBtn = document.querySelectorAll('[data-edit-address]');
+    editShippingAddressBtn.forEach(editShippingAddress => {
+        editShippingAddress.addEventListener("click", (event) => {
+            event.preventDefault();
+            formResize('lg');
+            addressEdit.open();
+        });
+    })
+
+    // Vvalidation
+    function validateForm() {
+        let valid = true;
+
+        // const submitButton = document.getElementById("submitBtn");
+        const requiredFields =  document.getElementById("address-information-block").querySelectorAll("[required]");
+        const zipInput = document.getElementById("zip");
+        const zipError = document.getElementById("zipError");
+        const zipValue = zipInput.value;
+
+        const textFieldPattern = /^[A-Za-z ]{2,50}$/
+
+        function validateZipCode(zipCode) {
+            const zipPatternUSA = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
+            const zipPatternCanada =  /^[A-Za-z]\d[A-Za-z]\s?\d[A-Za-z]\d$/;
+            return zipPatternUSA.test(zipCode) || zipPatternCanada.test(zipCode);
+        }
+
+        function checkFormValidity() {
+            valid = true;
+
+            requiredFields.forEach(function (field) {
+                if (field.value === "") {
+                    field.classList.add("invalid");
+                    valid = false;
+                    field.nextElementSibling.textContent = "Empty value";
+                } else if( field.value.length < 2) {
+                    field.classList.add("invalid");
+                    valid = false;
+                    field.nextElementSibling.textContent = "Text must be at least 2 characters";
+                }else {
+                    field.classList.remove("invalid");
+                    field.nextElementSibling.textContent = "";
+                }
+            });
+
+            // Zip Code validation
+            if (!validateZipCode(zipValue)) {
+                console.log('zip not valid')
+                zipError.textContent = "Invalid zip code format";
+                zipError.style.display = 'block';
+                zipInput.classList.add("invalid");
+                valid = false;
+            } else {
+                zipError.textContent = "";
+                zipError.style.display = 'none';
+                zipInput.classList.remove("invalid");
+            }
+        }
+
+        requiredFields.forEach(function (field) {
+            field.addEventListener('input', checkFormValidity);
+        });
+
+        zipInput.addEventListener('input', checkFormValidity);
+
+        checkFormValidity();
+        return valid;
+    }
+
+    submitOrder.addEventListener("click", () => {
+         console.log("clicked element");
+
+        showSpinner();
+        fetch('https://4ih2mkeokf.execute-api.us-east-1.amazonaws.com/checkout/create-order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(response => {
+            if (response.success) {
+                // Success response
+                console.log('Form submitted successfully');
+                clearCart();
+            } else {
+                // Error response
+                console.log('Form submission error:', response.error_message);
+                alert(response.error_message);
+            }
+            hideSpinner();
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    });
+
+
+    function submitForm(event) {
+        const form = document.getElementById('address_information');
+        // event.preventDefault(); // Stop the default form submission
+        formData.order.shipping_address.address1 = form.salon_address.value;
+        formData.order.shipping_address.country = form.country.value.toUpperCase();
+        formData.order.shipping_address.province = form.province.value;
+        formData.order.shipping_address.city = form.city.value;
+        formData.order.shipping_address.zip = form.zip.value;
+        formData.order.shipping_address.first_name = form.first_name.value;
+        formData.order.shipping_address.last_name = form.last_name.value;
+
+        showSpinner();
+        fetch('https://4ih2mkeokf.execute-api.us-east-1.amazonaws.com/checkout/create-order', {
+            method: 'POST',
+            // mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(response => response.json())
+            .then(response => {
+                if (response.success) {
+                    // Success response
+                    console.log('Form submitted successfully');
+                    hideSubmitOrderPopup()
+                    hideSpinner();
+                    clearCart();
+
+                } else {
+                    // Error response
+                    console.log('Form submission error:', response.error_message);
+                    hideSpinner();
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+
+    function showSubmitOrderPopup() {
+        if (!validateForm()) {
+            console.log('Not valid', validateForm());
+            return false;
+        }
+
+        formResize('sm');
+        document.getElementById('submit-order-block').style.display = 'block';
+        document.getElementById('address-information-block').style.display='none';
+        return false;
+    }
+    function hideSubmitOrderPopup() {
+        document.getElementById('submit-order-block').style.display = 'none';
+        document.getElementById('address-information-block').style.display = 'block';
+        document.getElementById('address-information-popup').style.display='none';
+        document.querySelector('.tingle-modal').style.display='none';
+        formResize('lg');
+        return false;
+    }
+    function clearCart() {
+        $.ajax({
+            type: 'POST',
+            url: '/cart/clear.js',
+            success: function(response) {
+                console.log('Cart cleared successfully');
+                // Additional code to execute after clearing the cart
+            },
+            error: function(XMLHttpRequest, textStatus) {
+                console.log('Error clearing cart:', textStatus);
+                // Error handling for cart clearing
+            }
+        });
+        window.location.href = '/account#customer_orders';
+    }
+    console.log('loyaltyPersentage', {{ loyaltyPersentage }})
+</script>

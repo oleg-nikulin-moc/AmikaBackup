@@ -20,9 +20,13 @@
             {% if block.settings.subtext != blank %}
                 <p class="p">{{block.settings.subtext}}</p>
             {% endif %}
+      
             {% if block.settings.btn_text != blank %}
+              <ul class="buttons-list">
                 <button class="button button--primary promo_block_button" onclick="location.href='{{block.settings.btn_link}}';">{{block.settings.btn_text}}</button>
-            {% endif %}
+                <button class="button button--primary promo_block_button" onclick="location.href='{{block.settings.btn_link2}}';">{{block.settings.btn_text2}}</button>
+               </ul>
+              {% endif %}
         </div>
     </div>
     {% endfor %}
@@ -123,6 +127,7 @@
                 font-size: 16px;
                 line-height: 22px;
                 margin: 15px auto 0px; 
+                padding-bottom: 30px;
 
                 @media(min-width:750px) {
                     font-size: 20px;
@@ -130,6 +135,22 @@
                     line-height: 30px;
                 }
             }
+
+          .promo_block_button {
+            border-radius: 100px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border-width: 2px;
+
+            @media(min-width:800px) {
+              min-width: 140px;
+              min-height: 40px;
+            }
+          }
+
+          .promo_block_button:first-child {
+            margin-right: 20px;
+          }
         }
     }
 {% endstylesheet %}
@@ -222,6 +243,16 @@
                 "type": "url",
                 "id": "btn_link",
                 "label": "Button URL"
+            },
+          {
+                "type": "text",
+                "id": "btn_text2",
+                "label": "Button Text2"
+            },
+            {
+                "type": "url",
+                "id": "btn_link2",
+                "label": "Button URL2"
             },
             {
                 "type": "color",

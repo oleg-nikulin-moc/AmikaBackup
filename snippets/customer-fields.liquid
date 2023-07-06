@@ -2,7 +2,7 @@
   ---
   Author: Helium
   Documentation: https://customerfields.com/help
-  Version: 4.10.4
+  Version: 4.14.2
   The following snippet exists to serve forms for the Customer Fields app.
   YOU SHOULD NOT BE EDITING THIS FILE. CHANGES MAY BE OVERWRITTEN!
   Instead, you should read our documentation and see how you can create 
@@ -34,6 +34,9 @@
     "addresses": {{ customer.addresses | json }},
     "addresses_count": {{ customer.addresses_count | json }},
     "accepts_marketing": {{ customer.accepts_marketing | json }},
+    "email_marketing_consent": {
+      "marketing_state": {%- if customer.accepts_marketing == true -%}"SUBSCRIBED"{%- else -%}"UNSUBSCRIBED"{%- endif -%}
+    },
     "orders": {{ customer.orders | json }},
     "orders_count": {{ customer.orders_count | json }},
     "tags": {{ customer.tags | json }},
@@ -77,6 +80,9 @@
 
 <script>
   (function() {
+    // Other snippet/app-embed could be handling this already.
+    if (window.CF && window.CF.customerReady) return;
+
     var callbacksHandled = [];
     var handleCallback = function(callback) {
       if (callbacksHandled.indexOf(callback) > -1) return;
@@ -162,9 +168,15 @@
   more reliable. Will only target forms using this selector: form[data-cf-form]
 -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    !function(){"use strict";window.Shopify=window.Shopify||{},window.Shopify.recaptchaV3=window.Shopify.recaptchaV3||{siteKey:""},window.Shopify.recaptchaV3.hideBadge=function(){if(null===document.querySelector("p[data-spam-detection-disclaimer]"))return;const t=document.createElement("style");document.head.appendChild(t);t.sheet.insertRule(".grecaptcha-badge { visibility: hidden; }")},window.Shopify.recaptchaV3.initialize=function(){const t=document.querySelectorAll('form[data-cf-form] input[name="form_type"][value="create_customer"]');for(var e=0;e<t.length;e++){var n=t[e].form,a=t[e].getAttribute("value");n.setAttribute("onsubmit",'window.Shopify.recaptchaV3.addToken(this, "'+a+'"); return false;')}},window.Shopify.recaptchaV3.addToken=function(t,e){grecaptcha.execute(window.Shopify.recaptchaV3.siteKey,{action:e}).then((function(e){var n=t.querySelector("input[name=recaptcha-v3-token]");n instanceof HTMLElement?n.setAttribute("value",e):((n=document.createElement("input")).setAttribute("name","recaptcha-v3-token"),n.setAttribute("type","hidden"),n.setAttribute("value",e),t.appendChild(n,t)),t.submit()}))},window.storefrontContactFormsRecaptchaCallback=function(){window.Shopify.recaptchaV3.initialize(),window.Shopify.recaptchaV3.hideBadge()};const t=document.createElement("script");t.setAttribute("src","https://www.recaptcha.net/recaptcha/api.js?onload=storefrontContactFormsRecaptchaCallback&render="+window.Shopify.recaptchaV3.siteKey+"&hl=en"),document.body.appendChild(t)}();
-  })
+  (() => {
+    if (window.__cfCaptchaFixApplied) return;
+
+    window.__cfCaptchaFixApplied = true;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      !function(){"use strict";window.Shopify=window.Shopify||{},window.Shopify.recaptchaV3=window.Shopify.recaptchaV3||{siteKey:""},window.Shopify.recaptchaV3.hideBadge=function(){if(null===document.querySelector("p[data-spam-detection-disclaimer]"))return;const t=document.createElement("style");document.head.appendChild(t);t.sheet.insertRule(".grecaptcha-badge { visibility: hidden; }")},window.Shopify.recaptchaV3.initialize=function(){const t=document.querySelectorAll('form[data-cf-form] input[name="form_type"][value="create_customer"]');for(var e=0;e<t.length;e++){var n=t[e].form,a=t[e].getAttribute("value");n.setAttribute("onsubmit",'window.Shopify.recaptchaV3.addToken(this, "'+a+'"); return false;')}},window.Shopify.recaptchaV3.addToken=function(t,e){grecaptcha.execute(window.Shopify.recaptchaV3.siteKey,{action:e}).then((function(e){var n=t.querySelector("input[name=recaptcha-v3-token]");n instanceof HTMLElement?n.setAttribute("value",e):((n=document.createElement("input")).setAttribute("name","recaptcha-v3-token"),n.setAttribute("type","hidden"),n.setAttribute("value",e),t.appendChild(n,t)),t.submit()}))},window.storefrontContactFormsRecaptchaCallback=function(){window.Shopify.recaptchaV3.initialize(),window.Shopify.recaptchaV3.hideBadge()};const t=document.createElement("script");t.setAttribute("src","https://www.recaptcha.net/recaptcha/api.js?onload=storefrontContactFormsRecaptchaCallback&render="+window.Shopify.recaptchaV3.siteKey+"&hl=en"),document.body.appendChild(t)}();
+    })
+  })();
 </script>
 
 {% unless customer_api %}
@@ -189,19 +201,36 @@
       </script>
     {% endform %}
   {% endif %}
+
   
-  <script>
-    (function() {
-      var $styles = document.createElement('link');
+    <script>
+      (function() {
+        window.CF = window.CF || {};
 
-      $styles.setAttribute('rel', 'stylesheet');
-      $styles.setAttribute('type', 'text/css');
-      $styles.setAttribute('href', '{{ "customer-fields.css" | asset_url }}');
+        if (!window.CF.requestedEmbedCSS) {
+          window.CF.requestedEmbedCSS = true;
 
-      document.head.appendChild($styles);
-    })();
-  </script>
-  <script async src="{{ 'customer-fields.js' | asset_url }}"></script>
+          const $styles = document.createElement('link');
+
+          $styles.setAttribute('rel', 'stylesheet');
+          $styles.setAttribute('type', 'text/css');
+          $styles.setAttribute('href', '{{ "customer-fields.css" | asset_url }}');
+
+          document.head.appendChild($styles);
+        }
+
+        if (!window.CF.requestedEmbedJS) {
+          window.CF.requestedEmbedJS = true;
+
+          const $script = document.createElement('script');
+
+          $script.async = true;
+          $script.src = '{{ "customer-fields.js" | asset_url }}';
+
+          document.head.appendChild($script);
+        }
+      })();
+    </script>
   
 
   <style>
@@ -279,7 +308,7 @@
   </style>
 {% else %}
 
-{% assign use_version = version | default: '4.10.4' %}
+{% assign use_version = version | default: '4.14.2' %}
 
 <style>
     [data-cf-view] {
@@ -294,6 +323,6 @@
   
 
   
-    <script async src="https://assets.customerfields.com/releases/{{ use_version }}/cf-api.js"></script>
+    <script async src="https://files.customerfields.com/releases/{{ use_version }}/cf-api.js"></script>
   
 {% endunless %}

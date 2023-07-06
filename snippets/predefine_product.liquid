@@ -1,0 +1,124 @@
+{% assign loyaltyProgram = customer.metafields.amika_loyalty_program.points.value['points'] %}
+{% assign brandBoxPoints = customer.metafields.amika_loyalty_program.points.value['brandBoxPoints']  %}
+{% assign tier = customer.metafields.amika_loyalty_program.points.value['tier']  %}
+{% assign tiersProducts = shop.metafields.amika_loyalty_program.tiers  %}
+{% assign countries = customer.metafields.customer_fields.countries %}
+
+<script>
+    window.addEventListener("DOMContentLoaded", () => {
+        function updateBrandBoxItem(condition) {
+            const elements = document.querySelectorAll('[data-brandbox-icon]');
+            if (condition) {
+                console.log('added brandbox', element)
+                elements.forEach(element => element.classList.add('is'));
+                // showMsg();
+            } else {
+                elements.forEach(element => element.classList.remove('is'));
+            }
+        }
+
+        function showMsg() {
+            const elements = document.querySelectorAll('.ac-nav__item--brandpoints');
+            if (elements) {
+                elements.forEach(element => {
+                    element.classList.add('open');
+                    setTimeout(function() {
+                        element.classList.remove('open');
+                    }, 10000); // 30000 miliseconds = 10 seconds
+                });
+            }
+        }
+
+        const user = JSON.parse('{{ customer.metafields.amika_loyalty_program.points }}');
+        console.log('user', user)
+        // const user = JSON.parse('{ "tier":"2","points":"250","brandBoxPoints":"50"}');
+        {% if tiersProducts %}
+          const products = JSON.parse('{{ tiersProducts }}');
+        {% else %}
+          const products = JSON.parse('[{"id":"-1","name":"Suit","brand_box_points":0},{"id":1,"name":"Tear 1","brand_box_points":75,"product_id":8350724423996,"variant_id":45243490337084},{"id":2,"name":"Tear 2","brand_box_points":75,"product_id":8350769676604,"variant_id":45243667579196},{"id":3,"name":"Tear 3","brand_box_points":175,"product_id":8350783045948,"variant_id":45243719156028},{"id":4,"name":"Tear 4","brand_box_points":175,"product_id":8350792614204,"variant_id":45243755036988},{"id":5,"name":"Tear 5","brand_box_points":175,"product_id":8350805131580,"variant_id":45243802878268}]');
+        console.log('products', 'false');
+        {% endif %}
+        {% if countries %}
+           const countries = JSON.parse('{{ countries }}');
+           console.log('countries', countries);
+        {% endif %}
+        {% comment %}
+          const cart = JSON.parse('{{ cart | json }}');
+        {% endcomment %}
+        let cartString = '{{ cart | json }}';
+        let cart;
+        try {
+          cart = JSON.parse(cartString);
+          // Get products from cart
+          const productsInCart = cart.items.map(item => {
+              return {
+                  product_id: item.id,
+                  variant_id: item.variant_id
+                  // Add other product properties you need
+              };
+          });
+          if (products.length > 0) {
+
+            const productIds = products.filter(product => product.id !== '-1').map(product => product.product_id);
+            let productsInCartFilter = productsInCart?.filter(item => productIds.includes(item.product_id));
+            const variantId = productsInCartFilter?.map(item => item.variant_id) || [];
+            function updateCart(productId, quantity) {
+                const updates = {};
+                if (variantId.length > 1) {
+                    const hideItemId = variantId.filter(item => !productId.includes(item));
+                    const hideElement = document.querySelector(`[data-product-id="${hideItemId[0]}"]`);
+                    if (hideElement) hideElement.hidden = true;
+
+                    variantId.forEach(id => {
+                        if (id === productId[0]) {
+                            updates[id] = 1; // A value of 1 for productId, which has the same value as the first element of variantId
+                        } else {
+                            updates[id] = 0; // Value 0 for other productId elements
+                        }
+                    });
+                } else {
+                    productId.forEach(id => {
+                        updates[id] = quantity;
+                    });
+                }
+
+                jQuery.post(`${window.Shopify.routes.root}cart/update.js`, {
+                    updates: updates
+                });
+            }
+
+            if (user.tier === "-1") {
+                updateCart(variantId, 0);
+            } else {
+
+                const { tier, brandBoxPoints } = user;
+                const selectedProduct = products.find(product => product.id == tier);
+
+                if (brandBoxPoints > 0) {
+
+                    if (selectedProduct) {
+                        const { variant_id } = selectedProduct;
+                        const variantIdArray = [];
+                        variantIdArray.push(variant_id);
+
+                        updateCart(variantIdArray, 1);
+                        updateBrandBoxItem(true);
+
+                    } else {
+                        console.log('No product found for the user tier.');
+                    }
+                } else {
+                    updateCart(variantId, 0);
+                    const hideElement = document.querySelector(`[data-product-id="${variantId[0]}"]`);
+                    if (hideElement) hideElement.hidden = true;
+                    console.log('brandBoxPoints is not greater than 0.');
+                }
+            }
+          } else {
+              console.log('No products available.');
+          }
+        } catch (error) {
+          console.error('Invalid JSON string:', error);
+        }
+    });
+</script>

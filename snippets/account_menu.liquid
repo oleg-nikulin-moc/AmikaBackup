@@ -1,17 +1,25 @@
-<div class="my-account-menu animation">
-  <h1 class="small--hide hide"><a href="/account">Index</a></h1><h1 class="hide small--show"><a href="/account">My Account</a></h1>
-  <ul>
-    <a href="/account"><li class="animation">MY ACCOUNT</li></a>
-    <a href="/account" class="hide"><li class="animation">ACCOUNT INFORMATION</li></a>
-    <a href="/account/addresses" class="hide"><li class="animation">ADDRESS BOOK</li></a>
-    {% if template == "customers/account" %}
-    <a href="#customer_orders" class="scroll"><li class="animation">MY ORDERS</li></a>
-    {% else %}
-    <a href="/account#customer_orders" class="scroll"><li class="animation">MY ORDERS</li></a>
-    {% endif %}
-    <a href="" class="hide"><li class="animation">PRIVACY POLICY</li></a>
-    <a href="" class="hide"><li class="animation">TERMS OF USE</li></a> 
-    <a href="/apps/iwish"><li class="animation">MY WISHLIST</li></a>
+{%  assign activeLink = active_link %}
+
+<div class="my-account-menu animation ac-account__sidebar">
+   <ul class="ac-tabs">
+      <li class="animation ac-tab {% unless activeLink == 'wishlist' %}active{% endunless %}" data-tab="info">
+        <a role="button" href="/account" class="ac-account-sidebar__link">my account</a>
+      </li>
+      <li class="animation ac-tab" data-tab="tiers">
+        <a role="button" href="/account#tiers" class="ac-account-sidebar__link">my tier</a>
+      </li>
+      {% if template == "customers/account" %}
+        <li class="animation ac-tab" data-tab="orders">
+          <a role="button" href="/account#orders" class="ac-account-sidebar__link">my orders</a>
+        </li>
+      {% else %}
+        <li class="animation ac-tab" data-tab="tab4">
+          <a href="/account#orders" class="ac-account-sidebar__link">my orders</a>
+        </li>
+      {% endif %}
+      <li class="animation ac-tab {% if activeLink == 'wishlist' %}active{% endif %}" data-tab="wishes">
+        <a href="/apps/iwish" class="ac-account-sidebar__link">my wishlist</a>
+      </li>
   </ul>
-  <div class="action-bottom smaller logout"><a href="/account/logout"><div class="button--secondary">logout</div></a></div>
+  <a role="button" class="ac-account-sidebar__link" data-logout-btn="">logout</a>
 </div>

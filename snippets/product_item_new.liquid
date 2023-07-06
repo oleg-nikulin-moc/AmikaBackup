@@ -26,7 +26,7 @@
 {% endfor %}
 
 <div class="product-item product-item-new animation {% unless isCarousel %}grid__item large--{{settings.grid_items_per_row}} medium--{{ settings.grid_items_per_row_medium }} small--{{ settings.grid_items_per_row_small }}{% endunless %} {% if link_tag != blank  %} external__product {% endif %} " id="grid-item-{{ currentProduct.id }}">
-  <form action="/cart/add" method="post" class="variants add-to-cart-form {% if currentProduct.tags contains 'final sale' %}final_sale{% endif %}" id="product-actions-{{ currentProduct.id }}" enctype="multipart/form-data" data-matchbox-click="{{ currentProduct.id }} {% for variant in currentProduct.variants %}{{variant.id}} {% endfor %}">
+  <form disabled action="/cart/add" method="post" class="variants add-to-cart-form {% if currentProduct.tags contains 'final sale' %}final_sale{% endif %}" id="product-actions-{{ currentProduct.id }}" enctype="multipart/form-data" data-matchbox-click="{{ currentProduct.id }} {% for variant in currentProduct.variants %}{{variant.id}} {% endfor %}">
     <div class="image-wrapper {% if currentProduct.available == false and currentProduct.tags contains 'coming-soon' %}coming-soon-plp {% endif %}" style="position: relative;" handle="{{ currentProduct.handle }}" data-matchbox-item="{{ currentProduct.id }} {% for variant in currentProduct.variants %}{{variant.id}} {% endfor %}">
       {% if currentProduct.tags contains 'travel-award-2019' %}
         <img class="people__travel_icon" src="{{'People_Travel_Award.png'| asset_url }}">
@@ -69,7 +69,7 @@
       <div class="price-desc-options">
         <p class="subtitle">{{currentProdTitleSubtitle}}</p>
 
-        
+        {% if customer %}
           {% if currentProduct.price_min == currentProduct.price_max %}
           <div class="price clearfix">
             <span class="nihar deal">
@@ -107,7 +107,7 @@
             </span>
           </p>
           {% endif %}
-
+        {% endif %}
           {% if quickview and currentProduct.available %}
           {% if currentProduct.has_only_default_variant != true and currentProduct.options.size == 1 %}
             <div class="layer quickbuy__options ease-animation">
@@ -143,8 +143,8 @@
 
       </div>
     </div>
-
-    {%comment%} out of stock instead of quickbuy {%endcomment%}
+    {% if customer %}
+      {%comment%} out of stock instead of quickbuy {%endcomment%}
         {% if quickview and currentProduct.available == false  %}
             <div class="quickbuy__rs">
               <div class="layer out__of_stock ease-animation" handle="{{ currentProduct.handle }}" >
@@ -197,6 +197,6 @@
             <!-- endmobile -->
           {% endif %}
       {%endif %}
-
+    {% endif %}
   </form>
 </div>

@@ -68,11 +68,11 @@
 .pswp__button::-moz-focus-inner {padding: 0; border: 0;}
 /* pswp__ui--over-close class it added when mouse is over element that should close gallery */
 .pswp__ui--over-close .pswp__button--close {opacity: 1;}
-.pswp__button, .pswp__button--arrow--left:before, .pswp__button--arrow--right:before {background: url(//cdn.shopify.com/s/files/1/0550/7884/6672/t/50/assets/default-skin.png?v=115405504031309184941678722031) 0 0 no-repeat; background-size: 264px 88px; width: 44px; height: 44px;}
+.pswp__button, .pswp__button--arrow--left:before, .pswp__button--arrow--right:before {background: url(//cdn.shopify.com/s/files/1/0550/7884/6672/t/10/assets/default-skin.png?v=115405504031309184941621580166) 0 0 no-repeat; background-size: 264px 88px; width: 44px; height: 44px;}
 
 @media (-webkit-min-device-pixel-ratio: 1.1), (-webkit-min-device-pixel-ratio: 1.09375), (min-resolution: 105dpi), (min-resolution: 1.1dppx) {
   /* Serve SVG sprite if browser supports SVG and resolution is more than 105dpi */
-  .pswp--svg .pswp__button, .pswp--svg .pswp__button--arrow--left:before, .pswp--svg .pswp__button--arrow--right:before {background-image: url(//cdn.shopify.com/s/files/1/0550/7884/6672/t/50/assets/default-skin.svg?v=118181495713311880261678722031);} 
+  .pswp--svg .pswp__button, .pswp--svg .pswp__button--arrow--left:before, .pswp--svg .pswp__button--arrow--right:before {background-image: url(//cdn.shopify.com/s/files/1/0550/7884/6672/t/10/assets/default-skin.svg?v=118181495713311880261621580167);} 
   .pswp--svg .pswp__button--arrow--left, .pswp--svg .pswp__button--arrow--right {background: none;}
 }
 
@@ -141,7 +141,7 @@ a.pswp__share--download:hover {background: #DDD;}
 .pswp__preloader {width: 44px; height: 44px; position: absolute; top: 0; left: 50%; margin-left: -22px; opacity: 0; -webkit-transition: opacity 0.25s ease-out; transition: opacity 0.25s ease-out; will-change: opacity; direction: ltr;}
 .pswp__preloader__icn {width: 20px; height: 20px; margin: 12px;}
 .pswp__preloader--active {opacity: 1;}
-.pswp__preloader--active .pswp__preloader__icn {/* We use .gif in browsers that don't support CSS animation */ background: url(//cdn.shopify.com/s/files/1/0550/7884/6672/t/50/assets/preloader.gif?6486) 0 0 no-repeat;}
+.pswp__preloader--active .pswp__preloader__icn {/* We use .gif in browsers that don't support CSS animation */ background: url(//cdn.shopify.com/s/files/1/0550/7884/6672/t/10/assets/preloader.gif?7824) 0 0 no-repeat;}
 .pswp--css_animation .pswp__preloader--active {opacity: 1;}
 .pswp--css_animation .pswp__preloader--active .pswp__preloader__icn {-webkit-animation: clockwise 500ms linear infinite; animation: clockwise 500ms linear infinite;}
 .pswp--css_animation .pswp__preloader--active .pswp__preloader__donut {-webkit-animation: donut-rotate 1000ms cubic-bezier(0.4, 0, 0.22, 1) infinite; animation: donut-rotate 1000ms cubic-bezier(0.4, 0, 0.22, 1) infinite;}
